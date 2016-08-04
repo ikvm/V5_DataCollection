@@ -9,15 +9,6 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using System.Threading;
-/*------------------------------------------------------------
- * 
- * 
- *  by Liu Hua-shan,2007-07-13
- * 
- *  sh_liuhuashan@163.com
- * 
- * 
- * ------------------------------------------------------------*/
 
 namespace AULWriter
 {
