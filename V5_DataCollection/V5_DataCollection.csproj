@@ -511,8 +511,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="App_Data\V5.DataCollection.db" />
-    <None Include="App_Data\V5_DataPublishLog.db" />
     <None Include="Config\DockPanel.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
