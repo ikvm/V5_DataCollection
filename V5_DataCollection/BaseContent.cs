@@ -6,23 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace V5_DataCollection {
-    public partial class BaseForm : Form {
-        public frmLoadingDialog loadingDialog = null;
-        public BaseForm() {
+    public partial class BaseContent : DockContent {
+        public BaseContent() {
             InitializeComponent();
-
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
         }
-
-
-        public void CloseForm() {
-            this.Hide();
-            this.Opacity = 0;
-            this.Visible = false;
-            this.Close();
-        }
-
     }
 }

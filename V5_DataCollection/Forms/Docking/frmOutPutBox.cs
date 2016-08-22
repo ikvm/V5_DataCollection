@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace V5_DataCollection.Forms.Docking {
-    public partial class frmOutPutBox : DockContent {
+    public partial class frmOutPutBox : BaseContent {
 
         public frmOutPutBox() {
             InitializeComponent();

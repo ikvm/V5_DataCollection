@@ -13,7 +13,7 @@ using V5_WinLibs.Utility;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace V5_DataCollection.Forms.Docking {
-    public partial class frmOutPutFileDown : DockContent {
+    public partial class frmOutPutFileDown : BaseContent {
 
         public frmOutPutFileDown() {
             InitializeComponent();

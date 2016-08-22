@@ -362,7 +362,10 @@ namespace V5.DataWebBrowser {
         }
 
         private void toolOkExit_Click(object sender, EventArgs e) {
-            OkExit();
+            //OkExit();
+
+            Console.Write(this.textBox1.Text);
+            System.Environment.Exit(-1);
         }
 
         private void toolBack_Click(object sender, EventArgs e) {

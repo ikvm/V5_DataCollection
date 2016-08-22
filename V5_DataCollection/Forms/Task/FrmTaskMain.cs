@@ -22,9 +22,10 @@ using V5_Utility.Utility;
 
 namespace V5_DataCollection.Forms.Task {
 
-    public partial class FrmTaskMain : DockContent {
+    public partial class FrmTaskMain : BaseContent {
 
         Dictionary<string, SpiderHelper> listGatherTask = new Dictionary<string, SpiderHelper>();
+
         public MainEventHandler.OutPutWindowHandler OutPutWindowDelegate;
 
         private int _ClassID = 0;
@@ -35,7 +36,9 @@ namespace V5_DataCollection.Forms.Task {
         }
 
         public FrmTaskMain() {
+
             InitializeComponent();
+
             this.dataGridView_TaskList.AutoGenerateColumns = false;
             this.dataGridView_TaskList.AllowUserToAddRows = false;
         }
@@ -44,18 +47,7 @@ namespace V5_DataCollection.Forms.Task {
         /// 绑定任务列表
         /// </summary>
         public void Bind_DataList() {
-            string strWhere = string.Empty;
-            int topNum = 1000;
-            if (this.ClassID > 0) {
-                strWhere = " And TaskClassID=" + this.ClassID + " ";
-            }
-            else {
-                topNum = 1000;
-            }
-            strWhere += " Order by Id Desc ";
-            DALTask dal = new DALTask();
-            DataTable dt = dal.GetList(strWhere).Tables[0];
-            this.dataGridView_TaskList.DataSource = dt.DefaultView;
+            Bind_DataList(string.Empty);
         }
 
         public void Bind_DataList(string strWhere) {
@@ -121,6 +113,7 @@ namespace V5_DataCollection.Forms.Task {
             }
             return 0;
         }
+
         /// <summary>
         /// 获取所有选中的任务Id
         /// </summary>
@@ -136,6 +129,7 @@ namespace V5_DataCollection.Forms.Task {
             }
             return sb.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries); ;
         }
+
         /// <summary>
         /// 添加 编辑 任务 委托
         /// </summary>
@@ -214,7 +208,6 @@ namespace V5_DataCollection.Forms.Task {
             this.dataGridView_TaskList.Rows[TaskIndex].Cells["ProgressBar"].Value = perNum;
         }
 
-
         /// <summary>
         /// 任务结果输出
         /// </summary>
@@ -225,6 +218,7 @@ namespace V5_DataCollection.Forms.Task {
                 OutPutWindowDelegate(this, ev);
             }
         }
+
         /// <summary>
         /// 任务暂停
         /// </summary>
@@ -236,6 +230,7 @@ namespace V5_DataCollection.Forms.Task {
                 Spider.Start();
             }
         }
+
         /// <summary>
         /// 任务结束
         /// </summary>
@@ -247,6 +242,7 @@ namespace V5_DataCollection.Forms.Task {
                 Spider.Start();
             }
         }
+
         /// <summary>
         /// 采集结束
         /// </summary>
@@ -260,6 +256,7 @@ namespace V5_DataCollection.Forms.Task {
                 Spider.Start();
             }
         }
+
         #endregion
 
         private void FrmTaskMain_Load(object sender, EventArgs e) {
@@ -271,6 +268,7 @@ namespace V5_DataCollection.Forms.Task {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dataGridView_TaskList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
+
             if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "status") {
                 string s = e.Value.ToString();
                 if (s == "1") {
@@ -290,12 +288,15 @@ namespace V5_DataCollection.Forms.Task {
                     e.Value = "停止";
                 }
             }
+
             if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "col_classid") {
                 string s = e.Value.ToString();
                 if (s == string.Empty) {
                     e.Value = "未分类";
                 }
             }
+
+
         }
         /// <summary>
         /// 清除所有任务数据
@@ -303,6 +304,7 @@ namespace V5_DataCollection.Forms.Task {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToolStripMenuItem_ClearTaskAllData_Click(object sender, EventArgs e) {
+
             if (MessageBox.Show("你确定要清除数据吗?清除不可恢复!", "警告!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK) {
                 ModelTask model = new ModelTask();
                 int ID = Get_DataViewID();

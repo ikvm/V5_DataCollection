@@ -304,6 +304,7 @@
             this.btnGetCookies.TabIndex = 21;
             this.btnGetCookies.Text = "获取Cookies";
             this.btnGetCookies.UseVisualStyleBackColor = true;
+            this.btnGetCookies.Click += new System.EventHandler(this.btnGetCookies_Click);
             // 
             // txtID
             // 

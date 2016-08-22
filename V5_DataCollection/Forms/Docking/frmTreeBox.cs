@@ -16,7 +16,7 @@ namespace V5_DataCollection.Forms.Docking {
     /// <summary>
     /// 任务树操作
     /// </summary>
-    public partial class frmTreeBox : DockContent {
+    public partial class frmTreeBox : BaseContent {
         /// <summary>
         /// 任务树操作事件
         /// </summary>

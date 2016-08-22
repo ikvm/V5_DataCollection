@@ -12,6 +12,8 @@ using System.Xml.Serialization;
 using V5_DataCollection.Forms.Tools;
 using V5_DataCollection._Class.DAL;
 using V5_WinLibs.Core;
+using System.Diagnostics;
+using V5_DataCollection._Class.Common;
 
 namespace V5_DataCollection.Forms.Publish
 {
@@ -283,6 +285,23 @@ namespace V5_DataCollection.Forms.Publish
         private void GetCookies(string val)
         {
             this.txtWebPublishCookies.Text=val;
+        }
+
+        private void btnGetCookies_Click(object sender, EventArgs e) {
+            try {
+                Process process = new Process();
+                process.StartInfo.FileName = AppNameHelper.WebBrowser;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.Start();
+                process.WaitForExit();
+                var result = process.StandardOutput.ReadToEnd();
+                this.txtWebPublishCookies.Text = result;
+                process.Close();
+            }
+            catch (Exception ex) {
+                throw new Exception(AppNameHelper.WebBrowser + "::::" + ex.Message);
+            }
         }
 
         private void btnModuleDelete_Click(object sender, EventArgs e) {

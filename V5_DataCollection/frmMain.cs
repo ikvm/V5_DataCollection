@@ -31,6 +31,9 @@ namespace V5_DataCollection {
 
         public frmMain() {
             InitializeComponent();
+
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
             CommonHelper.FormMain = this;
         }

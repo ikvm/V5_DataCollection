@@ -41,7 +41,12 @@ namespace V5_DataCollection.Forms.Task {
             this.txtCollectionCookies = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.v5LinkLabel6 = new V5_WinControls.V5LinkLabel(this.components);
+            this.txtLinkUrlNoMustIncludeStr = new V5_WinControls.V5RichTextBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.v5LinkLabel2 = new V5_WinControls.V5LinkLabel(this.components);
+            this.txtHandCollectionUrlRegex = new V5_WinControls.V5RichTextBox();
+            this.v5LinkLabel1 = new V5_WinControls.V5LinkLabel(this.components);
             this.chkIsHandGetUrl = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.listBoxLinkUrl = new System.Windows.Forms.ListBox();
@@ -50,6 +55,12 @@ namespace V5_DataCollection.Forms.Task {
             this.btnWizardEdit = new System.Windows.Forms.Button();
             this.btnLinkUrlEdit = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.v5LinkLabel5 = new V5_WinControls.V5LinkLabel(this.components);
+            this.txtLinkUrlMustIncludeStr = new V5_WinControls.V5RichTextBox();
+            this.v5LinkLabel4 = new V5_WinControls.V5LinkLabel(this.components);
+            this.txtLinkUrlCutAreaEnd = new V5_WinControls.V5RichTextBox();
+            this.v5LinkLabel3 = new V5_WinControls.V5LinkLabel(this.components);
+            this.txtLinkUrlCutAreaStart = new V5_WinControls.V5RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -62,6 +73,7 @@ namespace V5_DataCollection.Forms.Task {
             this.ddlItemEncode = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.txtTestViewUrlShow = new V5_WinControls.V5RichTextBox();
             this.btnTestViewUrl = new System.Windows.Forms.Button();
             this.txtTextViewUrl = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -90,6 +102,7 @@ namespace V5_DataCollection.Forms.Task {
             this.chkPublish04 = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.btnDataBaseLabelTag = new System.Windows.Forms.Button();
+            this.txtSaveDataSQL3 = new V5_WinControls.V5RichTextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.rbtnOracle = new System.Windows.Forms.RadioButton();
             this.btnSaveDataBaseConfig = new System.Windows.Forms.Button();
@@ -171,22 +184,8 @@ namespace V5_DataCollection.Forms.Task {
             this.txtID = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.txtOldTaskName = new System.Windows.Forms.TextBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.contextMenuStrip_Label = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.v5LinkLabel6 = new V5LinkLabel(this.components);
-            this.txtLinkUrlNoMustIncludeStr = new V5RichTextBox();
-            this.v5LinkLabel2 = new V5LinkLabel(this.components);
-            this.txtHandCollectionUrlRegex = new V5RichTextBox();
-            this.v5LinkLabel1 = new V5LinkLabel(this.components);
-            this.v5LinkLabel5 = new V5LinkLabel(this.components);
-            this.txtLinkUrlMustIncludeStr = new V5RichTextBox();
-            this.v5LinkLabel4 = new V5LinkLabel(this.components);
-            this.txtLinkUrlCutAreaEnd = new V5RichTextBox();
-            this.v5LinkLabel3 = new V5LinkLabel(this.components);
-            this.txtLinkUrlCutAreaStart = new V5RichTextBox();
-            this.txtTestViewUrlShow = new V5RichTextBox();
-            this.txtSaveDataSQL3 = new V5RichTextBox();
             this.groupBox1.SuspendLayout();
             this.tabControlTaskEdit.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -385,6 +384,26 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "采集链接";
             // 
+            // v5LinkLabel6
+            // 
+            this.v5LinkLabel6.AutoSize = true;
+            this.v5LinkLabel6.LabelValue = "(*)";
+            this.v5LinkLabel6.Location = new System.Drawing.Point(625, 191);
+            this.v5LinkLabel6.Name = "v5LinkLabel6";
+            this.v5LinkLabel6.RichTextBox = this.txtLinkUrlNoMustIncludeStr;
+            this.v5LinkLabel6.Size = new System.Drawing.Size(23, 12);
+            this.v5LinkLabel6.TabIndex = 13;
+            this.v5LinkLabel6.TabStop = true;
+            this.v5LinkLabel6.Text = "(*)";
+            // 
+            // txtLinkUrlNoMustIncludeStr
+            // 
+            this.txtLinkUrlNoMustIncludeStr.Location = new System.Drawing.Point(381, 14);
+            this.txtLinkUrlNoMustIncludeStr.Name = "txtLinkUrlNoMustIncludeStr";
+            this.txtLinkUrlNoMustIncludeStr.Size = new System.Drawing.Size(228, 35);
+            this.txtLinkUrlNoMustIncludeStr.TabIndex = 8;
+            this.txtLinkUrlNoMustIncludeStr.Text = "";
+            // 
             // groupBox19
             // 
             this.groupBox19.Controls.Add(this.v5LinkLabel2);
@@ -397,6 +416,39 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox19.Size = new System.Drawing.Size(651, 76);
             this.groupBox19.TabIndex = 6;
             this.groupBox19.TabStop = false;
+            // 
+            // v5LinkLabel2
+            // 
+            this.v5LinkLabel2.AutoSize = true;
+            this.v5LinkLabel2.LabelValue = "[参数]";
+            this.v5LinkLabel2.Location = new System.Drawing.Point(609, 16);
+            this.v5LinkLabel2.Name = "v5LinkLabel2";
+            this.v5LinkLabel2.RichTextBox = this.txtHandCollectionUrlRegex;
+            this.v5LinkLabel2.Size = new System.Drawing.Size(41, 12);
+            this.v5LinkLabel2.TabIndex = 10;
+            this.v5LinkLabel2.TabStop = true;
+            this.v5LinkLabel2.Text = "[参数]";
+            // 
+            // txtHandCollectionUrlRegex
+            // 
+            this.txtHandCollectionUrlRegex.Enabled = false;
+            this.txtHandCollectionUrlRegex.Location = new System.Drawing.Point(91, 13);
+            this.txtHandCollectionUrlRegex.Name = "txtHandCollectionUrlRegex";
+            this.txtHandCollectionUrlRegex.Size = new System.Drawing.Size(518, 53);
+            this.txtHandCollectionUrlRegex.TabIndex = 8;
+            this.txtHandCollectionUrlRegex.Text = "";
+            // 
+            // v5LinkLabel1
+            // 
+            this.v5LinkLabel1.AutoSize = true;
+            this.v5LinkLabel1.LabelValue = "(*)";
+            this.v5LinkLabel1.Location = new System.Drawing.Point(615, 39);
+            this.v5LinkLabel1.Name = "v5LinkLabel1";
+            this.v5LinkLabel1.RichTextBox = this.txtHandCollectionUrlRegex;
+            this.v5LinkLabel1.Size = new System.Drawing.Size(23, 12);
+            this.v5LinkLabel1.TabIndex = 9;
+            this.v5LinkLabel1.TabStop = true;
+            this.v5LinkLabel1.Text = "(*)";
             // 
             // chkIsHandGetUrl
             // 
@@ -490,6 +542,66 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox4.Size = new System.Drawing.Size(651, 112);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
+            // 
+            // v5LinkLabel5
+            // 
+            this.v5LinkLabel5.AutoSize = true;
+            this.v5LinkLabel5.LabelValue = "(*)";
+            this.v5LinkLabel5.Location = new System.Drawing.Point(287, 16);
+            this.v5LinkLabel5.Name = "v5LinkLabel5";
+            this.v5LinkLabel5.RichTextBox = this.txtLinkUrlMustIncludeStr;
+            this.v5LinkLabel5.Size = new System.Drawing.Size(23, 12);
+            this.v5LinkLabel5.TabIndex = 12;
+            this.v5LinkLabel5.TabStop = true;
+            this.v5LinkLabel5.Text = "(*)";
+            // 
+            // txtLinkUrlMustIncludeStr
+            // 
+            this.txtLinkUrlMustIncludeStr.Location = new System.Drawing.Point(85, 12);
+            this.txtLinkUrlMustIncludeStr.Name = "txtLinkUrlMustIncludeStr";
+            this.txtLinkUrlMustIncludeStr.Size = new System.Drawing.Size(199, 37);
+            this.txtLinkUrlMustIncludeStr.TabIndex = 8;
+            this.txtLinkUrlMustIncludeStr.Text = "";
+            // 
+            // v5LinkLabel4
+            // 
+            this.v5LinkLabel4.AutoSize = true;
+            this.v5LinkLabel4.LabelValue = "(*)";
+            this.v5LinkLabel4.Location = new System.Drawing.Point(615, 55);
+            this.v5LinkLabel4.Name = "v5LinkLabel4";
+            this.v5LinkLabel4.RichTextBox = this.txtLinkUrlCutAreaEnd;
+            this.v5LinkLabel4.Size = new System.Drawing.Size(23, 12);
+            this.v5LinkLabel4.TabIndex = 11;
+            this.v5LinkLabel4.TabStop = true;
+            this.v5LinkLabel4.Text = "(*)";
+            // 
+            // txtLinkUrlCutAreaEnd
+            // 
+            this.txtLinkUrlCutAreaEnd.Location = new System.Drawing.Point(381, 55);
+            this.txtLinkUrlCutAreaEnd.Name = "txtLinkUrlCutAreaEnd";
+            this.txtLinkUrlCutAreaEnd.Size = new System.Drawing.Size(228, 52);
+            this.txtLinkUrlCutAreaEnd.TabIndex = 9;
+            this.txtLinkUrlCutAreaEnd.Text = "";
+            // 
+            // v5LinkLabel3
+            // 
+            this.v5LinkLabel3.AutoSize = true;
+            this.v5LinkLabel3.LabelValue = "(*)";
+            this.v5LinkLabel3.Location = new System.Drawing.Point(333, 55);
+            this.v5LinkLabel3.Name = "v5LinkLabel3";
+            this.v5LinkLabel3.RichTextBox = this.txtLinkUrlCutAreaStart;
+            this.v5LinkLabel3.Size = new System.Drawing.Size(23, 12);
+            this.v5LinkLabel3.TabIndex = 10;
+            this.v5LinkLabel3.TabStop = true;
+            this.v5LinkLabel3.Text = "(*)";
+            // 
+            // txtLinkUrlCutAreaStart
+            // 
+            this.txtLinkUrlCutAreaStart.Location = new System.Drawing.Point(112, 55);
+            this.txtLinkUrlCutAreaStart.Name = "txtLinkUrlCutAreaStart";
+            this.txtLinkUrlCutAreaStart.Size = new System.Drawing.Size(220, 52);
+            this.txtLinkUrlCutAreaStart.TabIndex = 8;
+            this.txtLinkUrlCutAreaStart.Text = "";
             // 
             // label8
             // 
@@ -606,6 +718,14 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "采集页面测试";
+            // 
+            // txtTestViewUrlShow
+            // 
+            this.txtTestViewUrlShow.Location = new System.Drawing.Point(8, 43);
+            this.txtTestViewUrlShow.Name = "txtTestViewUrlShow";
+            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 301);
+            this.txtTestViewUrlShow.TabIndex = 3;
+            this.txtTestViewUrlShow.Text = "";
             // 
             // btnTestViewUrl
             // 
@@ -898,6 +1018,14 @@ namespace V5_DataCollection.Forms.Task {
             this.btnDataBaseLabelTag.Text = "标签";
             this.btnDataBaseLabelTag.UseVisualStyleBackColor = true;
             this.btnDataBaseLabelTag.Click += new System.EventHandler(this.btnDataBaseLabelTag_Click);
+            // 
+            // txtSaveDataSQL3
+            // 
+            this.txtSaveDataSQL3.Location = new System.Drawing.Point(6, 132);
+            this.txtSaveDataSQL3.Name = "txtSaveDataSQL3";
+            this.txtSaveDataSQL3.Size = new System.Drawing.Size(294, 57);
+            this.txtSaveDataSQL3.TabIndex = 6;
+            this.txtSaveDataSQL3.Text = "";
             // 
             // label18
             // 
@@ -1728,12 +1856,6 @@ namespace V5_DataCollection.Forms.Task {
             this.txtOldTaskName.TabIndex = 8;
             this.txtOldTaskName.Visible = false;
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // contextMenuStrip_Label
             // 
             this.contextMenuStrip_Label.Name = "contextMenuStrip_Label";
@@ -1743,135 +1865,6 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // v5LinkLabel6
-            // 
-            this.v5LinkLabel6.AutoSize = true;
-            this.v5LinkLabel6.LabelValue = "(*)";
-            this.v5LinkLabel6.Location = new System.Drawing.Point(625, 191);
-            this.v5LinkLabel6.Name = "v5LinkLabel6";
-            this.v5LinkLabel6.RichTextBox = this.txtLinkUrlNoMustIncludeStr;
-            this.v5LinkLabel6.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel6.TabIndex = 13;
-            this.v5LinkLabel6.TabStop = true;
-            this.v5LinkLabel6.Text = "(*)";
-            // 
-            // txtLinkUrlNoMustIncludeStr
-            // 
-            this.txtLinkUrlNoMustIncludeStr.Location = new System.Drawing.Point(381, 14);
-            this.txtLinkUrlNoMustIncludeStr.Name = "txtLinkUrlNoMustIncludeStr";
-            this.txtLinkUrlNoMustIncludeStr.Size = new System.Drawing.Size(228, 35);
-            this.txtLinkUrlNoMustIncludeStr.TabIndex = 8;
-            this.txtLinkUrlNoMustIncludeStr.Text = "";
-            // 
-            // v5LinkLabel2
-            // 
-            this.v5LinkLabel2.AutoSize = true;
-            this.v5LinkLabel2.LabelValue = "[参数]";
-            this.v5LinkLabel2.Location = new System.Drawing.Point(609, 16);
-            this.v5LinkLabel2.Name = "v5LinkLabel2";
-            this.v5LinkLabel2.RichTextBox = this.txtHandCollectionUrlRegex;
-            this.v5LinkLabel2.Size = new System.Drawing.Size(41, 12);
-            this.v5LinkLabel2.TabIndex = 10;
-            this.v5LinkLabel2.TabStop = true;
-            this.v5LinkLabel2.Text = "[参数]";
-            // 
-            // txtHandCollectionUrlRegex
-            // 
-            this.txtHandCollectionUrlRegex.Enabled = false;
-            this.txtHandCollectionUrlRegex.Location = new System.Drawing.Point(91, 13);
-            this.txtHandCollectionUrlRegex.Name = "txtHandCollectionUrlRegex";
-            this.txtHandCollectionUrlRegex.Size = new System.Drawing.Size(518, 53);
-            this.txtHandCollectionUrlRegex.TabIndex = 8;
-            this.txtHandCollectionUrlRegex.Text = "";
-            // 
-            // v5LinkLabel1
-            // 
-            this.v5LinkLabel1.AutoSize = true;
-            this.v5LinkLabel1.LabelValue = "(*)";
-            this.v5LinkLabel1.Location = new System.Drawing.Point(615, 39);
-            this.v5LinkLabel1.Name = "v5LinkLabel1";
-            this.v5LinkLabel1.RichTextBox = this.txtHandCollectionUrlRegex;
-            this.v5LinkLabel1.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel1.TabIndex = 9;
-            this.v5LinkLabel1.TabStop = true;
-            this.v5LinkLabel1.Text = "(*)";
-            // 
-            // v5LinkLabel5
-            // 
-            this.v5LinkLabel5.AutoSize = true;
-            this.v5LinkLabel5.LabelValue = "(*)";
-            this.v5LinkLabel5.Location = new System.Drawing.Point(287, 16);
-            this.v5LinkLabel5.Name = "v5LinkLabel5";
-            this.v5LinkLabel5.RichTextBox = this.txtLinkUrlMustIncludeStr;
-            this.v5LinkLabel5.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel5.TabIndex = 12;
-            this.v5LinkLabel5.TabStop = true;
-            this.v5LinkLabel5.Text = "(*)";
-            // 
-            // txtLinkUrlMustIncludeStr
-            // 
-            this.txtLinkUrlMustIncludeStr.Location = new System.Drawing.Point(85, 12);
-            this.txtLinkUrlMustIncludeStr.Name = "txtLinkUrlMustIncludeStr";
-            this.txtLinkUrlMustIncludeStr.Size = new System.Drawing.Size(199, 37);
-            this.txtLinkUrlMustIncludeStr.TabIndex = 8;
-            this.txtLinkUrlMustIncludeStr.Text = "";
-            // 
-            // v5LinkLabel4
-            // 
-            this.v5LinkLabel4.AutoSize = true;
-            this.v5LinkLabel4.LabelValue = "(*)";
-            this.v5LinkLabel4.Location = new System.Drawing.Point(615, 55);
-            this.v5LinkLabel4.Name = "v5LinkLabel4";
-            this.v5LinkLabel4.RichTextBox = this.txtLinkUrlCutAreaEnd;
-            this.v5LinkLabel4.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel4.TabIndex = 11;
-            this.v5LinkLabel4.TabStop = true;
-            this.v5LinkLabel4.Text = "(*)";
-            // 
-            // txtLinkUrlCutAreaEnd
-            // 
-            this.txtLinkUrlCutAreaEnd.Location = new System.Drawing.Point(381, 55);
-            this.txtLinkUrlCutAreaEnd.Name = "txtLinkUrlCutAreaEnd";
-            this.txtLinkUrlCutAreaEnd.Size = new System.Drawing.Size(228, 52);
-            this.txtLinkUrlCutAreaEnd.TabIndex = 9;
-            this.txtLinkUrlCutAreaEnd.Text = "";
-            // 
-            // v5LinkLabel3
-            // 
-            this.v5LinkLabel3.AutoSize = true;
-            this.v5LinkLabel3.LabelValue = "(*)";
-            this.v5LinkLabel3.Location = new System.Drawing.Point(333, 55);
-            this.v5LinkLabel3.Name = "v5LinkLabel3";
-            this.v5LinkLabel3.RichTextBox = this.txtLinkUrlCutAreaStart;
-            this.v5LinkLabel3.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel3.TabIndex = 10;
-            this.v5LinkLabel3.TabStop = true;
-            this.v5LinkLabel3.Text = "(*)";
-            // 
-            // txtLinkUrlCutAreaStart
-            // 
-            this.txtLinkUrlCutAreaStart.Location = new System.Drawing.Point(112, 55);
-            this.txtLinkUrlCutAreaStart.Name = "txtLinkUrlCutAreaStart";
-            this.txtLinkUrlCutAreaStart.Size = new System.Drawing.Size(220, 52);
-            this.txtLinkUrlCutAreaStart.TabIndex = 8;
-            this.txtLinkUrlCutAreaStart.Text = "";
-            // 
-            // txtTestViewUrlShow
-            // 
-            this.txtTestViewUrlShow.Location = new System.Drawing.Point(8, 43);
-            this.txtTestViewUrlShow.Name = "txtTestViewUrlShow";
-            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 301);
-            this.txtTestViewUrlShow.TabIndex = 3;
-            this.txtTestViewUrlShow.Text = "";
-            // 
-            // txtSaveDataSQL3
-            // 
-            this.txtSaveDataSQL3.Location = new System.Drawing.Point(6, 132);
-            this.txtSaveDataSQL3.Name = "txtSaveDataSQL3";
-            this.txtSaveDataSQL3.Size = new System.Drawing.Size(294, 57);
-            this.txtSaveDataSQL3.TabIndex = 6;
-            this.txtSaveDataSQL3.Text = "";
             // 
             // FrmTaskEdit
             // 
@@ -2101,7 +2094,6 @@ namespace V5_DataCollection.Forms.Task {
         private V5LinkLabel v5LinkLabel6;
         private System.Windows.Forms.Button btnTaskLabelCopy;
         private System.Windows.Forms.TextBox txtOldTaskName;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button btnDataBaseLabelTag;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_Label;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;

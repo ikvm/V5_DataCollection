@@ -29,7 +29,7 @@ using V5_WinLibs.Expand;
 using V5_WinControls;
 
 namespace V5_DataCollection.Forms.Task {
-    public partial class FrmTaskEdit : Form {
+    public partial class FrmTaskEdit : BaseForm {
 
         private cGatherFunction gatherWork = new cGatherFunction();
 
@@ -137,7 +137,6 @@ namespace V5_DataCollection.Forms.Task {
 
         void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
             string s = "[" + e.ClickedItem.Text + "]";
-            //BindLabel_W(this.txtSaveSQLContent4, s);
         }
 
         void contextMenuStrip_Label_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
@@ -697,8 +696,7 @@ namespace V5_DataCollection.Forms.Task {
         #endregion
 
         private void btnCancel_Click(object sender, EventArgs e) {
-            this.Hide();
-            this.Close();
+            this.CloseForm();
         }
 
         #region 编辑数据
@@ -1083,21 +1081,21 @@ namespace V5_DataCollection.Forms.Task {
             }
         }
 
-        Form WebBrowser;
-
         private void btnGetCookies_Click(object sender, EventArgs e) {
-            WebBrowser = AppRunHelper.AppRunWebBrowserByAssembly(this);
-            AppRunHelper.OutPutMessage = OutPutMessage;
-        }
-
-        void OutPutMessage(object sender, AppRunHelper.AppRunEventArgs e) {
-            this.txtCollectionCookies.Text = e.Msg1;
-
-            AppRunHelper.CloseWindow(WebBrowser, true);
-        }
-
-        void Proc_OutputDataReceived(object sender, System.Diagnostics.DataReceivedEventArgs e) {
-            MessageBox.Show("写入值了" + e.Data);
+            try {
+                Process process = new Process();
+                process.StartInfo.FileName = AppNameHelper.WebBrowser;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.Start();
+                process.WaitForExit();
+                var result = process.StandardOutput.ReadToEnd();
+                this.txtCollectionCookies.Text = result;
+                process.Close();
+            }
+            catch (Exception ex) {
+                throw new Exception(AppNameHelper.WebBrowser + "::::" + ex.Message);
+            }
         }
 
         private void btnTaskLabelCopy_Click(object sender, EventArgs e) {
@@ -1108,85 +1106,6 @@ namespace V5_DataCollection.Forms.Task {
                 DALTaskLabel dal = new DALTaskLabel();
                 dal.TaskLabelCopy(ID);
                 this.Bind_TaskLabel(" TaskID=" + this.ID);
-            }
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
-            try {
-
-
-                //实例化一个进程类
-                Process cmd = new Process();
-
-                //获得系统信息，使用的是 systeminfo.exe 这个控制台程序
-                cmd.StartInfo.FileName = "V5.DataWebBrowser.exe";
-
-                //将cmd的标准输入和输出全部重定向到.NET的程序里
-
-                cmd.StartInfo.UseShellExecute = false; //此处必须为false否则引发异常
-
-                cmd.StartInfo.RedirectStandardInput = true; //标准输入
-                cmd.StartInfo.RedirectStandardOutput = true; //标准输出
-
-                //不显示命令行窗口界面
-                cmd.StartInfo.CreateNoWindow = true;
-                // cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                cmd.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                cmd.Start(); //启动进程
-
-                //获取输出
-                //需要说明的：此处是指明开始获取，要获取的内容，
-                //只有等进程退出后才能真正拿到
-                this.txtCollectionCookies.Text = cmd.StandardOutput.ReadToEnd();
-                cmd.WaitForExit();//等待控制台程序执行完成
-                cmd.Close();//关闭该进程
-
-                ////声明一个程序信息类 
-                //System.Diagnostics.ProcessStartInfo Info = new System.Diagnostics.ProcessStartInfo();
-                ////设置外部程序名 
-                //Info.FileName = "V5.DataWebBrowser.exe";
-                ////设置外部程序的启动参数（命令行参数）为test.txt 
-                //Info.Arguments = "controlname,type";
-                ////设置外部程序工作目录为 C:\ 
-                //Info.WorkingDirectory = "";
-                //Info.UseShellExecute = false;
-                //Info.RedirectStandardOutput = true;
-                //Info.RedirectStandardError = true;
-                //Info.CreateNoWindow = true;
-                //Info.WindowStyle = ProcessWindowStyle.Hidden;
-                ////声明一个程序类 
-                //System.Diagnostics.Process Proc;
-                //try {
-                //    // 
-                //    //启动外部程序 
-                //    // 
-                //    Proc = System.Diagnostics.Process.Start(Info);
-                //}
-                //catch (System.ComponentModel.Win32Exception ex) {
-                //    Console.WriteLine("系统找不到指定的程序文件。\r{0}", ex);
-                //    return;
-                //}
-                ////while (true) {
-                ////    if (Proc.HasExited) {
-                ////        MessageBox.Show("程序退出了");
-                ////        return;
-                ////    }
-                ////}
-                ////Proc.ha
-                //Proc.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(Proc_OutputDataReceived); //+= new EventHandler(Proc_Exited);
-                //Proc.BeginOutputReadLine();
-                ////MessageBox.Show("调用程序!" + Proc.StandardOutput.ReadToEnd());
-                //Proc.WaitForExit();
-
-                ////if (Proc.ExitCode != 0) {
-                ////    StreamReader aSr = Proc.StandardOutput;
-                ////    string aConsole = aSr.ReadToEnd();
-                ////    MessageBox.Show("调用程序!" + Proc.StandardOutput.ReadToEnd());
-                ////}
-                //Proc.Close();
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message + "==" + ex.Source + "==" + ex.InnerException);
             }
         }
 
@@ -1208,7 +1127,6 @@ namespace V5_DataCollection.Forms.Task {
 
         private void btnDataBaseLabelTag4_Click(object sender, EventArgs e) {
             Bind_contextMenuStrip_Label(contextMenuStrip1);
-            //this.contextMenuStrip1.Show(btnDataBaseLabelTag4, 0, 21);
         }
 
         private void listViewTaskLabel_DoubleClick(object sender, EventArgs e) {
