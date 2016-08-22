@@ -43,17 +43,18 @@ namespace V5_DataCollection.Forms.Task {
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.计划任务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出采集规则ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView_TaskList = new V5DataGridView(this.components);
+            this.dataGridView_TaskList = new V5_WinControls.V5DataGridView(this.components);
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_ClassId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskProps = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_TaskId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProgressBar = new DataGridViewProgressBarColumn();
+            this.ProgressBar = new V5_WinControls.DataGrid.DataGridViewProgressBarColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_TaskList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_TaskList)).BeginInit();
             this.SuspendLayout();
@@ -190,6 +191,7 @@ namespace V5_DataCollection.Forms.Task {
             this.Col_ClassId,
             this.Status,
             this.Column2,
+            this.TaskProps,
             this.Col_TaskId,
             this.ProgressBar,
             this.Column1});
@@ -206,6 +208,23 @@ namespace V5_DataCollection.Forms.Task {
             this.dataGridView_TaskList.TabIndex = 1;
             this.dataGridView_TaskList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_TaskList_CellDoubleClick);
             this.dataGridView_TaskList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_TaskList_CellFormatting);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "状态";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "TaskName";
+            this.dataGridViewTextBoxColumn3.HeaderText = "任务名称";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
             // ID
             // 
@@ -237,6 +256,12 @@ namespace V5_DataCollection.Forms.Task {
             this.Column2.ReadOnly = true;
             this.Column2.Width = 300;
             // 
+            // TaskProps
+            // 
+            this.TaskProps.HeaderText = "任务属性";
+            this.TaskProps.Name = "TaskProps";
+            this.TaskProps.ReadOnly = true;
+            // 
             // Col_TaskId
             // 
             this.Col_TaskId.DataPropertyName = "IsPlan";
@@ -259,23 +284,6 @@ namespace V5_DataCollection.Forms.Task {
             this.Column1.HeaderText = "";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "ID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "状态";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "TaskName";
-            this.dataGridViewTextBoxColumn3.HeaderText = "任务名称";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
             // FrmTaskMain
             // 
@@ -321,14 +329,15 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ViewTaskData;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem 计划任务ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 复制任务ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导出采集规则ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_ClassId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskProps;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_TaskId;
         private DataGridViewProgressBarColumn ProgressBar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.ToolStripMenuItem 复制任务ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 导出采集规则ToolStripMenuItem;
     }
 }

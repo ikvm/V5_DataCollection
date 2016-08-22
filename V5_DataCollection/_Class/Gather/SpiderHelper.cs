@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using V5_DataCollection._Class.Common;
+using V5_DataCollection._Class.DAL;
 using V5_DataCollection._Class.Publish;
 using V5_Model;
+using V5_Utility.Utility;
 using V5_WinLibs;
-
-using System.Data.Linq;
-using V5_DataCollection._Class.DAL;
-using System.Data.Linq;
-using System.IO;
+using V5_WinLibs.Core;
 using V5_WinLibs.DBHelper;
 using V5_WinLibs.Utility;
-using V5_WinLibs.Core;
-using V5_Utility.Utility;
 
 namespace V5_DataCollection._Class.Gather {
     /// <summary>
@@ -63,17 +61,6 @@ namespace V5_DataCollection._Class.Gather {
         private Queue<ModelLinkUrl> _listLinkUrl = new Queue<ModelLinkUrl>();
         private ThreadMultiHelper _tmViewUrl, _tmLinkUrl;
         private cGatherFunction _gatherWork = new cGatherFunction();
-        #endregion
-
-        #region 构造函数
-
-        public SpiderHelper() {
-
-        }
-
-        ~SpiderHelper() {
-            modelTask = null;
-        }
 
         #endregion
 

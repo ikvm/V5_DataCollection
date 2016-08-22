@@ -8,11 +8,15 @@ using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
 
 namespace V5_DataCollection._Class.DAL {
+
     public class DALTask {
 
         string dbStr = CommonHelper.SQLiteConnectionString;
+
         public DALTask() {
+
         }
+
         #region  Method
 
         /// <summary>

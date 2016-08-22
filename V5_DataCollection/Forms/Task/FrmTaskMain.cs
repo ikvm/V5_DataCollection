@@ -21,8 +21,9 @@ using V5_WinLibs.Core;
 using V5_Utility.Utility;
 
 namespace V5_DataCollection.Forms.Task {
+
     public partial class FrmTaskMain : DockContent {
-        //采集任务列表
+
         Dictionary<string, SpiderHelper> listGatherTask = new Dictionary<string, SpiderHelper>();
         public MainEventHandler.OutPutWindowHandler OutPutWindowDelegate;
 
@@ -160,11 +161,9 @@ namespace V5_DataCollection.Forms.Task {
                 DALTask dal = new DALTask();
                 ModelTask model = new ModelTask();
                 int ID = Get_DataViewID();
-                //检查目录是否存在
-                //model = dal.GetModelSingleTask(ID);
 
                 if (listGatherTask.ContainsKey(ID.ToString())) {
-                    SpiderHelper Spider = listGatherTask.FirstOrDefault().Value;
+                    var Spider = listGatherTask.FirstOrDefault().Value;
                     if (Spider.Stopped) {
                         Spider.Start();
                     }
@@ -172,7 +171,13 @@ namespace V5_DataCollection.Forms.Task {
                 else {
 
                     model = dal.GetModelSingleTask(ID);
-                    SpiderHelper Spider = new SpiderHelper();
+                    //创建数据库索引
+                    string baseDir = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\";
+                    string SQLiteName = baseDir + model.TaskName + "\\SpiderResult.db";
+                    if (!File.Exists(SQLiteName)) {
+                        CreateDataFile(model.TaskName, ID);
+                    }
+                    var Spider = new SpiderHelper();
                     Spider.modelTask = model;
                     Spider.GatherWorkDelegate = OutUrl;
                     Spider.GatherComplateDelegate = GatherOverDelegate;
@@ -184,6 +189,7 @@ namespace V5_DataCollection.Forms.Task {
                             listGatherTask.Add(ID.ToString(), Spider);
                         }
                     }
+
                 }
             }
             catch (Exception ex) {
@@ -213,12 +219,6 @@ namespace V5_DataCollection.Forms.Task {
         /// 任务结果输出
         /// </summary>
         public void OutUrl(object sender, GatherEvents.GatherLinkEvents e) {
-            //if (!string.IsNullOrEmpty(e.ID)) {
-            //    ModelGatherTask model = listGatherTask.Where(p => p.TaskID == int.Parse("0" + e.ID)).FirstOrDefault();
-            //    if (model != null) {
-            //        listGatherTask.Remove(model);
-            //    }
-            //}
             MainEvents.OutPutWindowEventArgs ev = new MainEvents.OutPutWindowEventArgs();
             ev.Message = e.Message;
             if (OutPutWindowDelegate != null) {
@@ -368,7 +368,6 @@ namespace V5_DataCollection.Forms.Task {
                 SQLiteHelper.Execute(LocalSQLiteName, SQL);
             }
             else {
-                //添加Sqlite列名称
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
                 foreach (DataRow dr in dt.Rows) {
                     try {
@@ -421,7 +420,7 @@ namespace V5_DataCollection.Forms.Task {
             model.ID = currentMaxId;
             model.TaskName = currentTaskName;
             dal.Add(model);
-            //
+
             DALTaskLabel dalLable = new DALTaskLabel();
             DataTable dt = dalLable.GetList(" TaskId=" + ID).Tables[0];
             if (dt != null && dt.Rows.Count > 0) {
@@ -431,9 +430,8 @@ namespace V5_DataCollection.Forms.Task {
                     dalLable.Add(modelLabel);
                 }
             }
-            //重建表结构
             CreateDataFile(currentTaskName, currentMaxId);
-            //
+
             this.ClassID = model.TaskClassID;
             Bind_DataList();
         }
