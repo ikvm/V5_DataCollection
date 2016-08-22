@@ -959,8 +959,8 @@ namespace V5_DataCollection.Forms.Task {
                 PlanTaskHelper.PushJobDetail(ID);
             }
             #endregion
-            this.Hide();
-            this.Close();
+
+            this.CloseForm();
         }
         #endregion
 

@@ -238,7 +238,7 @@ namespace V5_DataCollection {
         }
 
         private void ToolStripMenuItem_SoftUpdate_Click(object sender, EventArgs e) {
-            AppRunHelper.RunAppCmd("V5.AutoUpdate.exe", "-c V5.DataCollection");
+            AppRunHelper.RunAppCmd("V5_AutoUpdate.exe", "-c V5.DataCollection");
         }
 
         private void ToolStripMenuItem_ManageSite_Click(object sender, EventArgs e) {
