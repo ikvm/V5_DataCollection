@@ -30,18 +30,18 @@ namespace V5_DataCollection.Forms.Tools {
             this.components = new System.ComponentModel.Container();
             this.btnDownLoad = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewProgressBarColumn1 = new DataGridViewProgressBarColumn();
-            this.v5DataGridView1 = new V5DataGridView(this.components);
-            this.Name_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pross_1 = new DataGridViewProgressBarColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.v5DataGridView1)).BeginInit();
+            this.v5DataGridView1 = new V5_WinControls.V5DataGridView(this.components);
+            this.Name_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pross_1 = new V5_WinControls.DataGrid.DataGridViewProgressBarColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewProgressBarColumn1 = new V5_WinControls.DataGrid.DataGridViewProgressBarColumn();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.v5DataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnDownLoad
@@ -63,45 +63,6 @@ namespace V5_DataCollection.Forms.Tools {
             this.button1.Text = "动态添加";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "名称";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewProgressBarColumn1
-            // 
-            this.dataGridViewProgressBarColumn1.HeaderText = "进度";
-            this.dataGridViewProgressBarColumn1.Maximum = 100;
-            this.dataGridViewProgressBarColumn1.Mimimum = 0;
-            this.dataGridViewProgressBarColumn1.Name = "dataGridViewProgressBarColumn1";
-            this.dataGridViewProgressBarColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // v5DataGridView1
-            // 
-            this.v5DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.v5DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Name_1,
-            this.Pross_1});
-            this.v5DataGridView1.Location = new System.Drawing.Point(35, 90);
-            this.v5DataGridView1.Name = "v5DataGridView1";
-            this.v5DataGridView1.RowHeadersVisible = false;
-            this.v5DataGridView1.RowTemplate.Height = 23;
-            this.v5DataGridView1.Size = new System.Drawing.Size(423, 161);
-            this.v5DataGridView1.TabIndex = 3;
-            // 
-            // Name_1
-            // 
-            this.Name_1.HeaderText = "名称";
-            this.Name_1.Name = "Name_1";
-            // 
-            // Pross_1
-            // 
-            this.Pross_1.HeaderText = "进度";
-            this.Pross_1.Maximum = 100;
-            this.Pross_1.Mimimum = 0;
-            this.Pross_1.Name = "Pross_1";
-            this.Pross_1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // button2
             // 
@@ -146,9 +107,48 @@ namespace V5_DataCollection.Forms.Tools {
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 8;
-            this.button4.Text = "button4";
+            this.button4.Text = "测试句柄";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // v5DataGridView1
+            // 
+            this.v5DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.v5DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Name_1,
+            this.Pross_1});
+            this.v5DataGridView1.Location = new System.Drawing.Point(35, 90);
+            this.v5DataGridView1.Name = "v5DataGridView1";
+            this.v5DataGridView1.RowHeadersVisible = false;
+            this.v5DataGridView1.RowTemplate.Height = 23;
+            this.v5DataGridView1.Size = new System.Drawing.Size(423, 161);
+            this.v5DataGridView1.TabIndex = 3;
+            // 
+            // Name_1
+            // 
+            this.Name_1.HeaderText = "名称";
+            this.Name_1.Name = "Name_1";
+            // 
+            // Pross_1
+            // 
+            this.Pross_1.HeaderText = "进度";
+            this.Pross_1.Maximum = 100;
+            this.Pross_1.Mimimum = 0;
+            this.Pross_1.Name = "Pross_1";
+            this.Pross_1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "名称";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewProgressBarColumn1
+            // 
+            this.dataGridViewProgressBarColumn1.HeaderText = "进度";
+            this.dataGridViewProgressBarColumn1.Maximum = 100;
+            this.dataGridViewProgressBarColumn1.Mimimum = 0;
+            this.dataGridViewProgressBarColumn1.Name = "dataGridViewProgressBarColumn1";
+            this.dataGridViewProgressBarColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // frmTest
             // 
@@ -165,8 +165,8 @@ namespace V5_DataCollection.Forms.Tools {
             this.Name = "frmTest";
             this.Text = "frmTest";
             this.Load += new System.EventHandler(this.frmTest_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.v5DataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.v5DataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

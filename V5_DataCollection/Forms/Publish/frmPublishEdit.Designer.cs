@@ -322,7 +322,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 481);
+            this.ClientSize = new System.Drawing.Size(674, 481);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.btnGetCookies);
             this.Controls.Add(this.tabControl1);

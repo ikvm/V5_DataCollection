@@ -79,6 +79,7 @@ namespace V5_DataCollection._Class.Gather {
             modelTask = null;
             _tmLinkUrl.Stop();
         }
+
         /// <summary>
         /// 开始采集网址列表
         /// </summary>

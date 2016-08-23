@@ -59,7 +59,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(80, 23);
             this.btnSubmit.TabIndex = 2;
-            this.btnSubmit.Text = "确定";
+            this.btnSubmit.Text = "导入";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
@@ -123,7 +123,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "导入Web采集模块";
+            this.Text = "导入采集模块";
             this.Load += new System.EventHandler(this.frmImportWebCollectionModule_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);

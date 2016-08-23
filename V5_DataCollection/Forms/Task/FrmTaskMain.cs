@@ -58,6 +58,14 @@ namespace V5_DataCollection.Forms.Task {
             DALTask dal = new DALTask();
             DataTable dt = dal.GetList(strWhere).Tables[0];
             this.dataGridView_TaskList.DataSource = dt.DefaultView;
+
+            for (int i = 0; i < this.dataGridView_TaskList.Rows.Count; i++) {
+                var row = this.dataGridView_TaskList.Rows[i];
+                row.Selected = false;
+                if (i == m_RowIndex) {
+                    row.Selected = true;
+                }
+            }
         }
 
         #region 右键菜单
@@ -214,21 +222,7 @@ namespace V5_DataCollection.Forms.Task {
         public void OutUrl(object sender, GatherEvents.GatherLinkEvents e) {
             MainEvents.OutPutWindowEventArgs ev = new MainEvents.OutPutWindowEventArgs();
             ev.Message = e.Message;
-            if (OutPutWindowDelegate != null) {
-                OutPutWindowDelegate(this, ev);
-            }
-        }
-
-        /// <summary>
-        /// 任务暂停
-        /// </summary>
-        private void ToolStripMenuItem_TaskPause_Click(object sender, EventArgs e) {
-            int ID = Get_DataViewID();
-            if (listGatherTask.ContainsKey(ID.ToString())) {
-                var Spider = listGatherTask.FirstOrDefault().Value;
-                listGatherTask.Remove(ID.ToString());
-                Spider.Start();
-            }
+            OutPutWindowDelegate?.Invoke(this, ev);
         }
 
         /// <summary>
@@ -239,7 +233,12 @@ namespace V5_DataCollection.Forms.Task {
             if (listGatherTask.ContainsKey(ID.ToString())) {
                 var Spider = listGatherTask.FirstOrDefault().Value;
                 listGatherTask.Remove(ID.ToString());
-                Spider.Start();
+                Spider.Stop();
+
+                OutPutWindowDelegate?.Invoke(this, new MainEvents.OutPutWindowEventArgs() {
+                    Message = "任务已经停止!",
+                    TaskId = ID
+                });
             }
         }
 
@@ -295,6 +294,8 @@ namespace V5_DataCollection.Forms.Task {
                     e.Value = "未分类";
                 }
             }
+
+            //设置任务属性
 
 
         }
@@ -444,6 +445,19 @@ namespace V5_DataCollection.Forms.Task {
                 var dal = new DALTask();
                 var model = dal.GetModelSingleTask(id);
 
+            }
+        }
+
+        int m_RowIndex = 0;
+
+        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e) {
+            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) {
+                if (e.RowIndex >= 0) {
+                    dataGridView_TaskList.ClearSelection();
+                    dataGridView_TaskList.Rows[e.RowIndex].Selected = true;
+
+                    m_RowIndex = e.RowIndex;
+                }
             }
         }
     }

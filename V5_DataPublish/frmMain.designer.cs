@@ -171,9 +171,9 @@
             this.panel_Left.Controls.Add(this.treeView_Left);
             this.panel_Left.Controls.Add(this.toolStrip2);
             this.panel_Left.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel_Left.Location = new System.Drawing.Point(0, 81);
+            this.panel_Left.Location = new System.Drawing.Point(0, 50);
             this.panel_Left.Name = "panel_Left";
-            this.panel_Left.Size = new System.Drawing.Size(200, 459);
+            this.panel_Left.Size = new System.Drawing.Size(200, 490);
             this.panel_Left.TabIndex = 3;
             // 
             // treeView_Left
@@ -189,7 +189,7 @@
             this.treeView_Left.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2});
-            this.treeView_Left.Size = new System.Drawing.Size(200, 434);
+            this.treeView_Left.Size = new System.Drawing.Size(200, 465);
             this.treeView_Left.TabIndex = 5;
             this.treeView_Left.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_Left_AfterSelect);
             // 
@@ -319,9 +319,9 @@
             // 
             this.panel_Main.Controls.Add(this.dataGridView_Main);
             this.panel_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_Main.Location = new System.Drawing.Point(200, 81);
+            this.panel_Main.Location = new System.Drawing.Point(200, 50);
             this.panel_Main.Name = "panel_Main";
-            this.panel_Main.Size = new System.Drawing.Size(784, 260);
+            this.panel_Main.Size = new System.Drawing.Size(784, 291);
             this.panel_Main.TabIndex = 5;
             // 
             // dataGridView_Main
@@ -371,7 +371,7 @@
             this.dataGridView_Main.RowHeadersVisible = false;
             this.dataGridView_Main.RowTemplate.Height = 23;
             this.dataGridView_Main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Main.Size = new System.Drawing.Size(784, 260);
+            this.dataGridView_Main.Size = new System.Drawing.Size(784, 291);
             this.dataGridView_Main.TabIndex = 0;
             this.dataGridView_Main.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_Main_CellFormatting);
             // 
@@ -529,7 +529,7 @@
             this.toolStripButton4});
             this.toolStrip_Menu.Location = new System.Drawing.Point(0, 25);
             this.toolStrip_Menu.Name = "toolStrip_Menu";
-            this.toolStrip_Menu.Size = new System.Drawing.Size(984, 56);
+            this.toolStrip_Menu.Size = new System.Drawing.Size(984, 25);
             this.toolStrip_Menu.TabIndex = 2;
             this.toolStrip_Menu.Text = "toolStrip1";
             // 
@@ -538,7 +538,7 @@
             this.toolStripButton_NewWebSite.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton_NewWebSite.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_NewWebSite.Name = "toolStripButton_NewWebSite";
-            this.toolStripButton_NewWebSite.Size = new System.Drawing.Size(36, 53);
+            this.toolStripButton_NewWebSite.Size = new System.Drawing.Size(36, 22);
             this.toolStripButton_NewWebSite.Text = "新增";
             this.toolStripButton_NewWebSite.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton_NewWebSite.Click += new System.EventHandler(this.toolStripButton_WebSiteNew_Click);
@@ -549,7 +549,7 @@
             this.toolStripButton_EditWebSite.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton_EditWebSite.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_EditWebSite.Name = "toolStripButton_EditWebSite";
-            this.toolStripButton_EditWebSite.Size = new System.Drawing.Size(36, 53);
+            this.toolStripButton_EditWebSite.Size = new System.Drawing.Size(33, 22);
             this.toolStripButton_EditWebSite.Text = "编辑";
             this.toolStripButton_EditWebSite.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton_EditWebSite.Click += new System.EventHandler(this.toolStripButton_WebSiteEdit_Click);
@@ -559,7 +559,7 @@
             this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(36, 53);
+            this.toolStripButton3.Size = new System.Drawing.Size(36, 22);
             this.toolStripButton3.Text = "删除";
             this.toolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton_WebSiteDelete_Click);
@@ -567,14 +567,14 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 56);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButton_SystemConfig
             // 
             this.toolStripButton_SystemConfig.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton_SystemConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_SystemConfig.Name = "toolStripButton_SystemConfig";
-            this.toolStripButton_SystemConfig.Size = new System.Drawing.Size(36, 53);
+            this.toolStripButton_SystemConfig.Size = new System.Drawing.Size(36, 22);
             this.toolStripButton_SystemConfig.Text = "配置";
             this.toolStripButton_SystemConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton_SystemConfig.Click += new System.EventHandler(this.toolStripButton_SystemConfig_Click);
@@ -582,14 +582,14 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 56);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButton1
             // 
             this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(36, 53);
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 22);
             this.toolStripButton1.Text = "帮助";
             this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
@@ -599,7 +599,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 53);
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -609,13 +609,12 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 53);
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton4.Text = "toolStripButton4";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // menuStrip_Menu
             // 
-            this.menuStrip_Menu.BackColor = System.Drawing.Color.LightBlue;
             this.menuStrip_Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件ToolStripMenuItem,
             this.ToolStripMenuItem_Tool,
@@ -696,7 +695,7 @@
             this.ToolStripMenuItem_Data_Import_Text,
             this.ToolStripMenuItem_Data_Import_Http});
             this.ToolStripMenuItem_Data_Import.Name = "ToolStripMenuItem_Data_Import";
-            this.ToolStripMenuItem_Data_Import.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Data_Import.Size = new System.Drawing.Size(124, 22);
             this.ToolStripMenuItem_Data_Import.Text = "导入数据";
             // 
             // ToolStripMenuItem_Data_Import_Xml
@@ -723,7 +722,7 @@
             // 数据来源ToolStripMenuItem
             // 
             this.数据来源ToolStripMenuItem.Name = "数据来源ToolStripMenuItem";
-            this.数据来源ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.数据来源ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.数据来源ToolStripMenuItem.Text = "开启采集";
             this.数据来源ToolStripMenuItem.Click += new System.EventHandler(this.数据来源ToolStripMenuItem_Click);
             // 

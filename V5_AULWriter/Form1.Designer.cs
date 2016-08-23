@@ -66,7 +66,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(442, 53);
+            this.panel1.Size = new System.Drawing.Size(434, 53);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -75,7 +75,7 @@
             this.label1.Font = new System.Drawing.Font("Times New Roman", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(71, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 33);
+            this.label1.Size = new System.Drawing.Size(297, 33);
             this.label1.TabIndex = 0;
             this.label1.Text = "AutoUpdaterList Writer";
             // 
@@ -85,23 +85,23 @@
             this.panel2.Controls.Add(this.btnExit);
             this.panel2.Controls.Add(this.btnProduce);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 326);
+            this.panel2.Location = new System.Drawing.Point(0, 321);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(442, 40);
+            this.panel2.Size = new System.Drawing.Size(434, 40);
             this.panel2.TabIndex = 1;
             // 
             // prbProd
             // 
             this.prbProd.Location = new System.Drawing.Point(7, 5);
             this.prbProd.Name = "prbProd";
-            this.prbProd.Size = new System.Drawing.Size(266, 23);
+            this.prbProd.Size = new System.Drawing.Size(258, 23);
             this.prbProd.TabIndex = 2;
             this.prbProd.Visible = false;
             // 
             // btnExit
             // 
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExit.Location = new System.Drawing.Point(360, 6);
+            this.btnExit.Location = new System.Drawing.Point(352, 6);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 1;
@@ -112,7 +112,7 @@
             // btnProduce
             // 
             this.btnProduce.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProduce.Location = new System.Drawing.Point(279, 6);
+            this.btnProduce.Location = new System.Drawing.Point(271, 6);
             this.btnProduce.Name = "btnProduce";
             this.btnProduce.Size = new System.Drawing.Size(75, 23);
             this.btnProduce.TabIndex = 0;
@@ -126,7 +126,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(442, 273);
+            this.groupBox1.Size = new System.Drawing.Size(434, 268);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -138,7 +138,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 17);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(436, 253);
+            this.tabControl1.Size = new System.Drawing.Size(428, 248);
             this.tabControl1.TabIndex = 0;
             // 
             // tbpBase
@@ -154,10 +154,10 @@
             this.tbpBase.Controls.Add(this.btnSrc);
             this.tbpBase.Controls.Add(this.txtSrc);
             this.tbpBase.Controls.Add(this.label2);
-            this.tbpBase.Location = new System.Drawing.Point(4, 21);
+            this.tbpBase.Location = new System.Drawing.Point(4, 22);
             this.tbpBase.Name = "tbpBase";
             this.tbpBase.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpBase.Size = new System.Drawing.Size(428, 228);
+            this.tbpBase.Size = new System.Drawing.Size(420, 222);
             this.tbpBase.TabIndex = 0;
             this.tbpBase.Text = "※基本信息";
             this.tbpBase.UseVisualStyleBackColor = true;
@@ -166,7 +166,7 @@
             // 
             this.txtUrl.Location = new System.Drawing.Point(70, 38);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(288, 21);
+            this.txtUrl.Size = new System.Drawing.Size(277, 21);
             this.txtUrl.TabIndex = 10;
             // 
             // label5
@@ -181,7 +181,7 @@
             // btnExpt
             // 
             this.btnExpt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExpt.Location = new System.Drawing.Point(364, 162);
+            this.btnExpt.Location = new System.Drawing.Point(353, 162);
             this.btnExpt.Name = "btnExpt";
             this.btnExpt.Size = new System.Drawing.Size(58, 21);
             this.btnExpt.TabIndex = 8;
@@ -195,7 +195,7 @@
             this.txtExpt.Multiline = true;
             this.txtExpt.Name = "txtExpt";
             this.txtExpt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtExpt.Size = new System.Drawing.Size(288, 119);
+            this.txtExpt.Size = new System.Drawing.Size(277, 119);
             this.txtExpt.TabIndex = 7;
             // 
             // label4
@@ -210,7 +210,7 @@
             // btnDest
             // 
             this.btnDest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDest.Location = new System.Drawing.Point(365, 189);
+            this.btnDest.Location = new System.Drawing.Point(353, 189);
             this.btnDest.Name = "btnDest";
             this.btnDest.Size = new System.Drawing.Size(58, 21);
             this.btnDest.TabIndex = 5;
@@ -222,7 +222,7 @@
             // 
             this.txtDest.Location = new System.Drawing.Point(70, 189);
             this.txtDest.Name = "txtDest";
-            this.txtDest.Size = new System.Drawing.Size(288, 21);
+            this.txtDest.Size = new System.Drawing.Size(277, 21);
             this.txtDest.TabIndex = 4;
             // 
             // label3
@@ -237,7 +237,7 @@
             // btnSrc
             // 
             this.btnSrc.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSrc.Location = new System.Drawing.Point(364, 13);
+            this.btnSrc.Location = new System.Drawing.Point(353, 12);
             this.btnSrc.Name = "btnSrc";
             this.btnSrc.Size = new System.Drawing.Size(58, 21);
             this.btnSrc.TabIndex = 2;
@@ -249,7 +249,7 @@
             // 
             this.txtSrc.Location = new System.Drawing.Point(70, 13);
             this.txtSrc.Name = "txtSrc";
-            this.txtSrc.Size = new System.Drawing.Size(288, 21);
+            this.txtSrc.Size = new System.Drawing.Size(277, 21);
             this.txtSrc.TabIndex = 1;
             // 
             // label2
@@ -263,10 +263,10 @@
             // 
             // tbpOpt
             // 
-            this.tbpOpt.Location = new System.Drawing.Point(4, 21);
+            this.tbpOpt.Location = new System.Drawing.Point(4, 22);
             this.tbpOpt.Name = "tbpOpt";
             this.tbpOpt.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpOpt.Size = new System.Drawing.Size(428, 228);
+            this.tbpOpt.Size = new System.Drawing.Size(428, 227);
             this.tbpOpt.TabIndex = 1;
             this.tbpOpt.Text = "※选项";
             this.tbpOpt.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 366);
+            this.ClientSize = new System.Drawing.Size(434, 361);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

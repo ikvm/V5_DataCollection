@@ -105,7 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 196);
+            this.ClientSize = new System.Drawing.Size(409, 196);
             this.Controls.Add(this.txtEditID);
             this.Controls.Add(this.btnCancle);
             this.Controls.Add(this.btnSubmit);

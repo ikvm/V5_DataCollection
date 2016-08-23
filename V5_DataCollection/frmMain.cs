@@ -250,8 +250,7 @@ namespace V5_DataCollection {
         }
 
         private void sQLToolStripMenuItem_Click(object sender, EventArgs e) {
-            frmSQL formSQL = new frmSQL();
-            formSQL.ShowDialog(this);
+        
         }
 
         private void v5ToolStripMenuItem_Click(object sender, EventArgs e) {

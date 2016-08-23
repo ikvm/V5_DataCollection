@@ -227,12 +227,6 @@
     <Compile Include="Forms\Task\TaskData\frmTaskDataEdit.Designer.cs">
       <DependentUpon>frmTaskDataEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Tools\frmSQL.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Tools\frmSQL.Designer.cs">
-      <DependentUpon>frmSQL.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Tools\frmTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,36 +246,6 @@
     <Compile Include="_Class\DbObjects\SQL\DbObject.cs" />
     <Compile Include="_Class\Plan\JobDetailHelper.cs" />
     <Compile Include="_Class\Plan\PlanTaskHelper.cs" />
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigAccess.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigAccess.Designer.cs">
-      <DependentUpon>frmDataBaseConfigAccess.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigMySql.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigMySql.Designer.cs">
-      <DependentUpon>frmDataBaseConfigMySql.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigOracle.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigOracle.Designer.cs">
-      <DependentUpon>frmDataBaseConfigOracle.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigSQLite.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigSQLite.Designer.cs">
-      <DependentUpon>frmDataBaseConfigSQLite.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigSqlServer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Task\DataBaseConfig\frmDataBaseConfigSqlServer.Designer.cs">
-      <DependentUpon>frmDataBaseConfigSqlServer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Task\Tools\frmTaskDiyWebUrl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,12 +289,6 @@
     </Compile>
     <Compile Include="frmAboutBox.Designer.cs">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmLoadingDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLoadingDialog.Designer.cs">
-      <DependentUpon>frmLoadingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -430,21 +388,6 @@
     <EmbeddedResource Include="Forms\Publish\frmPublishEdit.resx">
       <DependentUpon>frmPublishEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Task\DataBaseConfig\frmDataBaseConfigAccess.resx">
-      <DependentUpon>frmDataBaseConfigAccess.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Task\DataBaseConfig\frmDataBaseConfigMySql.resx">
-      <DependentUpon>frmDataBaseConfigMySql.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Task\DataBaseConfig\frmDataBaseConfigOracle.resx">
-      <DependentUpon>frmDataBaseConfigOracle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Task\DataBaseConfig\frmDataBaseConfigSQLite.resx">
-      <DependentUpon>frmDataBaseConfigSQLite.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Task\DataBaseConfig\frmDataBaseConfigSqlServer.resx">
-      <DependentUpon>frmDataBaseConfigSqlServer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Task\TaskData\frmTaskDataEdit.resx">
       <DependentUpon>frmTaskDataEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -484,17 +427,11 @@
     <EmbeddedResource Include="Forms\Tools\frmOption.resx">
       <DependentUpon>frmOption.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Tools\frmSQL.resx">
-      <DependentUpon>frmSQL.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tools\frmTest.resx">
       <DependentUpon>frmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAboutBox.resx">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLoadingDialog.resx">
-      <DependentUpon>frmLoadingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

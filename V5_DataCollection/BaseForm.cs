@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace V5_DataCollection {
     public partial class BaseForm : Form {
-        public frmLoadingDialog loadingDialog = null;
+
         public BaseForm() {
             InitializeComponent();
 

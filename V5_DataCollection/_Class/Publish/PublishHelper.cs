@@ -187,29 +187,6 @@ namespace V5_DataCollection._Class.Publish {
                         sw.Close();
                     }
                 }
-                else if (ModelTask.SaveFileFormat2.ToLower() == ".sql") {
-                    try {
-                        string strTemplateContent = File.ReadAllText(ModelTask.SaveHtmlTemplate2, Encoding.UTF8);
-                        StringBuilder sbContent = new StringBuilder();
-                        foreach (DataRow dr in dtData.Rows) {
-                            string sql = strTemplateContent;
-                            foreach (ModelTaskLabel mTaskLabel in ModelTask.ListTaskLabel) {
-                                string content = dr[mTaskLabel.LabelName].ToString().Replace("'", "''");
-                                sql = sql.Replace("[" + mTaskLabel.LabelName + "]", content);
-                            }
-                            sbContent.AppendLine(sql);
-                        }
-                        using (StreamWriter sw = new StreamWriter(ModelTask.SaveDirectory2 + "\\sql.sql", false, Encoding.UTF8)) {
-                            sw.Write(sbContent.ToString());
-                            sw.Flush();
-                            sw.Close();
-                        }
-                    }
-                    catch (Exception ex) {
-                        gatherEv.Message = "错误!" + ex.Message;
-                        PublishCompalteDelegate(this, gatherEv);
-                    }
-                }
             }
             catch (Exception ex) {
                 Log4Helper.Write(V5_Utility.Utility.LogLevel.Error, ex);

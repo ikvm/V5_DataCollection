@@ -55,11 +55,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(277, 57);
+            this.button1.Location = new System.Drawing.Point(302, 57);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 23);
+            this.button1.Size = new System.Drawing.Size(81, 23);
             this.button1.TabIndex = 6;
-            this.button1.Text = "导入Web采集模块";
+            this.button1.Text = "导入";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // textBox1
@@ -99,7 +99,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "导入Web发布模块";
+            this.Text = "导入发布模块";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

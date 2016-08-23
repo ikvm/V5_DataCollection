@@ -1052,7 +1052,7 @@ namespace V5_DataCollection.Forms.Task {
             this.btnSaveDataBaseConfig.Name = "btnSaveDataBaseConfig";
             this.btnSaveDataBaseConfig.Size = new System.Drawing.Size(46, 23);
             this.btnSaveDataBaseConfig.TabIndex = 4;
-            this.btnSaveDataBaseConfig.Text = "设置";
+            this.btnSaveDataBaseConfig.Text = "测试";
             this.btnSaveDataBaseConfig.UseVisualStyleBackColor = true;
             this.btnSaveDataBaseConfig.Click += new System.EventHandler(this.btnSaveDataBaseConfig_Click);
             // 
@@ -1070,7 +1070,6 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.txtSaveDataUrl3.Location = new System.Drawing.Point(7, 80);
             this.txtSaveDataUrl3.Name = "txtSaveDataUrl3";
-            this.txtSaveDataUrl3.ReadOnly = true;
             this.txtSaveDataUrl3.Size = new System.Drawing.Size(241, 21);
             this.txtSaveDataUrl3.TabIndex = 3;
             // 
@@ -1212,8 +1211,7 @@ namespace V5_DataCollection.Forms.Task {
             this.ddlSaveFileFormat2.FormattingEnabled = true;
             this.ddlSaveFileFormat2.Items.AddRange(new object[] {
             ".Txt",
-            ".Html",
-            ".Sql"});
+            ".Html"});
             this.ddlSaveFileFormat2.Location = new System.Drawing.Point(87, 17);
             this.ddlSaveFileFormat2.Name = "ddlSaveFileFormat2";
             this.ddlSaveFileFormat2.Size = new System.Drawing.Size(121, 20);
@@ -1882,13 +1880,8 @@ namespace V5_DataCollection.Forms.Task {
             this.Controls.Add(this.cmbSiteClassID);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FrmTaskEdit";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "添加任务";
             this.Load += new System.EventHandler(this.FrmTaskEdit_Load);
             this.groupBox1.ResumeLayout(false);

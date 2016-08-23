@@ -12,8 +12,6 @@ using System.IO;
 using V5_DataCollection._Class.Gather;
 using V5_DataCollection.Forms.Publish;
 using V5_DataCollection._Class.Common;
-using V5_DataCollection.Forms.Task.DataBaseConfig;
-
 using System.Diagnostics;
 using V5_DataPlugins;
 using V5_DataCollection._Class.PythonExt;
@@ -27,6 +25,7 @@ using V5_WinLibs.Core;
 using V5_WinLibs.Utility;
 using V5_WinLibs.Expand;
 using V5_WinControls;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection.Forms.Task {
     public partial class FrmTaskEdit : BaseForm {
@@ -658,33 +657,35 @@ namespace V5_DataCollection.Forms.Task {
         #endregion
 
         #region Sql
-        int dbType = 0;
+
         private void btnSaveDataBaseConfig_Click(object sender, EventArgs e) {
+
+            var dbType = DataBaseType.SqlServer;
+
+            var dbLink = txtSaveDataUrl3.Text;
+
             if (this.rbtnAccess.Checked) {
-                frmDataBaseConfigAccess formDataBaseConfigAccess = new frmDataBaseConfigAccess();
-                formDataBaseConfigAccess.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigAccess.ShowDialog();
+                dbType = DataBaseType.OleDb;
             }
             else if (this.rbtnMsSql.Checked) {
-                frmDataBaseConfigSqlServer formDataBaseConfigSqlServer = new frmDataBaseConfigSqlServer();
-                formDataBaseConfigSqlServer.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigSqlServer.ShowDialog();
+                dbType = DataBaseType.OleDb;
             }
             else if (this.rbtnSqlite.Checked) {
-                frmDataBaseConfigSQLite formDataBaseConfigSQLite = new frmDataBaseConfigSQLite();
-                formDataBaseConfigSQLite.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigSQLite.ShowDialog();
+                dbType = DataBaseType.OleDb;
             }
             else if (this.rbtnMySql.Checked) {
-                frmDataBaseConfigMySql formDataBaseConfigMySql = new frmDataBaseConfigMySql();
-                formDataBaseConfigMySql.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigMySql.ShowDialog();
+                dbType = DataBaseType.OleDb;
             }
             else if (this.rbtnOracle.Checked) {
-                frmDataBaseConfigOracle formDataBaseConfigOracle = new frmDataBaseConfigOracle();
-                formDataBaseConfigOracle.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigOracle.ShowDialog();
+                dbType = DataBaseType.OleDb;
             }
+
+            using (var conn = DbHelperDapper.GetDbConnection(dbType, dbLink)) {
+                if (conn.State == ConnectionState.Open) {
+                    MessageBox.Show("数据库连接成功!");
+                }
+            }
+
         }
 
         private void OutDbConfigUrl(string strDbUrl) {

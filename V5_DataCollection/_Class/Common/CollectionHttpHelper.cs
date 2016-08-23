@@ -75,7 +75,7 @@ namespace V5_DataCollection._Class.Common {
 
         public void Test1() {
             var c = new CollectionHttpHelper();
-            c.WebBrowser = true;
+            c.WebBrowser = false;
             c.OutHtmlHandler += (string html) => {
                 System.Console.WriteLine(html);
             };
