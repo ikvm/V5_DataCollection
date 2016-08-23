@@ -19,6 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V5_DataPublishModule", "V5_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V5_DataWebBrowser", "V5_DataWebBrowser\V5_DataWebBrowser.csproj", "{94902BDD-1E20-436B-8462-1BCB35E4D293}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "其他", "其他", "{E22FC790-3258-48EE-97C6-F8766F2DB764}"
+	ProjectSection(SolutionItems) = preProject
+		V5_Logs\logs.txt = V5_Logs\logs.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
