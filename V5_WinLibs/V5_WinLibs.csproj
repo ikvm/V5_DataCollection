@@ -143,16 +143,6 @@
     <Compile Include="Html2Article\Html2Article.cs" />
     <Compile Include="Html2Article\TestHelper.cs" />
     <Compile Include="Html2Article\UrlUtility.cs" />
-    <Compile Include="IDE\DataBase\ColumnInfo.cs" />
-    <Compile Include="IDE\DataBase\Db\IDataBase.cs" />
-    <Compile Include="IDE\DataBase\Db\MySqlHelper.cs" />
-    <Compile Include="IDE\DataBase\Db\SqliteHelper.cs" />
-    <Compile Include="IDE\DataBase\Db\SqlServerHelper.cs" />
-    <Compile Include="IDE\DataBase\Db\TestDbHelper.cs" />
-    <Compile Include="IDE\HtmlCssStyle\HtmlCssStyleHelper.cs" />
-    <Compile Include="IDE\Novel\ModelNovel.cs" />
-    <Compile Include="IDE\Novel\NovelHelper.cs" />
-    <Compile Include="IDE\Novel\TestHelper.cs" />
     <Compile Include="LoggerHelper.cs" />
     <Compile Include="Core\ObjFileStoreHelper.cs" />
     <Compile Include="Core\SimulationHelper.cs" />

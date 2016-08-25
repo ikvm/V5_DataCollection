@@ -538,6 +538,7 @@ namespace V5_DataCollection.Forms.Task {
             frmTaskSpiderLabel FormTaskSpiderLabel = new frmTaskSpiderLabel();
             FormTaskSpiderLabel.ViewLabel = AddViewLabel;
             FormTaskSpiderLabel.TaskID = ID;
+            FormTaskSpiderLabel.TestUrl = this.txtTextViewUrl.Text;
             FormTaskSpiderLabel.ShowDialog(this);
         }
         /// <summary>
@@ -558,6 +559,7 @@ namespace V5_DataCollection.Forms.Task {
                 FormTaskSpiderLabel.EditItem = this.listViewTaskLabel.SelectedItems;
                 FormTaskSpiderLabel.ViewLabel = AddViewLabel;
                 FormTaskSpiderLabel.TaskID = ID;
+                FormTaskSpiderLabel.TestUrl = this.txtTextViewUrl.Text;
                 FormTaskSpiderLabel.ShowDialog(this);
             }
         }
@@ -1137,6 +1139,7 @@ namespace V5_DataCollection.Forms.Task {
                 FormTaskSpiderLabel.EditItem = this.listViewTaskLabel.SelectedItems;
                 FormTaskSpiderLabel.ViewLabel = AddViewLabel;
                 FormTaskSpiderLabel.TaskID = ID;
+                FormTaskSpiderLabel.TestUrl = this.txtTextViewUrl.Text;
                 FormTaskSpiderLabel.ShowDialog(this);
             }
         }

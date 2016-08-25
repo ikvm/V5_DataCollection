@@ -714,7 +714,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Location = new System.Drawing.Point(308, 7);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(434, 350);
+            this.groupBox7.Size = new System.Drawing.Size(434, 405);
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "采集页面测试";
@@ -723,7 +723,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.txtTestViewUrlShow.Location = new System.Drawing.Point(8, 43);
             this.txtTestViewUrlShow.Name = "txtTestViewUrlShow";
-            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 301);
+            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 356);
             this.txtTestViewUrlShow.TabIndex = 3;
             this.txtTestViewUrlShow.Text = "";
             // 
@@ -765,7 +765,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox6.Controls.Add(this.listViewTaskLabel);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(296, 351);
+            this.groupBox6.Size = new System.Drawing.Size(296, 406);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "页面内容标签定义";
@@ -841,7 +841,7 @@ namespace V5_DataCollection.Forms.Task {
             this.listViewTaskLabel.Location = new System.Drawing.Point(75, 20);
             this.listViewTaskLabel.MultiSelect = false;
             this.listViewTaskLabel.Name = "listViewTaskLabel";
-            this.listViewTaskLabel.Size = new System.Drawing.Size(215, 325);
+            this.listViewTaskLabel.Size = new System.Drawing.Size(215, 380);
             this.listViewTaskLabel.TabIndex = 0;
             this.listViewTaskLabel.UseCompatibleStateImageBehavior = false;
             this.listViewTaskLabel.View = System.Windows.Forms.View.Details;

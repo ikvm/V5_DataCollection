@@ -33,9 +33,9 @@ namespace V5_DataCollection.Forms.Task
             this.components = new System.ComponentModel.Container();
             this.txtID = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.v5LinkLabel6 = new V5LinkLabel(this.components);
-            this.txtLabelNameCutRegex = new V5RichTextBox();
-            this.v5LinkLabel5 = new V5LinkLabel(this.components);
+            this.v5LinkLabel6 = new V5_WinControls.V5LinkLabel(this.components);
+            this.txtLabelNameCutRegex = new V5_WinControls.V5RichTextBox();
+            this.v5LinkLabel5 = new V5_WinControls.V5LinkLabel(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chkhref = new System.Windows.Forms.CheckBox();
@@ -64,41 +64,30 @@ namespace V5_DataCollection.Forms.Task
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.v5LinkLabel2 = new V5LinkLabel(this.components);
-            this.txtLabelValueIsLinkUrlRegex = new V5RichTextBox();
-            this.v5LinkLabel1 = new V5LinkLabel(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.v5LinkLabel4 = new V5LinkLabel(this.components);
-            this.txtLabelValueIsPagerRegex = new V5RichTextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.v5LinkLabel3 = new V5LinkLabel(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.txtLabelName = new System.Windows.Forms.TextBox();
-            this.chkLabelNoNull = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.chkLabelIsLinkUrl = new System.Windows.Forms.CheckBox();
-            this.chkLabelIsPager = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkLabelIsLoop = new System.Windows.Forms.CheckBox();
+            this.txtTestUrl = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbSpiderPlugin = new System.Windows.Forms.ComboBox();
             this.lblPluginEdit = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.txtLogView = new System.Windows.Forms.TextBox();
+            this.btnTest = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(439, 513);
+            this.txtID.Location = new System.Drawing.Point(360, 514);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(75, 21);
             this.txtID.TabIndex = 2;
@@ -167,7 +156,7 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox3.Controls.Add(this.chkFont);
             this.groupBox3.Controls.Add(this.chkTable);
             this.groupBox3.Controls.Add(this.chkAllHtml);
-            this.groupBox3.Location = new System.Drawing.Point(6, 280);
+            this.groupBox3.Location = new System.Drawing.Point(6, 131);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(333, 102);
             this.groupBox3.TabIndex = 2;
@@ -243,7 +232,7 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox4.Controls.Add(this.txtDownResourceExt);
             this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.chkDownResource);
-            this.groupBox4.Location = new System.Drawing.Point(349, 280);
+            this.groupBox4.Location = new System.Drawing.Point(349, 131);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(350, 102);
             this.groupBox4.TabIndex = 2;
@@ -284,7 +273,7 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox5.Controls.Add(this.btnContentRemoveEdit);
             this.groupBox5.Controls.Add(this.btnContentRemoveAdd);
             this.groupBox5.Controls.Add(this.listViewContentRemove);
-            this.groupBox5.Location = new System.Drawing.Point(6, 388);
+            this.groupBox5.Location = new System.Drawing.Point(6, 239);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(333, 112);
             this.groupBox5.TabIndex = 3;
@@ -346,7 +335,7 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox6.Controls.Add(this.listViewContentReplace);
             this.groupBox6.Controls.Add(this.btnContentReplaceEdit);
             this.groupBox6.Controls.Add(this.btnContentReplaceAdd);
-            this.groupBox6.Location = new System.Drawing.Point(348, 388);
+            this.groupBox6.Location = new System.Drawing.Point(348, 239);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(351, 112);
             this.groupBox6.TabIndex = 3;
@@ -410,7 +399,7 @@ namespace V5_DataCollection.Forms.Task
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(520, 513);
+            this.btnSubmit.Location = new System.Drawing.Point(543, 514);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 4;
@@ -420,7 +409,7 @@ namespace V5_DataCollection.Forms.Task
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(624, 513);
+            this.btnCancel.Location = new System.Drawing.Point(624, 514);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -431,116 +420,6 @@ namespace V5_DataCollection.Forms.Task
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.v5LinkLabel2);
-            this.groupBox7.Controls.Add(this.v5LinkLabel1);
-            this.groupBox7.Controls.Add(this.txtLabelValueIsLinkUrlRegex);
-            this.groupBox7.Controls.Add(this.label4);
-            this.groupBox7.Location = new System.Drawing.Point(10, 122);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(689, 73);
-            this.groupBox7.TabIndex = 7;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "标签是链接";
-            // 
-            // v5LinkLabel2
-            // 
-            this.v5LinkLabel2.AutoSize = true;
-            this.v5LinkLabel2.LabelValue = "(*)";
-            this.v5LinkLabel2.Location = new System.Drawing.Point(646, 45);
-            this.v5LinkLabel2.Name = "v5LinkLabel2";
-            this.v5LinkLabel2.RichTextBox = this.txtLabelValueIsLinkUrlRegex;
-            this.v5LinkLabel2.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel2.TabIndex = 12;
-            this.v5LinkLabel2.TabStop = true;
-            this.v5LinkLabel2.Text = "(*)";
-            // 
-            // txtLabelValueIsLinkUrlRegex
-            // 
-            this.txtLabelValueIsLinkUrlRegex.Enabled = false;
-            this.txtLabelValueIsLinkUrlRegex.Location = new System.Drawing.Point(82, 15);
-            this.txtLabelValueIsLinkUrlRegex.Name = "txtLabelValueIsLinkUrlRegex";
-            this.txtLabelValueIsLinkUrlRegex.Size = new System.Drawing.Size(562, 52);
-            this.txtLabelValueIsLinkUrlRegex.TabIndex = 10;
-            this.txtLabelValueIsLinkUrlRegex.Text = "";
-            // 
-            // v5LinkLabel1
-            // 
-            this.v5LinkLabel1.AutoSize = true;
-            this.v5LinkLabel1.LabelValue = "[参数]";
-            this.v5LinkLabel1.Location = new System.Drawing.Point(646, 21);
-            this.v5LinkLabel1.Name = "v5LinkLabel1";
-            this.v5LinkLabel1.RichTextBox = this.txtLabelValueIsLinkUrlRegex;
-            this.v5LinkLabel1.Size = new System.Drawing.Size(41, 12);
-            this.v5LinkLabel1.TabIndex = 11;
-            this.v5LinkLabel1.TabStop = true;
-            this.v5LinkLabel1.Text = "[参数]";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 21);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "表达式内容";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.v5LinkLabel4);
-            this.groupBox8.Controls.Add(this.label5);
-            this.groupBox8.Controls.Add(this.v5LinkLabel3);
-            this.groupBox8.Controls.Add(this.txtLabelValueIsPagerRegex);
-            this.groupBox8.Location = new System.Drawing.Point(10, 201);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(689, 73);
-            this.groupBox8.TabIndex = 8;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "标签值为分页";
-            // 
-            // v5LinkLabel4
-            // 
-            this.v5LinkLabel4.AutoSize = true;
-            this.v5LinkLabel4.LabelValue = "(*)";
-            this.v5LinkLabel4.Location = new System.Drawing.Point(646, 39);
-            this.v5LinkLabel4.Name = "v5LinkLabel4";
-            this.v5LinkLabel4.RichTextBox = this.txtLabelValueIsPagerRegex;
-            this.v5LinkLabel4.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel4.TabIndex = 12;
-            this.v5LinkLabel4.TabStop = true;
-            this.v5LinkLabel4.Text = "(*)";
-            // 
-            // txtLabelValueIsPagerRegex
-            // 
-            this.txtLabelValueIsPagerRegex.Enabled = false;
-            this.txtLabelValueIsPagerRegex.Location = new System.Drawing.Point(80, 15);
-            this.txtLabelValueIsPagerRegex.Name = "txtLabelValueIsPagerRegex";
-            this.txtLabelValueIsPagerRegex.Size = new System.Drawing.Size(562, 52);
-            this.txtLabelValueIsPagerRegex.TabIndex = 10;
-            this.txtLabelValueIsPagerRegex.Text = "";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 21);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "表达式内容";
-            // 
-            // v5LinkLabel3
-            // 
-            this.v5LinkLabel3.AutoSize = true;
-            this.v5LinkLabel3.LabelValue = "[参数]";
-            this.v5LinkLabel3.Location = new System.Drawing.Point(646, 15);
-            this.v5LinkLabel3.Name = "v5LinkLabel3";
-            this.v5LinkLabel3.RichTextBox = this.txtLabelValueIsPagerRegex;
-            this.v5LinkLabel3.Size = new System.Drawing.Size(41, 12);
-            this.v5LinkLabel3.TabIndex = 11;
-            this.v5LinkLabel3.TabStop = true;
-            this.v5LinkLabel3.Text = "[参数]";
             // 
             // label1
             // 
@@ -558,55 +437,10 @@ namespace V5_DataCollection.Forms.Task
             this.txtLabelName.Size = new System.Drawing.Size(141, 21);
             this.txtLabelName.TabIndex = 1;
             // 
-            // chkLabelNoNull
-            // 
-            this.chkLabelNoNull.AutoSize = true;
-            this.chkLabelNoNull.Location = new System.Drawing.Point(305, 15);
-            this.chkLabelNoNull.Name = "chkLabelNoNull";
-            this.chkLabelNoNull.Size = new System.Drawing.Size(96, 16);
-            this.chkLabelNoNull.TabIndex = 4;
-            this.chkLabelNoNull.Text = "标签不能为空";
-            this.chkLabelNoNull.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(492, 15);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(96, 16);
-            this.checkBox3.TabIndex = 4;
-            this.checkBox3.Text = "标签不得重复";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // chkLabelIsLinkUrl
-            // 
-            this.chkLabelIsLinkUrl.AutoSize = true;
-            this.chkLabelIsLinkUrl.Location = new System.Drawing.Point(591, 14);
-            this.chkLabelIsLinkUrl.Name = "chkLabelIsLinkUrl";
-            this.chkLabelIsLinkUrl.Size = new System.Drawing.Size(84, 16);
-            this.chkLabelIsLinkUrl.TabIndex = 4;
-            this.chkLabelIsLinkUrl.Text = "标签为链接";
-            this.chkLabelIsLinkUrl.UseVisualStyleBackColor = true;
-            this.chkLabelIsLinkUrl.CheckedChanged += new System.EventHandler(this.chkLabelValueIsLinkUrl_CheckedChanged);
-            // 
-            // chkLabelIsPager
-            // 
-            this.chkLabelIsPager.AutoSize = true;
-            this.chkLabelIsPager.Location = new System.Drawing.Point(404, 15);
-            this.chkLabelIsPager.Name = "chkLabelIsPager";
-            this.chkLabelIsPager.Size = new System.Drawing.Size(84, 16);
-            this.chkLabelIsPager.TabIndex = 5;
-            this.chkLabelIsPager.Text = "标签为分页";
-            this.chkLabelIsPager.UseVisualStyleBackColor = true;
-            this.chkLabelIsPager.CheckedChanged += new System.EventHandler(this.chkLabelValueIsPager_CheckedChanged);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chkLabelIsPager);
-            this.groupBox1.Controls.Add(this.chkLabelIsLinkUrl);
-            this.groupBox1.Controls.Add(this.checkBox3);
-            this.groupBox1.Controls.Add(this.chkLabelNoNull);
-            this.groupBox1.Controls.Add(this.chkLabelIsLoop);
+            this.groupBox1.Controls.Add(this.txtTestUrl);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtLabelName);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
@@ -616,20 +450,26 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "基本配置";
             // 
-            // chkLabelIsLoop
+            // txtTestUrl
             // 
-            this.chkLabelIsLoop.AutoSize = true;
-            this.chkLabelIsLoop.Location = new System.Drawing.Point(217, 15);
-            this.chkLabelIsLoop.Name = "chkLabelIsLoop";
-            this.chkLabelIsLoop.Size = new System.Drawing.Size(84, 16);
-            this.chkLabelIsLoop.TabIndex = 3;
-            this.chkLabelIsLoop.Text = "标签为循环";
-            this.chkLabelIsLoop.UseVisualStyleBackColor = true;
+            this.txtTestUrl.Location = new System.Drawing.Point(269, 13);
+            this.txtTestUrl.Name = "txtTestUrl";
+            this.txtTestUrl.Size = new System.Drawing.Size(418, 21);
+            this.txtTestUrl.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(212, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 12);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "测试地址:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 513);
+            this.label3.Location = new System.Drawing.Point(21, 519);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 9;
@@ -638,33 +478,63 @@ namespace V5_DataCollection.Forms.Task
             // cmbSpiderPlugin
             // 
             this.cmbSpiderPlugin.FormattingEnabled = true;
-            this.cmbSpiderPlugin.Location = new System.Drawing.Point(77, 510);
+            this.cmbSpiderPlugin.Location = new System.Drawing.Point(77, 515);
             this.cmbSpiderPlugin.Name = "cmbSpiderPlugin";
-            this.cmbSpiderPlugin.Size = new System.Drawing.Size(262, 20);
+            this.cmbSpiderPlugin.Size = new System.Drawing.Size(231, 20);
             this.cmbSpiderPlugin.TabIndex = 10;
             // 
             // lblPluginEdit
             // 
             this.lblPluginEdit.AutoSize = true;
-            this.lblPluginEdit.Location = new System.Drawing.Point(346, 513);
+            this.lblPluginEdit.Location = new System.Drawing.Point(314, 519);
             this.lblPluginEdit.Name = "lblPluginEdit";
             this.lblPluginEdit.Size = new System.Drawing.Size(29, 12);
             this.lblPluginEdit.TabIndex = 11;
             this.lblPluginEdit.Text = "编辑";
             this.lblPluginEdit.Click += new System.EventHandler(this.lblPluginEdit_Click);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.txtLogView);
+            this.groupBox7.Location = new System.Drawing.Point(6, 357);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(693, 147);
+            this.groupBox7.TabIndex = 12;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "日志";
+            // 
+            // txtLogView
+            // 
+            this.txtLogView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLogView.Location = new System.Drawing.Point(3, 17);
+            this.txtLogView.MaxLength = 0;
+            this.txtLogView.Multiline = true;
+            this.txtLogView.Name = "txtLogView";
+            this.txtLogView.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtLogView.Size = new System.Drawing.Size(687, 127);
+            this.txtLogView.TabIndex = 0;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(462, 515);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(75, 23);
+            this.btnTest.TabIndex = 4;
+            this.btnTest.Text = "测试";
+            this.btnTest.UseVisualStyleBackColor = true;
+            // 
             // frmTaskSpiderLabel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 548);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.lblPluginEdit);
             this.Controls.Add(this.cmbSpiderPlugin);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.groupBox8);
-            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtID);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -690,12 +560,10 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -733,29 +601,19 @@ namespace V5_DataCollection.Forms.Task
         private System.Windows.Forms.TextBox txtDownResourceExt;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox chkLabelIsPager;
-        private System.Windows.Forms.CheckBox chkLabelIsLinkUrl;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox chkLabelNoNull;
         private System.Windows.Forms.TextBox txtLabelName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chkLabelIsLoop;
-        private V5RichTextBox txtLabelValueIsLinkUrlRegex;
-        private V5LinkLabel v5LinkLabel1;
-        private V5LinkLabel v5LinkLabel2;
-        private V5LinkLabel v5LinkLabel4;
-        private V5RichTextBox txtLabelValueIsPagerRegex;
-        private V5LinkLabel v5LinkLabel3;
         private V5LinkLabel v5LinkLabel6;
         private V5RichTextBox txtLabelNameCutRegex;
         private V5LinkLabel v5LinkLabel5;
         private System.Windows.Forms.ComboBox cmbSpiderPlugin;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblPluginEdit;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtTestUrl;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox txtLogView;
+        private System.Windows.Forms.Button btnTest;
     }
 }

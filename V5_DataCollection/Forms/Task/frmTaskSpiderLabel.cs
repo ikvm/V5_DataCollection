@@ -33,6 +33,10 @@ namespace V5_DataCollection.Forms.Task {
             get { return _TaskID; }
             set { _TaskID = value; }
         }
+        /// <summary>
+        /// 测试地址
+        /// </summary>
+        public string TestUrl { get; set; } = string.Empty;
         #endregion
 
         DALTaskLabel dal = new DALTaskLabel();
@@ -81,13 +85,6 @@ namespace V5_DataCollection.Forms.Task {
                 model.LabelReplace = model.LabelReplace.Remove(model.LabelReplace.Length - 4);
             }
             #endregion
-
-            model.IsLoop = this.chkLabelIsLoop.Checked ? 1 : 0;
-            model.IsNoNull = this.chkLabelNoNull.Checked ? 1 : 0;
-            model.IsLinkUrl = this.chkLabelIsLinkUrl.Checked ? 1 : 0;
-            model.IsPager = this.chkLabelIsPager.Checked ? 1 : 0;
-            model.LabelValueLinkUrlRegex = this.txtLabelValueIsLinkUrlRegex.Text.Replace("'", "''");
-            model.LabelValuePagerRegex = this.txtLabelValueIsPagerRegex.Text.Replace("'", "''");
             //
             model.SpiderLabelPlugin = this.cmbSpiderPlugin.Text;
             //下载文件
@@ -116,6 +113,9 @@ namespace V5_DataCollection.Forms.Task {
         }
 
         private void frmTaskSpiderLabel_Load(object sender, EventArgs e) {
+
+            this.txtTestUrl.Text = this.TestUrl;
+
 
             Bind_SpiderContentPlugin();
 
@@ -175,16 +175,6 @@ namespace V5_DataCollection.Forms.Task {
                 }
             }
             #endregion
-
-
-            this.chkLabelIsLoop.Checked = model.IsLoop == 1 ? true : false;
-            this.chkLabelNoNull.Checked = model.IsNoNull == 1 ? true : false;
-            this.chkLabelIsLinkUrl.Checked = model.IsLinkUrl == 1 ? true : false;
-            this.chkLabelIsPager.Checked = model.IsPager == 1 ? true : false;
-
-            this.txtLabelValueIsLinkUrlRegex.Text = model.LabelValueLinkUrlRegex;
-            this.txtLabelValueIsPagerRegex.Text = model.LabelValuePagerRegex;
-
 
             this.cmbSpiderPlugin.Text = model.SpiderLabelPlugin == string.Empty ? "不使用插件" : model.SpiderLabelPlugin;
 
@@ -334,24 +324,6 @@ namespace V5_DataCollection.Forms.Task {
             }
         }
         #endregion
-
-        private void chkLabelValueIsPager_CheckedChanged(object sender, EventArgs e) {
-            if (this.chkLabelIsPager.Checked) {
-                this.txtLabelValueIsPagerRegex.Enabled = true;
-            }
-            else {
-                this.txtLabelValueIsPagerRegex.Enabled = false;
-            }
-        }
-
-        private void chkLabelValueIsLinkUrl_CheckedChanged(object sender, EventArgs e) {
-            if (this.chkLabelIsLinkUrl.Checked) {
-                this.txtLabelValueIsLinkUrlRegex.Enabled = true;
-            }
-            else {
-                this.txtLabelValueIsLinkUrlRegex.Enabled = false;
-            }
-        }
 
         private static string SpiderUrlPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\System\\SpiderLabel\\";
 
