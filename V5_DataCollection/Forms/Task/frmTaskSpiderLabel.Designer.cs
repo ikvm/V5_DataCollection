@@ -82,8 +82,8 @@ namespace V5_DataCollection.Forms.Task
             this.chkLabelIsLinkUrl = new System.Windows.Forms.CheckBox();
             this.chkLabelIsPager = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioBtnUrl = new System.Windows.Forms.RadioButton();
-            this.radioBtnSource = new System.Windows.Forms.RadioButton();
+            this.txtTestUrl = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.chkLabelIsLoop = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbSpiderPlugin = new System.Windows.Forms.ComboBox();
@@ -99,8 +99,6 @@ namespace V5_DataCollection.Forms.Task
             this.chkHrefLbl = new System.Windows.Forms.CheckBox();
             this.chkScriptLbl = new System.Windows.Forms.CheckBox();
             this.chkTableLbl = new System.Windows.Forms.CheckBox();
-            this.txtTestUrl = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.txtLogView = new System.Windows.Forms.TextBox();
             this.btnTest = new System.Windows.Forms.Button();
@@ -579,7 +577,7 @@ namespace V5_DataCollection.Forms.Task
             // 
             this.txtLabelName.Location = new System.Drawing.Point(65, 13);
             this.txtLabelName.Name = "txtLabelName";
-            this.txtLabelName.Size = new System.Drawing.Size(401, 21);
+            this.txtLabelName.Size = new System.Drawing.Size(159, 21);
             this.txtLabelName.TabIndex = 1;
             // 
             // chkLabelNoNull
@@ -632,8 +630,6 @@ namespace V5_DataCollection.Forms.Task
             // 
             this.groupBox1.Controls.Add(this.txtTestUrl);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.radioBtnUrl);
-            this.groupBox1.Controls.Add(this.radioBtnSource);
             this.groupBox1.Controls.Add(this.chkLabelIsPager);
             this.groupBox1.Controls.Add(this.chkLabelIsLinkUrl);
             this.groupBox1.Controls.Add(this.checkBox3);
@@ -648,28 +644,21 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "基本配置";
             // 
-            // radioBtnUrl
+            // txtTestUrl
             // 
-            this.radioBtnUrl.AutoSize = true;
-            this.radioBtnUrl.Location = new System.Drawing.Point(575, 13);
-            this.radioBtnUrl.Name = "radioBtnUrl";
-            this.radioBtnUrl.Size = new System.Drawing.Size(95, 16);
-            this.radioBtnUrl.TabIndex = 7;
-            this.radioBtnUrl.TabStop = true;
-            this.radioBtnUrl.Text = "从网址中获取";
-            this.radioBtnUrl.UseVisualStyleBackColor = true;
+            this.txtTestUrl.Location = new System.Drawing.Point(291, 13);
+            this.txtTestUrl.Name = "txtTestUrl";
+            this.txtTestUrl.Size = new System.Drawing.Size(393, 21);
+            this.txtTestUrl.TabIndex = 9;
             // 
-            // radioBtnSource
+            // label6
             // 
-            this.radioBtnSource.AutoSize = true;
-            this.radioBtnSource.Checked = true;
-            this.radioBtnSource.Location = new System.Drawing.Point(473, 13);
-            this.radioBtnSource.Name = "radioBtnSource";
-            this.radioBtnSource.Size = new System.Drawing.Size(95, 16);
-            this.radioBtnSource.TabIndex = 6;
-            this.radioBtnSource.TabStop = true;
-            this.radioBtnSource.Text = "从源码中获取";
-            this.radioBtnSource.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(232, 17);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "测试地址";
             // 
             // chkLabelIsLoop
             // 
@@ -828,22 +817,6 @@ namespace V5_DataCollection.Forms.Task
             this.chkTableLbl.Text = "Table";
             this.chkTableLbl.UseVisualStyleBackColor = true;
             // 
-            // txtTestUrl
-            // 
-            this.txtTestUrl.Location = new System.Drawing.Point(64, 39);
-            this.txtTestUrl.Name = "txtTestUrl";
-            this.txtTestUrl.Size = new System.Drawing.Size(402, 21);
-            this.txtTestUrl.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 43);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "测试地址";
-            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.txtLogView);
@@ -985,8 +958,6 @@ namespace V5_DataCollection.Forms.Task
         private System.Windows.Forms.ComboBox cmbSpiderPlugin;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblPluginEdit;
-        private System.Windows.Forms.RadioButton radioBtnSource;
-        private System.Windows.Forms.RadioButton radioBtnUrl;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox chkRemarkLbl;
         private System.Windows.Forms.CheckBox chkDivLbl;

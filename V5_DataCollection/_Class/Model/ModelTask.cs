@@ -11,34 +11,34 @@ namespace V5_Model {
     [Serializable]
     public class ModelTask {
         #region Model
-        private int _id;
-        private string _taskname;
-        private int? _isspiderurl;
-        private int? _isspidercontent;
-        private int? _ispublishcontent;
-        private string _pageencode;
-        private int? _collectiontype;
-        private string _collectioncontent;
-        private string _linkurlmustincludestr;
-        private string _linkurlnomustincludestr;
-        private string _linkspliceurlstr;
-        private string _linkurlcutareastart;
-        private string _linkurlcutareaend;
-        private string _testviewurl;
-        private int? _iswebonlinepublish1;
-        private int? _issavelocal2;
-        private string _savefileformat2;
-        private string _savedirectory2;
-        private string _savehtmltemplate2;
-        private int? _saveiscreateindex2;
-        private int? _issavedatabase3;
-        private int? _savedatatype3;
-        private string _savedataurl3;
-        private string _savedatasql3;
-        private int? _issavesql4;
-        private string _savesqlcontent4;
-        private string _savesqldirectory4;
-        private string _guid;
+        private int _id = 0;
+        private string _taskname = string.Empty;
+        private int? _isspiderurl=0;
+        private int? _isspidercontent=0;
+        private int? _ispublishcontent=0;
+        private string _pageencode = "utf-8";
+        private int? _collectiontype=0;
+        private string _collectioncontent = string.Empty;
+        private string _linkurlmustincludestr = string.Empty;
+        private string _linkurlnomustincludestr = string.Empty;
+        private string _linkspliceurlstr = string.Empty;
+        private string _linkurlcutareastart = string.Empty;
+        private string _linkurlcutareaend = string.Empty;
+        private string _testviewurl = string.Empty;
+        private int? _iswebonlinepublish1=0;
+        private int? _issavelocal2=0;
+        private string _savefileformat2 = string.Empty;
+        private string _savedirectory2 = string.Empty;
+        private string _savehtmltemplate2 = string.Empty;
+        private int? _saveiscreateindex2=0;
+        private int? _issavedatabase3=0;
+        private int? _savedatatype3=0;
+        private string _savedataurl3 = string.Empty;
+        private string _savedatasql3 = string.Empty;
+        private int? _issavesql4=0;
+        private string _savesqlcontent4 = string.Empty;
+        private string _savesqldirectory4 = string.Empty;
+        private string _guid = string.Empty;
 
 
         /// <summary>
@@ -118,8 +118,7 @@ namespace V5_Model {
         /// <summary>
         /// 拼接地址
         /// </summary>
-        public string LinkSpliceUrlStr
-        {
+        public string LinkSpliceUrlStr {
             set { _linkspliceurlstr = value; }
             get { return _linkspliceurlstr; }
         }
@@ -372,14 +371,14 @@ namespace V5_Model {
             set { _DemoListUrl = value; }
         }
 
-        private int _IsPlan;
+        private int _IsPlan=0;
 
         public int IsPlan {
             get { return _IsPlan; }
             set { _IsPlan = value; }
         }
 
-        private string _PlanFormat;
+        private string _PlanFormat = string.Empty;
 
         public string PlanFormat {
             get { return _PlanFormat; }

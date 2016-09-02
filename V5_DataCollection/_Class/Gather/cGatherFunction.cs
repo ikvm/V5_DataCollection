@@ -8,6 +8,12 @@ using V5_DataCollection._Class.Common;
 namespace V5_DataCollection._Class.Gather {
     public class cGatherFunction {
 
+        private static cGatherFunction m_Instance = new cGatherFunction();
+
+        public static cGatherFunction Instance {
+            get { return m_Instance; }
+        }
+
         #region
         /// <summary>
         /// 分割采集Url

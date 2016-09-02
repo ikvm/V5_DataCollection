@@ -47,13 +47,9 @@ namespace V5_DataCollection.Forms.Task {
             this.txtLinkUrlMustIncludeStr = new V5_WinControls.V5RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.v5LinkLabel10 = new V5_WinControls.V5LinkLabel(this.components);
-            this.txtSpliceUrl = new V5_WinControls.V5RichTextBox();
-            this.v5LinkLabel9 = new V5_WinControls.V5LinkLabel(this.components);
             this.v5LinkLabel8 = new V5_WinControls.V5LinkLabel(this.components);
             this.txtHandCollectionUrlRegex = new V5_WinControls.V5RichTextBox();
             this.v5LinkLabel7 = new V5_WinControls.V5LinkLabel(this.components);
-            this.label6 = new System.Windows.Forms.Label();
             this.v5LinkLabel2 = new V5_WinControls.V5LinkLabel(this.components);
             this.v5LinkLabel1 = new V5_WinControls.V5LinkLabel(this.components);
             this.chkIsHandGetUrl = new System.Windows.Forms.CheckBox();
@@ -446,12 +442,8 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // groupBox19
             // 
-            this.groupBox19.Controls.Add(this.v5LinkLabel10);
-            this.groupBox19.Controls.Add(this.v5LinkLabel9);
             this.groupBox19.Controls.Add(this.v5LinkLabel8);
             this.groupBox19.Controls.Add(this.v5LinkLabel7);
-            this.groupBox19.Controls.Add(this.txtSpliceUrl);
-            this.groupBox19.Controls.Add(this.label6);
             this.groupBox19.Controls.Add(this.v5LinkLabel2);
             this.groupBox19.Controls.Add(this.v5LinkLabel1);
             this.groupBox19.Controls.Add(this.chkIsHandGetUrl);
@@ -463,38 +455,6 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox19.TabIndex = 6;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "手动设置获取规则";
-            // 
-            // v5LinkLabel10
-            // 
-            this.v5LinkLabel10.AutoSize = true;
-            this.v5LinkLabel10.LabelValue = "[标签:XX]";
-            this.v5LinkLabel10.Location = new System.Drawing.Point(660, 90);
-            this.v5LinkLabel10.Name = "v5LinkLabel10";
-            this.v5LinkLabel10.RichTextBox = this.txtSpliceUrl;
-            this.v5LinkLabel10.Size = new System.Drawing.Size(59, 12);
-            this.v5LinkLabel10.TabIndex = 18;
-            this.v5LinkLabel10.TabStop = true;
-            this.v5LinkLabel10.Text = "[标签:XX]";
-            // 
-            // txtSpliceUrl
-            // 
-            this.txtSpliceUrl.Location = new System.Drawing.Point(79, 83);
-            this.txtSpliceUrl.Name = "txtSpliceUrl";
-            this.txtSpliceUrl.Size = new System.Drawing.Size(530, 22);
-            this.txtSpliceUrl.TabIndex = 14;
-            this.txtSpliceUrl.Text = "";
-            // 
-            // v5LinkLabel9
-            // 
-            this.v5LinkLabel9.AutoSize = true;
-            this.v5LinkLabel9.LabelValue = "[参数N]";
-            this.v5LinkLabel9.Location = new System.Drawing.Point(613, 90);
-            this.v5LinkLabel9.Name = "v5LinkLabel9";
-            this.v5LinkLabel9.RichTextBox = this.txtSpliceUrl;
-            this.v5LinkLabel9.Size = new System.Drawing.Size(47, 12);
-            this.v5LinkLabel9.TabIndex = 17;
-            this.v5LinkLabel9.TabStop = true;
-            this.v5LinkLabel9.Text = "[参数N]";
             // 
             // v5LinkLabel8
             // 
@@ -513,7 +473,7 @@ namespace V5_DataCollection.Forms.Task {
             this.txtHandCollectionUrlRegex.Enabled = false;
             this.txtHandCollectionUrlRegex.Location = new System.Drawing.Point(79, 19);
             this.txtHandCollectionUrlRegex.Name = "txtHandCollectionUrlRegex";
-            this.txtHandCollectionUrlRegex.Size = new System.Drawing.Size(530, 53);
+            this.txtHandCollectionUrlRegex.Size = new System.Drawing.Size(530, 87);
             this.txtHandCollectionUrlRegex.TabIndex = 8;
             this.txtHandCollectionUrlRegex.Text = "";
             // 
@@ -528,15 +488,6 @@ namespace V5_DataCollection.Forms.Task {
             this.v5LinkLabel7.TabIndex = 15;
             this.v5LinkLabel7.TabStop = true;
             this.v5LinkLabel7.Text = "(NUM)";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 84);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "拼接地址：";
             // 
             // v5LinkLabel2
             // 
@@ -2206,11 +2157,7 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox groupBox20;
-        private System.Windows.Forms.Label label6;
-        private V5RichTextBox txtSpliceUrl;
         private V5LinkLabel v5LinkLabel7;
         private V5LinkLabel v5LinkLabel8;
-        private V5LinkLabel v5LinkLabel9;
-        private V5LinkLabel v5LinkLabel10;
     }
 }

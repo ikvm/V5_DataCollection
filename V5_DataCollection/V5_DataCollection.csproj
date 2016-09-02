@@ -250,6 +250,8 @@
     <Compile Include="_Class\DbObjects\MySql\DbObject.cs" />
     <Compile Include="_Class\DbObjects\Oracle\DbObject.cs" />
     <Compile Include="_Class\DbObjects\SQL\DbObject.cs" />
+    <Compile Include="_Class\Gather\SpiderListHelper.cs" />
+    <Compile Include="_Class\Gather\SpiderViewHelper.cs" />
     <Compile Include="_Class\Plan\JobDetailHelper.cs" />
     <Compile Include="_Class\Plan\PlanTaskHelper.cs" />
     <Compile Include="Forms\Task\Tools\frmTaskDiyWebUrl.cs">
@@ -376,7 +378,7 @@
     <Compile Include="_Class\Model\ModelTaskLabel.cs" />
     <Compile Include="_Class\Model\ModelWebPublishModule.cs" />
     <Compile Include="_Class\PluginUtility.cs" />
-    <Compile Include="_Class\SpiderView\SpiderViewHelper.cs" />
+    <Compile Include="_Class\TestHelper.cs" />
     <Compile Include="_Class\WebPublishModule\cWebPublishModule.cs" />
     <Compile Include="_Class\WebPublishModule\ModelWebPublishModule.cs" />
     <EmbeddedResource Include="BaseContent.resx">

@@ -13,11 +13,10 @@ namespace V5_WinLibs.Core {
         /// href链接
         /// </summary>
         public static string RegexATag = @"<a[^<>]*?hrefs*=s*[,""s]([^"",]*)[,""][^<>]*?>(.*?)</a>";
-
         /// <summary>
         /// 匹配移动手机号
         /// </summary>
-        public const string PATTERN_CMCMOBILENUM = @"^1(3[4-9]|5[012789]|8[78])\d{8}$";
+        public const string PATTERN_CMCMOBILENUM = @" ^ 1(3[4-9]|5[012789]|8[78])\d{8}$";
         /// <summary>
         /// 匹配电信手机号
         /// </summary>

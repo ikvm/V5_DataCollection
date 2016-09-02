@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using V5_WinLibs.Core;
 
 namespace V5_DataCollection._Class.Common {
     public class CommonHelper {
@@ -20,6 +21,24 @@ namespace V5_DataCollection._Class.Common {
             regexContent = regexContent.Replace("\\(\\*)", ".+?");
             regexContent = regexContent.Replace("\\[参数]", "([\\S\\s]*?)");//([\\S\\s].*?)   多个一个点
             return regexContent;
+        }
+        /// <summary>
+        /// 采集网页
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="pageEncode"></param>
+        /// <returns></returns>
+        public static string getPageContent(string url, string pageEncode) {
+            var http = new HttpHelper4();
+            var httpItem = new HttpItem() {
+                URL = url,
+                Method = "GET"
+            };
+            if (pageEncode != "自动编码") {
+                httpItem.Encoding = Encoding.GetEncoding(pageEncode);
+            }
+            var httpResult = http.GetHtml(httpItem);
+            return httpResult.Html;
         }
     }
 }

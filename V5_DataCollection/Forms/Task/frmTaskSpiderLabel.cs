@@ -50,7 +50,6 @@ namespace V5_DataCollection.Forms.Task {
             ModelTaskLabel model = new ModelTaskLabel();
             model.TaskID = TaskID;
             model.LabelName = this.txtLabelName.Text;
-            model.LabelSource = this.radioBtnSource.Checked ? 1 : 0;
             model.LabelNameCutRegex = this.txtLabelNameCutRegex.Text.Replace("'", "''");
             model.LabelRemove = string.Empty;
             model.LabelReplace = string.Empty;
@@ -168,14 +167,6 @@ namespace V5_DataCollection.Forms.Task {
             ModelTaskLabel model = dal.GetModel(ID);
             this.txtID.Text = ID.ToString();
             this.txtLabelName.Text = model.LabelName;
-            if (model.LabelSource == 1)
-            {
-                this.radioBtnSource.Checked = true;
-            }
-            else
-            {
-                this.radioBtnUrl.Checked = true;
-            }
             this.txtLabelNameCutRegex.Text = model.LabelNameCutRegex;
             this.chkScript.Checked = false;
             this.chkhref.Checked = false;

@@ -35,11 +35,6 @@ namespace V5_DataCollection._Class.DAL {
                 strSql1.Append("LabelName,");
                 strSql2.Append("'" + model.LabelName + "',");
             }
-            if (model.LabelSource != null)
-            {
-                strSql1.Append("LabelSource,");
-                strSql2.Append(model.LabelSource + ",");
-            }
             if (model.LabelNameCutRegex != null) {
                 strSql1.Append("LabelNameCutRegex,");
                 strSql2.Append("'" + model.LabelNameCutRegex + "',");
@@ -48,8 +43,7 @@ namespace V5_DataCollection._Class.DAL {
                 strSql1.Append("LabelHtmlRemove,");
                 strSql2.Append("'" + model.LabelHtmlRemove + "',");
             }
-            if (model.LblHtmlRemove != null)
-            {
+            if (model.LblHtmlRemove != null) {
                 strSql1.Append("LblHtmlRemove,");
                 strSql2.Append("'" + model.LblHtmlRemove + "',");
             }
@@ -141,18 +135,13 @@ namespace V5_DataCollection._Class.DAL {
             if (model.LabelName != null) {
                 strSql.Append("LabelName='" + model.LabelName + "',");
             }
-            if (model.LabelSource != null)
-            {
-                strSql.Append("LabelSource=" + model.LabelSource + ",");
-            }
             if (model.LabelNameCutRegex != null) {
                 strSql.Append("LabelNameCutRegex='" + model.LabelNameCutRegex + "',");
             }
             if (model.LabelHtmlRemove != null) {
                 strSql.Append("LabelHtmlRemove='" + model.LabelHtmlRemove + "',");
             }
-            if (model.LblHtmlRemove != null)
-            {
+            if (model.LblHtmlRemove != null) {
                 strSql.Append("LblHtmlRemove='" + model.LblHtmlRemove.Replace("'", "''") + "',");
             }
             if (model.LabelRemove != null) {
@@ -258,18 +247,13 @@ namespace V5_DataCollection._Class.DAL {
                 if (ds.Tables[0].Rows[0]["LabelName"] != null) {
                     model.LabelName = ds.Tables[0].Rows[0]["LabelName"].ToString();
                 }
-                if (ds.Tables[0].Rows[0]["LabelSource"] != null)
-                {
-                    model.LabelSource = int.Parse(ds.Tables[0].Rows[0]["LabelSource"].ToString());
-                }
                 if (ds.Tables[0].Rows[0]["LabelNameCutRegex"] != null) {
                     model.LabelNameCutRegex = ds.Tables[0].Rows[0]["LabelNameCutRegex"].ToString();
                 }
                 if (ds.Tables[0].Rows[0]["LabelHtmlRemove"] != null) {
                     model.LabelHtmlRemove = ds.Tables[0].Rows[0]["LabelHtmlRemove"].ToString();
                 }
-                if (ds.Tables[0].Rows[0]["LblHtmlRemove"] != null)
-                {
+                if (ds.Tables[0].Rows[0]["LblHtmlRemove"] != null) {
                     model.LblHtmlRemove = ds.Tables[0].Rows[0]["LblHtmlRemove"].ToString();
                 }
                 if (ds.Tables[0].Rows[0]["LabelRemove"] != null) {

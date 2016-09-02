@@ -9,20 +9,20 @@ namespace V5_Model {
     /// </summary>
     public class ModelTaskLabel {
         #region Model
-        private int _id;
-        private string _labelname;
-        private int? _labelsource;
-        private string _labelcutstart;
-        private string _labelcutend;
-        private string _labelhtmlremove;
-        private string _lblhtmlremove;
-        private string _labelremove;
-        private string _labelreplace;
-        private int? _taskid;
-        private string _guidnum;
-        private int? _orderid;
-        private string _createtime;
-        private string _spiderLabelPlugin;
+        private int _id = 0;
+        private string _labelname = string.Empty;
+        private int? _labelsource = 0;
+        private string _labelcutstart = string.Empty;
+        private string _labelcutend = string.Empty;
+        private string _labelhtmlremove = string.Empty;
+        private string _lblhtmlremove = string.Empty;
+        private string _labelremove = string.Empty;
+        private string _labelreplace = string.Empty;
+        private int? _taskid = 0;
+        private string _guidnum = string.Empty;
+        private int? _orderid = 0;
+        private string _createtime = string.Empty;
+        private string _spiderLabelPlugin = string.Empty;
         /// <summary>
         /// 标签ID
         /// </summary>
@@ -36,11 +36,6 @@ namespace V5_Model {
         public string LabelName {
             set { _labelname = value; }
             get { return _labelname; }
-        }
-        public int? LabelSource
-        {
-            set { _labelsource = value; }
-            get { return _labelsource; }
         }
         /// <summary>
         /// 标签截取表达式
@@ -59,8 +54,7 @@ namespace V5_Model {
         /// <summary>
         /// 标签HTML内容移动
         /// </summary>
-        public string LblHtmlRemove
-        {
+        public string LblHtmlRemove {
             set { _lblhtmlremove = value; }
             get { return _lblhtmlremove; }
         }
@@ -180,7 +174,7 @@ namespace V5_Model {
             get { return _DownResouceExts; }
             set { _DownResouceExts = value; }
         }
-        
+
 
     }
 }

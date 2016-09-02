@@ -32,8 +32,6 @@ namespace V5_DataCollection.Forms.Task {
 
         private cGatherFunction gatherWork = new cGatherFunction();
 
-        private ThreadMultiHelper ThreadMulti = null;
-
         private SpiderHelper Gather = new SpiderHelper();
 
         #region 委托
@@ -222,13 +220,7 @@ namespace V5_DataCollection.Forms.Task {
         }
         #endregion
 
-        #region 测试内容地址采集
-        private BackgroundWorker backgroundWorker_TestLinkUrl = new BackgroundWorker();
-        private string TestLinkUrl = string.Empty, includeStr = string.Empty, encode = string.Empty, LinkUrlAreaStart = string.Empty, LinkUrlAreaEnd = string.Empty;
-        private delegate void AddTreeNodeUrl(string msg, int nodeIndex);
-        private string NoIncludeStr = string.Empty, HandCollectionUrlRegex = string.Empty, SpliceUrlStr = string.Empty;
-        int IsHandGetUrl = 0;
-        List<string> TestListLinkUrl;
+        #region 测试列表地址采集
         /// <summary>
         /// 测试链接
         /// </summary>
@@ -241,365 +233,75 @@ namespace V5_DataCollection.Forms.Task {
             this.tabControlTaskEdit.SelectTab(4);
             this.treeViewUrlTest.Nodes.Clear();
             object item = this.listBoxLinkUrl.SelectedItem;
-            encode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
-            includeStr = this.txtLinkUrlMustIncludeStr.Text;
-            NoIncludeStr = this.txtLinkUrlNoMustIncludeStr.Text;
-            SpliceUrlStr = this.txtSpliceUrl.Text;
-            LinkUrlAreaStart = this.txtLinkUrlCutAreaStart.Text;
-            LinkUrlAreaEnd = this.txtLinkUrlCutAreaEnd.Text;
-            TestLinkUrl = Convert.ToString(item);
-            TestListLinkUrl = gatherWork.SplitWebUrl(TestLinkUrl);
-            IsHandGetUrl = this.chkIsHandGetUrl.Checked ? 1 : 0;
-            HandCollectionUrlRegex = this.txtHandCollectionUrlRegex.Text;
+            var encode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
+            var includeStr = this.txtLinkUrlMustIncludeStr.Text;
+            var NoIncludeStr = this.txtLinkUrlNoMustIncludeStr.Text;
+            var LinkUrlAreaStart = this.txtLinkUrlCutAreaStart.Text;
+            var LinkUrlAreaEnd = this.txtLinkUrlCutAreaEnd.Text;
+            var TestLinkUrl = Convert.ToString(item);
+            var TestListLinkUrl = gatherWork.SplitWebUrl(TestLinkUrl);
+            var IsHandGetUrl = this.chkIsHandGetUrl.Checked ? 1 : 0;
+            var HandCollectionUrlRegex = this.txtHandCollectionUrlRegex.Text;
+
+            var model = new ModelTask() {
+                PageEncode = encode,
+                LinkUrlMustIncludeStr = includeStr,
+                LinkUrlNoMustIncludeStr = NoIncludeStr,
+                LinkUrlCutAreaStart = LinkUrlAreaStart,
+                LinkUrlCutAreaEnd = LinkUrlAreaEnd,
+                IsHandGetUrl = IsHandGetUrl,
+                HandCollectionUrlRegex = HandCollectionUrlRegex
+            };
+
             foreach (string str in TestListLinkUrl) {
                 TreeNode rootNode = new TreeNode();
                 rootNode.Text = str;
                 this.treeViewUrlTest.Nodes.Add(rootNode);
             }
-            backgroundWorker_TestLinkUrl.DoWork += new DoWorkEventHandler(backgroundWorker_TestLinkUrl_DoWork);
-            backgroundWorker_TestLinkUrl.WorkerReportsProgress = true;
-            backgroundWorker_TestLinkUrl.WorkerSupportsCancellation = true;
-            if (!this.backgroundWorker_TestLinkUrl.IsBusy) {
-                this.backgroundWorker_TestLinkUrl.RunWorkerAsync();
-            }
-        }
 
-        private void TestLinkUrlTest(string testUrl, int num)
-        {
-            string pageContent = CollectionHelper.Instance.GetHttpPage(testUrl, 100000, Encoding.GetEncoding(encode));
-            if (LinkUrlAreaStart.Trim() != "" && LinkUrlAreaEnd.Trim() != "")
-            {
-                pageContent = HtmlHelper.Instance.ParseCollectionStrings(pageContent);
-                pageContent = CollectionHelper.Instance.GetBody(pageContent,
-                    HtmlHelper.Instance.ParseCollectionStrings(LinkUrlAreaStart),
-                    HtmlHelper.Instance.ParseCollectionStrings(LinkUrlAreaEnd),
-                    false,
-                    false);
-                if (pageContent == "$StartFalse$" || pageContent == "$EndFalse$")
-                {
-                    MessageBox.Show("采集失败!");
-                    backgroundWorker_TestLinkUrl.CancelAsync();
-                    return;
-                }
-                pageContent = HtmlHelper.Instance.UnParseCollectionStrings(pageContent);
-            }
-            string regexHref = cRegexHelper.RegexATag;
-            int i = 0;
-            if (IsHandGetUrl == 1)
-            {
-                //regexHref = HandCollectionUrlRegex;
-                //regexHref = HtmlHelper.Instance.ParseCollectionStrings(regexHref);
-                //regexHref = regexHref.Replace("\\(\\*)", ".+?");
-                //regexHref = regexHref.Replace("\\[参数]", "([\\S\\s].*?)");
-                regexHref = HandCollectionUrlRegex;
-                regexHref = regexHref.Replace("[", "\\[");
-                regexHref = regexHref.Replace("\\[参数]", "[参数]");
-                regexHref = regexHref.Replace("(*)", ".+?");
-                while (regexHref.IndexOf("[参数]") >= 0)
-                {
-                    i++;
-                    int tmp = regexHref.IndexOf("[参数]"); //获取[参数]第一次出现的索引值
-                    regexHref = regexHref.Remove(tmp, "[参数]".Length); //在该索引处删除[参数]
-                    regexHref = regexHref.Insert(tmp, "(?<参数" + i + ">.+?)"); // 在该索引出插入112
-                }
-            }
-            //regexHref = "\\[\\d+?,\".+?\",\"([\\S\\s].*?)\",\".+?\"]";
+            var spiderListHelper = new SpiderListHelper();
+            spiderListHelper.Model = model;
+            spiderListHelper.OutMessageHandler += (string msg) => {
+                MessageBox.Show(msg);
+            };
+            spiderListHelper.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
+                this.Invoke(new MethodInvoker(delegate () {
+                    if (!this.treeViewUrlTest.Nodes[nodeIndex].Nodes.ContainsKey(url))
+                        this.treeViewUrlTest.Nodes[nodeIndex].Nodes.Add(url, url);
+                }));
+            };
+            spiderListHelper.AnalyzeSingleList(TestLinkUrl);
 
-            Match mch = null;
-            Regex reg = new Regex(regexHref, RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            AddTreeNodeUrl AddUrl = new AddTreeNodeUrl(AddNodeUrl);
-            string url = string.Empty;
-            string strUrl = string.Empty;
-            MatchCollection matches = reg.Matches(pageContent);
-
-            for (int j = 0; j < matches.Count; j++)
-            {
-                Match match = matches[j];
-                string aurl = SpliceUrlStr;
-                for (int x = 1; x <= i; x++)
-                {
-                    aurl = aurl.Replace("[参数" + x.ToString() + "]", match.Groups["参数" + x.ToString()].Value);
-                }
-                //aurl = SpliceUrl;
-                //string aurl = "http://" + match.Groups["url"].Value + ".shtml?" + match.Groups["cate"].Value + "&";
-                if (includeStr.Trim() != "")
-                {
-                    if (aurl.IndexOf(includeStr) == -1)
-                    {
-                        continue;
-                    }
-                }
-                if (NoIncludeStr.Trim() != "")
-                {
-                    //string[] ary = NoIncludeStr.Trim().Split(new[] { '\n' });
-                    bool isFlag = true;
-                    foreach (string str in NoIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        if (aurl.IndexOf(str) > -1)
-                        {
-                            isFlag = false;
-                            break;
-                        }
-                    }
-                    if (isFlag)
-                        AddUrl(aurl, num);
-                }
-                else
-                {
-                    AddUrl(aurl, num);
-                }
-            }
-            //for (mch = reg.Match(pageContent); mch.Success; mch = mch.NextMatch()) {
-            //    url = CollectionHelper.Instance.FormatUrl(testUrl, mch.Groups[1].Value);
-            //    url = url.Replace("\\", "");
-            //    if (includeStr.Trim() != "") {
-            //        if (url.IndexOf(includeStr) == -1) {
-            //            continue;
-            //        }
-            //    }
-            //    if (NoIncludeStr.Trim() != "") {
-            //        bool isFlag = true;
-            //        foreach (string str in NoIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries)) {
-            //            if (url.IndexOf(str) > -1) {
-            //                isFlag = false;
-            //                break;
-            //            }
-            //        }
-            //        if (isFlag)
-            //            AddUrl(url, num);
-            //    }
-            //    else {
-            //        AddUrl(url, num);
-            //    }
-            //}
-        }
-        /// <summary>
-        /// 测试LinkUrl线程
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void backgroundWorker_TestLinkUrl_DoWork(object sender, DoWorkEventArgs e) {
-            TestListLinkUrl = gatherWork.SplitWebUrl(TestLinkUrl);
-            int i = 0;
-            foreach (string str in TestListLinkUrl) {
-                TestLinkUrlTest(str, i);
-                i++;
-            }
-        }
-        /// <summary>
-        /// 委托显示LinkUrl
-        /// </summary>
-        /// <param name="msg"></param>
-        private void AddNodeUrl(string msg, int nodeIndex) {
-            this.BeginInvoke(new MethodInvoker(delegate () {
-                if (!this.treeViewUrlTest.Nodes[nodeIndex].Nodes.ContainsKey(msg))
-                    this.treeViewUrlTest.Nodes[nodeIndex].Nodes.Add(msg, msg);
-            }));
         }
         #endregion
 
-        #region 测试ViewUrl
-        private delegate void ViewUrlHandler(string msg);
-        private string Test_ViewUrl = string.Empty;
-        private ModelTaskLabel TestLabelModel = new ModelTaskLabel();
-        private List<ListViewItem> Test_LabelList = new List<ListViewItem>();
-
-        private void Work_TestViewUrl(int index, int threadindex) {
-            ViewUrlHandler VU = new ViewUrlHandler(OutViewUrlTest);
-            try {
-                #region  采集测试
-                String sContent = String.Empty;
-                DALTaskLabel dal = new DALTaskLabel();
-                string pageContent = CollectionHelper.Instance.GetHttpPage(Test_ViewUrl, 100000);
-                if (pageContent.Equals("$UrlIsFalse$") || pageContent.Equals("$GetFalse$")) {
-                    if (VU != null) {
-                        VU("采集地址不正确!或者采集内容失败!");
-                    }
-                    return;
-                }
-                StringBuilder sbTest = new StringBuilder();
-                string tempContent = pageContent;
-
-                foreach (ListViewItem item in Test_LabelList) {
-                    sContent = string.Empty;
-                    TestLabelModel = dal.GetModel(item.SubItems[0].Text, ID);
-                    sContent += "【" + TestLabelModel.LabelName + "】： ";
-                    if (TestLabelModel.LabelSource == 0)
-                    {
-                        pageContent = Test_ViewUrl;
-                    }
-                    else
-                    {
-                        pageContent = tempContent;
-                    }
-                    string regContent = HtmlHelper.Instance.ParseCollectionStrings(TestLabelModel.LabelNameCutRegex);
-                    regContent = CommonHelper.ReplaceSystemRegexTag(regContent);
-                    string CutContent = CollectionHelper.Instance.CutStr(pageContent, regContent)[0];
-                    #region 标签是循环
-                    if (TestLabelModel.IsLoop == 1) {
-                        string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
-                        foreach (string s in LabelString) {
-                            CutContent += s + "$$$$";
-                        }
-                        int n = CutContent.LastIndexOf("$$$$");
-                        CutContent = CutContent.Remove(n, 4);
-                    }
-                    #endregion
-                    #region 标签是链接
-                    if (TestLabelModel.IsLinkUrl == 1) {
-                        CutContent = CollectionHelper.Instance.DefiniteUrl(CutContent, Test_ViewUrl);
-                        CutContent = CollectionHelper.Instance.GetHttpPage(CutContent, 1000, Encoding.GetEncoding(encode));
-                        regContent = HtmlHelper.Instance.ParseCollectionStrings(TestLabelModel.LabelValueLinkUrlRegex);
-                        //
-                        regContent = regContent.Replace("\\(\\*)", ".+?");
-                        regContent = regContent.Replace("\\[参数]", "([\\S\\s].*?)");
-                        CutContent = CollectionHelper.Instance.CutStr(CutContent, regContent)[0];
-                        //
-                    }
-                    #endregion
-                    #region 标签是分页
-                    if (TestLabelModel.IsPager == 1) {
-                        regContent = HtmlHelper.Instance.ParseCollectionStrings(TestLabelModel.LabelValuePagerRegex);
-                        regContent = regContent.Replace("\\(\\*)", ".+?");
-                        regContent = regContent.Replace("\\[参数]", "([\\S\\s].*?)");
-                        string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
-
-                        foreach (string pageUrl in LabelString) {
-                            string url = CollectionHelper.Instance.DefiniteUrl(pageUrl, Test_ViewUrl);
-                            string pageContentPager = CollectionHelper.Instance.GetHttpPage(url, 100000);
-                            if (pageContent.Equals("$UrlIsFalse$") || pageContent.Equals("$GetFalse$")) {
-
-                                CutContent += "=====分页内容=======================================================\r\n";
-                                CutContent += "远程链接内容失败!";
-                            }
-                            else {
-                                //重新截取标签
-                                string regContent1 = HtmlHelper.Instance.ParseCollectionStrings(TestLabelModel.LabelNameCutRegex);
-                                regContent1 = CommonHelper.ReplaceSystemRegexTag(regContent1);
-                                string CutContent1 = CollectionHelper.Instance.CutStr(pageContentPager, regContent1)[0];
-
-                                CutContent += "=====分页内容=======================================================\r\n";
-                                CutContent += CutContent1;
-                            }
-                        }
-                    }
-                    #endregion
-                    #region 过滤标签Html
-                    if (TestLabelModel.LblHtmlRemove != null)
-                    {
-                        //
-                        string[] arr = TestLabelModel.LblHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
-                        CutContent = CollectionHelper.ScriptHtml(CutContent, arr);
-                    }
-                    #endregion
-                    #region 过滤Html
-                    if (TestLabelModel.LabelHtmlRemove != null) {
-                        //
-                        string[] arr = TestLabelModel.LabelHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
-                        foreach (string str in arr) {
-                            if (str == "all") {
-                                //替换标准标签包含 图片 视频  文档 压缩文件 什么的
-                                CutContent = HtmlHelper.ReplaceNormalHtml(CutContent, Test_ViewUrl, false);
-                                CutContent = CollectionHelper.Instance.NoHtml(CutContent);
-                                break;
-                            }
-                            else if (str == "table") {
-                                CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "table", 2);
-                            }
-                            else if (str == "font<span>") {
-                                CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "font", 3);
-                                CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "span", 3);
-                            }
-                            else if (str == "script") {
-                                CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "script", 3);
-                            }
-                            else if (str == "a") {
-                                CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "a", 3);
-                            }
-                        }
-                    }
-                    #endregion
-                    #region 排除字符
-                    if (TestLabelModel.LabelRemove != null) {
-                        //foreach (string str in TestLabelModel.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
-                        //    CutContent = CutContent.Replace(str, "");
-                        //}
-                        foreach (string str in TestLabelModel.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            string[] ListStr = str.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
-                            if (ListStr[1] == "1")
-                            {
-                                CutContent = CollectionHelper.RemoveHtml(CutContent, ListStr[0]);
-                            }
-                            else
-                            {
-                                CutContent = CutContent.Replace(str, "");
-                            }
-                        }
-                    }
-                    #endregion
-                    #region 替换字符
-                    if (TestLabelModel.LabelReplace != null) {
-                        foreach (string str in TestLabelModel.LabelReplace.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
-                            string[] ListStr = str.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
-                            CutContent = CutContent.Replace(ListStr[0], ListStr[1]);
-                        }
-                    }
-                    #endregion
-
-                    CutContent = CutContent.Replace("\t", "");
-
-                    //加载插件
-
-                    string SpiderLabelPlugin = TestLabelModel.SpiderLabelPlugin;
-                    if (SpiderLabelPlugin != "不使用插件" && SpiderLabelPlugin != string.Empty) {
-                        CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, Test_ViewUrl, CutContent);
-                    }
-
-                    sContent += CutContent;
-                    sbTest.AppendLine(sContent);
-                }
-
-                if (VU != null) {
-                    VU(sbTest.ToString());
-                }
-                //VU = null;
-                #endregion
-            }
-            catch (Exception ex) {
-                OutViewUrlTest("测试网页采集失败!" + ex.Message);
-            }
-        }
-
+        #region 测试详细地址采集
         /// <summary>
         /// 测试采集内容
         /// </summary>
         private void btnTestViewUrl_Click(object sender, EventArgs e) {
             this.btnTestViewUrl.Enabled = false;
             this.txtTestViewUrlShow.Clear();
-            Test_ViewUrl = this.txtTextViewUrl.Text;
-            encode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
+            var Test_ViewUrl = this.txtTextViewUrl.Text;
+            var encode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
+
+            DALTaskLabel dal = new DALTaskLabel();
+            List<ModelTaskLabel> Test_LabelList = new List<ModelTaskLabel>();
             ListView.ListViewItemCollection s = this.listViewTaskLabel.Items;
             foreach (ListViewItem ss in s) {
-                if (!Test_LabelList.Contains(ss)) {
-                    Test_LabelList.Add(ss);
-                }
+                Test_LabelList.Add(dal.GetModel(ss.SubItems[0].Text, ID));
             }
-            if (ThreadMulti == null) {
-                ThreadMulti = new ThreadMultiHelper(1, 1);
-                ThreadMulti.WorkMethod += Work_TestViewUrl;
-                ThreadMulti.CompleteEvent += new ThreadMultiHelper.DelegateComplete(delegate () {
-                    this.btnTestViewUrl.Invoke(new MethodInvoker(() => { this.btnTestViewUrl.Enabled = true; }));
-                });
-            }
-            ThreadMulti.Start();
-        }
-
-        private void OutViewUrlTest(string msg) {
-            this.txtTestViewUrlShow.Invoke(new MethodInvoker(delegate () {
-                this.txtTestViewUrlShow.AppendText(msg);
-                this.txtTestViewUrlShow.AppendText("\r\n");
-            }));
+            var model = new ModelTask() {
+            };
+            var spiderViewHelper = new SpiderViewHelper();
+            spiderViewHelper.Model = model;
+            spiderViewHelper.OutViewUrlContentHandler += (string content) => {
+                this.txtTestViewUrlShow.Invoke(new MethodInvoker(delegate () {
+                    this.txtTestViewUrlShow.AppendText(content);
+                    this.btnTestViewUrl.Enabled = true;
+                }));
+            };
+            spiderViewHelper.Test(Test_ViewUrl, Test_LabelList);
         }
         #endregion
 
@@ -640,11 +342,9 @@ namespace V5_DataCollection.Forms.Task {
         /// 编辑标签
         /// </summary>
         private void btnCutLabelEdit_Click(object sender, EventArgs e) {
-            if (this.listViewTaskLabel.SelectedItems.Count > 0)
-            {
+            if (this.listViewTaskLabel.SelectedItems.Count > 0) {
                 var sel = this.listViewTaskLabel.SelectedItems;
-                if (sel != null && sel.Count == 1)
-                {
+                if (sel != null && sel.Count == 1) {
                     frmTaskSpiderLabel FormTaskSpiderLabel = new frmTaskSpiderLabel();
                     FormTaskSpiderLabel.EditItem = this.listViewTaskLabel.SelectedItems;
                     FormTaskSpiderLabel.ViewLabel = AddViewLabel;
@@ -653,8 +353,7 @@ namespace V5_DataCollection.Forms.Task {
                     FormTaskSpiderLabel.ShowDialog(this);
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("请先选择标签再进行编辑!", "警告!");
             }
         }
@@ -662,13 +361,10 @@ namespace V5_DataCollection.Forms.Task {
         /// 删除标签
         /// </summary>
         private void btnCutLabelDel_Click(object sender, EventArgs e) {
-            if (this.listViewTaskLabel.SelectedItems.Count > 0)
-            {
+            if (this.listViewTaskLabel.SelectedItems.Count > 0) {
                 var sel = this.listViewTaskLabel.SelectedItems;
-                if (sel != null && sel.Count == 1)
-                {
-                    if (MessageBox.Show("你确定要删除吗?删除不可恢复!", "警告!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                    {
+                if (sel != null && sel.Count == 1) {
+                    if (MessageBox.Show("你确定要删除吗?删除不可恢复!", "警告!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK) {
                         ListView.SelectedListViewItemCollection item = this.listViewTaskLabel.SelectedItems;
                         DALTaskLabel dal = new DALTaskLabel();
                         dal.Delete(int.Parse("0" + item[0].Tag));
@@ -676,21 +372,17 @@ namespace V5_DataCollection.Forms.Task {
                     }
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("请先选择标签再进行删除!", "警告!");
             }
         }
         /// <summary>
         /// 标签上升
         /// </summary>
-        private void btnLabelUp_Click(object sender, EventArgs e)
-        {
-            if (this.listViewTaskLabel.SelectedItems.Count > 0)
-            {
+        private void btnLabelUp_Click(object sender, EventArgs e) {
+            if (this.listViewTaskLabel.SelectedItems.Count > 0) {
                 var sel = this.listViewTaskLabel.SelectedItems;
-                if (sel != null && sel.Count == 1)
-                {
+                if (sel != null && sel.Count == 1) {
                     ListView.SelectedListViewItemCollection item = this.listViewTaskLabel.SelectedItems;
                     int iID = int.Parse("0" + item[0].Tag);
                     DALTaskLabel dal = new DALTaskLabel();
@@ -698,21 +390,17 @@ namespace V5_DataCollection.Forms.Task {
                     this.Bind_TaskLabel(" TaskID=" + this.ID);
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("请先选择标签再进行操作!", "警告!");
             }
         }
         /// <summary>
         /// 标签下降
         /// </summary>
-        private void btnLabelDown_Click(object sender, EventArgs e)
-        {
-            if (this.listViewTaskLabel.SelectedItems.Count > 0)
-            {
+        private void btnLabelDown_Click(object sender, EventArgs e) {
+            if (this.listViewTaskLabel.SelectedItems.Count > 0) {
                 var sel = this.listViewTaskLabel.SelectedItems;
-                if (sel != null && sel.Count == 1)
-                {
+                if (sel != null && sel.Count == 1) {
                     ListView.SelectedListViewItemCollection item = this.listViewTaskLabel.SelectedItems;
                     int iID = int.Parse("0" + item[0].Tag);
                     DALTaskLabel dal = new DALTaskLabel();
@@ -720,8 +408,7 @@ namespace V5_DataCollection.Forms.Task {
                     this.Bind_TaskLabel(" TaskID=" + this.ID);
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("请先选择标签再进行操作!", "警告!");
             }
         }
@@ -781,43 +468,33 @@ namespace V5_DataCollection.Forms.Task {
         #endregion
 
         #region Sql
-        private void btnSaveDataBaseConfig_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.txtSaveDataUrl3.Text))
-            {
+        private void btnSaveDataBaseConfig_Click(object sender, EventArgs e) {
+            if (string.IsNullOrEmpty(this.txtSaveDataUrl3.Text)) {
                 MessageBox.Show("数据库链接不能为空!", "警告!");
             }
-            else
-            {
+            else {
                 var dbType = DataBaseType.SqlServer;
 
                 var dbLink = txtSaveDataUrl3.Text;
 
-                if (this.rbtnAccess.Checked)
-                {
+                if (this.rbtnAccess.Checked) {
                     dbType = DataBaseType.OleDb;
                 }
-                else if (this.rbtnMsSql.Checked)
-                {
+                else if (this.rbtnMsSql.Checked) {
                     dbType = DataBaseType.SqlServer;
                 }
-                else if (this.rbtnSqlite.Checked)
-                {
+                else if (this.rbtnSqlite.Checked) {
                     dbType = DataBaseType.SQLite;
                 }
-                else if (this.rbtnMySql.Checked)
-                {
+                else if (this.rbtnMySql.Checked) {
                     dbType = DataBaseType.MySql;
                 }
-                else if (this.rbtnOracle.Checked)
-                {
+                else if (this.rbtnOracle.Checked) {
                     dbType = DataBaseType.Oracle;
                 }
 
-                using (var conn = DbHelperDapper.GetDbConnection(dbType, dbLink))
-                {
-                    if (conn.State == ConnectionState.Open)
-                    {
+                using (var conn = DbHelperDapper.GetDbConnection(dbType, dbLink)) {
+                    if (conn.State == ConnectionState.Open) {
                         MessageBox.Show("数据库连接成功!");
                     }
                 }
@@ -891,7 +568,6 @@ namespace V5_DataCollection.Forms.Task {
             }
             this.txtLinkUrlMustIncludeStr.Text = model.LinkUrlMustIncludeStr;
             this.txtLinkUrlNoMustIncludeStr.Text = model.LinkUrlNoMustIncludeStr;
-            this.txtSpliceUrl.Text = model.LinkSpliceUrlStr;
             this.txtLinkUrlCutAreaStart.Text = model.LinkUrlCutAreaStart;
             this.txtLinkUrlCutAreaEnd.Text = model.LinkUrlCutAreaEnd;
             //
@@ -990,7 +666,6 @@ namespace V5_DataCollection.Forms.Task {
             }
             string LinkUrlMustIncludeStr = this.txtLinkUrlMustIncludeStr.Text;
             string LinkUrlNoMustIncludeStr = this.txtLinkUrlNoMustIncludeStr.Text;
-            string LinkSpliceUrlStr = this.txtSpliceUrl.Text;
             string LinkUrlCutAreaStart = this.txtLinkUrlCutAreaStart.Text.Replace("'", "''");
             string LinkUrlCutAreaEnd = this.txtLinkUrlCutAreaEnd.Text.Replace("'", "''");
             //标签操作
@@ -1048,7 +723,6 @@ namespace V5_DataCollection.Forms.Task {
             model.CollectionContent = CollectionContent;
             model.LinkUrlMustIncludeStr = LinkUrlMustIncludeStr;
             model.LinkUrlNoMustIncludeStr = LinkUrlNoMustIncludeStr;
-            model.LinkSpliceUrlStr = LinkSpliceUrlStr;
             model.LinkUrlCutAreaStart = LinkUrlCutAreaStart;
             model.LinkUrlCutAreaEnd = LinkUrlCutAreaEnd;
             model.TestViewUrl = TestViewUrl;
@@ -1248,22 +922,14 @@ namespace V5_DataCollection.Forms.Task {
         private void IsHandGetUrl_CheckedChanged(object sender, EventArgs e) {
             if (this.chkIsHandGetUrl.Checked) {
                 this.txtHandCollectionUrlRegex.Enabled = true;
-                this.txtSpliceUrl.Enabled = true;
             }
             else {
                 this.txtHandCollectionUrlRegex.Enabled = false;
-                this.txtSpliceUrl.Enabled = false;
             }
         }
 
-        Form WebBrowser;
-
         private void btnGetCookies_Click(object sender, EventArgs e) {
-            //WebBrowser = AppRunHelper.AppRunWebBrowserByAssembly(this);
-            //AppRunHelper.OutPutMessage = OutPutMessage;
-
-            try
-            {
+            try {
                 Process process = new Process();
                 process.StartInfo.FileName = AppNameHelper.WebBrowser;
                 process.StartInfo.UseShellExecute = false;
@@ -1274,30 +940,15 @@ namespace V5_DataCollection.Forms.Task {
                 this.txtCollectionCookies.Text = result;
                 process.Close();
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 throw new Exception(AppNameHelper.WebBrowser + "::::" + ex.Message);
             }
-
         }
 
-        /*
-        void OutPutMessage(object sender, AppRunHelper.AppRunEventArgs e) {
-            this.txtCollectionCookies.Text = e.Msg1;
-
-            AppRunHelper.CloseWindow(WebBrowser, true);
-        }
-
-        void Proc_OutputDataReceived(object sender, System.Diagnostics.DataReceivedEventArgs e) {
-            MessageBox.Show("写入值了" + e.Data);
-        }
-        */
         private void btnTaskLabelCopy_Click(object sender, EventArgs e) {
-            if (this.listViewTaskLabel.SelectedItems.Count > 0)
-            {
+            if (this.listViewTaskLabel.SelectedItems.Count > 0) {
                 var sel = this.listViewTaskLabel.SelectedItems;
-                if (sel != null && sel.Count > 0)
-                {
+                if (sel != null && sel.Count > 0) {
                     ListView.SelectedListViewItemCollection item = this.listViewTaskLabel.SelectedItems;
                     int ID = int.Parse("0" + item[0].Tag.ToString());
                     DALTaskLabel dal = new DALTaskLabel();
@@ -1305,88 +956,8 @@ namespace V5_DataCollection.Forms.Task {
                     this.Bind_TaskLabel(" TaskID=" + this.ID);
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("请先选择标签再进行操作!", "警告!");
-            }
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
-            try {
-
-
-                //实例化一个进程类
-                Process cmd = new Process();
-
-                //获得系统信息，使用的是 systeminfo.exe 这个控制台程序
-                cmd.StartInfo.FileName = "V5.DataWebBrowser.exe";
-
-                //将cmd的标准输入和输出全部重定向到.NET的程序里
-
-                cmd.StartInfo.UseShellExecute = false; //此处必须为false否则引发异常
-
-                cmd.StartInfo.RedirectStandardInput = true; //标准输入
-                cmd.StartInfo.RedirectStandardOutput = true; //标准输出
-
-                //不显示命令行窗口界面
-                cmd.StartInfo.CreateNoWindow = true;
-                // cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                cmd.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                cmd.Start(); //启动进程
-
-                //获取输出
-                //需要说明的：此处是指明开始获取，要获取的内容，
-                //只有等进程退出后才能真正拿到
-                this.txtCollectionCookies.Text = cmd.StandardOutput.ReadToEnd();
-                cmd.WaitForExit();//等待控制台程序执行完成
-                cmd.Close();//关闭该进程
-
-                ////声明一个程序信息类 
-                //System.Diagnostics.ProcessStartInfo Info = new System.Diagnostics.ProcessStartInfo();
-                ////设置外部程序名 
-                //Info.FileName = "V5.DataWebBrowser.exe";
-                ////设置外部程序的启动参数（命令行参数）为test.txt 
-                //Info.Arguments = "controlname,type";
-                ////设置外部程序工作目录为 C:\ 
-                //Info.WorkingDirectory = "";
-                //Info.UseShellExecute = false;
-                //Info.RedirectStandardOutput = true;
-                //Info.RedirectStandardError = true;
-                //Info.CreateNoWindow = true;
-                //Info.WindowStyle = ProcessWindowStyle.Hidden;
-                ////声明一个程序类 
-                //System.Diagnostics.Process Proc;
-                //try {
-                //    // 
-                //    //启动外部程序 
-                //    // 
-                //    Proc = System.Diagnostics.Process.Start(Info);
-                //}
-                //catch (System.ComponentModel.Win32Exception ex) {
-                //    Console.WriteLine("系统找不到指定的程序文件。\r{0}", ex);
-                //    return;
-                //}
-                ////while (true) {
-                ////    if (Proc.HasExited) {
-                ////        MessageBox.Show("程序退出了");
-                ////        return;
-                ////    }
-                ////}
-                ////Proc.ha
-                //Proc.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(Proc_OutputDataReceived); //+= new EventHandler(Proc_Exited);
-                //Proc.BeginOutputReadLine();
-                ////MessageBox.Show("调用程序!" + Proc.StandardOutput.ReadToEnd());
-                //Proc.WaitForExit();
-
-                ////if (Proc.ExitCode != 0) {
-                ////    StreamReader aSr = Proc.StandardOutput;
-                ////    string aConsole = aSr.ReadToEnd();
-                ////    MessageBox.Show("调用程序!" + Proc.StandardOutput.ReadToEnd());
-                ////}
-                //Proc.Close();
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message + "==" + ex.Source + "==" + ex.InnerException);
             }
         }
 
@@ -1422,8 +993,7 @@ namespace V5_DataCollection.Forms.Task {
             }
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             tabControlTaskEdit.SelectedTab = tabPage4;
         }
 
