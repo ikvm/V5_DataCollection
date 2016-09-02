@@ -50,6 +50,7 @@ namespace V5_DataCollection.Forms.Task {
             ModelTaskLabel model = new ModelTaskLabel();
             model.TaskID = TaskID;
             model.LabelName = this.txtLabelName.Text;
+            model.LabelSource = this.radioBtnSource.Checked ? 1 : 0;
             model.LabelNameCutRegex = this.txtLabelNameCutRegex.Text.Replace("'", "''");
             model.LabelRemove = string.Empty;
             model.LabelReplace = string.Empty;
@@ -69,9 +70,36 @@ namespace V5_DataCollection.Forms.Task {
             if (model.LabelHtmlRemove.Trim() != "")
                 model.LabelHtmlRemove = model.LabelHtmlRemove.Remove(model.LabelHtmlRemove.Length - 4);
             #endregion
+
+            #region 标签内容过滤
+            model.LblHtmlRemove = string.Empty;
+            if (this.chkTableLbl.Checked)
+                model.LblHtmlRemove += "table||||";
+            if (this.chkScriptLbl.Checked)
+                model.LblHtmlRemove += "script||||";
+            if (this.chkHrefLbl.Checked)
+                model.LblHtmlRemove += "a||||";
+            if (this.chkSpanLbl.Checked)
+                model.LblHtmlRemove += "span||||";
+            if (this.chkPLbl.Checked)
+                model.LblHtmlRemove += "p||||";
+            if (this.chkIFrameLbl.Checked)
+                model.LblHtmlRemove += "iframe||||";
+            if (this.chkFontLbl.Checked)
+                model.LblHtmlRemove += "font||||";
+            if (this.chkStyleLbl.Checked)
+                model.LblHtmlRemove += "style||||";
+            if (this.chkDivLbl.Checked)
+                model.LblHtmlRemove += "div||||";
+            if (this.chkRemarkLbl.Checked)
+                model.LblHtmlRemove += "remark||||";
+            if (model.LblHtmlRemove.Trim() != "")
+                model.LblHtmlRemove = model.LblHtmlRemove.Remove(model.LblHtmlRemove.Length - 4); 
+            #endregion
             #region 内容排除
             foreach (ListViewItem item in this.listViewContentRemove.Items) {
-                model.LabelRemove += item.SubItems[0].Text + "$$$$";
+                //model.LabelRemove += item.SubItems[0].Text + "$$$$";
+                model.LabelRemove += item.SubItems[0].Text + "||" + item.SubItems[1].Text + "$$$$";
             }
             if (model.LabelRemove.Trim() != "") {
                 model.LabelRemove = model.LabelRemove.Remove(model.LabelRemove.Length - 4);
@@ -85,6 +113,13 @@ namespace V5_DataCollection.Forms.Task {
                 model.LabelReplace = model.LabelReplace.Remove(model.LabelReplace.Length - 4);
             }
             #endregion
+
+            model.IsLoop = this.chkLabelIsLoop.Checked ? 1 : 0;
+            model.IsNoNull = this.chkLabelNoNull.Checked ? 1 : 0;
+            model.IsLinkUrl = this.chkLabelIsLinkUrl.Checked ? 1 : 0;
+            model.IsPager = this.chkLabelIsPager.Checked ? 1 : 0;
+            model.LabelValueLinkUrlRegex = this.txtLabelValueIsLinkUrlRegex.Text.Replace("'", "''");
+            model.LabelValuePagerRegex = this.txtLabelValueIsPagerRegex.Text.Replace("'", "''");
             //
             model.SpiderLabelPlugin = this.cmbSpiderPlugin.Text;
             //下载文件
@@ -113,9 +148,7 @@ namespace V5_DataCollection.Forms.Task {
         }
 
         private void frmTaskSpiderLabel_Load(object sender, EventArgs e) {
-
             this.txtTestUrl.Text = this.TestUrl;
-
 
             Bind_SpiderContentPlugin();
 
@@ -135,7 +168,17 @@ namespace V5_DataCollection.Forms.Task {
             ModelTaskLabel model = dal.GetModel(ID);
             this.txtID.Text = ID.ToString();
             this.txtLabelName.Text = model.LabelName;
+            if (model.LabelSource == 1)
+            {
+                this.radioBtnSource.Checked = true;
+            }
+            else
+            {
+                this.radioBtnUrl.Checked = true;
+            }
             this.txtLabelNameCutRegex.Text = model.LabelNameCutRegex;
+            this.chkScript.Checked = false;
+            this.chkhref.Checked = false;
             if (!string.IsNullOrEmpty(model.LabelHtmlRemove)) {
                 string[] arr = model.LabelHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string str in arr) {
@@ -156,10 +199,61 @@ namespace V5_DataCollection.Forms.Task {
                     }
                 }
             }
+            if (!string.IsNullOrEmpty(model.LblHtmlRemove))
+            {
+                string[] arr = model.LblHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string str in arr)
+                {
+                    if (str == "table")
+                    {
+                        this.chkTableLbl.Checked = true;
+                    }
+                    else if (str == "script")
+                    {
+                        this.chkScriptLbl.Checked = true;
+                    }
+                    else if (str == "a")
+                    {
+                        this.chkHrefLbl.Checked = true;
+                    }
+                    else if (str == "span")
+                    {
+                        this.chkSpanLbl.Checked = true;
+                    }
+                    else if (str == "p")
+                    {
+                        this.chkPLbl.Checked = true;
+                    }
+                    else if (str == "iframe")
+                    {
+                        this.chkIFrameLbl.Checked = true;
+                    }
+                    else if (str == "font")
+                    {
+                        this.chkFontLbl.Checked = true;
+                    }
+                    else if (str == "style")
+                    {
+                        this.chkStyleLbl.Checked = true;
+                    }
+                    else if (str == "div")
+                    {
+                        this.chkDivLbl.Checked = true;
+                    }
+                    else if (str == "remark")
+                    {
+                        this.chkRemarkLbl.Checked = true;
+                    }
+                }
+            }
             #region 内容排除
             if (!string.IsNullOrEmpty(model.LabelRemove)) {
                 foreach (string str in model.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
-                    ListViewItem lvi = new ListViewItem(str);
+                    //ListViewItem lvi = new ListViewItem(str);
+                    //this.listViewContentRemove.Items.Add(lvi);
+                    string[] aa = str.Split(new string[] { "||" }, StringSplitOptions.None);
+                    ListViewItem lvi = new ListViewItem(aa[0]);
+                    lvi.SubItems.Add(aa[1]);
                     this.listViewContentRemove.Items.Add(lvi);
                 }
             }
@@ -175,6 +269,16 @@ namespace V5_DataCollection.Forms.Task {
                 }
             }
             #endregion
+
+
+            this.chkLabelIsLoop.Checked = model.IsLoop == 1 ? true : false;
+            this.chkLabelNoNull.Checked = model.IsNoNull == 1 ? true : false;
+            this.chkLabelIsLinkUrl.Checked = model.IsLinkUrl == 1 ? true : false;
+            this.chkLabelIsPager.Checked = model.IsPager == 1 ? true : false;
+
+            this.txtLabelValueIsLinkUrlRegex.Text = model.LabelValueLinkUrlRegex;
+            this.txtLabelValueIsPagerRegex.Text = model.LabelValuePagerRegex;
+
 
             this.cmbSpiderPlugin.Text = model.SpiderLabelPlugin == string.Empty ? "不使用插件" : model.SpiderLabelPlugin;
 
@@ -203,9 +307,11 @@ namespace V5_DataCollection.Forms.Task {
         private void btnContentRemoveEdit_Click(object sender, EventArgs e) {
             int selectIndex = -1;
             string Name = string.Empty;
+            string Value = string.Empty;
             ListView.SelectedIndexCollection indexes = this.listViewContentRemove.SelectedIndices;
             foreach (int index in indexes) {
                 Name = this.listViewContentRemove.Items[index].SubItems[0].Text;
+                Value = this.listViewContentRemove.Items[index].SubItems[1].Text;
                 selectIndex = index;
                 if (selectIndex != -1)
                     break;
@@ -215,6 +321,7 @@ namespace V5_DataCollection.Forms.Task {
             frmTaskLabelRemove FormTaskLabelRemove = new frmTaskLabelRemove();
             FormTaskLabelRemove.TLR = OutTaskLabelRemove;
             FormTaskLabelRemove.OldName = Name;
+            FormTaskLabelRemove.RemoveLabel = Value;
             FormTaskLabelRemove.ItemIndex = selectIndex;
             FormTaskLabelRemove.ShowDialog();
         }
@@ -241,13 +348,24 @@ namespace V5_DataCollection.Forms.Task {
         /// <param name="itemIndex"></param>
         /// <param name="RemoveStr"></param>
         /// <param name="DbType"></param>
-        private void OutTaskLabelRemove(int itemIndex, string RemoveStr, string DbType) {
-            if (DbType == "add") {
+        private void OutTaskLabelRemove(int itemIndex, string RemoveStr, string CheckLabel, string DbType) {
+            //if (DbType == "add") {
+            //    ListViewItem lvi = new ListViewItem(RemoveStr);
+            //    this.listViewContentRemove.Items.Add(lvi);
+            //}
+            //else if (DbType == "edit") {
+            //    this.listViewContentRemove.Items[itemIndex].SubItems[0].Text = RemoveStr;
+            //}
+            if (DbType == "add")
+            {
                 ListViewItem lvi = new ListViewItem(RemoveStr);
+                lvi.SubItems.Add(CheckLabel);
                 this.listViewContentRemove.Items.Add(lvi);
             }
-            else if (DbType == "edit") {
+            else if (DbType == "edit")
+            {
                 this.listViewContentRemove.Items[itemIndex].SubItems[0].Text = RemoveStr;
+                this.listViewContentRemove.Items[itemIndex].SubItems[1].Text = CheckLabel;
             }
         }
         #endregion
@@ -324,6 +442,24 @@ namespace V5_DataCollection.Forms.Task {
             }
         }
         #endregion
+
+        private void chkLabelValueIsPager_CheckedChanged(object sender, EventArgs e) {
+            if (this.chkLabelIsPager.Checked) {
+                this.txtLabelValueIsPagerRegex.Enabled = true;
+            }
+            else {
+                this.txtLabelValueIsPagerRegex.Enabled = false;
+            }
+        }
+
+        private void chkLabelValueIsLinkUrl_CheckedChanged(object sender, EventArgs e) {
+            if (this.chkLabelIsLinkUrl.Checked) {
+                this.txtLabelValueIsLinkUrlRegex.Enabled = true;
+            }
+            else {
+                this.txtLabelValueIsLinkUrlRegex.Enabled = false;
+            }
+        }
 
         private static string SpiderUrlPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\System\\SpiderLabel\\";
 

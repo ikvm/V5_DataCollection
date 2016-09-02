@@ -227,6 +227,12 @@
     <Compile Include="Forms\Task\TaskData\frmTaskDataEdit.Designer.cs">
       <DependentUpon>frmTaskDataEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tools\frmSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Tools\frmSQL.Designer.cs">
+      <DependentUpon>frmSQL.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tools\frmTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +295,12 @@
     </Compile>
     <Compile Include="frmAboutBox.Designer.cs">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoadingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoadingDialog.Designer.cs">
+      <DependentUpon>frmLoadingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -427,11 +439,17 @@
     <EmbeddedResource Include="Forms\Tools\frmOption.resx">
       <DependentUpon>frmOption.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tools\frmSQL.resx">
+      <DependentUpon>frmSQL.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tools\frmTest.resx">
       <DependentUpon>frmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAboutBox.resx">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoadingDialog.resx">
+      <DependentUpon>frmLoadingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

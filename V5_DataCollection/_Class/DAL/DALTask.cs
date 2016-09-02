@@ -8,15 +8,11 @@ using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
 
 namespace V5_DataCollection._Class.DAL {
-
     public class DALTask {
 
         string dbStr = CommonHelper.SQLiteConnectionString;
-
         public DALTask() {
-
         }
-
         #region  Method
 
         /// <summary>
@@ -85,6 +81,11 @@ namespace V5_DataCollection._Class.DAL {
             if (model.LinkUrlNoMustIncludeStr != null) {
                 strSql1.Append("LinkUrlNoMustIncludeStr,");
                 strSql2.Append("'" + model.LinkUrlNoMustIncludeStr + "',");
+            }
+            if (model.LinkSpliceUrlStr != null)
+            {
+                strSql1.Append("LinkSpliceUrlStr,");
+                strSql2.Append("'" + model.LinkSpliceUrlStr + "',");
             }
             if (model.LinkUrlCutAreaStart != null) {
                 strSql1.Append("LinkUrlCutAreaStart,");
@@ -260,6 +261,10 @@ namespace V5_DataCollection._Class.DAL {
             }
             if (model.LinkUrlNoMustIncludeStr != null) {
                 strSql.Append("LinkUrlNoMustIncludeStr='" + model.LinkUrlNoMustIncludeStr + "',");
+            }
+            if (model.LinkSpliceUrlStr != null)
+            {
+                strSql.Append("LinkSpliceUrlStr='" + model.LinkSpliceUrlStr + "',");
             }
             if (model.LinkUrlCutAreaStart != null) {
                 strSql.Append("LinkUrlCutAreaStart='" + model.LinkUrlCutAreaStart + "',");
@@ -444,6 +449,10 @@ namespace V5_DataCollection._Class.DAL {
                 }
                 if (ds.Tables[0].Rows[0]["LinkUrlNoMustIncludeStr"] != null && ds.Tables[0].Rows[0]["LinkUrlNoMustIncludeStr"].ToString() != "") {
                     model.LinkUrlNoMustIncludeStr = ds.Tables[0].Rows[0]["LinkUrlNoMustIncludeStr"].ToString();
+                }
+                if (ds.Tables[0].Rows[0]["LinkSpliceUrlStr"] != null && ds.Tables[0].Rows[0]["LinkSpliceUrlStr"].ToString() != "")
+                {
+                    model.LinkSpliceUrlStr = ds.Tables[0].Rows[0]["LinkSpliceUrlStr"].ToString();
                 }
                 if (ds.Tables[0].Rows[0]["LinkUrlCutAreaStart"] != null && ds.Tables[0].Rows[0]["LinkUrlCutAreaStart"].ToString() != "") {
                     model.LinkUrlCutAreaStart = ds.Tables[0].Rows[0]["LinkUrlCutAreaStart"].ToString();

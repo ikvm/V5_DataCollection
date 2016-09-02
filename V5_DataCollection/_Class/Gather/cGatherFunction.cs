@@ -90,6 +90,15 @@ namespace V5_DataCollection._Class.Gather {
                             list_Para.Add(s.ToString());
                         }
                         break;
+                    case "Date":
+                        string[] ary = { "yyyyMMdd", "yyyy-MM-dd" };
+                        string lurl = "";
+                        if (Array.IndexOf(ary, dicPre.Substring(dicPre.IndexOf(":") + 1)) >= 0)
+                        {
+                            lurl = DateTime.Now.ToString(dicPre.Substring(dicPre.IndexOf(":") + 1));
+                            list_Para.Add(lurl);
+                        }
+                        break;
                 }
             }
             catch (Exception) {

@@ -58,6 +58,7 @@ namespace V5_WinLibs.DBUtility {
         //打开数据库
         public static IDbConnection GetDbConnection(DataBaseType m_dbType, string dbLink) {
             IDbConnection conn = null;
+            dbType = m_dbType;
             try {
                 switch (dbType) {
                     case DataBaseType.SqlServer:

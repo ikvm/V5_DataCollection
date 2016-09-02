@@ -11,7 +11,7 @@ namespace V5_DataCollection.Forms.Task
 {
     public partial class frmTaskLabelRemove : Form
     {
-        public delegate void TaskLabelRemove(int ItemIndex, string RemoveStr, string OpType);
+        public delegate void TaskLabelRemove(int ItemIndex, string RemoveStr, string CheckLabel, string OpType);
         public TaskLabelRemove TLR;
 
         private int _ItemIndex = -1;
@@ -28,6 +28,12 @@ namespace V5_DataCollection.Forms.Task
         {
             get { return _OldName; }
             set { _OldName = value; }
+        }
+        private string _RemoveName = string.Empty;
+        public string RemoveLabel
+        {
+            get { return _RemoveName; }
+            set { _RemoveName = value; }
         }
 
         public frmTaskLabelRemove()
@@ -50,7 +56,7 @@ namespace V5_DataCollection.Forms.Task
             {
                 if (TLR != null)
                 {
-                    TLR(this.ItemIndex, this.txtRemoveStr.Text, OpType);
+                    TLR(this.ItemIndex, this.txtRemoveStr.Text, this.chkLabel.Checked ? "1" : "0", OpType);
                 }
             }
             this.Hide();
@@ -62,6 +68,14 @@ namespace V5_DataCollection.Forms.Task
             if (this.OldName.Trim() != "")
             {
                 this.txtRemoveStr.Text = this.OldName;
+            }
+            if (this.RemoveLabel == "1")
+            {
+                this.chkLabel.Checked = true;
+            }
+            else
+            {
+                this.chkLabel.Checked = false;
             }
         }
     }

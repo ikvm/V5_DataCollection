@@ -17,6 +17,8 @@ using V5_Utility.Utility;
 using V5_WinLibs.Utility;
 using V5_WinLibs.DBUtility;
 using V5_WinLibs.Core;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace V5_DataCollection._Class.Publish {
     /// <summary>
@@ -187,6 +189,29 @@ namespace V5_DataCollection._Class.Publish {
                         sw.Close();
                     }
                 }
+                else if (ModelTask.SaveFileFormat2.ToLower() == ".sql") {
+                    try {
+                        string strTemplateContent = File.ReadAllText(ModelTask.SaveHtmlTemplate2, Encoding.UTF8);
+                        StringBuilder sbContent = new StringBuilder();
+                        foreach (DataRow dr in dtData.Rows) {
+                            string sql = strTemplateContent;
+                            foreach (ModelTaskLabel mTaskLabel in ModelTask.ListTaskLabel) {
+                                string content = dr[mTaskLabel.LabelName].ToString().Replace("'", "''");
+                                sql = sql.Replace("[" + mTaskLabel.LabelName + "]", content);
+                            }
+                            sbContent.AppendLine(sql);
+                        }
+                        using (StreamWriter sw = new StreamWriter(ModelTask.SaveDirectory2 + "\\sql.sql", false, Encoding.UTF8)) {
+                            sw.Write(sbContent.ToString());
+                            sw.Flush();
+                            sw.Close();
+                        }
+                    }
+                    catch (Exception ex) {
+                        gatherEv.Message = "错误!" + ex.Message;
+                        PublishCompalteDelegate(this, gatherEv);
+                    }
+                }
             }
             catch (Exception ex) {
                 Log4Helper.Write(V5_Utility.Utility.LogLevel.Error, ex);
@@ -204,9 +229,9 @@ namespace V5_DataCollection._Class.Publish {
             string exeSQL = ModelTask.SaveDataSQL3;
             string sql = string.Empty;
             switch (saveDateType) {
-                case 1:
+                case 1://ACCESS
                     break;
-                case 2:
+                case 2://MSSQL
                     foreach (DataRow dr in dtData.Rows) {
                         try {
                             sql = exeSQL;
@@ -226,11 +251,50 @@ namespace V5_DataCollection._Class.Publish {
                         }
                     }
                     break;
-                case 3:
+                case 3://SQLITE
                     break;
-                case 4:
+                case 4://MYSQL
+                    MySqlConnection conn = new MySqlConnection(ModelTask.SaveDataUrl3);
+                    try
+                    {
+                        conn.Open();
+                        MySqlScript script = new MySqlScript(conn);
+                        foreach (DataRow dr in dtData.Rows)
+                        {
+                            try
+                            {
+                                sql = exeSQL;
+                                foreach (ModelTaskLabel mTaskLabel in ModelTask.ListTaskLabel)
+                                {
+                                    sql = sql.Replace("[" + mTaskLabel.LabelName + "]", dr[mTaskLabel.LabelName].ToString().Replace("'", "''"));
+                                }
+                                sql = sql.Replace("[Guid]", Guid.NewGuid().ToString());
+                                sql = sql.Replace("[Url]", dr["HrefSource"].ToString());
+
+                                script.Query = sql;
+                                script.Execute();
+                                gatherEv.Message = dr["HrefSource"].ToString() + ":保存数据库成功!";
+                                PublishCompalteDelegate(this, gatherEv);
+                                /*
+                                DbHelperSQL.connectionString = ModelTask.SaveDataUrl3;
+                                DbHelperSQL.ExecuteSql(sql);
+                                gatherEv.Message = dr["HrefSource"].ToString() + ":保存数据库成功!";
+                                PublishCompalteDelegate(this, gatherEv);
+                                */
+                            }
+                            catch (Exception ex)
+                            {
+                                Log4Helper.Write(V5_Utility.Utility.LogLevel.Error, dr["HrefSource"].ToString() + ":保存数据库失败!", ex);
+                                continue;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                    conn.Close();
                     break;
-                case 5:
+                case 5://Oracle
                     break;
             }
         }

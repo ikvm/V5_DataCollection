@@ -67,5 +67,36 @@ namespace V5_WinLibs.Core {
             }
             return strHTML;
         }
+
+        /// <summary>
+        /// 下载图片到本地
+        /// </summary>
+        /// <param name="imgUrl">图片远程路径</param>
+        /// <param name="path">本地图片主目录</param>
+        /// <returns></returns>
+        public static string DownUrlPics(string imgUrl, string path)
+        {
+            string nowym = DateTime.Now.ToString("yyyy-MM");  //当前年月  
+            string nowdd = DateTime.Now.ToString("dd");       //当天号数  
+            path = path + nowym + "/" + nowdd;
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+            string preStr = System.DateTime.Now.ToString() + "_";
+            preStr = preStr.Replace("-", "");
+            preStr = preStr.Replace(":", "");
+            preStr = preStr.Replace(" ", "");
+            string newFileName = "/" + preStr + imgUrl.Substring(imgUrl.LastIndexOf("/") + 1);
+
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.DownloadFile(imgUrl, path + newFileName);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return newFileName;
+        }
     }
 }

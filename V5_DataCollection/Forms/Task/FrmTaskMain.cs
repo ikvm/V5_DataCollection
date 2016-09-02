@@ -21,11 +21,9 @@ using V5_WinLibs.Core;
 using V5_Utility.Utility;
 
 namespace V5_DataCollection.Forms.Task {
-
     public partial class FrmTaskMain : BaseContent {
-
+        //采集任务列表
         Dictionary<string, SpiderHelper> listGatherTask = new Dictionary<string, SpiderHelper>();
-
         public MainEventHandler.OutPutWindowHandler OutPutWindowDelegate;
 
         private int _ClassID = 0;
@@ -36,9 +34,7 @@ namespace V5_DataCollection.Forms.Task {
         }
 
         public FrmTaskMain() {
-
             InitializeComponent();
-
             this.dataGridView_TaskList.AutoGenerateColumns = false;
             this.dataGridView_TaskList.AllowUserToAddRows = false;
         }
@@ -48,6 +44,18 @@ namespace V5_DataCollection.Forms.Task {
         /// </summary>
         public void Bind_DataList() {
             Bind_DataList(string.Empty);
+            //string strWhere = string.Empty;
+            //int topNum = 1000;
+            //if (this.ClassID > 0) {
+            //    strWhere = " And TaskClassID=" + this.ClassID + " ";
+            //}
+            //else {
+            //    topNum = 1000;
+            //}
+            //strWhere += " Order by Id Desc ";
+            //DALTask dal = new DALTask();
+            //DataTable dt = dal.GetList(strWhere).Tables[0];
+            //this.dataGridView_TaskList.DataSource = dt.DefaultView;
         }
 
         public void Bind_DataList(string strWhere) {
@@ -59,10 +67,12 @@ namespace V5_DataCollection.Forms.Task {
             DataTable dt = dal.GetList(strWhere).Tables[0];
             this.dataGridView_TaskList.DataSource = dt.DefaultView;
 
-            for (int i = 0; i < this.dataGridView_TaskList.Rows.Count; i++) {
+            for (int i = 0; i < this.dataGridView_TaskList.Rows.Count; i++)
+            {
                 var row = this.dataGridView_TaskList.Rows[i];
                 row.Selected = false;
-                if (i == m_RowIndex) {
+                if (i == m_RowIndex)
+                {
                     row.Selected = true;
                 }
             }
@@ -121,7 +131,6 @@ namespace V5_DataCollection.Forms.Task {
             }
             return 0;
         }
-
         /// <summary>
         /// 获取所有选中的任务Id
         /// </summary>
@@ -137,7 +146,6 @@ namespace V5_DataCollection.Forms.Task {
             }
             return sb.ToString().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries); ;
         }
-
         /// <summary>
         /// 添加 编辑 任务 委托
         /// </summary>
@@ -163,8 +171,11 @@ namespace V5_DataCollection.Forms.Task {
                 DALTask dal = new DALTask();
                 ModelTask model = new ModelTask();
                 int ID = Get_DataViewID();
+                //检查目录是否存在
+                //model = dal.GetModelSingleTask(ID);
 
                 if (listGatherTask.ContainsKey(ID.ToString())) {
+                    //SpiderHelper Spider = listGatherTask.FirstOrDefault().Value;
                     var Spider = listGatherTask.FirstOrDefault().Value;
                     if (Spider.Stopped) {
                         Spider.Start();
@@ -176,10 +187,12 @@ namespace V5_DataCollection.Forms.Task {
                     //创建数据库索引
                     string baseDir = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\";
                     string SQLiteName = baseDir + model.TaskName + "\\SpiderResult.db";
-                    if (!File.Exists(SQLiteName)) {
+                    if (!File.Exists(SQLiteName))
+                    {
                         CreateDataFile(model.TaskName, ID);
                     }
                     var Spider = new SpiderHelper();
+                    //SpiderHelper Spider = new SpiderHelper();
                     Spider.modelTask = model;
                     Spider.GatherWorkDelegate = OutUrl;
                     Spider.GatherComplateDelegate = GatherOverDelegate;
@@ -191,7 +204,6 @@ namespace V5_DataCollection.Forms.Task {
                             listGatherTask.Add(ID.ToString(), Spider);
                         }
                     }
-
                 }
             }
             catch (Exception ex) {
@@ -216,15 +228,36 @@ namespace V5_DataCollection.Forms.Task {
             this.dataGridView_TaskList.Rows[TaskIndex].Cells["ProgressBar"].Value = perNum;
         }
 
+
         /// <summary>
         /// 任务结果输出
         /// </summary>
         public void OutUrl(object sender, GatherEvents.GatherLinkEvents e) {
+            //if (!string.IsNullOrEmpty(e.ID)) {
+            //    ModelGatherTask model = listGatherTask.Where(p => p.TaskID == int.Parse("0" + e.ID)).FirstOrDefault();
+            //    if (model != null) {
+            //        listGatherTask.Remove(model);
+            //    }
+            //}
             MainEvents.OutPutWindowEventArgs ev = new MainEvents.OutPutWindowEventArgs();
             ev.Message = e.Message;
             OutPutWindowDelegate?.Invoke(this, ev);
+            //if (OutPutWindowDelegate != null) {
+            //    OutPutWindowDelegate(this, ev);
+            //}
         }
-
+        /// <summary>
+        /// 任务暂停
+        /// </summary>
+        private void ToolStripMenuItem_TaskPause_Click(object sender, EventArgs e) {
+            //int ID = Get_DataViewID();
+            //if (listGatherTask.ContainsKey(ID.ToString())) {
+            //    var Spider = listGatherTask.FirstOrDefault().Value;
+            //    listGatherTask.Remove(ID.ToString());
+            //    Spider.Start();
+            //}
+            MessageBox.Show("暂停功能暂时不可用!", "警告!");
+        }
         /// <summary>
         /// 任务结束
         /// </summary>
@@ -233,15 +266,16 @@ namespace V5_DataCollection.Forms.Task {
             if (listGatherTask.ContainsKey(ID.ToString())) {
                 var Spider = listGatherTask.FirstOrDefault().Value;
                 listGatherTask.Remove(ID.ToString());
+                //Spider.Start();
                 Spider.Stop();
 
-                OutPutWindowDelegate?.Invoke(this, new MainEvents.OutPutWindowEventArgs() {
+                OutPutWindowDelegate?.Invoke(this, new MainEvents.OutPutWindowEventArgs()
+                {
                     Message = "任务已经停止!",
                     TaskId = ID
                 });
             }
         }
-
         /// <summary>
         /// 采集结束
         /// </summary>
@@ -255,7 +289,6 @@ namespace V5_DataCollection.Forms.Task {
                 Spider.Start();
             }
         }
-
         #endregion
 
         private void FrmTaskMain_Load(object sender, EventArgs e) {
@@ -267,7 +300,6 @@ namespace V5_DataCollection.Forms.Task {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dataGridView_TaskList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
-
             if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "status") {
                 string s = e.Value.ToString();
                 if (s == "1") {
@@ -287,17 +319,12 @@ namespace V5_DataCollection.Forms.Task {
                     e.Value = "停止";
                 }
             }
-
             if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "col_classid") {
                 string s = e.Value.ToString();
                 if (s == string.Empty) {
                     e.Value = "未分类";
                 }
             }
-
-            //设置任务属性
-
-
         }
         /// <summary>
         /// 清除所有任务数据
@@ -305,7 +332,6 @@ namespace V5_DataCollection.Forms.Task {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToolStripMenuItem_ClearTaskAllData_Click(object sender, EventArgs e) {
-
             if (MessageBox.Show("你确定要清除数据吗?清除不可恢复!", "警告!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK) {
                 ModelTask model = new ModelTask();
                 int ID = Get_DataViewID();
@@ -371,6 +397,7 @@ namespace V5_DataCollection.Forms.Task {
                 SQLiteHelper.Execute(LocalSQLiteName, SQL);
             }
             else {
+                //添加Sqlite列名称
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
                 foreach (DataRow dr in dt.Rows) {
                     try {
@@ -423,7 +450,7 @@ namespace V5_DataCollection.Forms.Task {
             model.ID = currentMaxId;
             model.TaskName = currentTaskName;
             dal.Add(model);
-
+            //
             DALTaskLabel dalLable = new DALTaskLabel();
             DataTable dt = dalLable.GetList(" TaskId=" + ID).Tables[0];
             if (dt != null && dt.Rows.Count > 0) {
@@ -433,8 +460,9 @@ namespace V5_DataCollection.Forms.Task {
                     dalLable.Add(modelLabel);
                 }
             }
+            //重建表结构
             CreateDataFile(currentTaskName, currentMaxId);
-
+            //
             this.ClassID = model.TaskClassID;
             Bind_DataList();
         }
@@ -447,12 +475,13 @@ namespace V5_DataCollection.Forms.Task {
 
             }
         }
-
         int m_RowIndex = 0;
-
-        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e) {
-            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) {
-                if (e.RowIndex >= 0) {
+        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left)
+            {
+                if (e.RowIndex >= 0)
+                {
                     dataGridView_TaskList.ClearSelection();
                     dataGridView_TaskList.Rows[e.RowIndex].Selected = true;
 
