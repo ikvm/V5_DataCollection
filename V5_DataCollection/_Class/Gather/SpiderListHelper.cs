@@ -20,9 +20,15 @@ namespace V5_DataCollection._Class.Gather {
         public ModelTask Model { get; set; } = new ModelTask();
 
         public delegate void OutMessage(string msg);
+        /// <summary>
+        /// 输出内容
+        /// </summary>
         public event OutMessage OutMessageHandler;
 
         public delegate void OutTreeNode(string url, string title, int nodeIndex);
+        /// <summary>
+        /// 采集结果树
+        /// </summary>
         public event OutTreeNode OutTreeNodeHandler;
 
         #region 测试地址
@@ -78,7 +84,7 @@ namespace V5_DataCollection._Class.Gather {
             }
 
             Match mch = null;
-            Regex reg = new Regex(regexHref, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            Regex reg = new Regex(regexHref, RegexOptions.IgnoreCase);
             string url = string.Empty;
             string title = string.Empty;
             string strUrl = string.Empty;
@@ -92,6 +98,7 @@ namespace V5_DataCollection._Class.Gather {
                         continue;
                     }
                 }
+
                 if (Model.LinkUrlNoMustIncludeStr.Trim() != "") {
                     bool isFlag = true;
                     foreach (string str in Model.LinkUrlNoMustIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries)) {

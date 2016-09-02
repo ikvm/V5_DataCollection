@@ -90,7 +90,8 @@ namespace V5_DataCollection._Class.Gather {
 
             MessageOut("开始采集数据！请稍候...");
 
-            var task = new Task(()=> {
+            #region 采集列表
+            var task = new TaskFactory().StartNew(() => {
                 var spiderList = new SpiderListHelper();
                 spiderList.Model = modelTask;
                 spiderList.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
@@ -115,13 +116,8 @@ namespace V5_DataCollection._Class.Gather {
                     MessageOut(msg);
                 };
                 spiderList.AnalyzeAllList();
-            });
-            task.Start();
 
-            /*
-            #region 采集列表
-            var task = new TaskFactory().StartNew(() => {
-                
+                this.Stopped = true;
             });
             #endregion
 
@@ -178,7 +174,11 @@ namespace V5_DataCollection._Class.Gather {
                     this.Stop();
                 }
             });
-            #endregion*/
+            #endregion
+
+            task.ContinueWith(x => {
+                this.Stopped = true;
+            });
         }
     }
 }
