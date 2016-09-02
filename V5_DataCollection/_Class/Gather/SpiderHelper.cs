@@ -17,6 +17,29 @@ using V5_WinLibs.DBHelper;
 using V5_WinLibs.Utility;
 
 namespace V5_DataCollection._Class.Gather {
+
+    /// <summary>
+    /// 任务类型
+    /// </summary>
+    public enum EnumTaskType {
+        /// <summary>
+        /// 列表
+        /// </summary>
+        List,
+        /// <summary>
+        /// 详细
+        /// </summary>
+        View,
+        /// <summary>
+        /// 发布
+        /// </summary>
+        Publish,
+        /// <summary>
+        /// 完成
+        /// </summary>
+        Over
+    }
+
     /// <summary>
     /// 采集管理
     /// </summary>
@@ -26,7 +49,7 @@ namespace V5_DataCollection._Class.Gather {
         /// <summary>
         /// 是否停止
         /// </summary>
-        public bool Stopped { get; set; }
+        public bool Stopped { get; set; } = true;
         /// <summary>
         /// 任务索引
         /// </summary>
@@ -58,15 +81,11 @@ namespace V5_DataCollection._Class.Gather {
 
         #region 私有变量
         private GatherEvents.GatherLinkEvents gatherEv = new GatherEvents.GatherLinkEvents();
-
         private Queue<ModelLinkUrl> _listLinkUrl = new Queue<ModelLinkUrl>();
         private cGatherFunction _gatherWork = new cGatherFunction();
+
         #endregion
 
-
-        /// <summary>
-        /// 消息输出
-        /// </summary>
         private void MessageOut(string strMsg) {
             if (GatherWorkDelegate != null) {
                 gatherEv.Message = strMsg;
@@ -74,23 +93,51 @@ namespace V5_DataCollection._Class.Gather {
             }
         }
 
+        public delegate void OutTaskStatus(EnumTaskType type);
+        public event OutTaskStatus OutTaskStatusHandler;
+
+        #region 入口
+
         public void Stop() {
             this.Stopped = true;
-            modelTask = null;
         }
-        /// <summary>
-        /// 开始采集网址列表
-        /// </summary>
+
         public void Start() {
-            if (this.Stopped || modelTask == null) {
+
+            if (!this.Stopped || modelTask == null) {
                 return;
             }
+
+            this.Stopped = false;
+
+            OutTaskStatusHandler = (EnumTaskType type) => {
+                switch (type) {
+                    case EnumTaskType.List:
+                        StartList();
+                        break;
+                    case EnumTaskType.View:
+                        StartView();
+                        break;
+                    case EnumTaskType.Publish:
+                        StartPublish();
+                        break;
+                    case EnumTaskType.Over:
+                        StartOver();
+                        break;
+                }
+            };
+
+            OutTaskStatusHandler?.Invoke(EnumTaskType.List);
+        }
+        #endregion
+
+        #region 列表
+        private void StartList() {
 
             _listLinkUrl.Clear();
 
             MessageOut("开始采集数据！请稍候...");
 
-            #region 采集列表
             var task = new TaskFactory().StartNew(() => {
                 var spiderList = new SpiderListHelper();
                 spiderList.Model = modelTask;
@@ -108,7 +155,12 @@ namespace V5_DataCollection._Class.Gather {
                     }
                     if (addFlag) {
                         string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
-                        _listLinkUrl.Enqueue(m);
+                        if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url)) {
+                            _listLinkUrl.Enqueue(m);
+                        }
+                        else {
+                            msg += "采集地址存在!不需要采集!";
+                        }
                         MessageOut(msg);
                     }
                 };
@@ -117,12 +169,21 @@ namespace V5_DataCollection._Class.Gather {
                 };
                 spiderList.AnalyzeAllList();
 
-                this.Stopped = true;
+                if (_listLinkUrl.Count > 0) {
+                    OutTaskStatusHandler?.Invoke(EnumTaskType.View);
+                }
+                else {
+                    MessageOut("采集网站内容选项关闭!或者采集列表的地址为0!不需要采集!");
+                    OutTaskStatusHandler?.Invoke(EnumTaskType.Over);
+                }
             });
-            #endregion
 
-            #region 采集内容
-            task.ContinueWith(x => {
+        }
+        #endregion
+
+        #region 详细
+        private void StartView() {
+            var taskList = new TaskFactory().StartNew(() => {
 
                 MessageOut("分析获取网页个数为" + _listLinkUrl.Count + "个！");
                 MessageOut("采集网站列表完成!");
@@ -135,25 +196,47 @@ namespace V5_DataCollection._Class.Gather {
                     spiderViewHelper.OutViewUrlContentHandler += (string content) => {
                         MessageOut(content);
                     };
+
+                    var ProressNum = 0;
+                    var TaskCount = _listLinkUrl.Count;
+
                     while (true) {
                         if (_listLinkUrl.Count == 0) {
                             break;
                         }
                         var mlink = _listLinkUrl.Dequeue();
-                        spiderViewHelper.SpiderContent(mlink.Url, modelTask.ListTaskLabel);
+                        try {
+                            #region 进度条
+
+                            ProressNum++;
+                            MainEvents.OutPutTaskProgressBarEventArgs ea = new MainEvents.OutPutTaskProgressBarEventArgs();
+                            ea.ProgressNum = ProressNum;
+                            ea.RecordNum = TaskCount;
+                            ea.TaskIndex = TaskIndex;
+                            OutPutTaskProgressBarDelegate?.Invoke(this, ea);
+
+                            #endregion
+                            spiderViewHelper.SpiderContent(mlink.Url, modelTask.ListTaskLabel);
+                        }
+                        catch (Exception ex) {
+                            LoggerHelper.Write(V5_WinLibs.LogLevel.Error, ex);
+                        }
                     }
 
                 }
                 else {
                     MessageOut("采集网站内容选项关闭!或者采集列表的地址为0!不需要采集!");
                 }
-            });
-            #endregion
 
-            #region 发布数据
-            task.ContinueWith(x => {
+                OutTaskStatusHandler?.Invoke(EnumTaskType.Publish);
+            });
+        }
+        #endregion
+
+        #region 发布
+        private void StartPublish() {
+            var taskView = new TaskFactory().StartNew(() => {
                 MessageOut("采集网站Url内容完成！");
-                //开始发布内容
                 if (modelTask.IsPublishContent == 1) {
                     PublishHelper publich = new PublishHelper();
                     publich.ModelTask = modelTask;
@@ -173,12 +256,17 @@ namespace V5_DataCollection._Class.Gather {
                     MessageOut("发布数据没有开启!不需要发布数据!");
                     this.Stop();
                 }
-            });
-            #endregion
 
-            task.ContinueWith(x => {
-                this.Stopped = true;
+                OutTaskStatusHandler?.Invoke(EnumTaskType.Over);
             });
         }
+        #endregion
+
+        #region 完成
+        private void StartOver() {
+            MessageOut("采集数据完毕!");
+            this.Stop();
+        }
+        #endregion
     }
 }

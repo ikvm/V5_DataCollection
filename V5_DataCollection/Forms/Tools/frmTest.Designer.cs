@@ -40,6 +40,7 @@ namespace V5_DataCollection.Forms.Tools {
             this.Pross_1 = new V5_WinControls.DataGrid.DataGridViewProgressBarColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewProgressBarColumn1 = new V5_WinControls.DataGrid.DataGridViewProgressBarColumn();
+            this.btnTestPython = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.v5DataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -150,11 +151,22 @@ namespace V5_DataCollection.Forms.Tools {
             this.dataGridViewProgressBarColumn1.Name = "dataGridViewProgressBarColumn1";
             this.dataGridViewProgressBarColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // btnTestPython
+            // 
+            this.btnTestPython.Location = new System.Drawing.Point(271, 330);
+            this.btnTestPython.Name = "btnTestPython";
+            this.btnTestPython.Size = new System.Drawing.Size(75, 23);
+            this.btnTestPython.TabIndex = 9;
+            this.btnTestPython.Text = "测试Python";
+            this.btnTestPython.UseVisualStyleBackColor = true;
+            this.btnTestPython.Click += new System.EventHandler(this.btnTestPython_Click);
+            // 
             // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 418);
+            this.Controls.Add(this.btnTestPython);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox1);
@@ -186,5 +198,6 @@ namespace V5_DataCollection.Forms.Tools {
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnTestPython;
     }
 }

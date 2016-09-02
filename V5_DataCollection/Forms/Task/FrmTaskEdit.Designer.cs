@@ -190,6 +190,8 @@ namespace V5_DataCollection.Forms.Task {
             this.txtOldTaskName = new System.Windows.Forms.TextBox();
             this.contextMenuStrip_Label = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabControlTaskEdit.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -240,13 +242,13 @@ namespace V5_DataCollection.Forms.Task {
             this.cmbSiteClassID.FormattingEnabled = true;
             this.cmbSiteClassID.Location = new System.Drawing.Point(76, 8);
             this.cmbSiteClassID.Name = "cmbSiteClassID";
-            this.cmbSiteClassID.Size = new System.Drawing.Size(157, 20);
+            this.cmbSiteClassID.Size = new System.Drawing.Size(102, 20);
             this.cmbSiteClassID.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(239, 13);
+            this.label2.Location = new System.Drawing.Point(184, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 2;
@@ -254,9 +256,9 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // txtTaskName
             // 
-            this.txtTaskName.Location = new System.Drawing.Point(286, 9);
+            this.txtTaskName.Location = new System.Drawing.Point(231, 9);
             this.txtTaskName.Name = "txtTaskName";
-            this.txtTaskName.Size = new System.Drawing.Size(195, 21);
+            this.txtTaskName.Size = new System.Drawing.Size(172, 21);
             this.txtTaskName.TabIndex = 3;
             // 
             // groupBox1
@@ -264,9 +266,9 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox1.Controls.Add(this.chkIsPublishContent);
             this.groupBox1.Controls.Add(this.chkIsSpiderContent);
             this.groupBox1.Controls.Add(this.chkIsSpiderUrl);
-            this.groupBox1.Location = new System.Drawing.Point(501, -3);
+            this.groupBox1.Location = new System.Drawing.Point(523, -3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(270, 37);
+            this.groupBox1.Size = new System.Drawing.Size(248, 37);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -275,7 +277,7 @@ namespace V5_DataCollection.Forms.Task {
             this.chkIsPublishContent.AutoSize = true;
             this.chkIsPublishContent.Checked = true;
             this.chkIsPublishContent.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsPublishContent.Location = new System.Drawing.Point(188, 15);
+            this.chkIsPublishContent.Location = new System.Drawing.Point(176, 15);
             this.chkIsPublishContent.Name = "chkIsPublishContent";
             this.chkIsPublishContent.Size = new System.Drawing.Size(72, 16);
             this.chkIsPublishContent.TabIndex = 0;
@@ -287,7 +289,7 @@ namespace V5_DataCollection.Forms.Task {
             this.chkIsSpiderContent.AutoSize = true;
             this.chkIsSpiderContent.Checked = true;
             this.chkIsSpiderContent.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsSpiderContent.Location = new System.Drawing.Point(104, 15);
+            this.chkIsSpiderContent.Location = new System.Drawing.Point(92, 15);
             this.chkIsSpiderContent.Name = "chkIsSpiderContent";
             this.chkIsSpiderContent.Size = new System.Drawing.Size(72, 16);
             this.chkIsSpiderContent.TabIndex = 0;
@@ -299,7 +301,7 @@ namespace V5_DataCollection.Forms.Task {
             this.chkIsSpiderUrl.AutoSize = true;
             this.chkIsSpiderUrl.Checked = true;
             this.chkIsSpiderUrl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsSpiderUrl.Location = new System.Drawing.Point(20, 15);
+            this.chkIsSpiderUrl.Location = new System.Drawing.Point(8, 15);
             this.chkIsSpiderUrl.Name = "chkIsSpiderUrl";
             this.chkIsSpiderUrl.Size = new System.Drawing.Size(72, 16);
             this.chkIsSpiderUrl.TabIndex = 0;
@@ -725,7 +727,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Location = new System.Drawing.Point(308, 7);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(434, 350);
+            this.groupBox7.Size = new System.Drawing.Size(434, 415);
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "采集页面测试";
@@ -734,7 +736,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.txtTestViewUrlShow.Location = new System.Drawing.Point(8, 43);
             this.txtTestViewUrlShow.Name = "txtTestViewUrlShow";
-            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 301);
+            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 366);
             this.txtTestViewUrlShow.TabIndex = 3;
             this.txtTestViewUrlShow.Text = "";
             // 
@@ -776,7 +778,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox6.Controls.Add(this.listViewTaskLabel);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(296, 351);
+            this.groupBox6.Size = new System.Drawing.Size(296, 416);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "页面内容标签定义";
@@ -852,7 +854,7 @@ namespace V5_DataCollection.Forms.Task {
             this.listViewTaskLabel.Location = new System.Drawing.Point(75, 20);
             this.listViewTaskLabel.MultiSelect = false;
             this.listViewTaskLabel.Name = "listViewTaskLabel";
-            this.listViewTaskLabel.Size = new System.Drawing.Size(215, 325);
+            this.listViewTaskLabel.Size = new System.Drawing.Size(215, 390);
             this.listViewTaskLabel.TabIndex = 0;
             this.listViewTaskLabel.UseCompatibleStateImageBehavior = false;
             this.listViewTaskLabel.View = System.Windows.Forms.View.Details;
@@ -1862,7 +1864,7 @@ namespace V5_DataCollection.Forms.Task {
             this.treeViewUrlTest.LabelEdit = true;
             this.treeViewUrlTest.Location = new System.Drawing.Point(6, 20);
             this.treeViewUrlTest.Name = "treeViewUrlTest";
-            this.treeViewUrlTest.Size = new System.Drawing.Size(638, 370);
+            this.treeViewUrlTest.Size = new System.Drawing.Size(716, 370);
             this.treeViewUrlTest.TabIndex = 0;
             // 
             // btnSubmit
@@ -1916,11 +1918,34 @@ namespace V5_DataCollection.Forms.Task {
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(409, 14);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "状态";
+            // 
+            // cmbStatus
+            // 
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Items.AddRange(new object[] {
+            "正常",
+            "关闭"});
+            this.cmbStatus.Location = new System.Drawing.Point(444, 9);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(70, 20);
+            this.cmbStatus.TabIndex = 10;
+            // 
             // FrmTaskEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 536);
+            this.Controls.Add(this.cmbStatus);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtOldTaskName);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.btnCancel);
@@ -2159,5 +2184,7 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.GroupBox groupBox20;
         private V5LinkLabel v5LinkLabel7;
         private V5LinkLabel v5LinkLabel8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbStatus;
     }
 }

@@ -17,7 +17,7 @@ namespace V5_DataCollection._Class.PythonExt {
         /// </summary>
         /// <param name="pythonFile"></param>
         /// <returns></returns>
-        public static string RunPython(string pythonFile, string inputUrl, object inputObj) {
+        public static string RunPython(string pythonFile, object[] inputObj) {
 
             ScriptEngine _engine = Python.CreateEngine();
 
@@ -27,9 +27,9 @@ namespace V5_DataCollection._Class.PythonExt {
             //加载必须的类库
             var code = @"import sys" + "\n" +
                 @"from System.IO import Path" + "\n" +
-                @"sys.path.append("".\pythonlib.zip"")" + "\n" +
+                //@"sys.path.append("".\pythonlib.zip"")" + "\n" +
                 @"import clr" + "\n" +
-                @"clr.AddReferenceToFileAndPath(Path.GetFullPath(r'System\pythonlibs\V5_PythonLibs.dll'))" + "\n" +
+                //@"clr.AddReferenceToFileAndPath(Path.GetFullPath(r'System\pythonlibs\V5_PythonLibs.dll'))" + "\n" +
                 @"execfile(Path.GetFullPath(r'" + pythonFile + @"'))";
             var source = _engine.CreateScriptSourceFromString(code);
 
@@ -47,9 +47,9 @@ namespace V5_DataCollection._Class.PythonExt {
             //_code.Execute(scope);
             #endregion
 
-            var main = scope.GetVariable<Func<string, object, string>>("main");
+            var main = scope.GetVariable<Func<object[], string>>("start");
 
-            return main(inputUrl, inputObj);
+            return main(inputObj);
 
         }
     }

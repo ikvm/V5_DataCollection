@@ -26,6 +26,7 @@ using V5_WinLibs.Utility;
 using V5_WinLibs.Expand;
 using V5_WinControls;
 using V5_WinLibs.DBUtility;
+using System.Threading.Tasks;
 
 namespace V5_DataCollection.Forms.Task {
     public partial class FrmTaskEdit : BaseForm {
@@ -76,6 +77,8 @@ namespace V5_DataCollection.Forms.Task {
             this.txtHiddenPlanFormat.TextChanged += (object sender, EventArgs e) => {
                 this.txtTaskSetFormat.Text = this.txtHiddenPlanFormat.Text;
             };
+
+            this.cmbStatus.SelectedIndex = 0;
         }
 
 
@@ -259,18 +262,21 @@ namespace V5_DataCollection.Forms.Task {
                 this.treeViewUrlTest.Nodes.Add(rootNode);
             }
 
-            var spiderListHelper = new SpiderListHelper();
-            spiderListHelper.Model = model;
-            spiderListHelper.OutMessageHandler += (string msg) => {
-                MessageBox.Show(msg);
-            };
-            spiderListHelper.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
-                this.Invoke(new MethodInvoker(delegate () {
-                    if (!this.treeViewUrlTest.Nodes[nodeIndex].Nodes.ContainsKey(url))
-                        this.treeViewUrlTest.Nodes[nodeIndex].Nodes.Add(url, url);
-                }));
-            };
-            spiderListHelper.AnalyzeSingleList(TestLinkUrl);
+            var task = new TaskFactory().StartNew(() => {
+                var spiderListHelper = new SpiderListHelper();
+                spiderListHelper.Model = model;
+                spiderListHelper.OutMessageHandler += (string msg) => {
+                    MessageBox.Show(msg);
+                };
+                spiderListHelper.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
+                    this.Invoke(new MethodInvoker(delegate () {
+                        if (!this.treeViewUrlTest.Nodes[nodeIndex].Nodes.ContainsKey(url))
+                            this.treeViewUrlTest.Nodes[nodeIndex].Nodes.Add(url, url);
+                    }));
+                };
+                spiderListHelper.AnalyzeSingleList(TestLinkUrl);
+            });
+
 
         }
         #endregion
@@ -540,8 +546,6 @@ namespace V5_DataCollection.Forms.Task {
         #endregion
 
         private void btnCancel_Click(object sender, EventArgs e) {
-            //this.Hide();
-            //this.Close();
             this.CloseForm();
         }
 
@@ -625,6 +629,7 @@ namespace V5_DataCollection.Forms.Task {
             this.chkTaskSetStatus.Checked = model.IsPlan == 1 ? true : false;
             this.txtHiddenPlanFormat.Text = model.PlanFormat;
 
+            this.cmbStatus.SelectedIndex = model.Status == 1 ? 0 : 1;
         }
         #endregion
 
@@ -758,6 +763,7 @@ namespace V5_DataCollection.Forms.Task {
             //
             model.IsPlan = IsPlan;
             model.PlanFormat = PlanFormat;
+            model.Status = this.cmbStatus.SelectedIndex == 0 ? 1 : 0;
             if (ID == 0) {
                 string guid = Guid.NewGuid().ToString();
                 ID = dal.GetMaxId();

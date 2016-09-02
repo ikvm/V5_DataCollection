@@ -38,7 +38,7 @@ namespace V5_DataCollection._Class.Common {
                 httpItem.Encoding = Encoding.GetEncoding(pageEncode);
             }
             var httpResult = http.GetHtml(httpItem);
-            return httpResult.Html;
+            return httpResult.Html == "本次请求并未返回任何数据" ? string.Empty : httpResult.Html;
         }
     }
 }

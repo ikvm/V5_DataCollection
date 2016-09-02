@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using V5_DataCollection._Class.Gather;
+using V5_DataCollection._Class.PythonExt;
 using V5_Model;
 
 namespace V5_DataCollection._Class {
@@ -30,6 +31,10 @@ namespace V5_DataCollection._Class {
                 throw new NotImplementedException();
             };
             spiderView.SpiderContent("http://www.68design.net/Web-Guide/Xhtml-CSS/63761-1.html", Test_LabelList);
+        }
+
+        public void Test3() {
+            var s = PythonExtHelper.RunPython(@"Plugins\SpiderUrl\test.py", new object[] { });
         }
     }
 }

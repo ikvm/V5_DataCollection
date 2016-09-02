@@ -147,10 +147,12 @@ namespace V5_DataCollection._Class.Gather {
                     }
                     #endregion
                     CutContent = CutContent.Replace("\t", "");
+
                     string SpiderLabelPlugin = itemLabel.SpiderLabelPlugin;
                     if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
-                        CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, Test_ViewUrl, CutContent);
+                        CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { Test_ViewUrl, CutContent });
                     }
+
                     sContent += CutContent;
                     sbTest.AppendLine(sContent);
                 }
@@ -165,12 +167,12 @@ namespace V5_DataCollection._Class.Gather {
 
         #endregion
 
-        public void SpiderContent(string Test_ViewUrl, List<ModelTaskLabel> Test_LabelList) {
+        #region 采集详细
+        public void SpiderContent(string viewUrl, List<ModelTaskLabel> Test_LabelList) {
 
-            string url = Test_ViewUrl;
             string SQL = string.Empty, cutContent = string.Empty;
 
-            string pageContent = CommonHelper.getPageContent(Test_ViewUrl, Model.PageEncode);
+            string pageContent = CommonHelper.getPageContent(viewUrl, Model.PageEncode);
             string title = CollectionHelper.Instance.CutStr(pageContent, "<title>([\\S\\s]*?)</title>")[0];
 
             StringBuilder sb1 = new StringBuilder();
@@ -260,7 +262,7 @@ namespace V5_DataCollection._Class.Gather {
                     string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
 
                     foreach (string pageUrl in LabelString) {
-                        string url1 = CollectionHelper.Instance.DefiniteUrl(pageUrl, url);
+                        string url1 = CollectionHelper.Instance.DefiniteUrl(pageUrl, viewUrl);
                         string pageContentPager = CollectionHelper.Instance.GetHttpPage(url1, 100000);
                         if (pageContent.Equals("$UrlIsFalse$") || pageContent.Equals("$GetFalse$")) {
 
@@ -325,6 +327,13 @@ namespace V5_DataCollection._Class.Gather {
                 }
                 #endregion
 
+                #region 加载插件
+                string SpiderLabelPlugin = m.SpiderLabelPlugin;
+                if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
+                    CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { viewUrl, CutContent });
+                }
+                #endregion
+
                 sb1.Append("" + m.LabelName.Replace("'", "''") + ",");
                 sb2.Append("'" + CutContent.Replace("'", "''") + "',");
                 if (CutContent.Replace("'", "''").Length < 100) {
@@ -347,14 +356,14 @@ namespace V5_DataCollection._Class.Gather {
             try {
                 #region 保存数据库
                 string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
-                string sql = " Select Count(1) From Content Where HrefSource='" + url + "' ";
+                string sql = " Select Count(1) From Content Where HrefSource='" + viewUrl + "' ";
                 object o = SQLiteHelper.ExecuteScalar(LocalSQLiteName, sql);
                 if (Convert.ToInt32("0" + o) == 0) {
 
                     strSql.Append("insert into Content(HrefSource,");
                     strSql.Append(sb1.ToString().Remove(sb1.Length - 1));
                     strSql.Append(")");
-                    strSql.Append(" values ('" + url + "',");
+                    strSql.Append(" values ('" + viewUrl + "',");
                     strSql.Append(sb2.ToString().Remove(sb2.Length - 1));
                     strSql.Append(")");
 
@@ -363,11 +372,12 @@ namespace V5_DataCollection._Class.Gather {
                 title = title.Replace('\\', ' ').Replace('/', ' ').Split(new char[] { '_' })[0].Split(new char[] { '-' })[0];
                 #endregion
 
-                OutViewUrlContentHandler?.Invoke(Test_ViewUrl + "=" + title);
+                OutViewUrlContentHandler?.Invoke(viewUrl + "=" + title);
             }
             catch (Exception ex) {
-                OutViewUrlContentHandler?.Invoke(Test_ViewUrl + "=" + title + "=" + ex.Message);
+                OutViewUrlContentHandler?.Invoke(viewUrl + "=" + title + "=" + ex.Message);
             }
         }
+        #endregion
     }
 }

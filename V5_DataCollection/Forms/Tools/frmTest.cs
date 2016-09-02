@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using V5_DataCollection._Class.Common;
+using V5_DataCollection._Class.PythonExt;
 using V5_WinLibs.Utility;
 
 namespace V5_DataCollection.Forms.Tools {
@@ -92,6 +93,10 @@ namespace V5_DataCollection.Forms.Tools {
 
         private void button4_Click(object sender, EventArgs e) {
             MessageBox.Show(this.textBox1.Handle.ToString());
+        }
+
+        private void btnTestPython_Click(object sender, EventArgs e) {
+            var s = PythonExtHelper.RunPython(@"Plugins\SpiderUrl\test.py", new object[] { });
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using V5_DataCollection._Class.Common;
+using V5_DataCollection._Class.PythonExt;
 using V5_Model;
 using V5_Utility.Utility;
 using V5_WinLibs.Core;
@@ -31,7 +32,7 @@ namespace V5_DataCollection._Class.Gather {
         /// </summary>
         public event OutTreeNode OutTreeNodeHandler;
 
-        #region 测试地址
+        #region 地址
         /// <summary>
         /// 分析列表连接
         /// </summary>
@@ -50,6 +51,10 @@ namespace V5_DataCollection._Class.Gather {
         public void ResolveList(string testUrl, int num) {
 
             string pageContent = CommonHelper.getPageContent(testUrl, Model.PageEncode);
+            if (string.IsNullOrEmpty(pageContent)) {
+                OutMessageHandler?.Invoke("采集列表失败!");
+                return;
+            }
 
             if (Model.LinkUrlCutAreaStart?.Trim() != "" && Model.LinkUrlCutAreaEnd?.Trim() != "") {
                 pageContent = HtmlHelper.Instance.ParseCollectionStrings(pageContent);
@@ -58,12 +63,6 @@ namespace V5_DataCollection._Class.Gather {
                     HtmlHelper.Instance.ParseCollectionStrings(Model.LinkUrlCutAreaEnd),
                     false,
                     false);
-
-                if (pageContent == "本次请求并未返回任何数据") {
-                    OutMessageHandler?.Invoke("采集失败!");
-                    return;
-                }
-
                 pageContent = HtmlHelper.Instance.UnParseCollectionStrings(pageContent);
             }
 
@@ -107,12 +106,23 @@ namespace V5_DataCollection._Class.Gather {
                             break;
                         }
                     }
-                    if (isFlag)
-                        OutTreeNodeHandler?.Invoke(url, title, num);
+                    if (!isFlag) {
+                        continue;
+                    }
                 }
-                else {
-                    OutTreeNodeHandler?.Invoke(url, title, num);
-                }
+
+                #region 加载插件
+                //string SpiderLabelPlugin = Model.PluginSpiderUrl;
+                //if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
+                //    CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, url, title);
+                //}
+                #endregion
+
+                OutTreeNodeHandler?.Invoke(url, title, num);
+
+                int minTime = 10;
+                int maxTime = 100;
+                Thread.Sleep(new Random().Next(minTime, maxTime));
             }
         }
 

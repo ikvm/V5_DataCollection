@@ -22,7 +22,7 @@ using V5_Utility.Utility;
 
 namespace V5_DataCollection.Forms.Task {
     public partial class FrmTaskMain : BaseContent {
-        //采集任务列表
+
         Dictionary<string, SpiderHelper> listGatherTask = new Dictionary<string, SpiderHelper>();
         public MainEventHandler.OutPutWindowHandler OutPutWindowDelegate;
 
@@ -44,18 +44,6 @@ namespace V5_DataCollection.Forms.Task {
         /// </summary>
         public void Bind_DataList() {
             Bind_DataList(string.Empty);
-            //string strWhere = string.Empty;
-            //int topNum = 1000;
-            //if (this.ClassID > 0) {
-            //    strWhere = " And TaskClassID=" + this.ClassID + " ";
-            //}
-            //else {
-            //    topNum = 1000;
-            //}
-            //strWhere += " Order by Id Desc ";
-            //DALTask dal = new DALTask();
-            //DataTable dt = dal.GetList(strWhere).Tables[0];
-            //this.dataGridView_TaskList.DataSource = dt.DefaultView;
         }
 
         public void Bind_DataList(string strWhere) {
@@ -171,20 +159,16 @@ namespace V5_DataCollection.Forms.Task {
                 DALTask dal = new DALTask();
                 ModelTask model = new ModelTask();
                 int ID = Get_DataViewID();
-                //检查目录是否存在
-                //model = dal.GetModelSingleTask(ID);
 
                 if (listGatherTask.ContainsKey(ID.ToString())) {
-                    //SpiderHelper Spider = listGatherTask.FirstOrDefault().Value;
                     var Spider = listGatherTask.FirstOrDefault().Value;
                     if (Spider.Stopped) {
                         Spider.Start();
                     }
                 }
                 else {
-
                     model = dal.GetModelSingleTask(ID);
-                    //创建数据库索引
+
                     string baseDir = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\";
                     string SQLiteName = baseDir + model.TaskName + "\\SpiderResult.db";
                     if (!File.Exists(SQLiteName))
@@ -192,7 +176,6 @@ namespace V5_DataCollection.Forms.Task {
                         CreateDataFile(model.TaskName, ID);
                     }
                     var Spider = new SpiderHelper();
-                    //SpiderHelper Spider = new SpiderHelper();
                     Spider.modelTask = model;
                     Spider.GatherWorkDelegate = OutUrl;
                     Spider.GatherComplateDelegate = GatherOverDelegate;
@@ -233,29 +216,14 @@ namespace V5_DataCollection.Forms.Task {
         /// 任务结果输出
         /// </summary>
         public void OutUrl(object sender, GatherEvents.GatherLinkEvents e) {
-            //if (!string.IsNullOrEmpty(e.ID)) {
-            //    ModelGatherTask model = listGatherTask.Where(p => p.TaskID == int.Parse("0" + e.ID)).FirstOrDefault();
-            //    if (model != null) {
-            //        listGatherTask.Remove(model);
-            //    }
-            //}
             MainEvents.OutPutWindowEventArgs ev = new MainEvents.OutPutWindowEventArgs();
             ev.Message = e.Message;
             OutPutWindowDelegate?.Invoke(this, ev);
-            //if (OutPutWindowDelegate != null) {
-            //    OutPutWindowDelegate(this, ev);
-            //}
         }
         /// <summary>
         /// 任务暂停
         /// </summary>
         private void ToolStripMenuItem_TaskPause_Click(object sender, EventArgs e) {
-            //int ID = Get_DataViewID();
-            //if (listGatherTask.ContainsKey(ID.ToString())) {
-            //    var Spider = listGatherTask.FirstOrDefault().Value;
-            //    listGatherTask.Remove(ID.ToString());
-            //    Spider.Start();
-            //}
             MessageBox.Show("暂停功能暂时不可用!", "警告!");
         }
         /// <summary>
@@ -266,7 +234,6 @@ namespace V5_DataCollection.Forms.Task {
             if (listGatherTask.ContainsKey(ID.ToString())) {
                 var Spider = listGatherTask.FirstOrDefault().Value;
                 listGatherTask.Remove(ID.ToString());
-                //Spider.Start();
                 Spider.Stop();
 
                 OutPutWindowDelegate?.Invoke(this, new MainEvents.OutPutWindowEventArgs()
