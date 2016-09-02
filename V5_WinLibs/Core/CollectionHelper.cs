@@ -518,6 +518,104 @@ namespace V5_WinLibs.Core {
             return ConStr;
         }
         /// <summary>
+        /// 过滤HTML标签内容
+        /// </summary>
+        /// <param name="ConStr">源字符串</param>
+        /// <param name="TagList">标签数组</param>
+        /// <returns></returns>
+        public static string ScriptHtml(string ConStr, string[] TagList)
+        {
+            string conStr = ConStr;
+            string pattern = @"(?isx)
+                      <({0})\b[^>]*>                  #开始标记“<tag...>”
+                          (?>                         #分组构造，用来限定量词“*”修饰范围
+                              <\1[^>]*>  (?<Open>)    #命名捕获组，遇到开始标记，入栈，Open计数加1
+                          |                           #分支结构
+                              </\1>  (?<-Open>)       #狭义平衡组，遇到结束标记，出栈，Open计数减1
+                          |                           #分支结构
+                              (?:(?!</?\1\b).)*       #右侧不为开始或结束标记的任意字符
+                          )*                          #以上子串出现0次或任意多次
+                          (?(Open)(?!))               #判断是否还有'OPEN'，有则说明不配对，什么都不匹配
+                      </\1>                           #结束标记“</tag>”
+                     ";
+            string patt = pattern;
+            foreach (string tag in TagList)
+            {
+                switch (tag)
+                {
+                    case "remark":
+                        patt = "<!--.+?-->";
+                        break;
+                    case "div":
+                        patt = @"<div\b[^>]*>[\n\r ]*</div>";
+                        break;
+                    default:
+                        patt = pattern;
+                        break;
+                }
+                Regex tmpreg = new Regex(string.Format(patt, Regex.Escape(tag)), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                MatchCollection matchs = tmpreg.Matches(conStr);
+                while (matchs.Count > 0)
+                {
+                    for (int i = 0; i < matchs.Count; i++)
+                    {
+                        conStr = conStr.Replace(matchs[i].Value, "");
+                    }
+                    matchs = tmpreg.Matches(conStr);
+                }
+
+                //if (tag == "div")
+                //{
+                //    while (matchs.Count > 0)
+                //    {
+                //        for (int i = 0; i < matchs.Count; i++)
+                //        {
+                //            conStr = conStr.Replace(matchs[i].Value, "");
+                //        }
+                //        matchs = tmpreg.Matches(conStr);
+                //    }
+                //}
+                //else
+                //{
+                //    for (int i = 0; i < matchs.Count; i++)
+                //    {
+                //        conStr = conStr.Replace(matchs[i].Value, "");
+                //    }
+                //}
+
+
+                //Regex tmpreg = new Regex(string.Format(pattern, Regex.Escape(tag)), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                //MatchCollection matchs = tmpreg.Matches(conStr);
+                //for (int i = 0; i < matchs.Count; i++)
+                //{
+                //    conStr = conStr.Replace(matchs[i].Value, "");
+                //}
+                //Match match = Regex.Match(conStr, string.Format(pattern, Regex.Escape(tag)));
+                //if (match.Success)
+                //    conStr = conStr.Replace(match.Value, "");
+            }
+            return conStr;
+        }
+
+        public static string RemoveHtml(string ConStr, string removeCon)
+        {
+            string conStr = ConStr;
+            string[] arr = removeCon.Split(new string[] { "@@@@" }, StringSplitOptions.RemoveEmptyEntries);
+            string pattern = @"<([a-z]+)(?:(?!\bid\b)[^<>])*" + arr[0] + @"=([""']?){0}\2[^>]*>(?><\1[^>]*>(?<o>)|</\1>(?<-o>)|(?:(?!</?\1).)*)*(?(o)(?!))</\1>";
+            Regex tmpreg = new Regex(string.Format(pattern, Regex.Escape(arr[1])), RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            //Match match = Regex.Match(conStr, string.Format(pattern, Regex.Escape(arr[1])), RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            MatchCollection matchs = tmpreg.Matches(conStr);
+            while (matchs.Count > 0)
+            {
+                for (int i = 0; i < matchs.Count; i++)
+                {
+                    conStr = conStr.Replace(matchs[i].Value, "");
+                }
+                matchs = tmpreg.Matches(conStr);
+            }
+            return conStr;
+        }
+        /// <summary>
         /// 移除所有Html标签
         /// </summary>
         /// <param name="ConStr"></param>

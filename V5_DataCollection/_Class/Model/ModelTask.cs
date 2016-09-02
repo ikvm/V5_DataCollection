@@ -21,6 +21,7 @@ namespace V5_Model {
         private string _collectioncontent;
         private string _linkurlmustincludestr;
         private string _linkurlnomustincludestr;
+        private string _linkspliceurlstr;
         private string _linkurlcutareastart;
         private string _linkurlcutareaend;
         private string _testviewurl;
@@ -113,6 +114,14 @@ namespace V5_Model {
         public string LinkUrlNoMustIncludeStr {
             set { _linkurlnomustincludestr = value; }
             get { return _linkurlnomustincludestr; }
+        }
+        /// <summary>
+        /// 拼接地址
+        /// </summary>
+        public string LinkSpliceUrlStr
+        {
+            set { _linkspliceurlstr = value; }
+            get { return _linkspliceurlstr; }
         }
         /// <summary>
         /// 列表截取开始区域

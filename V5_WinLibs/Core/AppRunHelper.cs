@@ -124,6 +124,7 @@ namespace V5_WinLibs.Core {
                 cmd.Start(); //启动进程
             }
             catch (Exception ex) {
+                //MessageBox.Show(ex.Message + "==" + ex.Source + "==" + ex.InnerException);
                 MessageBox.Show(cmdPath + ":::" + ex.Message + "==" + ex.Source + "==" + ex.InnerException);
             }
 

@@ -11,9 +11,11 @@ namespace V5_Model {
         #region Model
         private int _id;
         private string _labelname;
+        private int? _labelsource;
         private string _labelcutstart;
         private string _labelcutend;
         private string _labelhtmlremove;
+        private string _lblhtmlremove;
         private string _labelremove;
         private string _labelreplace;
         private int? _taskid;
@@ -35,6 +37,11 @@ namespace V5_Model {
             set { _labelname = value; }
             get { return _labelname; }
         }
+        public int? LabelSource
+        {
+            set { _labelsource = value; }
+            get { return _labelsource; }
+        }
         /// <summary>
         /// 标签截取表达式
         /// </summary>
@@ -48,6 +55,14 @@ namespace V5_Model {
         public string LabelHtmlRemove {
             set { _labelhtmlremove = value; }
             get { return _labelhtmlremove; }
+        }
+        /// <summary>
+        /// 标签HTML内容移动
+        /// </summary>
+        public string LblHtmlRemove
+        {
+            set { _lblhtmlremove = value; }
+            get { return _lblhtmlremove; }
         }
         /// <summary>
         /// 标签内容移除

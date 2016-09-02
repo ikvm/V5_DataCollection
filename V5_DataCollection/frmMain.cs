@@ -31,9 +31,7 @@ namespace V5_DataCollection {
 
         public frmMain() {
             InitializeComponent();
-
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
             CommonHelper.FormMain = this;
         }
@@ -250,7 +248,8 @@ namespace V5_DataCollection {
         }
 
         private void sQLToolStripMenuItem_Click(object sender, EventArgs e) {
-        
+            //frmSQL formSQL = new frmSQL();
+            //formSQL.ShowDialog(this);
         }
 
         private void v5ToolStripMenuItem_Click(object sender, EventArgs e) {

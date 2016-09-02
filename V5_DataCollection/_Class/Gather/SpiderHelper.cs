@@ -61,8 +61,8 @@ namespace V5_DataCollection._Class.Gather {
         private Queue<ModelLinkUrl> _listLinkUrl = new Queue<ModelLinkUrl>();
         private ThreadMultiHelper _tmViewUrl, _tmLinkUrl;
         private cGatherFunction _gatherWork = new cGatherFunction();
-
         #endregion
+
 
         /// <summary>
         /// 消息输出
@@ -79,7 +79,6 @@ namespace V5_DataCollection._Class.Gather {
             modelTask = null;
             _tmLinkUrl.Stop();
         }
-
         /// <summary>
         /// 开始采集网址列表
         /// </summary>
@@ -98,13 +97,16 @@ namespace V5_DataCollection._Class.Gather {
         /// <summary>
         /// 采集网址列表
         /// </summary>
-        private void GetAllLinkUrl(string urlList) {
+        private void GetAllLinkUrl(string urlList)
+        {
             string pageContent = CollectionHelper.Instance.GetHttpPage(urlList, 100000, Encoding.GetEncoding(modelTask.PageEncode));
-            if (pageContent == "$StartFalse$" || pageContent == "$EndFalse$") {
+            if (pageContent == "$StartFalse$" || pageContent == "$EndFalse$")
+            {
                 MessageOut(urlList + "采集地址失败!结果:" + pageContent);
                 return;
             }
-            if (modelTask.LinkUrlCutAreaStart != null && modelTask.LinkUrlCutAreaEnd != null) {
+            if (modelTask.LinkUrlCutAreaStart != null && modelTask.LinkUrlCutAreaEnd != null)
+            {
                 pageContent = HtmlHelper.Instance.ParseCollectionStrings(pageContent);
                 pageContent = CollectionHelper.Instance.GetBody(pageContent,
                     HtmlHelper.Instance.ParseCollectionStrings(modelTask.LinkUrlCutAreaStart),
@@ -114,66 +116,226 @@ namespace V5_DataCollection._Class.Gather {
                 pageContent = HtmlHelper.Instance.UnParseCollectionStrings(pageContent);
             }
             string regexHref = cRegexHelper.RegexATag;
-            if (modelTask.IsHandGetUrl == 1) {
+            int i = 0;
+            if (modelTask.IsHandGetUrl == 1)
+            {
                 regexHref = modelTask.HandCollectionUrlRegex;
-                regexHref = HtmlHelper.Instance.ParseCollectionStrings(regexHref);
-                regexHref = regexHref.Replace("\\(\\*)", ".+?");
-                regexHref = regexHref.Replace("\\[参数]", "([\\S\\s].*?)");
+                //regexHref = HtmlHelper.Instance.ParseCollectionStrings(regexHref);
+                //regexHref = regexHref.Replace("\\(\\*)", ".+?");
+                //regexHref = regexHref.Replace("\\[参数]", "([\\S\\s].*?)");
+                if (modelTask.LinkSpliceUrlStr.Trim() == "")
+                {
+                    regexHref = HtmlHelper.Instance.ParseCollectionStrings(regexHref);
+                    regexHref = regexHref.Replace("\\(\\*)", ".+?");
+                    regexHref = regexHref.Replace("\\[参数]", "([\\S\\s].*?)");
+                }
+                else
+                {
+                    regexHref = regexHref.Replace("[", "\\[");
+                    regexHref = regexHref.Replace("\\[参数]", "[参数]");
+                    regexHref = regexHref.Replace("(*)", ".+?");
+                    while (regexHref.IndexOf("[参数]") >= 0)
+                    {
+                        i++;
+                        int tmp = regexHref.IndexOf("[参数]"); //获取[参数]第一次出现的索引值
+                        regexHref = regexHref.Remove(tmp, "[参数]".Length); //在该索引处删除[参数]
+                        regexHref = regexHref.Insert(tmp, "(?<参数" + i + ">.+?)"); // 在该索引出插入112
+                    }
+                }
             }
             Match mch = null;
             Regex reg = new Regex(regexHref, RegexOptions.IgnoreCase | RegexOptions.Compiled);
             string url = string.Empty, title = string.Empty;
 
-            for (mch = reg.Match(pageContent); mch.Success; mch = mch.NextMatch()) {
-                Thread.Sleep(1);
-                title = mch.Groups[2].Value;
-                if (string.IsNullOrEmpty(title)) {
-                    continue;
-                }
-                url = CollectionHelper.Instance.FormatUrl(urlList, mch.Groups[1].Value);
-                url = url.Replace("\\", "");
-                bool isLoop = false;
-                if (modelTask.LinkUrlMustIncludeStr != null) {
-                    //包含
-                    if (url.IndexOf(Convert.ToString(modelTask.LinkUrlMustIncludeStr)) == -1) {
+            if (modelTask.LinkSpliceUrlStr.Trim() == "")
+            {
+                for (mch = reg.Match(pageContent); mch.Success; mch = mch.NextMatch())
+                {
+                    Thread.Sleep(1);
+                    title = mch.Groups[2].Value;
+                    if (string.IsNullOrEmpty(title))
+                    {
                         continue;
                     }
-                }
-                //不包含
-                if (modelTask.LinkUrlNoMustIncludeStr != null) {
-                    foreach (string str in modelTask.LinkUrlNoMustIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries)) {
-                        if (url.IndexOf(str) > -1) {
-                            isLoop = true;
+                    url = CollectionHelper.Instance.FormatUrl(urlList, mch.Groups[1].Value);
+                    url = url.Replace("\\", "");
+                    bool isLoop = false;
+                    if (modelTask.LinkUrlMustIncludeStr != null)
+                    {
+                        //包含
+                        if (url.IndexOf(Convert.ToString(modelTask.LinkUrlMustIncludeStr)) == -1)
+                        {
+                            continue;
+                        }
+                    }
+                    //不包含
+                    if (modelTask.LinkUrlNoMustIncludeStr != null)
+                    {
+                        foreach (string str in modelTask.LinkUrlNoMustIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            if (url.IndexOf(str) > -1)
+                            {
+                                isLoop = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (isLoop)
+                    {
+                        continue;
+                    }
+                    ModelLinkUrl m = new ModelLinkUrl();
+                    m.Url = url;
+                    m.Title = title;
+                    //添加Url
+                    bool addFlag = true;
+                    foreach (var item in _listLinkUrl.ToArray())
+                    {
+                        if (item.Url == url)
+                        {
+                            addFlag = false;
                             break;
                         }
                     }
-                }
-                if (isLoop) {
-                    continue;
-                }
-                ModelLinkUrl m = new ModelLinkUrl();
-                m.Url = url;
-                m.Title = title;
-                //添加Url
-                bool addFlag = true;
-                foreach (var item in _listLinkUrl.ToArray()) {
-                    if (item.Url == url) {
-                        addFlag = false;
-                        break;
+                    if (addFlag)
+                    {
+                        //开始过滤数据库存在的数据
+                        string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
+                        if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url))
+                        {
+                            _listLinkUrl.Enqueue(m);
+                        }
+                        else
+                        {
+                            msg += "采集地址存在!不需要采集!";
+                        }
+                        MessageOut(msg);
                     }
-                }
-                if (addFlag) {
-                    //开始过滤数据库存在的数据
-                    string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
-                    if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url)) {
-                        _listLinkUrl.Enqueue(m);
-                    }
-                    else {
-                        msg += "采集地址存在!不需要采集!";
-                    }
-                    MessageOut(msg);
                 }
             }
+            else
+            {
+                MatchCollection matches = reg.Matches(pageContent);
+
+                for (int j = 0; j < matches.Count; j++)
+                {
+                    Thread.Sleep(1);
+
+                    Match match = matches[j];
+                    string aurl = modelTask.LinkSpliceUrlStr;
+                    for (int x = 1; x <= i; x++)
+                    {
+                        aurl = aurl.Replace("[参数" + x.ToString() + "]", match.Groups["参数" + x.ToString()].Value);
+                    }
+                    url = CollectionHelper.Instance.FormatUrl(urlList, aurl);
+                    url = url.Replace("\\", "");
+                    bool isLoop = false;
+                    if (modelTask.LinkUrlMustIncludeStr != null)
+                    {
+                        //包含
+                        if (url.IndexOf(Convert.ToString(modelTask.LinkUrlMustIncludeStr)) == -1)
+                        {
+                            continue;
+                        }
+                    }
+                    //不包含
+                    if (modelTask.LinkUrlNoMustIncludeStr != null)
+                    {
+                        foreach (string str in modelTask.LinkUrlNoMustIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            if (url.IndexOf(str) > -1)
+                            {
+                                isLoop = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (isLoop)
+                    {
+                        continue;
+                    }
+                    ModelLinkUrl m = new ModelLinkUrl();
+                    m.Url = url;
+                    m.Title = title;
+                    //添加Url
+                    bool addFlag = true;
+                    foreach (var item in _listLinkUrl.ToArray())
+                    {
+                        if (item.Url == url)
+                        {
+                            addFlag = false;
+                            break;
+                        }
+                    }
+                    if (addFlag)
+                    {
+                        //开始过滤数据库存在的数据
+                        string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
+                        if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url))
+                        {
+                            _listLinkUrl.Enqueue(m);
+                        }
+                        else
+                        {
+                            msg += "采集地址存在!不需要采集!";
+                        }
+                        MessageOut(msg);
+                    }
+                }
+                
+            }
+
+
+            //for (mch = reg.Match(pageContent); mch.Success; mch = mch.NextMatch()) {
+            //    Thread.Sleep(1);
+            //    title = mch.Groups[2].Value;
+            //    if (string.IsNullOrEmpty(title)) {
+            //        continue;
+            //    }
+            //    url = CollectionHelper.Instance.FormatUrl(urlList, mch.Groups[1].Value);
+            //    url = url.Replace("\\", "");
+            //    bool isLoop = false;
+            //    if (modelTask.LinkUrlMustIncludeStr != null) {
+            //        //包含
+            //        if (url.IndexOf(Convert.ToString(modelTask.LinkUrlMustIncludeStr)) == -1) {
+            //            continue;
+            //        }
+            //    }
+            //    //不包含
+            //    if (modelTask.LinkUrlNoMustIncludeStr != null) {
+            //        foreach (string str in modelTask.LinkUrlNoMustIncludeStr.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries)) {
+            //            if (url.IndexOf(str) > -1) {
+            //                isLoop = true;
+            //                break;
+            //            }
+            //        }
+            //    }
+            //    if (isLoop) {
+            //        continue;
+            //    }
+            //    ModelLinkUrl m = new ModelLinkUrl();
+            //    m.Url = url;
+            //    m.Title = title;
+            //    //添加Url
+            //    bool addFlag = true;
+            //    foreach (var item in _listLinkUrl.ToArray()) {
+            //        if (item.Url == url) {
+            //            addFlag = false;
+            //            break;
+            //        }
+            //    }
+            //    if (addFlag) {
+            //        //开始过滤数据库存在的数据
+            //        string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
+            //        if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url)) {
+            //            _listLinkUrl.Enqueue(m);
+            //        }
+            //        else {
+            //            msg += "采集地址存在!不需要采集!";
+            //        }
+            //        MessageOut(msg);
+            //    }
+            //}
         }
         /// <summary>
         /// 分析网址列表
@@ -261,7 +423,16 @@ namespace V5_DataCollection._Class.Gather {
                     StringBuilder sb2 = new StringBuilder();
                     StringBuilder strSql = new StringBuilder();
                     StringBuilder sb3 = new StringBuilder();
+                    string tempContent = pageContent;
                     foreach (ModelTaskLabel m in modelTask.ListTaskLabel) {
+                        if (m.LabelSource == 0)
+                        {
+                            pageContent = url;
+                        }
+                        else
+                        {
+                            pageContent = tempContent;
+                        }
                         string regContent = HtmlHelper.Instance.ParseCollectionStrings(m.LabelNameCutRegex);
                         regContent = CommonHelper.ReplaceSystemRegexTag(regContent);
                         string CutContent = CollectionHelper.Instance.CutStr(pageContent, regContent)[0];
@@ -276,17 +447,26 @@ namespace V5_DataCollection._Class.Gather {
                             //替换连接
                             CutContent = CutContent.Replace(tagimg, newTagImg);
                             #region 保存远程图片
-                            if (m.IsDownResource == 1) {
+                            if (m.IsDownResource == 1)
+                            {
                                 //替换时间格式连接
-                                FileInfo fImg = new FileInfo(newTagImg);
-                                string ext = fImg.Extension;
-                                ext = string.IsNullOrEmpty(ext) ? ".jpg" : ext;
-                                string newTimeImg = "images/"+DateTime.Now.ToString("yyyyMMddHHmmss") + ext;
+                                string downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\" + modelTask.TaskName + "\\Images\\";
+                                string newImgName = ImageDownHelper.DownUrlPics(newTagImg, downImgPath);
+                                //FileInfo fImg = new FileInfo(newTagImg);
+                                if (newImgName.IndexOf("/") > 0)
+                                {
+                                    FileInfo fImg = new FileInfo(newImgName);
+                                    string ext = fImg.Extension;
+                                    ext = string.IsNullOrEmpty(ext) ? ".jpg" : ext;
+                                    //string newTimeImg = "images/" + DateTime.Now.ToString("yyyyMMddHHmmss") + ext;
+                                    string newTimeImg = newImgName;
 
-                                lock (QueueHelper.lockObj) {
-                                    var d = new Dictionary<string, string>();
-                                    d.Add(newTagImg, newTimeImg);
-                                    QueueHelper.Q_DownImgResource.Enqueue(d);
+                                    lock (QueueHelper.lockObj)
+                                    {
+                                        var d = new Dictionary<string, string>();
+                                        d.Add(newTagImg, newTimeImg);
+                                        QueueHelper.Q_DownImgResource.Enqueue(d);
+                                    }
                                 }
                             }
                             #endregion
@@ -311,6 +491,14 @@ namespace V5_DataCollection._Class.Gather {
                                 CutContent = CollectionHelper.Instance.CutStr(CutContent, regContent)[0];
                             }
                         }
+                        #region 过滤标签Html
+                        if (m.LblHtmlRemove != null)
+                        {
+                            //
+                            string[] arr = m.LblHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
+                            CutContent = CollectionHelper.ScriptHtml(CutContent, arr);
+                        }
+                        #endregion
                         #region 标签是分页
                         if (m.IsPager == 1) {
                             regContent = HtmlHelper.Instance.ParseCollectionStrings(m.LabelValuePagerRegex);
@@ -361,9 +549,24 @@ namespace V5_DataCollection._Class.Gather {
                         }
                         #endregion
                         #region 排除字符
-                        if (!string.IsNullOrEmpty(m.LabelRemove)) {
-                            foreach (string str in m.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
-                                CutContent = CutContent.Replace(str, "");
+                        //if (!string.IsNullOrEmpty(m.LabelRemove)) {
+                        //    foreach (string str in m.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
+                        //        CutContent = CutContent.Replace(str, "");
+                        //    }
+                        //}
+                        if (!string.IsNullOrEmpty(m.LabelRemove))
+                        {
+                            foreach (string str in m.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                string[] ListStr = str.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                                if (ListStr[1] == "1")
+                                {
+                                    CutContent = CollectionHelper.RemoveHtml(CutContent, ListStr[0]);
+                                }
+                                else
+                                {
+                                    CutContent = CutContent.Replace(str, "");
+                                }
                             }
                         }
                         #endregion

@@ -46,7 +46,6 @@ namespace V5_DataCollection {
             }
         }
 
-        
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e) {
             try {

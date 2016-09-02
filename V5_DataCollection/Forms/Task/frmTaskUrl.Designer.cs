@@ -44,6 +44,8 @@
             this.txtLinkUrl = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnCancel = new System.Windows.Forms.Button();
+            this.日期DateyyyyMMddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.日期DateyyyyMMddToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -97,44 +99,46 @@
             this.toolStripMenuItem1,
             this.字幕递增ToolStripMenuItem,
             this.字母递减ToolStripMenuItem,
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.日期DateyyyyMMddToolStripMenuItem,
+            this.日期DateyyyyMMddToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(210, 104);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(213, 170);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // 递增变量ToolStripMenuItem
             // 
             this.递增变量ToolStripMenuItem.Name = "递增变量ToolStripMenuItem";
-            this.递增变量ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.递增变量ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.递增变量ToolStripMenuItem.Text = "递增变量{Num:1,100,1}";
             // 
             // 递减变量ToolStripMenuItem
             // 
             this.递减变量ToolStripMenuItem.Name = "递减变量ToolStripMenuItem";
-            this.递减变量ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.递减变量ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.递减变量ToolStripMenuItem.Text = "递减变量{Num:1,100,-1}";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(198, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(209, 6);
             // 
             // 字幕递增ToolStripMenuItem
             // 
             this.字幕递增ToolStripMenuItem.Name = "字幕递增ToolStripMenuItem";
-            this.字幕递增ToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.字幕递增ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.字幕递增ToolStripMenuItem.Text = "字母递增{Letter:a,z}";
             // 
             // 字母递减ToolStripMenuItem
             // 
             this.字母递减ToolStripMenuItem.Name = "字母递减ToolStripMenuItem";
-            this.字母递减ToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.字母递减ToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.字母递减ToolStripMenuItem.Text = "字母递减字{Letter:z,a}";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(198, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(209, 6);
             // 
             // label1
             // 
@@ -168,6 +172,18 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // 日期DateyyyyMMddToolStripMenuItem
+            // 
+            this.日期DateyyyyMMddToolStripMenuItem.Name = "日期DateyyyyMMddToolStripMenuItem";
+            this.日期DateyyyyMMddToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.日期DateyyyyMMddToolStripMenuItem.Text = "日期{Date:yyyyMMdd}";
+            // 
+            // 日期DateyyyyMMddToolStripMenuItem1
+            // 
+            this.日期DateyyyyMMddToolStripMenuItem1.Name = "日期DateyyyyMMddToolStripMenuItem1";
+            this.日期DateyyyyMMddToolStripMenuItem1.Size = new System.Drawing.Size(212, 22);
+            this.日期DateyyyyMMddToolStripMenuItem1.Text = "日期{Date:yyyy-MM-dd}";
             // 
             // frmTaskUrl
             // 
@@ -214,5 +230,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ToolStripMenuItem 日期DateyyyyMMddToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 日期DateyyyyMMddToolStripMenuItem1;
     }
 }
