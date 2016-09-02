@@ -362,6 +362,7 @@
     <Compile Include="_Class\DAL\DALDiyWebUrlHelper.cs" />
     <Compile Include="_Class\DAL\DALTaskHelper.cs" />
     <Compile Include="_Class\DataAccessHelper.cs" />
+    <Compile Include="_Class\Publish\PublishContentHelper.cs" />
     <Compile Include="_Class\Publish\PublishHelper.cs" />
     <Compile Include="_Class\PythonExt\PythonExtHelper.cs" />
     <Compile Include="_Class\DAL\DALTask.cs" />
