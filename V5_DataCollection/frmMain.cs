@@ -260,5 +260,9 @@ namespace V5_DataCollection {
             var ff = new frmTest();
             ff.Show(this);
         }
+
+        private void 导入PythonToolStripMenuItem_Click(object sender, EventArgs e) {
+            new frmImportPythonScript().ShowDialog(this);
+        }
     }
 }

@@ -64,6 +64,7 @@
             this.ToolStripMenuItem_AboutUs = new System.Windows.Forms.ToolStripMenuItem();
             this.v5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.导入PythonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -222,28 +223,28 @@
             // ToolStripMenuItem_View_TaskTree
             // 
             this.ToolStripMenuItem_View_TaskTree.Name = "ToolStripMenuItem_View_TaskTree";
-            this.ToolStripMenuItem_View_TaskTree.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_View_TaskTree.Size = new System.Drawing.Size(148, 22);
             this.ToolStripMenuItem_View_TaskTree.Text = "任务列表树";
             this.ToolStripMenuItem_View_TaskTree.Click += new System.EventHandler(this.ToolStripMenuItem_View_TaskTree_Click);
             // 
             // ToolStripMenuItem_View_TaskView
             // 
             this.ToolStripMenuItem_View_TaskView.Name = "ToolStripMenuItem_View_TaskView";
-            this.ToolStripMenuItem_View_TaskView.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_View_TaskView.Size = new System.Drawing.Size(148, 22);
             this.ToolStripMenuItem_View_TaskView.Text = "任务列表";
             this.ToolStripMenuItem_View_TaskView.Click += new System.EventHandler(this.ToolStripMenuItem_View_TaskView_Click);
             // 
             // ToolStripMenuItem_View_OutWindow
             // 
             this.ToolStripMenuItem_View_OutWindow.Name = "ToolStripMenuItem_View_OutWindow";
-            this.ToolStripMenuItem_View_OutWindow.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_View_OutWindow.Size = new System.Drawing.Size(148, 22);
             this.ToolStripMenuItem_View_OutWindow.Text = "输出窗口";
             this.ToolStripMenuItem_View_OutWindow.Click += new System.EventHandler(this.ToolStripMenuItem_View_OutWindow_Click);
             // 
             // 资源下载列表ToolStripMenuItem
             // 
             this.资源下载列表ToolStripMenuItem.Name = "资源下载列表ToolStripMenuItem";
-            this.资源下载列表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.资源下载列表ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.资源下载列表ToolStripMenuItem.Text = "资源下载列表";
             this.资源下载列表ToolStripMenuItem.Click += new System.EventHandler(this.资源下载列表ToolStripMenuItem_Click);
             // 
@@ -251,7 +252,8 @@
             // 
             this.导入ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.导入WebToolStripMenuItem,
-            this.发布模块ToolStripMenuItem});
+            this.发布模块ToolStripMenuItem,
+            this.导入PythonToolStripMenuItem});
             this.导入ToolStripMenuItem.Name = "导入ToolStripMenuItem";
             this.导入ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.导入ToolStripMenuItem.Text = "&导入";
@@ -259,14 +261,14 @@
             // 导入WebToolStripMenuItem
             // 
             this.导入WebToolStripMenuItem.Name = "导入WebToolStripMenuItem";
-            this.导入WebToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.导入WebToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.导入WebToolStripMenuItem.Text = "导入采集规则";
             this.导入WebToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_ImportWebCollection_Click);
             // 
             // 发布模块ToolStripMenuItem
             // 
             this.发布模块ToolStripMenuItem.Name = "发布模块ToolStripMenuItem";
-            this.发布模块ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.发布模块ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.发布模块ToolStripMenuItem.Text = "导入发布模块";
             this.发布模块ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_ImportWebPublish_Click);
             // 
@@ -359,6 +361,13 @@
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // 导入PythonToolStripMenuItem
+            // 
+            this.导入PythonToolStripMenuItem.Name = "导入PythonToolStripMenuItem";
+            this.导入PythonToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.导入PythonToolStripMenuItem.Text = "导入Python脚本";
+            this.导入PythonToolStripMenuItem.Click += new System.EventHandler(this.导入PythonToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -422,6 +431,7 @@
         private System.Windows.Forms.ToolStripMenuItem v5ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 测试ToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ToolStripMenuItem 导入PythonToolStripMenuItem;
     }
 }
 
