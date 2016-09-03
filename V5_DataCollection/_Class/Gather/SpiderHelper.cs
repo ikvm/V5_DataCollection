@@ -169,13 +169,7 @@ namespace V5_DataCollection._Class.Gather {
                 };
                 spiderList.AnalyzeAllList();
 
-                if (_listLinkUrl.Count > 0) {
-                    OutTaskStatusHandler?.Invoke(EnumTaskType.View);
-                }
-                else {
-                    MessageOut("采集网站内容选项关闭!或者采集列表的地址为0!不需要采集!");
-                    OutTaskStatusHandler?.Invoke(EnumTaskType.Over);
-                }
+                OutTaskStatusHandler?.Invoke(EnumTaskType.View);
             });
 
         }
@@ -238,23 +232,22 @@ namespace V5_DataCollection._Class.Gather {
             var taskView = new TaskFactory().StartNew(() => {
                 MessageOut("采集网站Url内容完成！");
                 if (modelTask.IsPublishContent == 1) {
-                    PublishHelper publich = new PublishHelper();
-                    publich.ModelTask = modelTask;
+
+                    var publich = new PublishContentHelper();
+                    publich.Model = modelTask;
                     publich.PublishCompalteDelegate = GatherWorkDelegate;
 
                     MessageOut("正在开始发布数据!");
                     publich.PublishCompalteDelegate = (object sender, GatherEvents.GatherLinkEvents e) => {
                         MessageOut(e.Message);
-                        if (GatherComplateDelegate != null)
-                            GatherComplateDelegate(modelTask);
+                        GatherComplateDelegate?.Invoke(modelTask);
                         this.Stop();
                     };
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(publich.Start));
+                    publich.Start();
                 }
                 else {
                     GatherComplateDelegate(modelTask);
                     MessageOut("发布数据没有开启!不需要发布数据!");
-                    this.Stop();
                 }
 
                 OutTaskStatusHandler?.Invoke(EnumTaskType.Over);

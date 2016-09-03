@@ -101,13 +101,13 @@ namespace V5_DataCollection.Forms.Task {
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chkPublish04 = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.txtSaveDataUrl3 = new System.Windows.Forms.ComboBox();
             this.btnDataBaseLabelTag = new System.Windows.Forms.Button();
             this.txtSaveDataSQL3 = new V5_WinControls.V5RichTextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.rbtnOracle = new System.Windows.Forms.RadioButton();
             this.btnSaveDataBaseConfig = new System.Windows.Forms.Button();
             this.rbtnMySql = new System.Windows.Forms.RadioButton();
-            this.txtSaveDataUrl3 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.rbtnSqlite = new System.Windows.Forms.RadioButton();
             this.rbtnMsSql = new System.Windows.Forms.RadioButton();
@@ -1002,13 +1002,13 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.txtSaveDataUrl3);
             this.groupBox15.Controls.Add(this.btnDataBaseLabelTag);
             this.groupBox15.Controls.Add(this.txtSaveDataSQL3);
             this.groupBox15.Controls.Add(this.label18);
             this.groupBox15.Controls.Add(this.rbtnOracle);
             this.groupBox15.Controls.Add(this.btnSaveDataBaseConfig);
             this.groupBox15.Controls.Add(this.rbtnMySql);
-            this.groupBox15.Controls.Add(this.txtSaveDataUrl3);
             this.groupBox15.Controls.Add(this.label17);
             this.groupBox15.Controls.Add(this.rbtnSqlite);
             this.groupBox15.Controls.Add(this.rbtnMsSql);
@@ -1020,6 +1020,18 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox15.TabIndex = 0;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "3.保存到数据库";
+            // 
+            // txtSaveDataUrl3
+            // 
+            this.txtSaveDataUrl3.FormattingEnabled = true;
+            this.txtSaveDataUrl3.Items.AddRange(new object[] {
+            "server=.;uid=sa;pwd=sa;database=v5;",
+            "Server=localhost;Database=v5;Uid=root;Pwd=root; ",
+            "Database=d:\\v5.db; "});
+            this.txtSaveDataUrl3.Location = new System.Drawing.Point(7, 81);
+            this.txtSaveDataUrl3.Name = "txtSaveDataUrl3";
+            this.txtSaveDataUrl3.Size = new System.Drawing.Size(241, 20);
+            this.txtSaveDataUrl3.TabIndex = 8;
             // 
             // btnDataBaseLabelTag
             // 
@@ -1078,13 +1090,6 @@ namespace V5_DataCollection.Forms.Task {
             this.rbtnMySql.TabIndex = 4;
             this.rbtnMySql.Text = "MySql";
             this.rbtnMySql.UseVisualStyleBackColor = true;
-            // 
-            // txtSaveDataUrl3
-            // 
-            this.txtSaveDataUrl3.Location = new System.Drawing.Point(7, 80);
-            this.txtSaveDataUrl3.Name = "txtSaveDataUrl3";
-            this.txtSaveDataUrl3.Size = new System.Drawing.Size(241, 21);
-            this.txtSaveDataUrl3.TabIndex = 3;
             // 
             // label17
             // 
@@ -1958,7 +1963,6 @@ namespace V5_DataCollection.Forms.Task {
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Name = "FrmTaskEdit";
-            this.ShowIcon = false;
             this.Text = "添加任务";
             this.Load += new System.EventHandler(this.FrmTaskEdit_Load);
             this.groupBox1.ResumeLayout(false);
@@ -2094,7 +2098,6 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.RadioButton rbtnMsSql;
         private System.Windows.Forms.RadioButton rbtnAccess;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox txtSaveDataUrl3;
         private System.Windows.Forms.RadioButton rbtnMySql;
         private System.Windows.Forms.RadioButton rbtnOracle;
         private System.Windows.Forms.Label label18;
@@ -2186,5 +2189,6 @@ namespace V5_DataCollection.Forms.Task {
         private V5LinkLabel v5LinkLabel8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.ComboBox txtSaveDataUrl3;
     }
 }

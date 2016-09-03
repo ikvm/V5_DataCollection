@@ -187,38 +187,31 @@ namespace V5_DataCollection._Class.Gather {
                 regContent = CommonHelper.ReplaceSystemRegexTag(regContent);
                 string CutContent = CollectionHelper.Instance.CutStr(pageContent, regContent)[0];
 
-                #region 替换内容中的链接为远程链接
-                string[] TagImgList = CollectionHelper.Instance.GetImgTag(CutContent);
-                foreach (string tagimg in TagImgList) {
-                    if (string.IsNullOrEmpty(tagimg)) {
-                        break;
-                    }
-                    //远程连接
-                    string newTagImg = CollectionHelper.Instance.FormatUrl(Model.TestViewUrl, tagimg);
-                    //替换连接
-                    CutContent = CutContent.Replace(tagimg, newTagImg);
-                    #region 保存远程图片
-                    /*
-                    if (m.IsDownResource == 1) {
-                        //替换时间格式连接
-                        string downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\" + Model.TaskName + "\\Images\\";
-                        string newImgName = ImageDownHelper.DownUrlPics(newTagImg, downImgPath);
-                        //FileInfo fImg = new FileInfo(newTagImg);
-                        if (newImgName.IndexOf("/") > 0) {
-                            FileInfo fImg = new FileInfo(newImgName);
-                            string ext = fImg.Extension;
-                            ext = string.IsNullOrEmpty(ext) ? ".jpg" : ext;
-                            //string newTimeImg = "images/" + DateTime.Now.ToString("yyyyMMddHHmmss") + ext;
-                            string newTimeImg = newImgName;
-
-                            lock (QueueHelper.lockObj) {
-                                var d = new Dictionary<string, string>();
-                                d.Add(newTagImg, newTimeImg);
-                                QueueHelper.Q_DownImgResource.Enqueue(d);
+                #region 下载资源
+                var imgTag = ImageDownHelper.GetImgTag(CutContent);
+                if (m.IsDownResource == 1) {
+                    string[] imgExtArr = m.DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                    var downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\" + Model.TaskName + "\\Images\\";
+                    foreach (var img in imgTag) {
+                        var remoteImg = CollectionHelper.Instance.FormatUrl(Model.TestViewUrl, img);
+                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                        if (!string.IsNullOrEmpty(m.DownResourceExts)) {
+                            var imgExt = remoteImg.Substring(remoteImg.LastIndexOf("."));
+                            if (imgExtArr.SingleOrDefault(x => x.ToLower() == imgExt.ToLower()) != imgExt.ToLower()) {
+                                continue;
                             }
                         }
-                    }*/
-                    #endregion
+                        CutContent = CutContent.Replace(img, downImgPath + newImg);
+                        //
+                        QueueHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, 500);
+                    }
+                }
+                else {
+                    //替换内容中的链接为远程链接
+                    foreach (var img in imgTag) {
+                        var remoteImg = CollectionHelper.Instance.FormatUrl(Model.TestViewUrl, img);
+                        CutContent = CutContent.Replace(img, remoteImg);
+                    }
                 }
                 #endregion
 
@@ -343,27 +336,6 @@ namespace V5_DataCollection._Class.Gather {
                 }
                 #endregion
 
-                #region 下载资源
-                if (m.IsDownResource == 1) {
-
-                    string[] imgExtArr = m.DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    var imgTag = ImageDownHelper.GetImgTag(CutContent);
-                    var downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\Test\\Images\\";
-                    foreach (var img in imgTag) {
-                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
-                        if (!string.IsNullOrEmpty(m.DownResourceExts)) {
-                            var imgExt = img.Substring(img.LastIndexOf("."));
-                            if (imgExtArr.SingleOrDefault(x => x.ToLower() == imgExt.ToLower()) != imgExt.ToLower()) {
-                                continue;
-                            }
-                        }
-                        //替换
-                        CutContent = CutContent.Replace(img, downImgPath + newImg);
-                        QueueHelper.AddImg(Model.ID, downImgPath + newImg, img, 500);
-                    }
-                }
-                #endregion
             }
 
             try {
