@@ -270,10 +270,10 @@ namespace V5_DataCollection.Forms.Task
             // 
             // txtDownResourceExt
             // 
-            this.txtDownResourceExt.Location = new System.Drawing.Point(92, 18);
+            this.txtDownResourceExt.Location = new System.Drawing.Point(171, 18);
             this.txtDownResourceExt.Multiline = true;
             this.txtDownResourceExt.Name = "txtDownResourceExt";
-            this.txtDownResourceExt.Size = new System.Drawing.Size(242, 43);
+            this.txtDownResourceExt.Size = new System.Drawing.Size(163, 43);
             this.txtDownResourceExt.TabIndex = 5;
             this.txtDownResourceExt.Text = ".jpg;.gif;.png;.bmp";
             // 
@@ -282,18 +282,18 @@ namespace V5_DataCollection.Forms.Task
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(9, 42);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(77, 12);
+            this.label33.Size = new System.Drawing.Size(161, 12);
             this.label33.TabIndex = 4;
-            this.label33.Text = "下载文件后缀";
+            this.label33.Text = "下载文件后缀;分开,留空全下";
             // 
             // chkDownResource
             // 
             this.chkDownResource.AutoSize = true;
             this.chkDownResource.Location = new System.Drawing.Point(11, 18);
             this.chkDownResource.Name = "chkDownResource";
-            this.chkDownResource.Size = new System.Drawing.Size(72, 16);
+            this.chkDownResource.Size = new System.Drawing.Size(96, 16);
             this.chkDownResource.TabIndex = 2;
-            this.chkDownResource.Text = "下载资源";
+            this.chkDownResource.Text = "下载图片资源";
             this.chkDownResource.UseVisualStyleBackColor = true;
             // 
             // groupBox5

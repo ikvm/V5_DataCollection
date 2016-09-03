@@ -2,6 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace V5_WinLibs.Core {
     /// <summary>  
@@ -10,33 +12,60 @@ namespace V5_WinLibs.Core {
     public class ImageDownHelper {
         public ImageDownHelper() { }
 
-        #region 私有方法
-        /// <summary>  
-        /// 获取图片标志  
-        /// </summary>  
-        private static string[] GetImgTag(string htmlStr) {
-            Regex regObj = new Regex("<img.+?>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            string[] strAry = new string[regObj.Matches(htmlStr).Count];
+        public void Test() {
+            var CutContent = $@"
+                <a href='http://www.baidu.com/logo.gif'>title</a>sdf
+                <img src='http://www.baidu.com/img.gif'/>
+                <img src='img/xxx.jpg'/>
+            ";
+            var DownResourceExts = ".gif";
+            string[] imgExtArr = DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+            var imgTag = ImageDownHelper.GetImgTag(CutContent);
+            var downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\Test\\Images\\";
+            foreach (var img in imgTag) {
+                var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                if (!string.IsNullOrEmpty(DownResourceExts)) {
+                    var imgExt = img.Substring(img.LastIndexOf("."));
+                    if (imgExtArr.SingleOrDefault(x => x.ToLower() == imgExt.ToLower()) != imgExt.ToLower()) {
+                        continue;
+                    }
+                }
+                //替换
+                //CutContent = CutContent.Replace(img, downImgPath + newImg);
+                //QueueHelper.AddImg(downImgPath + newImg, img);
+            }
+        }
+
+        /// <summary>
+        /// 获取html的所有img标签
+        /// </summary>
+        /// <param name="_strHTML"></param>
+        /// <returns></returns>
+        public static string[] GetImgTag(string _strHTML) {
+            Regex reg = new Regex("IMG[^>]*?src\\s*=\\s*(?:\"(?<1>[^\"]*)\"|'(?<1>[^\']*)')", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            string[] strAry = new string[reg.Matches(_strHTML).Count];
             int i = 0;
-            foreach (Match matchItem in regObj.Matches(htmlStr)) {
-                strAry[i] = GetImgUrl(matchItem.Value);
+            foreach (Match match in reg.Matches(_strHTML)) {
+                //strAry[i] = GetImgUrl(match.Value);
+                strAry[i] = match.Groups[1].Value;
                 i++;
             }
             return strAry;
         }
-
-        /// <summary>  
-        /// 获取图片URL地址  
-        /// </summary>  
+        /// <summary>
+        /// 获取图片中的连接
+        /// </summary>
+        /// <param name="imgTagStr"></param>
+        /// <returns></returns>
         private static string GetImgUrl(string imgTagStr) {
             string str = "";
-            Regex regObj = new Regex("http://.+.(?:jpg|gif|bmp|png)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            foreach (Match matchItem in regObj.Matches(imgTagStr)) {
-                str = matchItem.Value;
+            Regex reg = new Regex("(http|https)(://.+.)(?:jpg|gif|bmp|png|jpeg)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            foreach (Match match in reg.Matches(imgTagStr)) {
+                str = match.Value;
             }
             return str;
         }
-        #endregion
 
         /// <summary>  
         /// 下载图片到本地  

@@ -147,12 +147,12 @@ namespace V5_DataCollection._Class.Gather {
                     }
                     #endregion
                     CutContent = CutContent.Replace("\t", "");
-
+                    #region 使用插件
                     string SpiderLabelPlugin = itemLabel.SpiderLabelPlugin;
                     if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
                         CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { Test_ViewUrl, CutContent });
                     }
-
+                    #endregion
                     sContent += CutContent;
                     sbTest.AppendLine(sContent);
                 }
@@ -334,21 +334,34 @@ namespace V5_DataCollection._Class.Gather {
                 }
                 #endregion
 
+                #region 替换特殊
                 sb1.Append("" + m.LabelName.Replace("'", "''") + ",");
                 sb2.Append("'" + CutContent.Replace("'", "''") + "',");
                 if (CutContent.Replace("'", "''").Length < 100) {
                     sb3.Append(" " + m.LabelName.Replace("'", "''") + "='" + CutContent.Replace("'", "''") + "' and");
                 }
+                #endregion
 
                 #region 下载资源
                 //添加文件下载功能  开关打开的时候
                 if (m.IsDownResource == 1) {
-                    string[] imgExtArr = m.DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.None);
-                    foreach (string s in imgExtArr) {
 
+                    string[] imgExtArr = m.DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    var imgTag = ImageDownHelper.GetImgTag(CutContent);
+                    var downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\Test\\Images\\";
+                    foreach (var img in imgTag) {
+                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                        if (!string.IsNullOrEmpty(m.DownResourceExts)) {
+                            var imgExt = img.Substring(img.LastIndexOf("."));
+                            if (imgExtArr.SingleOrDefault(x => x.ToLower() == imgExt.ToLower()) != imgExt.ToLower()) {
+                                continue;
+                            }
+                        }
+                        //替换
+                        CutContent = CutContent.Replace(img, downImgPath + newImg);
+                        QueueHelper.AddImg(downImgPath + newImg, img);
                     }
-                    string downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\" + Model.TaskName + "\\Images\\";
-                    CutContent = ImageDownHelper.SaveUrlPics(CutContent, downImgPath);
                 }
                 #endregion
             }
