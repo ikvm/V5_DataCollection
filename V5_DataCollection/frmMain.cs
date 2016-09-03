@@ -240,7 +240,7 @@ namespace V5_DataCollection {
         }
 
         private void ToolStripMenuItem_ManageSite_Click(object sender, EventArgs e) {
-
+            new frmUserTool().ShowDialog(this);
         }
 
         private void 重新启动ToolStripMenuItem_Click(object sender, EventArgs e) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using V5_DataCollection._Class.Model;
 
 namespace V5_DataCollection._Class.Common {
     /// <summary>
@@ -12,19 +13,23 @@ namespace V5_DataCollection._Class.Common {
         /// <summary>
         /// 下载图片资源
         /// </summary>
-        public static Queue<Dictionary<string, string>> Q_DownImgResource = new Queue<Dictionary<string, string>>();
+        public static Queue<ModelDownLoadImg> Q_DownImgResource = new Queue<ModelDownLoadImg>();
 
 
-        public static void AddImg(string localPic, string remotePic) {
-            var d = new Dictionary<string, string>();
-            d.Add(localPic, remotePic);
+        public static void AddImg(int TaskId,string localPic, string remotePic,int stepTime) {
+            var d = new ModelDownLoadImg();
+            d.TaskId = TaskId;
+            d.LocalImg = localPic;
+            d.RemoteImg = remotePic;
+            d.StepTime = stepTime;
+
             lock (lockObj) {
                 Q_DownImgResource.Enqueue(d);
             }
         }
 
-        public static Dictionary<string, string> DequeueImg() {
-            Dictionary<string, string> d = null ;
+        public static ModelDownLoadImg DequeueImg() {
+            ModelDownLoadImg d = null ;
             lock (lockObj) {
                 d = Q_DownImgResource.Dequeue();
             }

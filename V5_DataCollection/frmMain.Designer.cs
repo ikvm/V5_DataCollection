@@ -52,6 +52,7 @@
             this.导入ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入WebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.发布模块ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导入PythonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_Tool_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
@@ -64,7 +65,6 @@
             this.ToolStripMenuItem_AboutUs = new System.Windows.Forms.ToolStripMenuItem();
             this.v5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.导入PythonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -272,6 +272,13 @@
             this.发布模块ToolStripMenuItem.Text = "导入发布模块";
             this.发布模块ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_ImportWebPublish_Click);
             // 
+            // 导入PythonToolStripMenuItem
+            // 
+            this.导入PythonToolStripMenuItem.Name = "导入PythonToolStripMenuItem";
+            this.导入PythonToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.导入PythonToolStripMenuItem.Text = "导入Python脚本";
+            this.导入PythonToolStripMenuItem.Click += new System.EventHandler(this.导入PythonToolStripMenuItem_Click);
+            // 
             // ToolStripMenuItem_Config
             // 
             this.ToolStripMenuItem_Config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -287,41 +294,41 @@
             // ToolStripMenuItem_Tool_Config
             // 
             this.ToolStripMenuItem_Tool_Config.Name = "ToolStripMenuItem_Tool_Config";
-            this.ToolStripMenuItem_Tool_Config.Size = new System.Drawing.Size(124, 22);
+            this.ToolStripMenuItem_Tool_Config.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_Tool_Config.Text = "选项";
             this.ToolStripMenuItem_Tool_Config.Click += new System.EventHandler(this.ToolStripMenuItem_Tool_Config_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // ToolStripMenuItem_CommonSite
             // 
             this.ToolStripMenuItem_CommonSite.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_ManageSite});
             this.ToolStripMenuItem_CommonSite.Name = "ToolStripMenuItem_CommonSite";
-            this.ToolStripMenuItem_CommonSite.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuItem_CommonSite.Text = "常用网址";
+            this.ToolStripMenuItem_CommonSite.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_CommonSite.Text = "常用工具";
             // 
             // ToolStripMenuItem_ManageSite
             // 
             this.ToolStripMenuItem_ManageSite.Name = "ToolStripMenuItem_ManageSite";
-            this.ToolStripMenuItem_ManageSite.Size = new System.Drawing.Size(124, 22);
-            this.ToolStripMenuItem_ManageSite.Text = "管理网址";
+            this.ToolStripMenuItem_ManageSite.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_ManageSite.Text = "管理工具";
             this.ToolStripMenuItem_ManageSite.Click += new System.EventHandler(this.ToolStripMenuItem_ManageSite_Click);
             // 
             // sQLToolStripMenuItem
             // 
             this.sQLToolStripMenuItem.Name = "sQLToolStripMenuItem";
-            this.sQLToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.sQLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sQLToolStripMenuItem.Text = "SQL";
             this.sQLToolStripMenuItem.Click += new System.EventHandler(this.sQLToolStripMenuItem_Click);
             // 
             // 测试ToolStripMenuItem
             // 
             this.测试ToolStripMenuItem.Name = "测试ToolStripMenuItem";
-            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.测试ToolStripMenuItem.Text = "测试";
             this.测试ToolStripMenuItem.Click += new System.EventHandler(this.测试ToolStripMenuItem_Click);
             // 
@@ -360,13 +367,6 @@
             // 
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
-            // 
-            // 导入PythonToolStripMenuItem
-            // 
-            this.导入PythonToolStripMenuItem.Name = "导入PythonToolStripMenuItem";
-            this.导入PythonToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.导入PythonToolStripMenuItem.Text = "导入Python脚本";
-            this.导入PythonToolStripMenuItem.Click += new System.EventHandler(this.导入PythonToolStripMenuItem_Click);
             // 
             // frmMain
             // 

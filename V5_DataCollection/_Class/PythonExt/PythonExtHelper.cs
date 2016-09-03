@@ -24,7 +24,6 @@ namespace V5_DataCollection._Class.PythonExt {
             string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pythonFile);
 
             #region 字符串
-            //加载必须的类库
             var code = @"import sys" + "\n" +
                 @"from System.IO import Path" + "\n" +
                 //@"sys.path.append("".\pythonlib.zip"")" + "\n" +

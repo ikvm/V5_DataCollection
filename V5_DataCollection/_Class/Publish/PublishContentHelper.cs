@@ -60,7 +60,7 @@ namespace V5_DataCollection._Class.Publish {
         }
 
         #region 发布Web数据
-        public void StartWeb() {
+        private void StartWeb() {
             foreach (ModelWebPublishModule m in Model.ListModelWebPublishModule) {
                 var mPublishModuleItem = GetModelXml(m.ModuleNameFile);
                 if (m.IsCookiesLogin == 1) {
@@ -93,7 +93,7 @@ namespace V5_DataCollection._Class.Publish {
         #endregion
 
         #region 发布本地数据
-        public void StartLocal() {
+        private void StartLocal() {
             try {
                 string str = string.Empty;
                 string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
@@ -171,7 +171,7 @@ namespace V5_DataCollection._Class.Publish {
         #endregion
 
         #region 保存到数据库
-        public void StartDataBase() {
+        private void StartDataBase() {
             string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
             DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
 
@@ -179,74 +179,47 @@ namespace V5_DataCollection._Class.Publish {
             string connectionString = Model.SaveDataUrl3;
             string exeSQL = Model.SaveDataSQL3;
             string sql = string.Empty;
+
+            DbHelperDapper.connectionString = Model.SaveDataUrl3;
             switch (saveDateType) {
                 case 1://ACCESS
+                    DbHelperDapper.dbType = DataBaseType.OleDb;
                     break;
                 case 2://MSSQL
-                    foreach (DataRow dr in dtData.Rows) {
-                        try {
-                            sql = exeSQL;
-                            foreach (ModelTaskLabel mTaskLabel in Model.ListTaskLabel) {
-                                sql = sql.Replace("[" + mTaskLabel.LabelName + "]", dr[mTaskLabel.LabelName].ToString().Replace("'", "''"));
-                            }
-                            sql = sql.Replace("[Guid]", Guid.NewGuid().ToString());
-                            sql = sql.Replace("[Url]", dr["HrefSource"].ToString());
-                            DbHelperSQL.connectionString = Model.SaveDataUrl3;
-                            DbHelperSQL.ExecuteSql(sql);
-                            //gatherEv.Message = dr["HrefSource"].ToString() + ":保存数据库成功!";
-                            // PublishCompalteDelegate(this, gatherEv);
-                        }
-                        catch (Exception ex) {
-                            Log4Helper.Write(V5_Utility.Utility.LogLevel.Error, dr["HrefSource"].ToString() + ":保存数据库失败!", ex);
-                            continue;
-                        }
-                    }
+                    DbHelperDapper.dbType = DataBaseType.SqlServer;
                     break;
                 case 3://SQLITE
+                    DbHelperDapper.dbType = DataBaseType.SQLite;
                     break;
                 case 4://MYSQL
-                    MySqlConnection conn = new MySqlConnection(Model.SaveDataUrl3);
-                    try {
-                        conn.Open();
-                        MySqlScript script = new MySqlScript(conn);
-                        foreach (DataRow dr in dtData.Rows) {
-                            try {
-                                sql = exeSQL;
-                                foreach (ModelTaskLabel mTaskLabel in Model.ListTaskLabel) {
-                                    sql = sql.Replace("[" + mTaskLabel.LabelName + "]", dr[mTaskLabel.LabelName].ToString().Replace("'", "''"));
-                                }
-                                sql = sql.Replace("[Guid]", Guid.NewGuid().ToString());
-                                sql = sql.Replace("[Url]", dr["HrefSource"].ToString());
-
-                                script.Query = sql;
-                                script.Execute();
-                                //gatherEv.Message = dr["HrefSource"].ToString() + ":保存数据库成功!";
-                                //PublishCompalteDelegate(this, gatherEv);
-                                /*
-                                DbHelperSQL.connectionString = ModelTask.SaveDataUrl3;
-                                DbHelperSQL.ExecuteSql(sql);
-                                gatherEv.Message = dr["HrefSource"].ToString() + ":保存数据库成功!";
-                                PublishCompalteDelegate(this, gatherEv);
-                                */
-                            }
-                            catch (Exception ex) {
-                                Log4Helper.Write(V5_Utility.Utility.LogLevel.Error, dr["HrefSource"].ToString() + ":保存数据库失败!", ex);
-                                continue;
-                            }
-                        }
-                    }
-                    catch (Exception ex) {
-                    }
-                    conn.Close();
+                    DbHelperDapper.dbType = DataBaseType.MySql;
                     break;
                 case 5://Oracle
+                    DbHelperDapper.dbType = DataBaseType.Oracle;
                     break;
+            }
+
+            foreach (DataRow dr in dtData.Rows) {
+                try {
+                    sql = exeSQL;
+                    foreach (ModelTaskLabel mTaskLabel in Model.ListTaskLabel) {
+                        sql = sql.Replace("[" + mTaskLabel.LabelName + "]", dr[mTaskLabel.LabelName].ToString().Replace("'", "''"));
+                    }
+                    sql = sql.Replace("[Guid]", Guid.NewGuid().ToString());
+                    sql = sql.Replace("[Url]", dr["HrefSource"].ToString());
+
+                    DbHelperDapper.Execute(sql);
+                }
+                catch (Exception ex) {
+                    Log4Helper.Write(LogLevel.Error, dr["HrefSource"].ToString() + ":保存数据库失败!", ex);
+                    continue;
+                }
             }
         }
         #endregion
 
         #region 发布自定义网站
-        public void StartDiyWeb() {
+        private void StartDiyWeb() {
             string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
             DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
 

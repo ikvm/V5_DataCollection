@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using V5_DataCollection._Class.Common;
+using V5_DataCollection._Class.Model;
 using V5_WinLibs.Utility;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -33,23 +34,23 @@ namespace V5_DataCollection.Forms.Docking {
 
         void th_WorkMethod(int taskindex, int threadindex) {
             while (true) {
-                Dictionary<string, string> d = null;
+                ModelDownLoadImg d = null;
                 lock (QueueHelper.lockObj) {
                     if (QueueHelper.Q_DownImgResource.Count > 0) {
                         d = QueueHelper.Q_DownImgResource.Dequeue();
                     }
                 }
                 if (d != null) {
-                    OutDownload(d.ToString());
+                    OutDownload(d);
                 }
                 Thread.Sleep(100);
             }
         }
 
 
-        private void OutDownload(string msg) {
+        private void OutDownload(ModelDownLoadImg d) {
             this.Invoke(new MethodInvoker(() => {
-                this.txtLogView.AppendText(msg);
+                this.txtLogView.AppendText($"远程图片:{d.RemoteImg}本地图片:{d.LocalImg}任务:{d.TaskId}");
                 this.txtLogView.AppendText("\r\n");
             }));
         }

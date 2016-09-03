@@ -18,11 +18,7 @@ namespace V5_DataCollection.Forms.Tools {
         }
 
         private void btnDownLoad_Click(object sender, EventArgs e) {
-            lock (QueueHelper.lockObj) {
-                var d = new Dictionary<string, string>();
-                d.Add("http://www.v5soft.com/logo.jpg", "d:\\1.jpg");
-                QueueHelper.Q_DownImgResource.Enqueue(d);
-            }
+            
         }
 
         Queue<DataGridViewRow> rr = new Queue<DataGridViewRow>();

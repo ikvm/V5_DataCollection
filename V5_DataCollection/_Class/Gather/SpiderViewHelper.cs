@@ -198,6 +198,7 @@ namespace V5_DataCollection._Class.Gather {
                     //替换连接
                     CutContent = CutContent.Replace(tagimg, newTagImg);
                     #region 保存远程图片
+                    /*
                     if (m.IsDownResource == 1) {
                         //替换时间格式连接
                         string downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\" + Model.TaskName + "\\Images\\";
@@ -216,7 +217,7 @@ namespace V5_DataCollection._Class.Gather {
                                 QueueHelper.Q_DownImgResource.Enqueue(d);
                             }
                         }
-                    }
+                    }*/
                     #endregion
                 }
                 #endregion
@@ -343,7 +344,6 @@ namespace V5_DataCollection._Class.Gather {
                 #endregion
 
                 #region 下载资源
-                //添加文件下载功能  开关打开的时候
                 if (m.IsDownResource == 1) {
 
                     string[] imgExtArr = m.DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
@@ -360,7 +360,7 @@ namespace V5_DataCollection._Class.Gather {
                         }
                         //替换
                         CutContent = CutContent.Replace(img, downImgPath + newImg);
-                        QueueHelper.AddImg(downImgPath + newImg, img);
+                        QueueHelper.AddImg(Model.ID, downImgPath + newImg, img, 500);
                     }
                 }
                 #endregion
