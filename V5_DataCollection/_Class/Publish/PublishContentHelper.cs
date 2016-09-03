@@ -28,35 +28,38 @@ namespace V5_DataCollection._Class.Publish {
         public GatherEventHandler.GatherWorkHandler PublishCompalteDelegate;
 
         public void Start() {
-            var task = new TaskFactory().StartNew(() => {
-                if (Model.IsWebOnlinePublish1.Value == 1) {
-                    gatherEv.Message = "开始发布Web数据!";
-                    PublishCompalteDelegate?.Invoke(this, gatherEv);
-                    StartWeb();
-                }
-
-                if (Model.IsSaveLocal2.Value == 1) {
-                    gatherEv.Message = "开始发布本地数据!";
-                    PublishCompalteDelegate?.Invoke(this, gatherEv);
-                    StartLocal();
-                }
-
-                if (Model.IsSaveDataBase3.Value == 1) {
-                    gatherEv.Message = "开始保存到数据库!";
-                    PublishCompalteDelegate?.Invoke(this, gatherEv);
-                    StartDataBase();
-                }
-
-                if (Model.IsSaveSQL4.Value == 1) {
-                    gatherEv.Message = "开始发布自定义网站!";
-                    PublishCompalteDelegate?.Invoke(this, gatherEv);
-                    StartDiyWeb();
-                }
-
-                gatherEv.Message = "数据发布成功!";
+            if (Model.IsWebOnlinePublish1.Value == 1) {
+                gatherEv.Message = "开始发布Web数据!";
                 PublishCompalteDelegate?.Invoke(this, gatherEv);
-            });
+                StartWeb();
+            }
 
+            if (Model.IsSaveLocal2.Value == 1) {
+                gatherEv.Message = "开始发布本地数据!";
+                PublishCompalteDelegate?.Invoke(this, gatherEv);
+                StartLocal();
+            }
+
+            if (Model.IsSaveDataBase3.Value == 1) {
+                gatherEv.Message = "开始保存到数据库!";
+                PublishCompalteDelegate?.Invoke(this, gatherEv);
+                StartDataBase();
+            }
+
+            if (Model.IsSaveSQL4.Value == 1) {
+                gatherEv.Message = "开始发布自定义网站!";
+                PublishCompalteDelegate?.Invoke(this, gatherEv);
+                StartDiyWeb();
+            }
+
+            gatherEv.Message = "数据发布成功!";
+            PublishCompalteDelegate?.Invoke(this, gatherEv);
+
+        }
+
+        public void MessageOut(string msg) {
+            gatherEv.Message = msg;
+            PublishCompalteDelegate?.Invoke(this, gatherEv);
         }
 
         #region 发布Web数据
@@ -209,9 +212,11 @@ namespace V5_DataCollection._Class.Publish {
                     sql = sql.Replace("[Url]", dr["HrefSource"].ToString());
 
                     DbHelperDapper.Execute(sql);
+                    MessageOut(dr["HrefSource"].ToString() + "发布成功!");
                 }
                 catch (Exception ex) {
                     Log4Helper.Write(LogLevel.Error, dr["HrefSource"].ToString() + ":保存数据库失败!", ex);
+                    MessageOut(dr["HrefSource"].ToString() + "发布失败!"+ ex);
                     continue;
                 }
             }

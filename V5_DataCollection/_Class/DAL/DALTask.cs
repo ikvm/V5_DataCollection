@@ -556,6 +556,10 @@ namespace V5_DataCollection._Class.DAL {
                 if (ds.Tables[0].Rows[0]["PlanFormat"] != null) {
                     model.PlanFormat = ds.Tables[0].Rows[0]["PlanFormat"].ToString();
                 }
+
+                if (ds.Tables[0].Rows[0]["Status"] != null && ds.Tables[0].Rows[0]["Status"].ToString() != "") {
+                    model.Status = int.Parse(ds.Tables[0].Rows[0]["Status"].ToString());
+                }
                 return model;
             }
             else {

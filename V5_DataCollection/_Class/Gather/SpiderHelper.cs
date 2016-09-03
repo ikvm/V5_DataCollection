@@ -136,39 +136,46 @@ namespace V5_DataCollection._Class.Gather {
 
             _listLinkUrl.Clear();
 
-            MessageOut("开始采集数据！请稍候...");
+            MessageOut($"[{modelTask.TaskName}]开始采集数据！请稍候...");
 
             var task = new TaskFactory().StartNew(() => {
-                var spiderList = new SpiderListHelper();
-                spiderList.Model = modelTask;
-                spiderList.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
-                    var m = new ModelLinkUrl() {
-                        Url = url,
-                        Title = title
+                if (modelTask.IsSpiderUrl == 1) {
+                    var spiderList = new SpiderListHelper();
+                    spiderList.Model = modelTask;
+                    spiderList.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
+                        var m = new ModelLinkUrl() {
+                            Url = url,
+                            Title = title
+                        };
+                        bool addFlag = true;
+                        foreach (var item in _listLinkUrl.ToArray()) {
+                            if (item.Url == url) {
+                                addFlag = false;
+                                break;
+                            }
+                        }
+                        if (addFlag) {
+                            string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
+                            if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url)) {
+                                _listLinkUrl.Enqueue(m);
+                            }
+                            else {
+                                msg += "采集地址存在!不需要采集!";
+                            }
+                            MessageOut(msg);
+                        }
                     };
-                    bool addFlag = true;
-                    foreach (var item in _listLinkUrl.ToArray()) {
-                        if (item.Url == url) {
-                            addFlag = false;
-                            break;
-                        }
-                    }
-                    if (addFlag) {
-                        string msg = url + "==" + HtmlHelper.Instance.ParseTags(title);
-                        if (!DALContentHelper.ChkExistSpiderResult(modelTask.TaskName, url)) {
-                            _listLinkUrl.Enqueue(m);
-                        }
-                        else {
-                            msg += "采集地址存在!不需要采集!";
-                        }
+                    spiderList.OutMessageHandler += (string msg) => {
                         MessageOut(msg);
-                    }
-                };
-                spiderList.OutMessageHandler += (string msg) => {
-                    MessageOut(msg);
-                };
-                spiderList.AnalyzeAllList();
+                    };
+                    spiderList.AnalyzeAllList();
 
+                    MessageOut("分析获取网页个数为" + _listLinkUrl.Count + "个！");
+                    MessageOut("采集网站列表完成!");
+                }
+                else {
+                    MessageOut("采集列表关闭,不需要采集!");
+                }
                 OutTaskStatusHandler?.Invoke(EnumTaskType.View);
             });
 
@@ -178,9 +185,6 @@ namespace V5_DataCollection._Class.Gather {
         #region 详细
         private void StartView() {
             var taskList = new TaskFactory().StartNew(() => {
-
-                MessageOut("分析获取网页个数为" + _listLinkUrl.Count + "个！");
-                MessageOut("采集网站列表完成!");
                 if (modelTask.IsSpiderContent == 1 && _listLinkUrl.Count > 0) {
 
                     MessageOut("开始采集列表地址详细内容!");
@@ -217,6 +221,7 @@ namespace V5_DataCollection._Class.Gather {
                         }
                     }
 
+                    MessageOut("采集网站Url内容完成！");
                 }
                 else {
                     MessageOut("采集网站内容选项关闭!或者采集列表的地址为0!不需要采集!");
@@ -230,7 +235,7 @@ namespace V5_DataCollection._Class.Gather {
         #region 发布
         private void StartPublish() {
             var taskView = new TaskFactory().StartNew(() => {
-                MessageOut("采集网站Url内容完成！");
+
                 if (modelTask.IsPublishContent == 1) {
 
                     var publich = new PublishContentHelper();
@@ -257,7 +262,7 @@ namespace V5_DataCollection._Class.Gather {
 
         #region 完成
         private void StartOver() {
-            MessageOut("采集数据完毕!");
+            MessageOut($"[{modelTask.TaskName}] 采集数据完毕!");
             this.Stop();
         }
         #endregion
