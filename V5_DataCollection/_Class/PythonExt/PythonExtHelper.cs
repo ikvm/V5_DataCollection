@@ -12,6 +12,8 @@ namespace V5_DataCollection._Class.PythonExt {
     /// </summary>
     public class PythonExtHelper {
 
+        public delegate void OutWrite(string msg);
+        public static event OutWrite OutWriteHandler;
         /// <summary>
         /// 运行Python脚本
         /// </summary>
@@ -51,5 +53,36 @@ namespace V5_DataCollection._Class.PythonExt {
             return main(inputObj);
 
         }
+
+        public static void RunScriptPython(string pythonContent, object[] inputObj) {
+            ScriptEngine _engine = Python.CreateEngine();
+
+            #region 字符串
+            var code = @"import sys" + "\n" +
+                @"import clr" + "\n" +
+                @"sys.stdout=my" + "\n" +
+                @pythonContent;
+            var source = _engine.CreateScriptSourceFromString(code);
+
+            var scope = _engine.CreateScope();
+            scope.SetVariable("my", new Test());
+            source.Execute(scope);
+            #endregion
+
+
+            var main = scope.GetVariable<Func<object[], string>>("start");
+
+            var s = main(inputObj);
+
+            OutWriteHandler?.Invoke("返回结果:" + s);
+        }
+
+        public class Test {
+            public void write(string s) {
+                OutWriteHandler?.Invoke(s);
+            }
+        }
     }
+
+
 }

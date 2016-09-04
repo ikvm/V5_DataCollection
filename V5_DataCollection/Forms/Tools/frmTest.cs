@@ -92,7 +92,8 @@ namespace V5_DataCollection.Forms.Tools {
         }
 
         private void btnTestPython_Click(object sender, EventArgs e) {
-            var s = PythonExtHelper.RunPython(@"Plugins\SpiderUrl\test.py", new object[] { "你好啊随碟附送大放送的"});
+            //var s = PythonExtHelper.RunPython(@"Plugins\SpiderUrl\test.py", new object[] { "你好啊随碟附送大放送的"});
+            new frmEditor().Show(this);
         }
     }
 }
