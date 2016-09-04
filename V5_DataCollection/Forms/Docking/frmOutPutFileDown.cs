@@ -14,8 +14,7 @@ using V5_WinLibs.Utility;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace V5_DataCollection.Forms.Docking {
-    public partial class frmOutPutFileDown : BaseContent
-    {
+    public partial class frmOutPutFileDown : BaseContent {
 
         public frmOutPutFileDown() {
             InitializeComponent();
@@ -50,8 +49,16 @@ namespace V5_DataCollection.Forms.Docking {
 
         private void OutDownload(ModelDownLoadImg d) {
             this.Invoke(new MethodInvoker(() => {
-                this.txtLogView.AppendText($"远程图片:{d.RemoteImg}本地图片:{d.LocalImg}任务:{d.TaskId}");
-                this.txtLogView.AppendText("\r\n");
+                try {
+                    WebClient wc = new WebClient();
+                    wc.DownloadFile($"{d.RemoteImg}", $"{d.LocalImg}");
+                    this.txtLogView.AppendText($"远程图片:{d.RemoteImg}本地图片:{d.LocalImg}任务:{d.TaskId}下载完成!");
+                    this.txtLogView.AppendText("\r\n");
+                }
+                catch (Exception ex) {
+                    this.txtLogView.AppendText($"远程图片:{d.RemoteImg}本地图片:{d.LocalImg}任务:{d.TaskId}失败!{ex.Message}");
+                    this.txtLogView.AppendText("\r\n");
+                }
             }));
         }
     }

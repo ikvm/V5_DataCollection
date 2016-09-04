@@ -55,12 +55,10 @@ namespace V5_DataCollection.Forms.Task {
             DataTable dt = dal.GetList(strWhere).Tables[0];
             this.dataGridView_TaskList.DataSource = dt.DefaultView;
 
-            for (int i = 0; i < this.dataGridView_TaskList.Rows.Count; i++)
-            {
+            for (int i = 0; i < this.dataGridView_TaskList.Rows.Count; i++) {
                 var row = this.dataGridView_TaskList.Rows[i];
                 row.Selected = false;
-                if (i == m_RowIndex)
-                {
+                if (i == m_RowIndex) {
                     row.Selected = true;
                 }
             }
@@ -168,11 +166,15 @@ namespace V5_DataCollection.Forms.Task {
                 }
                 else {
                     model = dal.GetModelSingleTask(ID);
-
+                    if (model.Status != 1) {
+                        MainEvents.OutPutWindowEventArgs ev = new MainEvents.OutPutWindowEventArgs();
+                        ev.Message = "任务关闭中.不可采集...";
+                        OutPutWindowDelegate?.Invoke(this, ev);
+                        return;
+                    }
                     string baseDir = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\";
                     string SQLiteName = baseDir + model.TaskName + "\\SpiderResult.db";
-                    if (!File.Exists(SQLiteName))
-                    {
+                    if (!File.Exists(SQLiteName)) {
                         CreateDataFile(model.TaskName, ID);
                     }
                     var Spider = new SpiderHelper();
@@ -236,8 +238,7 @@ namespace V5_DataCollection.Forms.Task {
                 listGatherTask.Remove(ID.ToString());
                 Spider.Stop();
 
-                OutPutWindowDelegate?.Invoke(this, new MainEvents.OutPutWindowEventArgs()
-                {
+                OutPutWindowDelegate?.Invoke(this, new MainEvents.OutPutWindowEventArgs() {
                     Message = "任务已经停止!",
                     TaskId = ID
                 });
@@ -443,12 +444,9 @@ namespace V5_DataCollection.Forms.Task {
             }
         }
         int m_RowIndex = 0;
-        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left)
-            {
-                if (e.RowIndex >= 0)
-                {
+        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e) {
+            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) {
+                if (e.RowIndex >= 0) {
                     dataGridView_TaskList.ClearSelection();
                     dataGridView_TaskList.Rows[e.RowIndex].Selected = true;
 
