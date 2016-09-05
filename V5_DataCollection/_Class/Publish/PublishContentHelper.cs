@@ -202,6 +202,13 @@ namespace V5_DataCollection._Class.Publish {
                     break;
             }
 
+            using (var conn = DbHelperDapper.GetDbConnection(DbHelperDapper.dbType, Model.SaveDataUrl3)) {
+                if (conn.State != ConnectionState.Open) {
+                    MessageOut("数据库连接失败!不用发布数据!");
+                    return;
+                }
+            }
+
             foreach (DataRow dr in dtData.Rows) {
                 try {
                     sql = exeSQL;
@@ -216,7 +223,7 @@ namespace V5_DataCollection._Class.Publish {
                 }
                 catch (Exception ex) {
                     Log4Helper.Write(LogLevel.Error, dr["HrefSource"].ToString() + ":保存数据库失败!", ex);
-                    MessageOut(dr["HrefSource"].ToString() + "发布失败!"+ ex);
+                    MessageOut(dr["HrefSource"].ToString() + "发布失败!" + ex);
                     continue;
                 }
             }

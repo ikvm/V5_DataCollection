@@ -26,7 +26,6 @@ namespace V5_DataCollection {
         private frmTreeBox m_frmTreeBox = new frmTreeBox();
         private FrmTaskMain m_frmTaskMain = new FrmTaskMain();
         private frmOutPutBox m_frmOutPutBox = new frmOutPutBox();
-        private frmOutPutFileDown m_frmOutPutFileDown = new frmOutPutFileDown();
         #endregion
 
         public frmMain() {
@@ -85,9 +84,6 @@ namespace V5_DataCollection {
             else if (persistString == typeof(frmOutPutBox).ToString()) {
                 return m_frmOutPutBox;
             }
-            else if (persistString == typeof(frmOutPutFileDown).ToString()) {
-                return m_frmOutPutFileDown;
-            }
             else {
                 return null;
             }
@@ -134,7 +130,7 @@ namespace V5_DataCollection {
 
 
         private void 资源下载列表ToolStripMenuItem_Click(object sender, EventArgs e) {
-            m_frmOutPutFileDown.Show(dockPanel, DockState.DockBottom);
+           
         }
         #endregion
 

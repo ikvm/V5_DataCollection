@@ -192,9 +192,10 @@ namespace V5_DataCollection._Class.Gather {
                 if (m.IsDownResource == 1) {
                     string[] imgExtArr = m.DownResourceExts.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
                     var downImgPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Collection\\" + Model.TaskName + "\\Images\\";
+                    int ii = 1;
                     foreach (var img in imgTag) {
                         var remoteImg = CollectionHelper.Instance.FormatUrl(Model.TestViewUrl, img);
-                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + ii + ".jpg";
                         if (!string.IsNullOrEmpty(m.DownResourceExts)) {
                             var imgExt = remoteImg.Substring(remoteImg.LastIndexOf("."));
                             if (imgExtArr.SingleOrDefault(x => x.ToLower() == imgExt.ToLower()) != imgExt.ToLower()) {
@@ -204,6 +205,7 @@ namespace V5_DataCollection._Class.Gather {
                         CutContent = CutContent.Replace(img, downImgPath + newImg);
                         //
                         QueueHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, 500);
+                        ii++;
                     }
                 }
                 else {

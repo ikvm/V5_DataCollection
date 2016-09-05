@@ -48,7 +48,6 @@
             this.ToolStripMenuItem_View_TaskTree = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_View_TaskView = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_View_OutWindow = new System.Windows.Forms.ToolStripMenuItem();
-            this.资源下载列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入WebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.发布模块ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,8 +213,7 @@
             this.ToolStripMenuItem_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_View_TaskTree,
             this.ToolStripMenuItem_View_TaskView,
-            this.ToolStripMenuItem_View_OutWindow,
-            this.资源下载列表ToolStripMenuItem});
+            this.ToolStripMenuItem_View_OutWindow});
             this.ToolStripMenuItem_View.Name = "ToolStripMenuItem_View";
             this.ToolStripMenuItem_View.Size = new System.Drawing.Size(44, 21);
             this.ToolStripMenuItem_View.Text = "&视图";
@@ -223,30 +221,23 @@
             // ToolStripMenuItem_View_TaskTree
             // 
             this.ToolStripMenuItem_View_TaskTree.Name = "ToolStripMenuItem_View_TaskTree";
-            this.ToolStripMenuItem_View_TaskTree.Size = new System.Drawing.Size(148, 22);
+            this.ToolStripMenuItem_View_TaskTree.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_View_TaskTree.Text = "任务列表树";
             this.ToolStripMenuItem_View_TaskTree.Click += new System.EventHandler(this.ToolStripMenuItem_View_TaskTree_Click);
             // 
             // ToolStripMenuItem_View_TaskView
             // 
             this.ToolStripMenuItem_View_TaskView.Name = "ToolStripMenuItem_View_TaskView";
-            this.ToolStripMenuItem_View_TaskView.Size = new System.Drawing.Size(148, 22);
+            this.ToolStripMenuItem_View_TaskView.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_View_TaskView.Text = "任务列表";
             this.ToolStripMenuItem_View_TaskView.Click += new System.EventHandler(this.ToolStripMenuItem_View_TaskView_Click);
             // 
             // ToolStripMenuItem_View_OutWindow
             // 
             this.ToolStripMenuItem_View_OutWindow.Name = "ToolStripMenuItem_View_OutWindow";
-            this.ToolStripMenuItem_View_OutWindow.Size = new System.Drawing.Size(148, 22);
+            this.ToolStripMenuItem_View_OutWindow.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_View_OutWindow.Text = "输出窗口";
             this.ToolStripMenuItem_View_OutWindow.Click += new System.EventHandler(this.ToolStripMenuItem_View_OutWindow_Click);
-            // 
-            // 资源下载列表ToolStripMenuItem
-            // 
-            this.资源下载列表ToolStripMenuItem.Name = "资源下载列表ToolStripMenuItem";
-            this.资源下载列表ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.资源下载列表ToolStripMenuItem.Text = "资源下载列表";
-            this.资源下载列表ToolStripMenuItem.Click += new System.EventHandler(this.资源下载列表ToolStripMenuItem_Click);
             // 
             // 导入ToolStripMenuItem
             // 
@@ -294,41 +285,41 @@
             // ToolStripMenuItem_Tool_Config
             // 
             this.ToolStripMenuItem_Tool_Config.Name = "ToolStripMenuItem_Tool_Config";
-            this.ToolStripMenuItem_Tool_Config.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_Tool_Config.Size = new System.Drawing.Size(124, 22);
             this.ToolStripMenuItem_Tool_Config.Text = "选项";
             this.ToolStripMenuItem_Tool_Config.Click += new System.EventHandler(this.ToolStripMenuItem_Tool_Config_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 6);
             // 
             // ToolStripMenuItem_CommonSite
             // 
             this.ToolStripMenuItem_CommonSite.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_ManageSite});
             this.ToolStripMenuItem_CommonSite.Name = "ToolStripMenuItem_CommonSite";
-            this.ToolStripMenuItem_CommonSite.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_CommonSite.Size = new System.Drawing.Size(124, 22);
             this.ToolStripMenuItem_CommonSite.Text = "常用工具";
             // 
             // ToolStripMenuItem_ManageSite
             // 
             this.ToolStripMenuItem_ManageSite.Name = "ToolStripMenuItem_ManageSite";
-            this.ToolStripMenuItem_ManageSite.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_ManageSite.Size = new System.Drawing.Size(124, 22);
             this.ToolStripMenuItem_ManageSite.Text = "管理工具";
             this.ToolStripMenuItem_ManageSite.Click += new System.EventHandler(this.ToolStripMenuItem_ManageSite_Click);
             // 
             // sQLToolStripMenuItem
             // 
             this.sQLToolStripMenuItem.Name = "sQLToolStripMenuItem";
-            this.sQLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sQLToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.sQLToolStripMenuItem.Text = "SQL";
             this.sQLToolStripMenuItem.Click += new System.EventHandler(this.sQLToolStripMenuItem_Click);
             // 
             // 测试ToolStripMenuItem
             // 
             this.测试ToolStripMenuItem.Name = "测试ToolStripMenuItem";
-            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.测试ToolStripMenuItem.Text = "测试";
             this.测试ToolStripMenuItem.Click += new System.EventHandler(this.测试ToolStripMenuItem_Click);
             // 
@@ -426,7 +417,6 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_CommonSite;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_ManageSite;
         private System.Windows.Forms.ToolStripMenuItem 重新启动ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 资源下载列表ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sQLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem v5ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 测试ToolStripMenuItem;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>V5_DataCollection</RootNamespace>
     <AssemblyName>V5_DataCollection</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -51,6 +51,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>..\Release\V5_DataCollection\</OutputPath>
@@ -63,6 +64,7 @@
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
@@ -199,12 +201,6 @@
     </Compile>
     <Compile Include="Forms\Docking\frmOutPutBox.Designer.cs">
       <DependentUpon>frmOutPutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Docking\frmOutPutFileDown.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Docking\frmOutPutFileDown.Designer.cs">
-      <DependentUpon>frmOutPutFileDown.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Docking\frmTreeBox.cs">
       <SubType>Form</SubType>
@@ -409,9 +405,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Docking\frmOutPutBox.resx">
       <DependentUpon>frmOutPutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Docking\frmOutPutFileDown.resx">
-      <DependentUpon>frmOutPutFileDown.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Docking\frmTreeBox.resx">
       <DependentUpon>frmTreeBox.cs</DependentUpon>
