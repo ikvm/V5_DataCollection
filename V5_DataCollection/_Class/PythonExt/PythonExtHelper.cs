@@ -69,7 +69,6 @@ namespace V5_DataCollection._Class.PythonExt {
             source.Execute(scope);
             #endregion
 
-
             var main = scope.GetVariable<Func<object[], string>>("start");
 
             var s = main(inputObj);

@@ -26,7 +26,6 @@ namespace V5_DataCollection.Forms.Tools {
             this.textBox1.Clear();
             PythonExtHelper.OutWriteHandler += (string msg)=> {
                 this.textBox1.AppendText(msg);
-                this.textBox1.AppendText("\r\n");
             };
             PythonExtHelper.RunScriptPython(this.fastColoredTextBox1.Text, new object[] { "test" });
         }

@@ -10,7 +10,7 @@ using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
 
 namespace V5_DataCollection.Forms.Tools {
-    public partial class frmSQL : Form {
+    public partial class frmSQL : BaseForm {
         public frmSQL() {
             InitializeComponent();
         }

@@ -10,7 +10,7 @@ using V5_DataCollection._Class.DAL;
 using V5_WinLibs.Expand;
 
 namespace V5_DataCollection.Forms.Task.Tools {
-    public partial class frmTaskDiyWebUrl : Form {
+    public partial class frmTaskDiyWebUrl : BaseForm {
 
         private object _EditItem;
 

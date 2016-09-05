@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace V5_DataCollection.Forms.Task.Tools {
-    public partial class frmTaskPlanSet : Form {
+    public partial class frmTaskPlanSet : BaseForm {
 
         public event MainEventHandler.DataOperationHandler OnDataOperation;
         private MainEvents.DataOperationArgs ee = new MainEvents.DataOperationArgs();

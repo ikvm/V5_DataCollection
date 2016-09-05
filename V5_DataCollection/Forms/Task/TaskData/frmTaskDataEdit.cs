@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using V5_DataCollection._Class.DAL;
 
 namespace V5_DataCollection.Forms.Task.TaskData {
-    public partial class frmTaskDataEdit : Form {
+    public partial class frmTaskDataEdit : BaseForm {
 
         public delegate void OutDataEdit(DataGridViewCell cell, string result);
 

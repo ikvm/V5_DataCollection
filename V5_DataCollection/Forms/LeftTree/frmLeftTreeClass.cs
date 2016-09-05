@@ -15,7 +15,7 @@ namespace V5_DataCollection.Forms.LeftTree {
     /// <summary>
     /// 任务树分类编辑窗体
     /// </summary>
-    public partial class frmLeftTreeClass : Form {
+    public partial class frmLeftTreeClass : BaseForm {
 
         public delegate void OutOpMessage(string opType, string Message);
 

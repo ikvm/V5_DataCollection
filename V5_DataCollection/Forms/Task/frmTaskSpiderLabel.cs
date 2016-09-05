@@ -11,7 +11,7 @@ using System.IO;
 using V5_DataCollection._Class.DAL;
 
 namespace V5_DataCollection.Forms.Task {
-    public partial class frmTaskSpiderLabel : Form {
+    public partial class frmTaskSpiderLabel : BaseForm {
         #region 委托
         public TaskEventHandler.AddViewLabel ViewLabel;
         private TaskEvents.AddViewLabelEvents ev = new TaskEvents.AddViewLabelEvents();

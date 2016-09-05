@@ -17,7 +17,7 @@ using V5_DataCollection._Class.Common;
 
 namespace V5_DataCollection.Forms.Publish
 {
-    public partial class frmPublishEdit : Form
+    public partial class frmPublishEdit : BaseForm
     {
 
         public delegate void EditComplateEventHandler(int ipID, string msg);

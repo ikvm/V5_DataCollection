@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using V5_DataCollection._Class.DAL;
 
 namespace V5_DataCollection.Forms.Tools {
-    public partial class frmImportWebCollectionModule : Form {
+    public partial class frmImportWebCollectionModule : BaseForm {
         public frmImportWebCollectionModule() {
             InitializeComponent();
         }

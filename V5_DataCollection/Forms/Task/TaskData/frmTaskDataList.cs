@@ -11,7 +11,7 @@ using V5_WinControls.Pager;
 using V5_DataCollection._Class.DAL;
 
 namespace V5_DataCollection.Forms.Task.TaskData {
-    public partial class frmTaskDataList : Form {
+    public partial class frmTaskDataList : BaseForm {
         #region 访问器
         /// <summary>
         /// 任务名称

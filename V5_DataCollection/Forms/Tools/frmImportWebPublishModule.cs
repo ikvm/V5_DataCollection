@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace V5_DataCollection.Forms.Tools {
-    public partial class frmImportWebPublishModule : Form {
+    public partial class frmImportWebPublishModule : BaseForm {
         public frmImportWebPublishModule() {
             InitializeComponent();
         }

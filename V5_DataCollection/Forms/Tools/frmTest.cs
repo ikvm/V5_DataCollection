@@ -12,7 +12,7 @@ using V5_DataCollection._Class.PythonExt;
 using V5_WinLibs.Utility;
 
 namespace V5_DataCollection.Forms.Tools {
-    public partial class frmTest : Form {
+    public partial class frmTest : BaseForm {
         public frmTest() {
             InitializeComponent();
         }

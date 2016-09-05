@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace V5_DataCollection.Forms.Task
 {
-    public partial class frmTaskLabelRemove : Form
+    public partial class frmTaskLabelRemove : BaseForm
     {
         public delegate void TaskLabelRemove(int ItemIndex, string RemoveStr, string CheckLabel, string OpType);
         public TaskLabelRemove TLR;

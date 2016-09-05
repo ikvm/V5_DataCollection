@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace V5_DataCollection.Forms.Task {
-    public partial class frmTaskLabelReplace : Form {
+    public partial class frmTaskLabelReplace : BaseForm {
         public delegate void TaskLabelReplace(int ItemIndex, string oldStr, string newStr, string OpType);
         public TaskLabelReplace TLR;
         private string m_OpType = "add";

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
 namespace V5_DataCollection.Forms.Task {
-    public partial class frmTaskUrl : Form {
+    public partial class frmTaskUrl : BaseForm {
         public TaskEventHandler.AddLinkUrl AddUrl;
         private TaskEvents.AddLinkUrlEvents ev = new TaskEvents.AddLinkUrlEvents();
 
