@@ -475,6 +475,7 @@ namespace V5_DataCollection.Forms.Task {
 
         #region Sql
         private void btnSaveDataBaseConfig_Click(object sender, EventArgs e) {
+            btnSaveDataBaseConfig.Enabled = false; 
             if (string.IsNullOrEmpty(this.txtSaveDataUrl3.Text)) {
                 MessageBox.Show("数据库链接不能为空!", "警告!");
             }
@@ -498,12 +499,17 @@ namespace V5_DataCollection.Forms.Task {
                 else if (this.rbtnOracle.Checked) {
                     dbType = DataBaseType.Oracle;
                 }
-
-                using (var conn = DbHelperDapper.GetDbConnection(dbType, dbLink)) {
-                    if (conn.State == ConnectionState.Open) {
-                        MessageBox.Show("数据库连接成功!");
+                var task = new TaskFactory().StartNew(() => {
+                    using (var conn = DbHelperDapper.GetDbConnection(dbType, dbLink)) {
+                        if (conn != null && conn.State == ConnectionState.Open) {
+                            MessageBox.Show("数据库连接成功!");
+                        }
+                        else {
+                            MessageBox.Show("数据库连接失败!");
+                        }
                     }
-                }
+                    btnSaveDataBaseConfig.Enabled = true;
+                });
             }
 
         }

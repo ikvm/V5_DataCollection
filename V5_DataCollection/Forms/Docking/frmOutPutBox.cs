@@ -83,19 +83,18 @@ namespace V5_DataCollection.Forms.Docking {
                     if (!Directory.Exists(file.Directory.FullName)) {
                         Directory.CreateDirectory(file.Directory.FullName);
                     }
-                    //WebClient wc = new WebClient();
-                    //wc.DownloadFileAsync(new Uri($"{d.RemoteImg}"), $"{d.LocalImg}");
-                    //wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
-                    //TestAAA($"{d.RemoteImg}"), $"{d.LocalImg}");
-                    //TestAAA(d.RemoteImg, d.LocalImg).Wait();
 
-                    WebClient wc = new WebClient();
-                    wc.DownloadFileTaskAsync(d.RemoteImg, d.LocalImg);
-                    this.txtLogView.AppendText($"远程图片:{d.RemoteImg}本地图片:{d.LocalImg} 下载完成!");
+                    if (File.Exists(d.LocalImg)) {
+                        return;
+                    }
+
+                    DownLoadFile(d.RemoteImg, d.LocalImg);
+
+                    this.txtLogView.AppendText($"任务ID:{d.TaskId} 远程图片:{d.RemoteImg} 本地图片:{d.LocalImg} 下载完成!");
                     this.txtLogView.AppendText("\r\n");
                 }
                 catch (Exception ex) {
-                    this.txtLogView.AppendText($"远程图片:{d.RemoteImg}本地图片:{d.LocalImg}任务:{d.TaskId}失败!{ex.Message}");
+                    this.txtLogView.AppendText($"任务ID:{d.TaskId} 远程图片:{d.RemoteImg} 本地图片:{d.LocalImg} 失败!{ex.Message}");
                     this.txtLogView.AppendText("\r\n");
                 }
             }));
@@ -106,10 +105,27 @@ namespace V5_DataCollection.Forms.Docking {
             this.txtLogView.AppendText("\r\n");
         }
 
+        private async void DownLoadFile(string remoteFile, string localFile) {
+            try {
+                WebClient wc = new WebClient();
+                await wc.DownloadFileTaskAsync(remoteFile, localFile);
+            }
+            catch (Exception ex) {
+            }
+        }
+
         public async System.Threading.Tasks.Task TestAAA(string remoteFile, string localFile) {
             WebClient wc = new WebClient();
             await wc.DownloadFileTaskAsync(remoteFile, localFile);
             this.txtLogView.AppendText($"远程图片:{remoteFile}本地图片:{localFile} 下载完成!");
+            this.txtLogView.AppendText("\r\n");
+        }
+        private void toolStrip_ClearLog_Click(object sender, EventArgs e) {
+            this.txtLogView.Clear();
+        }
+
+        private void toolStrip_ViewQueue_Click(object sender, EventArgs e) {
+            this.txtLogView.AppendText($"当前队列的个数为{QueueHelper.Q_DownImgResource.Count}个!");
             this.txtLogView.AppendText("\r\n");
         }
         #endregion

@@ -85,7 +85,7 @@ namespace V5_WinLibs.DBUtility {
                 conn.Open();
             }
             catch (Exception ex) {
-                throw ex;
+                return null;
             }
             return conn;
         }

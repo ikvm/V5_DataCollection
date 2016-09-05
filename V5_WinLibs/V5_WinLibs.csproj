@@ -115,6 +115,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\WaterTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\WaterTextBox.Designer.cs">
+      <DependentUpon>WaterTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\AppRunHelper.cs" />
     <Compile Include="Core\CacheHelper.cs" />
     <Compile Include="Core\CacheManageHelper.cs" />

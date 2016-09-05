@@ -203,8 +203,8 @@ namespace V5_DataCollection._Class.Publish {
             }
 
             using (var conn = DbHelperDapper.GetDbConnection(DbHelperDapper.dbType, Model.SaveDataUrl3)) {
-                if (conn.State != ConnectionState.Open) {
-                    MessageOut("数据库连接失败!不用发布数据!");
+                if (conn == null || conn.State != ConnectionState.Open) {
+                    MessageOut("数据库连接失败!不需要发布数据!");
                     return;
                 }
             }

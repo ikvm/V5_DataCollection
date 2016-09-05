@@ -35,16 +35,17 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtOutWindowString = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtLogView = new System.Windows.Forms.TextBox();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.txtOutWindowString = new System.Windows.Forms.TextBox();
+            this.toolStrip_QueutCount = new System.Windows.Forms.ToolStrip();
+            this.toolStrip_ClearLog = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip_ViewQueue = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
+            this.toolStrip_QueutCount.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -105,10 +106,21 @@
             this.tabPage1.Text = "输出日志";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // txtOutWindowString
+            // 
+            this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
+            this.txtOutWindowString.MaxLength = 0;
+            this.txtOutWindowString.Multiline = true;
+            this.txtOutWindowString.Name = "txtOutWindowString";
+            this.txtOutWindowString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
+            this.txtOutWindowString.TabIndex = 1;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.txtLogView);
-            this.tabPage2.Controls.Add(this.toolStrip2);
+            this.tabPage2.Controls.Add(this.toolStrip_QueutCount);
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -127,35 +139,36 @@
             this.txtLogView.Size = new System.Drawing.Size(661, 227);
             this.txtLogView.TabIndex = 3;
             // 
-            // toolStrip2
+            // toolStrip_QueutCount
             // 
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSplitButton1});
-            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(661, 25);
-            this.toolStrip2.TabIndex = 0;
-            this.toolStrip2.Text = "toolStrip2";
+            this.toolStrip_QueutCount.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStrip_ViewQueue,
+            this.toolStrip_ClearLog});
+            this.toolStrip_QueutCount.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip_QueutCount.Name = "toolStrip_QueutCount";
+            this.toolStrip_QueutCount.Size = new System.Drawing.Size(661, 25);
+            this.toolStrip_QueutCount.TabIndex = 0;
+            this.toolStrip_QueutCount.Text = "toolStrip2";
             // 
-            // toolStripSplitButton1
+            // toolStrip_ClearLog
             // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(72, 22);
-            this.toolStripSplitButton1.Text = "查看队列";
+            this.toolStrip_ClearLog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStrip_ClearLog.Image = ((System.Drawing.Image)(resources.GetObject("toolStrip_ClearLog.Image")));
+            this.toolStrip_ClearLog.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStrip_ClearLog.Name = "toolStrip_ClearLog";
+            this.toolStrip_ClearLog.Size = new System.Drawing.Size(60, 22);
+            this.toolStrip_ClearLog.Text = "清除日志";
+            this.toolStrip_ClearLog.Click += new System.EventHandler(this.toolStrip_ClearLog_Click);
             // 
-            // txtOutWindowString
+            // toolStrip_ViewQueue
             // 
-            this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
-            this.txtOutWindowString.MaxLength = 0;
-            this.txtOutWindowString.Multiline = true;
-            this.txtOutWindowString.Name = "txtOutWindowString";
-            this.txtOutWindowString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
-            this.txtOutWindowString.TabIndex = 1;
+            this.toolStrip_ViewQueue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStrip_ViewQueue.Image = ((System.Drawing.Image)(resources.GetObject("toolStrip_ViewQueue.Image")));
+            this.toolStrip_ViewQueue.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStrip_ViewQueue.Name = "toolStrip_ViewQueue";
+            this.toolStrip_ViewQueue.Size = new System.Drawing.Size(60, 22);
+            this.toolStrip_ViewQueue.Text = "查看队列";
+            this.toolStrip_ViewQueue.Click += new System.EventHandler(this.toolStrip_ViewQueue_Click);
             // 
             // frmOutPutBox
             // 
@@ -177,8 +190,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this.toolStrip_QueutCount.ResumeLayout(false);
+            this.toolStrip_QueutCount.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -192,9 +205,10 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStrip toolStrip_QueutCount;
         private System.Windows.Forms.TextBox txtLogView;
         private System.Windows.Forms.TextBox txtOutWindowString;
+        private System.Windows.Forms.ToolStripButton toolStrip_ViewQueue;
+        private System.Windows.Forms.ToolStripButton toolStrip_ClearLog;
     }
 }

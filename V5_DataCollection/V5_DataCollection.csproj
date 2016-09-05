@@ -466,6 +466,9 @@
     <EmbeddedResource Include="Forms\Tools\frmTest.resx">
       <DependentUpon>frmTest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tools\frmUserTool.resx">
+      <DependentUpon>frmUserTool.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAboutBox.resx">
       <DependentUpon>frmAboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -508,6 +511,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="pythonlib.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="System\UserTools\list.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="System\V5.DataCollection.db">
