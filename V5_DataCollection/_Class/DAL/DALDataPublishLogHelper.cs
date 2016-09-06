@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
     public class DALDataPublishLogHelper {
-
-        static string dbStr =  CommonHelper.SQLiteConnectionStringPublishLog;
-        static DALDataPublishLogHelper() {
-            //db = DBHelper.DB.CreateDBHelper(CommonHelper.SQLiteConnectionStringPublishLog);
-        }
 
         /// <summary>
         /// 插入记录
@@ -24,7 +20,7 @@ namespace V5_DataCollection._Class.DAL {
                 model.DesKey,
                 model.CreateTime
                 ));
-            return SQLiteHelper.Execute(dbStr, sb.ToString()) > 0;
+            return DbHelper.Execute(CommonHelper.SQLiteConnectionString, sb.ToString()) > 0;
         }
         /// <summary>
         /// 更新记录
@@ -37,7 +33,7 @@ namespace V5_DataCollection._Class.DAL {
                 model.DesKey,
                 model.CreateTime
                 ));
-            return SQLiteHelper.Execute(dbStr, sb.ToString()) > 0;
+            return DbHelper.Execute(CommonHelper.SQLiteConnectionString, sb.ToString()) > 0;
         }
         /// <summary>
         /// 查询记录集
@@ -54,7 +50,7 @@ namespace V5_DataCollection._Class.DAL {
             if (limit > 0) {
                 sbSql.Append(" Limit " + limit + " ");
             }
-            return SQLiteHelper.Query<ModelDataPublishLog>(dbStr, sbSql.ToString()).ToList();
+            return DbHelper.Query<ModelDataPublishLog>(CommonHelper.SQLiteConnectionString, sbSql.ToString()).ToList();
         }
         /// <summary>
         /// 判断记录是否存在
@@ -66,7 +62,7 @@ namespace V5_DataCollection._Class.DAL {
                 resultId,
                 md5key
                 ));
-            return SQLiteHelper.Query<ModelDataPublishLog>(dbStr,sb.ToString()).SingleOrDefault() != null;
+            return DbHelper.Query<ModelDataPublishLog>(CommonHelper.SQLiteConnectionString, sb.ToString()).SingleOrDefault() != null;
         }
     }
 

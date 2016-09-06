@@ -4,16 +4,11 @@ using System.Linq;
 using System.Text;
 using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
 
     public class DALDiyWebUrlHelper {
-
-        static string dbStr = CommonHelper.SQLiteConnectionString;
-
-        static DALDiyWebUrlHelper() {
-
-        }
         /// <summary>
         /// 查询记录
         /// </summary>
@@ -29,7 +24,7 @@ namespace V5_DataCollection._Class.DAL {
             if (limit > 0) {
                 sbSql.Append(" Limit " + limit + " ");
             }
-            return SQLiteHelper.Query<ModelDiyWebUrl>(dbStr, sbSql.ToString(), null).ToList();
+            return DbHelper.Query<ModelDiyWebUrl>(CommonHelper.SQLiteConnectionString, sbSql.ToString(), null).ToList();
         }
         /// <summary>
         /// 插入记录
@@ -42,7 +37,7 @@ namespace V5_DataCollection._Class.DAL {
                 model.UrlEncode,
                 model.UrlParams,
                 model.CreateTime);
-            return SQLiteHelper.Execute(dbStr, sql, null);
+            return DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql, null);
         }
         /// <summary>
         /// 更新记录
@@ -56,19 +51,19 @@ namespace V5_DataCollection._Class.DAL {
                 model.UrlParams,
                 Id
                 );
-            return SQLiteHelper.Execute(dbStr, sql, null);
+            return DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql, null);
         }
         /// <summary>
         /// 删除记录
         /// </summary>
         public static void Delete(int Id) {
-            SQLiteHelper.Execute(dbStr, "Delete From S_DiyWebUrl Where Id=" + Id, null);
+            DbHelper.Execute(CommonHelper.SQLiteConnectionString, "Delete From S_DiyWebUrl Where Id=" + Id, null);
         }
         /// <summary>
         /// 获取最大Id
         /// </summary>
         public static void NewId() {
-            SQLiteHelper.Query<Int64>(dbStr, "Select Max(Id)+1 From S_DiyWebUrl", null);
+            DbHelper.Query<Int64>(CommonHelper.SQLiteConnectionString, "Select Max(Id)+1 From S_DiyWebUrl", null);
         }
     }
 

@@ -16,10 +16,10 @@ namespace V5_DataCollection._Class {
         public static List<IPlugin> ListISpiderContentPlugin = new List<IPlugin>();
         public static List<IPlugin> ListISpiderUrlPlugin = new List<IPlugin>();
 
-        private static string SpiderUrlPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SpiderUrl\\";
-        private static string SpiderContentPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SpiderContent\\";
-        private static string SaveContentPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SaveContent\\";
-        private static string PublishContentPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\PublishContent\\";
+        public static string SpiderUrlPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SpiderUrl\\";
+        public static string SpiderContentPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SpiderContent\\";
+        public static string SaveContentPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\SaveContent\\";
+        public static string PublishContentPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\Plugins\\PublishContent\\";
 
         static PluginUtility() {
             // LoadAllDlls();
@@ -33,20 +33,25 @@ namespace V5_DataCollection._Class {
                 Directory.CreateDirectory(SpiderUrlPluginPath);
             }
             else {
-                publishFiles = Directory.GetFiles(SpiderUrlPluginPath, "*Plugin.dll");
-                foreach (string str2 in publishFiles) {
-                    try {
-                        Assembly assembly = Assembly.LoadFrom(str2);
-                        FileInfo fi = new FileInfo(str2);
-                        string ff = fi.Name.Replace(fi.Extension, "");
-                        ff = ff.Replace("Plugin", "");
-                        IPlugin item = (IPlugin)Activator.CreateInstance(assembly.GetType("V5.DataCollection.Core." + ff));
-                        ListISpiderUrlPlugin.Add(item);
+                var exts = new[] { "*Plugin.dll", "*.py" };
+                foreach (var ext in exts) {
+                    publishFiles = Directory.GetFiles(SpiderUrlPluginPath, ext);
+                    foreach (string str2 in publishFiles) {
+                        try {
+                            Assembly assembly = Assembly.LoadFrom(str2);
+                            FileInfo fi = new FileInfo(str2);
+                            string ff = fi.Name.Replace(fi.Extension, "");
+                            ff = ff.Replace("Plugin", "");
+                            IPlugin item = (IPlugin)Activator.CreateInstance(assembly.GetType("V5.DataCollection.Core." + ff));
+                            ListISpiderUrlPlugin.Add(item);
+                        }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
                 }
+
             }
             #endregion
+
             #region 采集内容
             ListISpiderContentPlugin.Clear();
             if (!Directory.Exists(SpiderContentPluginPath)) {
@@ -67,6 +72,7 @@ namespace V5_DataCollection._Class {
                 }
             }
             #endregion
+
             #region 发布内容
             ListIPublishContentPlugin.Clear();
             if (!Directory.Exists(PublishContentPluginPath)) {
@@ -87,6 +93,7 @@ namespace V5_DataCollection._Class {
                 }
             }
             #endregion
+
             #region 保存内容
             ListISaveContentPlugin.Clear();
             if (!Directory.Exists(SaveContentPluginPath)) {
@@ -107,6 +114,7 @@ namespace V5_DataCollection._Class {
                 }
             }
             #endregion
+
         }
 
         /// <summary>

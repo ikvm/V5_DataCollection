@@ -6,11 +6,11 @@ using V5_Model;
 using System.Data;
 using V5_WinLibs.DBHelper;
 using V5_DataCollection._Class.Common;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
     public class DALWebPublishModule {
 
-        string dbStr = CommonHelper.SQLiteConnectionString;
         #region  Method
         /// <summary>
         /// 增加一条数据
@@ -70,7 +70,7 @@ namespace V5_DataCollection._Class.DAL {
             strSql.Append(strSql2.ToString().Remove(strSql2.Length - 1));
             strSql.Append(")");
             strSql.Append(";select LAST_INSERT_ROWID()");
-            object obj = SQLiteHelper.Execute(dbStr,strSql.ToString());
+            object obj = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (obj == null) {
                 return 0;
             }
@@ -154,7 +154,7 @@ namespace V5_DataCollection._Class.DAL {
             int n = strSql.ToString().LastIndexOf(",");
             strSql.Remove(n, 1);
             strSql.Append(" where ID=" + model.ID + "");
-            int rowsAffected = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            int rowsAffected = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (rowsAffected > 0) {
                 return true;
             }
@@ -170,7 +170,7 @@ namespace V5_DataCollection._Class.DAL {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from S_WebPublishModule ");
             strSql.Append(" where ID=" + ID + "");
-            int rowsAffected = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            int rowsAffected = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (rowsAffected > 0) {
                 return true;
             }
@@ -184,7 +184,7 @@ namespace V5_DataCollection._Class.DAL {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from S_WebPublishModule ");
             strSql.Append(" where ID in (" + IDlist + ")  ");
-            int rows = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            int rows = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (rows > 0) {
                 return true;
             }
@@ -204,7 +204,7 @@ namespace V5_DataCollection._Class.DAL {
             strSql.Append(" from S_WebPublishModule ");
             strSql.Append(" where ID=" + ID + "");
             ModelWebPublishModule model = new ModelWebPublishModule();
-            DataSet ds = SQLiteHelper.Query1(dbStr, strSql.ToString());
+            DataSet ds = DbHelper.Query(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (ds.Tables[0].Rows.Count > 0) {
                 if (ds.Tables[0].Rows[0]["ID"].ToString() != "") {
                     model.ID = int.Parse(ds.Tables[0].Rows[0]["ID"].ToString());
@@ -258,7 +258,7 @@ namespace V5_DataCollection._Class.DAL {
             if (strWhere.Trim() != "") {
                 strSql.Append(" where " + strWhere);
             }
-            return SQLiteHelper.Query1(dbStr, strSql.ToString());
+            return DbHelper.Query(CommonHelper.SQLiteConnectionString, strSql.ToString());
         }
         #endregion  Method
 

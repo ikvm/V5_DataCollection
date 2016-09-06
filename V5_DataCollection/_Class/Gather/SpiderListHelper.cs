@@ -38,9 +38,14 @@ namespace V5_DataCollection._Class.Gather {
         /// </summary>
         /// <param name="Url"></param>
         public void AnalyzeSingleList(string Url) {
-            var listUrl = cGatherFunction.Instance.SplitWebUrl(Url);
-            for (int i = 0; i < listUrl.Count; i++) {
-                ResolveList(listUrl[i], i);
+            if (Model.IsSource == 0) {
+                var listUrl = cGatherFunction.Instance.SplitWebUrl(Url);
+                for (int i = 0; i < listUrl.Count; i++) {
+                    ResolveList(listUrl[i], i);
+                }
+            }
+            else if (Model.IsSource == 1) {
+                ResolveList(Model.DemoListUrl, 0);
             }
         }
         /// <summary>
@@ -49,11 +54,16 @@ namespace V5_DataCollection._Class.Gather {
         /// <param name="testUrl"></param>
         /// <param name="num"></param>
         public void ResolveList(string testUrl, int num) {
-
-            string pageContent = CommonHelper.getPageContent(testUrl, Model.PageEncode);
-            if (string.IsNullOrEmpty(pageContent)) {
-                OutMessageHandler?.Invoke("采集列表失败!");
-                return;
+            string pageContent = string.Empty;
+            if (Model.IsSource == 1) {
+                pageContent = Model.SourceText;
+            }
+            else {
+                pageContent = CommonHelper.getPageContent(testUrl, Model.PageEncode);
+                if (string.IsNullOrEmpty(pageContent)) {
+                    OutMessageHandler?.Invoke("采集列表失败!");
+                    return;
+                }
             }
 
             if (Model.LinkUrlCutAreaStart?.Trim() != "" && Model.LinkUrlCutAreaEnd?.Trim() != "") {
@@ -132,13 +142,18 @@ namespace V5_DataCollection._Class.Gather {
         public void AnalyzeAllList() {
             OutMessageHandler?.Invoke("正在分析采集列表个数!");
 
-            foreach (string linkUrl in Model.CollectionContent.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
-                try {
-                    AnalyzeSingleList(linkUrl);
-                }
-                catch (Exception ex1) {
-                    Log4Helper.Write(LogLevel.Error, ex1.StackTrace, ex1);
-                    continue;
+            if (Model.IsSource == 1) {
+                AnalyzeSingleList(Model.DemoListUrl);
+            }
+            else {
+                foreach (string linkUrl in Model.CollectionContent.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    try {
+                        AnalyzeSingleList(linkUrl);
+                    }
+                    catch (Exception ex1) {
+                        Log4Helper.Write(LogLevel.Error, ex1.StackTrace, ex1);
+                        continue;
+                    }
                 }
             }
         }

@@ -63,9 +63,9 @@ namespace V5_DataCollection.Forms.Docking {
         void th_WorkMethod(int taskindex, int threadindex) {
             while (true) {
                 ModelDownLoadImg d = null;
-                lock (QueueHelper.lockObj) {
-                    if (QueueHelper.Q_DownImgResource.Count > 0) {
-                        d = QueueHelper.Q_DownImgResource.Dequeue();
+                lock (QueueImgHelper.lockObj) {
+                    if (QueueImgHelper.Q_DownImgResource.Count > 0) {
+                        d = QueueImgHelper.Q_DownImgResource.Dequeue();
                     }
                 }
                 if (d != null) {
@@ -125,7 +125,7 @@ namespace V5_DataCollection.Forms.Docking {
         }
 
         private void toolStrip_ViewQueue_Click(object sender, EventArgs e) {
-            this.txtLogView.AppendText($"当前队列的个数为{QueueHelper.Q_DownImgResource.Count}个!");
+            this.txtLogView.AppendText($"当前队列的个数为{QueueImgHelper.Q_DownImgResource.Count}个!");
             this.txtLogView.AppendText("\r\n");
         }
         #endregion

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection.Forms.Tools {
     public partial class frmSQL : BaseForm {
@@ -16,7 +17,7 @@ namespace V5_DataCollection.Forms.Tools {
         }
 
         private void btnExecute_Click(object sender, EventArgs e) {
-            DataSet ds = SQLiteHelper.Query1(CommonHelper.SQLiteConnectionString,this.txtSQL.Text);
+            DataSet ds = DbHelper.Query(CommonHelper.SQLiteConnectionString,this.txtSQL.Text);
             this.dataGridView1.DataSource = ds.Tables[0].DefaultView;
         }
     }

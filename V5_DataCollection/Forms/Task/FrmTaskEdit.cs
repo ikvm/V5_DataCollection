@@ -27,6 +27,7 @@ using V5_WinLibs.Expand;
 using V5_WinControls;
 using V5_WinLibs.DBUtility;
 using System.Threading.Tasks;
+using V5_DataCollection.Forms.Tools;
 
 namespace V5_DataCollection.Forms.Task {
     public partial class FrmTaskEdit : BaseForm {
@@ -69,6 +70,9 @@ namespace V5_DataCollection.Forms.Task {
         }
         #endregion
 
+        protected Panel panel_List2 = new Panel();
+        protected TextBox txtSourceText = new TextBox();
+
         public FrmTaskEdit() {
 
             InitializeComponent();
@@ -79,6 +83,21 @@ namespace V5_DataCollection.Forms.Task {
             };
 
             this.cmbStatus.SelectedIndex = 0;
+
+            txtSourceText.Dock = DockStyle.Fill;
+            txtSourceText.Multiline = true;
+            txtSourceText.ScrollBars = ScrollBars.Both;
+            txtSourceText.MaxLength = 0;
+
+            panel_List2.BackColor = Color.Red;
+            panel_List2.Location = new Point(this.panel_List1.Location.X - 2, this.panel_List1.Location.Y - 45);
+            panel_List2.Size = new Size(this.panel_List1.Size.Width - 5, this.panel_List1.Height);
+            panel_List2.SuspendLayout();
+            panel_List2.ResumeLayout(false);
+            panel_List2.Controls.Add(txtSourceText);
+            panel_List2.Visible = false;
+
+            groupBox3.Controls.Add(panel_List2);
         }
 
 
@@ -90,6 +109,12 @@ namespace V5_DataCollection.Forms.Task {
             foreach (IPlugin item in Plugins) {
                 this.cmbSpiderUrlPlugins.Items.Add(item.PluginName);
             }
+            var publishFiles = Directory.GetFiles(PluginUtility.SpiderUrlPluginPath, "*.py");
+            foreach (string str2 in publishFiles) {
+                var fileInfo = new FileInfo(str2);
+                this.cmbSpiderUrlPlugins.Items.Add(fileInfo.Name);
+            }
+
             this.cmbSpiderUrlPlugins.Items.Insert(0, "不使用插件");
             this.cmbSpiderUrlPlugins.SelectedIndex = 0;
             //
@@ -228,11 +253,14 @@ namespace V5_DataCollection.Forms.Task {
         /// 测试链接
         /// </summary>
         private void btnLinkUrlTest_Click(object sender, EventArgs e) {
-            object listItem = this.listBoxLinkUrl.SelectedItem;
-            if (listItem == null) {
-                MessageBox.Show("选择一个采集连接!");
-                return;
+            if (!this.chkIsSource.Checked) {
+                object listItem = this.listBoxLinkUrl.SelectedItem;
+                if (listItem == null) {
+                    MessageBox.Show("选择一个采集连接!");
+                    return;
+                }
             }
+
             this.tabControlTaskEdit.SelectTab(4);
             this.treeViewUrlTest.Nodes.Clear();
             object item = this.listBoxLinkUrl.SelectedItem;
@@ -242,25 +270,37 @@ namespace V5_DataCollection.Forms.Task {
             var LinkUrlAreaStart = this.txtLinkUrlCutAreaStart.Text;
             var LinkUrlAreaEnd = this.txtLinkUrlCutAreaEnd.Text;
             var TestLinkUrl = Convert.ToString(item);
-            var TestListLinkUrl = gatherWork.SplitWebUrl(TestLinkUrl);
+
             var IsHandGetUrl = this.chkIsHandGetUrl.Checked ? 1 : 0;
             var HandCollectionUrlRegex = this.txtHandCollectionUrlRegex.Text;
 
             var model = new ModelTask() {
                 PageEncode = encode,
+                DemoListUrl = this.txtDemoListUrl.Text,
                 LinkUrlMustIncludeStr = includeStr,
                 LinkUrlNoMustIncludeStr = NoIncludeStr,
                 LinkUrlCutAreaStart = LinkUrlAreaStart,
                 LinkUrlCutAreaEnd = LinkUrlAreaEnd,
                 IsHandGetUrl = IsHandGetUrl,
-                HandCollectionUrlRegex = HandCollectionUrlRegex
+                HandCollectionUrlRegex = HandCollectionUrlRegex,
+                IsSource = this.chkIsSource.Checked ? 1 : 0,
+                SourceText = this.txtSourceText.Text
             };
 
-            foreach (string str in TestListLinkUrl) {
+            if (!this.chkIsSource.Checked) {
+                var TestListLinkUrl = gatherWork.SplitWebUrl(TestLinkUrl);
+                foreach (string str in TestListLinkUrl) {
+                    TreeNode rootNode = new TreeNode();
+                    rootNode.Text = str;
+                    this.treeViewUrlTest.Nodes.Add(rootNode);
+                }
+            }
+            else {
                 TreeNode rootNode = new TreeNode();
-                rootNode.Text = str;
+                rootNode.Text = "测试源码";
                 this.treeViewUrlTest.Nodes.Add(rootNode);
             }
+
 
             var task = new TaskFactory().StartNew(() => {
                 var spiderListHelper = new SpiderListHelper();
@@ -475,7 +515,7 @@ namespace V5_DataCollection.Forms.Task {
 
         #region Sql
         private void btnSaveDataBaseConfig_Click(object sender, EventArgs e) {
-            btnSaveDataBaseConfig.Enabled = false; 
+            btnSaveDataBaseConfig.Enabled = false;
             if (string.IsNullOrEmpty(this.txtSaveDataUrl3.Text)) {
                 MessageBox.Show("数据库链接不能为空!", "警告!");
             }
@@ -636,6 +676,9 @@ namespace V5_DataCollection.Forms.Task {
             this.txtHiddenPlanFormat.Text = model.PlanFormat;
 
             this.cmbStatus.SelectedIndex = model.Status == 1 ? 0 : 1;
+
+            this.chkIsSource.Checked = model.IsSource == 1 ? true : false;
+            this.txtSourceText.Text = model.SourceText;
         }
         #endregion
 
@@ -770,6 +813,10 @@ namespace V5_DataCollection.Forms.Task {
             model.IsPlan = IsPlan;
             model.PlanFormat = PlanFormat;
             model.Status = this.cmbStatus.SelectedIndex == 0 ? 1 : 0;
+
+            model.IsSource = this.chkIsSource.Checked ? 1 : 0;
+            model.SourceText = this.txtSourceText.Text;
+
             if (ID == 0) {
                 string guid = Guid.NewGuid().ToString();
                 ID = dal.GetMaxId();
@@ -836,7 +883,7 @@ namespace V5_DataCollection.Forms.Task {
                 Directory.CreateDirectory(baseDir + taskName + "\\");
             }
             if (!File.Exists(SQLiteName)) {
-                SQLiteHelper.CreateDataBase(SQLiteName);
+                DbHelper.CreateDataBase(SQLiteName);
                 DALTask dal = new DALTask();
                 string createSQL = string.Empty;
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
@@ -871,14 +918,14 @@ namespace V5_DataCollection.Forms.Task {
                     " + createSQL + @"
                 );
             ";
-                SQLiteHelper.Execute(LocalSQLiteName, SQL);
+                DbHelper.Execute(LocalSQLiteName, SQL);
             }
             else {
                 //添加Sqlite列名称
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
                 foreach (DataRow dr in dt.Rows) {
                     try {
-                        SQLiteHelper.Execute("LocalSQLiteName", " ALTER TABLE Content ADD COLUMN [" + dr["LabelName"] + "] VARCHAR; ");
+                        DbHelper.Execute(LocalSQLiteName, " ALTER TABLE Content ADD COLUMN [" + dr["LabelName"] + "] VARCHAR; ");
                     }
                     catch {
                         continue;
@@ -1070,8 +1117,28 @@ namespace V5_DataCollection.Forms.Task {
             FormPlanSet.ShowDialog(this);
         }
 
+        private void chkIsSource_CheckedChanged(object sender, EventArgs e) {
+            if (this.chkIsSource.Checked) {
+                this.panel_List1.Visible = false;
+                this.panel_List2.Visible = true;
+            }
+            else {
+                this.panel_List1.Visible = true;
+                this.panel_List2.Visible = false;
+            }
+        }
 
+        private void linkSpiderListPlugin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            var item = this.cmbSpiderUrlPlugins.SelectedItem as string;
 
-
+            if (item != "不使用插件") {
+                var list = new List<string>();
+                list.Add(this.txtDemoListUrl.Text);
+                var form = new frmEditor();
+                form.PythonFilePath = PluginUtility.SpiderUrlPluginPath + item;
+                form.PythonInputParam = list.ToArray();
+                form.Show(this);
+            }
+        }
     }
 }

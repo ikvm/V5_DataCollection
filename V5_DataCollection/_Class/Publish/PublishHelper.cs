@@ -146,7 +146,7 @@ namespace V5_DataCollection._Class.Publish {
             try {
                 string str = string.Empty;
                 string LocalSQLiteName = "Data\\Collection\\" + ModelTask.TaskName + "\\SpiderResult.db";
-                DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
+                DataTable dtData = DbHelper.Query(LocalSQLiteName, "Select * From Content").Tables[0];
                 if (!Directory.Exists(ModelTask.SaveDirectory2))
                     Directory.CreateDirectory(ModelTask.SaveDirectory2);
                 if (ModelTask.SaveFileFormat2.ToLower() == ".html") {
@@ -222,7 +222,7 @@ namespace V5_DataCollection._Class.Publish {
         #region 3.保存到数据库
         private void PublishDataToDB(int taskindex, int threadindex) {
             string LocalSQLiteName = "Data\\Collection\\" + ModelTask.TaskName + "\\SpiderResult.db";
-            DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
+            DataTable dtData = DbHelper.Query(LocalSQLiteName, "Select * From Content").Tables[0];
 
             int saveDateType = ModelTask.SaveDataType3.Value;
             string connectionString = ModelTask.SaveDataUrl3;
@@ -303,7 +303,7 @@ namespace V5_DataCollection._Class.Publish {
         #region 4.发布到自定义Web网站
         private void PublishDataToSQL(int taskindex, int threadindex) {
             string LocalSQLiteName = "Data\\Collection\\" + ModelTask.TaskName + "\\SpiderResult.db";
-            DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
+            DataTable dtData = DbHelper.Query(LocalSQLiteName, "Select * From Content").Tables[0];
 
             var listDiyUrl = DALDiyWebUrlHelper.GetList(" And SelfId=" + ModelTask.ID, "", 0);
             HttpHelper4 http = new HttpHelper4();

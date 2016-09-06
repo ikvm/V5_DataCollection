@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using V5_DataCollection._Class.Plan;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection {
     static class Program {
@@ -11,7 +12,7 @@ namespace V5_DataCollection {
         /// </summary>
         [STAThread]
         static void Main() {
-
+            DbHelper.dbType = DataBaseType.SQLite;
 
             bool isAppRunning = false;
             System.Threading.Mutex mutex = new System.Threading.Mutex(

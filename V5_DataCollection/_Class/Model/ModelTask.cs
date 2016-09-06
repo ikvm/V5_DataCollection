@@ -10,14 +10,15 @@ namespace V5_Model {
     /// </summary>
     [Serializable]
     public class ModelTask {
+
         #region Model
         private int _id = 0;
         private string _taskname = string.Empty;
-        private int? _isspiderurl=0;
-        private int? _isspidercontent=0;
-        private int? _ispublishcontent=0;
+        private int? _isspiderurl = 0;
+        private int? _isspidercontent = 0;
+        private int? _ispublishcontent = 0;
         private string _pageencode = "utf-8";
-        private int? _collectiontype=0;
+        private int? _collectiontype = 0;
         private string _collectioncontent = string.Empty;
         private string _linkurlmustincludestr = string.Empty;
         private string _linkurlnomustincludestr = string.Empty;
@@ -25,17 +26,17 @@ namespace V5_Model {
         private string _linkurlcutareastart = string.Empty;
         private string _linkurlcutareaend = string.Empty;
         private string _testviewurl = string.Empty;
-        private int? _iswebonlinepublish1=0;
-        private int? _issavelocal2=0;
+        private int? _iswebonlinepublish1 = 0;
+        private int? _issavelocal2 = 0;
         private string _savefileformat2 = string.Empty;
         private string _savedirectory2 = string.Empty;
         private string _savehtmltemplate2 = string.Empty;
-        private int? _saveiscreateindex2=0;
-        private int? _issavedatabase3=0;
-        private int? _savedatatype3=0;
+        private int? _saveiscreateindex2 = 0;
+        private int? _issavedatabase3 = 0;
+        private int? _savedatatype3 = 0;
         private string _savedataurl3 = string.Empty;
         private string _savedatasql3 = string.Empty;
-        private int? _issavesql4=0;
+        private int? _issavesql4 = 0;
         private string _savesqlcontent4 = string.Empty;
         private string _savesqldirectory4 = string.Empty;
         private string _guid = string.Empty;
@@ -278,6 +279,14 @@ namespace V5_Model {
         #endregion Model
 
         /// <summary>
+        /// 是否源码采集列表
+        /// </summary>
+        public int IsSource { get; set; } = 0;
+        /// <summary>
+        /// 采集列表源码
+        /// </summary>
+        public string SourceText { get; set; } = string.Empty;
+        /// <summary>
         /// 任务标签
         /// </summary>
 
@@ -371,7 +380,7 @@ namespace V5_Model {
             set { _DemoListUrl = value; }
         }
 
-        private int _IsPlan=0;
+        private int _IsPlan = 0;
 
         public int IsPlan {
             get { return _IsPlan; }

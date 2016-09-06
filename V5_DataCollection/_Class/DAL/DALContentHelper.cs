@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using V5_WinLibs.Core;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
     /// <summary>
@@ -21,7 +22,7 @@ namespace V5_DataCollection._Class.DAL {
             string LocalSQLiteName = "Data\\Collection\\" + taskName + "\\SpiderResult.db";
             string sql = " Select Count(1) From Content Where HrefSource='" + url + "' ";
             string msg = url;
-            object o = SQLiteHelper.ExecuteScalar(LocalSQLiteName,sql);
+            object o = DbHelper.ExecuteScalar(LocalSQLiteName,sql);
             if (o != null && StringHelper.Instance.SetNumber(o) > 0) {
                 return true;
             }
@@ -36,7 +37,7 @@ namespace V5_DataCollection._Class.DAL {
         public static object GetContent(string taskName, string Id, string colName) {
             string LocalSQLiteName = "Data\\Collection\\" + taskName + "\\SpiderResult.db";
             string sql = " Select " + colName + " From Content Where Id=" + Id;
-            object o = SQLiteHelper.ExecuteScalar( LocalSQLiteName,sql);
+            object o = DbHelper.ExecuteScalar( LocalSQLiteName,sql);
             return o;
         }
 
@@ -50,7 +51,7 @@ namespace V5_DataCollection._Class.DAL {
         public static void UpdateContent(string taskName, string Id, string colName, string colValue) {
             string LocalSQLiteName = "Data\\Collection\\" + taskName + "\\SpiderResult.db";
             string sql = " Update Content Set " + colName + "='" + colValue + "' Where Id=" + Id;
-            object o = SQLiteHelper.Execute(LocalSQLiteName,sql);
+            object o = DbHelper.Execute(LocalSQLiteName,sql);
         }
 
         /// <summary>
@@ -64,10 +65,10 @@ namespace V5_DataCollection._Class.DAL {
         public static DataTable GetContentList(string taskName, int startIndex, int pageSize, ref int sCount) {
             string LocalSQLiteName = "Data\\Collection\\" + taskName + "\\SpiderResult.db";
             string SQL = "Select Count(*) From Content ";
-            sCount = StringHelper.Instance.SetNumber(SQLiteHelper.ExecuteScalar(LocalSQLiteName,SQL));
+            sCount = StringHelper.Instance.SetNumber(DbHelper.ExecuteScalar(LocalSQLiteName,SQL));
 
             SQL = string.Format("Select * From Content Order By Id Desc Limit {0},{1}", startIndex, pageSize);
-            DataTable dt = SQLiteHelper.Query1(LocalSQLiteName,SQL).Tables[0];
+            DataTable dt = DbHelper.Query(LocalSQLiteName,SQL).Tables[0];
             return dt;
         }
     }

@@ -9,6 +9,7 @@ using V5_DataCollection._Class.PythonExt;
 using V5_Model;
 using V5_WinLibs.Core;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.Gather {
     public class SpiderViewHelper {
@@ -204,7 +205,7 @@ namespace V5_DataCollection._Class.Gather {
                         }
                         CutContent = CutContent.Replace(img, downImgPath + newImg);
                         //
-                        QueueHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, 500);
+                        QueueImgHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, 500);
                         ii++;
                     }
                 }
@@ -344,7 +345,7 @@ namespace V5_DataCollection._Class.Gather {
                 #region 保存数据库
                 string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
                 string sql = " Select Count(1) From Content Where HrefSource='" + viewUrl + "' ";
-                object o = SQLiteHelper.ExecuteScalar(LocalSQLiteName, sql);
+                object o = DbHelper.ExecuteScalar(LocalSQLiteName, sql);
                 if (Convert.ToInt32("0" + o) == 0) {
 
                     strSql.Append("insert into Content(HrefSource,");
@@ -354,7 +355,7 @@ namespace V5_DataCollection._Class.Gather {
                     strSql.Append(sb2.ToString().Remove(sb2.Length - 1));
                     strSql.Append(")");
 
-                    SQLiteHelper.Execute(LocalSQLiteName, strSql.ToString());
+                    DbHelper.Execute(LocalSQLiteName, strSql.ToString());
                 }
                 title = title.Replace('\\', ' ').Replace('/', ' ').Split(new char[] { '_' })[0].Split(new char[] { '-' })[0];
                 #endregion

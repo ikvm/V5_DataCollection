@@ -91,6 +91,9 @@ namespace V5_DataCollection._Class.Plan {
                 foreach (DataRow dr in dt.Rows) {
                     #region Job
                     var job = dal.GetModel(int.Parse(dr["Id"].ToString()));
+                    if (string.IsNullOrEmpty(job.PlanFormat)) {
+                        continue;
+                    }
                     var jobNum = string.Format("job_{0}", dr["Id"].ToString());
                     if (scheduler.CheckExists(new JobKey(jobNum))) {
                         continue;

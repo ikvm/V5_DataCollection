@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using V5_DataPublish._Class;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DAL {
     public class DALWebSiteClassList {
@@ -71,7 +72,7 @@ namespace V5_DAL {
             strSql.Append("select * ");
             strSql.Append(" FROM [S_WebSiteKeywords] ");
             strSql.Append(" where ID=" + ID);
-            DataSet ds = SQLiteHelper.Query1(dbStr, strSql.ToString());
+            DataSet ds = DbHelper.Query(dbStr, strSql.ToString());
             if (ds.Tables[0].Rows.Count > 0) {
                 if (ds.Tables[0].Rows[0]["ID"] != null && ds.Tables[0].Rows[0]["ID"].ToString() != "") {
                     model.ID = int.Parse(ds.Tables[0].Rows[0]["ID"].ToString());
@@ -122,7 +123,7 @@ namespace V5_DAL {
             int n = strSql.ToString().LastIndexOf(",");
             strSql.Remove(n, 1);
             strSql.Append(" where ID=" + this.ID + " ");
-            int rows = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            int rows = DbHelper.Execute(dbStr, strSql.ToString());
         }
 
 
@@ -130,11 +131,11 @@ namespace V5_DAL {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from [S_WebSiteKeywords] ");
             strSql.Append(" where ID=" + ID + " ");
-            SQLiteHelper.Execute(dbStr, strSql.ToString());
+            DbHelper.Execute(dbStr, strSql.ToString());
         }
 
         public int GetMaxId(string id, string tbName) {
-            object obj = SQLiteHelper.ExecuteScalar(dbStr, "select max(" + id + ")+1 from " + tbName);
+            object obj = DbHelper.ExecuteScalar(dbStr, "select max(" + id + ")+1 from " + tbName);
             if (obj == null) {
                 return 1;
             }
@@ -150,16 +151,16 @@ namespace V5_DAL {
             if (sWebSiteID == "0") {
                 sWebSiteID = Convert.ToString("" + this.GetMaxId("ID", "S_WebSiteKeywords"));
             }
-            object oCount = SQLiteHelper.ExecuteScalar(dbStr, string.Format(@"
+            object oCount = DbHelper.ExecuteScalar(dbStr, string.Format(@"
                     Select Count(ID) From S_WebSiteKeywords
                     Where WebSiteID={0} And ClassID={1}
             ", sWebSiteID, ClassID, ClassName));
             if (Convert.ToInt32("0" + oCount) == 0) {
-                SQLiteHelper.Execute(dbStr, string.Format("Insert into S_WebSiteKeywords (WebSiteID,ClassID,ClassName,KeywordList,AddDateTime)values({0},{1},'{2}','{3}','{4}')", sWebSiteID, ClassID, ClassName, keywordlist, DateTime.Now.ToString()));
+                DbHelper.Execute(dbStr, string.Format("Insert into S_WebSiteKeywords (WebSiteID,ClassID,ClassName,KeywordList,AddDateTime)values({0},{1},'{2}','{3}','{4}')", sWebSiteID, ClassID, ClassName, keywordlist, DateTime.Now.ToString()));
                 return true;
             }
             else {
-                SQLiteHelper.Execute(dbStr, string.Format("Update S_WebSiteKeywords Set ClassName='{2}' Where ClassID={1} And WebSiteID={0}", sWebSiteID, ClassID, ClassName));
+                DbHelper.Execute(dbStr, string.Format("Update S_WebSiteKeywords Set ClassName='{2}' Where ClassID={1} And WebSiteID={0}", sWebSiteID, ClassID, ClassName));
                 return true;
             }
             return false;
@@ -171,7 +172,7 @@ namespace V5_DAL {
                 sWebSiteID = Convert.ToString("" + this.GetMaxId("ID", "S_WebSiteKeywords"));
             }
             DataSet ds = new DataSet();
-            ds = SQLiteHelper.Query1(dbStr, string.Format("Select * From S_WebSiteKeywords Where WebSiteID={0} Order by ID Asc", sWebSiteID));
+            ds = DbHelper.Query(dbStr, string.Format("Select * From S_WebSiteKeywords Where WebSiteID={0} Order by ID Asc", sWebSiteID));
             return ds;
         }
 
@@ -182,7 +183,7 @@ namespace V5_DAL {
         #region 获取网络分类列表
         public DataTable GetClassNewWork() {
             DataTable dt = new DataTable();
-            DataSet ds = SQLiteHelper.Query1(dbStr,@"
+            DataSet ds = DbHelper.Query(dbStr,@"
                     select * from s_websitekeywords where  websiteid in(
                         select id from S_WEBSITE  where DataSourceType = 4
                     ) order by websiteid asc

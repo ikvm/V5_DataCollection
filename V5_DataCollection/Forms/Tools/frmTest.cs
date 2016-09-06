@@ -77,14 +77,6 @@ namespace V5_DataCollection.Forms.Tools {
         }
 
         private void button3_Click(object sender, EventArgs e) {
-            var c = new CollectionHttpHelper();
-            c.WebBrowser = true;
-            c.OutHtmlHandler += (string html) => {
-                MessageBox.Show(html);
-            };
-            c.GetHtml("http://www.v5soft.com", string.Empty);
-
-            //
         }
 
         private void button4_Click(object sender, EventArgs e) {

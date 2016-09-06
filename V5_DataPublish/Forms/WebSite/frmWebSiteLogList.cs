@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using V5_DataPublish._Class;
 using System.IO;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataPublish.Forms.WebSite {
     public partial class frmWebSiteLogList : BaseForm {
@@ -40,7 +41,7 @@ namespace V5_DataPublish.Forms.WebSite {
             if (File.Exists(SQLiteName)) {
                 string SQL = string.Empty;//And Content='{1}
                 SQL = "Select * from Content Order by ID  Desc";
-                DataSet ds = SQLiteHelper.Query1(LocalSQLiteName, SQL);
+                DataSet ds = DbHelper.Query(LocalSQLiteName, SQL);
                 this.dataGridView_LogList.DataSource = ds.Tables[0].DefaultView;
             }
         }

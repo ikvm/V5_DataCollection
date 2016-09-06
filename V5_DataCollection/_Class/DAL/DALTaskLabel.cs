@@ -6,17 +6,14 @@ using System.Data;
 using V5_Model;
 using V5_DataCollection._Class.Common;
 using V5_WinLibs.DBHelper;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
     public class DALTaskLabel {
 
-        string dbStr = CommonHelper.SQLiteConnectionString;
-        public DALTaskLabel() {
-        }
-
         #region  Method
         public int GetMaxID() {
-            object obj = SQLiteHelper.ExecuteScalar(dbStr, "select max(id)+1 from S_TaskLabel");
+            object obj = DbHelper.ExecuteScalar(CommonHelper.SQLiteConnectionString, "select max(id)+1 from S_TaskLabel");
             if (obj == null) {
                 return 1;
             }
@@ -29,95 +26,12 @@ namespace V5_DataCollection._Class.DAL {
         /// </summary>
         public int Add(ModelTaskLabel model) {
             StringBuilder strSql = new StringBuilder();
-            StringBuilder strSql1 = new StringBuilder();
-            StringBuilder strSql2 = new StringBuilder();
-            if (model.LabelName != null) {
-                strSql1.Append("LabelName,");
-                strSql2.Append("'" + model.LabelName + "',");
-            }
-            if (model.LabelNameCutRegex != null) {
-                strSql1.Append("LabelNameCutRegex,");
-                strSql2.Append("'" + model.LabelNameCutRegex + "',");
-            }
-            if (model.LabelHtmlRemove != null) {
-                strSql1.Append("LabelHtmlRemove,");
-                strSql2.Append("'" + model.LabelHtmlRemove + "',");
-            }
-            if (model.LblHtmlRemove != null) {
-                strSql1.Append("LblHtmlRemove,");
-                strSql2.Append("'" + model.LblHtmlRemove + "',");
-            }
-            if (model.LabelRemove != null) {
-                strSql1.Append("LabelRemove,");
-                strSql2.Append("'" + model.LabelRemove + "',");
-            }
-            if (model.LabelReplace != null) {
-                strSql1.Append("LabelReplace,");
-                strSql2.Append("'" + model.LabelReplace + "',");
-            }
-            if (model.TaskID != null) {
-                strSql1.Append("TaskID,");
-                strSql2.Append("" + model.TaskID + ",");
-            }
-            if (model.GuidNum != null) {
-                strSql1.Append("GuidNum,");
-                strSql2.Append("'" + model.GuidNum + "',");
-            }
-            if (model.OrderID != null) {
-                strSql1.Append("OrderID,");
-                strSql2.Append("" + model.OrderID + ",");
-            }
-            if (model.CreateTime != null) {
-                strSql1.Append("CreateTime,");
-                strSql2.Append("'" + model.CreateTime + "',");
-            }
-            //=============================================2012 2-6
-            if (model.IsLoop != null) {
-                strSql1.Append("IsLoop,");
-                strSql2.Append("" + model.IsLoop + ",");
-            }
-            if (model.IsNoNull != null) {
-                strSql1.Append("IsNoNull,");
-                strSql2.Append("" + model.IsNoNull + ",");
-            }
-            if (model.IsLinkUrl != null) {
-                strSql1.Append("IsLinkUrl,");
-                strSql2.Append("" + model.IsLinkUrl + ",");
-            }
-            if (model.IsPager != null) {
-                strSql1.Append("IsPager,");
-                strSql2.Append("" + model.IsPager + ",");
-            }
-            if (model.LabelValueLinkUrlRegex != null) {
-                strSql1.Append("LabelValueLinkUrlRegex,");
-                strSql2.Append("'" + model.LabelValueLinkUrlRegex + "',");
-            }
-            if (model.LabelValuePagerRegex != null) {
-                strSql1.Append("LabelValuePagerRegex,");
-                strSql2.Append("'" + model.LabelValuePagerRegex + "',");
-            }
-            //
-            if (model.SpiderLabelPlugin != null) {
-                strSql1.Append("SpiderLabelPlugin,");
-                strSql2.Append("'" + model.SpiderLabelPlugin + "',");
-            }
-            //
-            if (model.IsDownResource != null) {
-                strSql1.Append("IsDownResource,");
-                strSql2.Append("" + model.IsDownResource + ",");
-            }
-            if (model.DownResourceExts != null) {
-                strSql1.Append("DownResourceExts,");
-                strSql2.Append("'" + model.DownResourceExts + "',");
-            }
             strSql.Append("insert into S_TaskLabel(");
-            strSql.Append(strSql1.ToString().Remove(strSql1.Length - 1));
-            strSql.Append(")");
+            strSql.Append("LabelName,LabelSource,LabelNameCutRegex,LabelHtmlRemove,LblHtmlRemove,LabelRemove,LabelReplace,TaskID,GuidNum,OrderID,CreateTime,IsLoop,IsNoNull,IsLinkUrl,IsPager,LabelValueLinkUrlRegex,LabelValuePagerRegex,SpiderLabelPlugin,IsDownResource,DownResourceExts)");
             strSql.Append(" values (");
-            strSql.Append(strSql2.ToString().Remove(strSql2.Length - 1));
-            strSql.Append(")");
+            strSql.Append("@LabelName,@LabelSource,@LabelNameCutRegex,@LabelHtmlRemove,@LblHtmlRemove,@LabelRemove,@LabelReplace,@TaskID,@GuidNum,@OrderID,@CreateTime,@IsLoop,@IsNoNull,@IsLinkUrl,@IsPager,@LabelValueLinkUrlRegex,@LabelValuePagerRegex,@SpiderLabelPlugin,@IsDownResource,@DownResourceExts)");
             strSql.Append(";select LAST_INSERT_ROWID()");
-            object obj = SQLiteHelper.ExecuteScalar(dbStr, strSql.ToString());
+            object obj = DbHelper.ExecuteScalar(CommonHelper.SQLiteConnectionString, strSql.ToString(), model);
             if (obj == null) {
                 return 0;
             }
@@ -132,64 +46,28 @@ namespace V5_DataCollection._Class.DAL {
         public bool Update(ModelTaskLabel model) {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update S_TaskLabel set ");
-            if (model.LabelName != null) {
-                strSql.Append("LabelName='" + model.LabelName + "',");
-            }
-            if (model.LabelNameCutRegex != null) {
-                strSql.Append("LabelNameCutRegex='" + model.LabelNameCutRegex + "',");
-            }
-            if (model.LabelHtmlRemove != null) {
-                strSql.Append("LabelHtmlRemove='" + model.LabelHtmlRemove + "',");
-            }
-            if (model.LblHtmlRemove != null) {
-                strSql.Append("LblHtmlRemove='" + model.LblHtmlRemove.Replace("'", "''") + "',");
-            }
-            if (model.LabelRemove != null) {
-                strSql.Append("LabelRemove='" + model.LabelRemove + "',");
-            }
-            if (model.LabelReplace != null) {
-                strSql.Append("LabelReplace='" + model.LabelReplace + "',");
-            }
-            if (model.TaskID != null) {
-                strSql.Append("TaskID=" + model.TaskID + ",");
-            }
-            if (model.GuidNum != null) {
-                strSql.Append("GuidNum='" + model.GuidNum + "',");
-            }
-            //=========================================2012 2-6
-            if (model.IsLoop != null) {
-                strSql.Append("IsLoop=" + model.IsLoop + ",");
-            }
-            if (model.IsNoNull != null) {
-                strSql.Append("IsNoNull=" + model.IsNoNull + ",");
-            }
-            if (model.IsLinkUrl != null) {
-                strSql.Append("IsLinkUrl=" + model.IsLinkUrl + ",");
-            }
-            if (model.IsPager != null) {
-                strSql.Append("IsPager=" + model.IsPager + ",");
-            }
-            if (model.LabelValueLinkUrlRegex != null) {
-                strSql.Append("LabelValueLinkUrlRegex='" + model.LabelValueLinkUrlRegex + "',");
-            }
-            if (model.LabelValuePagerRegex != null) {
-                strSql.Append("LabelValuePagerRegex='" + model.LabelValuePagerRegex + "',");
-            }
-            //
-            if (model.SpiderLabelPlugin != null) {
-                strSql.Append("SpiderLabelPlugin='" + model.SpiderLabelPlugin + "',");
-            }
-            //
-            if (model.IsDownResource != null) {
-                strSql.Append("IsDownResource=" + model.IsDownResource + ",");
-            }
-            if (model.DownResourceExts != null) {
-                strSql.Append("DownResourceExts='" + model.DownResourceExts + "',");
-            }
-            int n = strSql.ToString().LastIndexOf(",");
-            strSql.Remove(n, 1);
-            strSql.Append(" where ID=" + model.ID + "");
-            int rowsAffected = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            strSql.Append("LabelName=@LabelName,");
+            strSql.Append("LabelSource=@LabelSource,");
+            strSql.Append("LabelNameCutRegex=@LabelNameCutRegex,");
+            strSql.Append("LabelHtmlRemove=@LabelHtmlRemove,");
+            strSql.Append("LblHtmlRemove=@LblHtmlRemove,");
+            strSql.Append("LabelRemove=@LabelRemove,");
+            strSql.Append("LabelReplace=@LabelReplace,");
+            strSql.Append("TaskID=@TaskID,");
+            strSql.Append("GuidNum=@GuidNum,");
+            strSql.Append("OrderID=@OrderID,");
+            strSql.Append("CreateTime=@CreateTime,");
+            strSql.Append("IsLoop=@IsLoop,");
+            strSql.Append("IsNoNull=@IsNoNull,");
+            strSql.Append("IsLinkUrl=@IsLinkUrl,");
+            strSql.Append("IsPager=@IsPager,");
+            strSql.Append("LabelValueLinkUrlRegex=@LabelValueLinkUrlRegex,");
+            strSql.Append("LabelValuePagerRegex=@LabelValuePagerRegex,");
+            strSql.Append("SpiderLabelPlugin=@SpiderLabelPlugin,");
+            strSql.Append("IsDownResource=@IsDownResource,");
+            strSql.Append("DownResourceExts=@DownResourceExts");
+            strSql.Append(" where ID=@ID");
+            int rowsAffected = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString(), model);
             if (rowsAffected > 0) {
                 return true;
             }
@@ -205,21 +83,23 @@ namespace V5_DataCollection._Class.DAL {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from S_TaskLabel ");
             strSql.Append(" where ID=" + ID + "");
-            int rowsAffected = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            int rowsAffected = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (rowsAffected > 0) {
                 return true;
             }
             else {
                 return false;
             }
-        }       /// <summary>
-                /// 删除一条数据
-                /// </summary>
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
         public bool DeleteList(string IDlist) {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from S_TaskLabel ");
             strSql.Append(" where ID in (" + IDlist + ")  ");
-            int rows = SQLiteHelper.Execute(dbStr, strSql.ToString());
+            int rows = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString());
             if (rows > 0) {
                 return true;
             }
@@ -238,77 +118,7 @@ namespace V5_DataCollection._Class.DAL {
             strSql.Append(" * ");
             strSql.Append(" from S_TaskLabel ");
             strSql.Append(" where ID=" + ID + "");
-            ModelTaskLabel model = new ModelTaskLabel();
-            DataSet ds = SQLiteHelper.Query1(dbStr, strSql.ToString());
-            if (ds.Tables[0].Rows.Count > 0) {
-                if (ds.Tables[0].Rows[0]["ID"].ToString() != "") {
-                    model.ID = int.Parse(ds.Tables[0].Rows[0]["ID"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["LabelName"] != null) {
-                    model.LabelName = ds.Tables[0].Rows[0]["LabelName"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["LabelNameCutRegex"] != null) {
-                    model.LabelNameCutRegex = ds.Tables[0].Rows[0]["LabelNameCutRegex"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["LabelHtmlRemove"] != null) {
-                    model.LabelHtmlRemove = ds.Tables[0].Rows[0]["LabelHtmlRemove"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["LblHtmlRemove"] != null) {
-                    model.LblHtmlRemove = ds.Tables[0].Rows[0]["LblHtmlRemove"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["LabelRemove"] != null) {
-                    model.LabelRemove = ds.Tables[0].Rows[0]["LabelRemove"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["LabelReplace"] != null) {
-                    model.LabelReplace = ds.Tables[0].Rows[0]["LabelReplace"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["TaskID"].ToString() != "") {
-                    model.TaskID = int.Parse(ds.Tables[0].Rows[0]["TaskID"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["GuidNum"] != null) {
-                    model.GuidNum = ds.Tables[0].Rows[0]["GuidNum"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["OrderID"].ToString() != "") {
-                    model.OrderID = int.Parse(ds.Tables[0].Rows[0]["OrderID"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["CreateTime"] != null) {
-                    model.CreateTime = ds.Tables[0].Rows[0]["CreateTime"].ToString();
-                }
-                //=================================2012 2-6
-                if (ds.Tables[0].Rows[0]["IsLoop"] != null && ds.Tables[0].Rows[0]["IsLoop"].ToString() != "") {
-                    model.IsLoop = int.Parse(ds.Tables[0].Rows[0]["IsLoop"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["IsNoNull"] != null && ds.Tables[0].Rows[0]["IsNoNull"].ToString() != "") {
-                    model.IsNoNull = int.Parse(ds.Tables[0].Rows[0]["IsNoNull"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["IsLinkUrl"] != null && ds.Tables[0].Rows[0]["IsLinkUrl"].ToString() != "") {
-                    model.IsLinkUrl = int.Parse(ds.Tables[0].Rows[0]["IsLinkUrl"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["IsPager"] != null && ds.Tables[0].Rows[0]["IsPager"].ToString() != "") {
-                    model.IsPager = int.Parse(ds.Tables[0].Rows[0]["IsPager"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["LabelValueLinkUrlRegex"] != null) {
-                    model.LabelValueLinkUrlRegex = ds.Tables[0].Rows[0]["LabelValueLinkUrlRegex"].ToString();
-                }
-                if (ds.Tables[0].Rows[0]["LabelValuePagerRegex"] != null) {
-                    model.LabelValuePagerRegex = ds.Tables[0].Rows[0]["LabelValuePagerRegex"].ToString();
-                }
-                //
-                if (ds.Tables[0].Rows[0]["SpiderLabelPlugin"] != null) {
-                    model.SpiderLabelPlugin = ds.Tables[0].Rows[0]["SpiderLabelPlugin"].ToString();
-                }
-                //
-                if (ds.Tables[0].Rows[0]["IsDownResource"] != null && ds.Tables[0].Rows[0]["IsDownResource"].ToString() != "") {
-                    model.IsDownResource = int.Parse(ds.Tables[0].Rows[0]["IsDownResource"].ToString());
-                }
-                if (ds.Tables[0].Rows[0]["DownResourceExts"] != null) {
-                    model.DownResourceExts = ds.Tables[0].Rows[0]["DownResourceExts"].ToString();
-                }
-                return model;
-            }
-            else {
-                return null;
-            }
+            return DbHelper.Query<ModelTaskLabel>(CommonHelper.SQLiteConnectionString, strSql.ToString()).SingleOrDefault();
         }
         /// <summary>
         /// 获得数据列表
@@ -320,7 +130,7 @@ namespace V5_DataCollection._Class.DAL {
             if (strWhere.Trim() != "") {
                 strSql.Append(" where " + strWhere);
             }
-            return SQLiteHelper.Query1(dbStr, strSql.ToString());
+            return DbHelper.Query(CommonHelper.SQLiteConnectionString, strSql.ToString());
         }
 
         /*
@@ -329,7 +139,7 @@ namespace V5_DataCollection._Class.DAL {
         #endregion  Method
 
         public void UpdateTaskLabelByTaskID(int TaskID) {
-            SQLiteHelper.Execute(dbStr, "Update S_TaskLabel Set TaskID=" + TaskID + " Where TaskID=0 ");
+            DbHelper.Execute(CommonHelper.SQLiteConnectionString, "Update S_TaskLabel Set TaskID=" + TaskID + " Where TaskID=0 ");
         }
 
         public ModelTaskLabel GetModel(string LabelName, int TaskID) {
@@ -359,7 +169,7 @@ namespace V5_DataCollection._Class.DAL {
         /// <param name="taskID"></param>
         /// <returns></returns>
         public int GetMaxOrderID(int taskID) {
-            int orderID = int.Parse("0" + SQLiteHelper.ExecuteScalar(dbStr, "Select max(OrderID) From S_TaskLabel Where TaskID=" + taskID));
+            int orderID = int.Parse("0" + DbHelper.ExecuteScalar(CommonHelper.SQLiteConnectionString, "Select max(OrderID) From S_TaskLabel Where TaskID=" + taskID));
             return orderID;
         }
         /// <summary>
@@ -374,33 +184,33 @@ namespace V5_DataCollection._Class.DAL {
             string sql = string.Empty;
             if (orderType == -1) {
                 sql = string.Format(@"Select Max(OrderID),ID From S_TaskLabel Where orderid <(select orderid from S_TaskLabel where id={0}) And TaskID={1} Group By ID ", ID, TaskID);
-                DataTable dt = SQLiteHelper.Query1(dbStr, sql).Tables[0];
+                DataTable dt = DbHelper.Query(CommonHelper.SQLiteConnectionString, sql).Tables[0];
                 if (dt != null && dt.Rows.Count > 0) {
                     OrderID = int.Parse("0" + dt.Rows[0][0]);
                     tempID = int.Parse("0" + dt.Rows[0][1]);
                     if (tempID != 0) {
                         //step2 更新当前一条记录，让ID+1 
                         sql = "Update S_TaskLabel Set OrderID=" + OrderID + " Where ID=" + ID;
-                        SQLiteHelper.Execute(dbStr, sql);
+                        DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
                         //3 更新当前记录，让ID=前一条记录
                         sql = "Update S_TaskLabel Set OrderID=OrderID+1 Where ID=" + tempID;
-                        SQLiteHelper.Execute(dbStr, sql);
+                        DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
                     }
                 }
             }
             else {
                 sql = string.Format("Select Min(OrderID),ID From S_TaskLabel Where orderid >(select orderid from S_TaskLabel where id={0}) And TaskID={1} Group By ID ", ID, TaskID);
-                DataTable dt = SQLiteHelper.Query1(dbStr, sql).Tables[0];
+                DataTable dt = DbHelper.Query(CommonHelper.SQLiteConnectionString, sql).Tables[0];
                 if (dt != null && dt.Rows.Count > 0) {
                     OrderID = int.Parse("0" + dt.Rows[0][0]);
                     tempID = int.Parse("0" + dt.Rows[0][1]);
                     if (tempID != 0) {
                         //step2 更新当前一条记录，让ID+1 
                         sql = "Update S_TaskLabel Set OrderID=" + OrderID + " Where ID=" + ID;
-                        SQLiteHelper.Execute(dbStr, sql);
+                        DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
                         //3 更新当前记录，让ID=前一条记录
                         sql = "Update S_TaskLabel Set OrderID=OrderID-1 Where ID=" + tempID;
-                        SQLiteHelper.Execute(dbStr, sql);
+                        DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
                     }
                 }
             }
@@ -433,7 +243,7 @@ namespace V5_DataCollection._Class.DAL {
                     FROM 
                       s_tasklabel where id={1};
             ", maxID, ID);
-            SQLiteHelper.Execute(dbStr, sql);
+            DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
         }
     }
 }

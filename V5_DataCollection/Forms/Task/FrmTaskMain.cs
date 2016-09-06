@@ -19,6 +19,7 @@ using V5_DataCollection._Class.DAL;
 using V5_WinLibs.DBHelper;
 using V5_WinLibs.Core;
 using V5_Utility.Utility;
+using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection.Forms.Task {
     public partial class FrmTaskMain : BaseContent {
@@ -307,7 +308,7 @@ namespace V5_DataCollection.Forms.Task {
                 model = dal.GetModelSingleTask(ID);
                 string LocalSQLiteName = "Data\\Collection\\" + model.TaskName + "\\SpiderResult.db";
                 string sql = " DELETE FROM Content";
-                SQLiteHelper.Execute(LocalSQLiteName, sql);
+                DbHelper.Execute(LocalSQLiteName, sql);
             }
 
         }
@@ -342,7 +343,7 @@ namespace V5_DataCollection.Forms.Task {
                 Directory.CreateDirectory(baseDir + taskName + "\\");
             }
             if (!File.Exists(SQLiteName)) {
-                SQLiteHelper.CreateDataBase(SQLiteName);
+                DbHelper.CreateDataBase(SQLiteName);
                 DALTask dal = new DALTask();
                 string createSQL = string.Empty;
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
@@ -362,14 +363,14 @@ namespace V5_DataCollection.Forms.Task {
                     " + createSQL + @"
                 );
             ";
-                SQLiteHelper.Execute(LocalSQLiteName, SQL);
+                DbHelper.Execute(LocalSQLiteName, SQL);
             }
             else {
                 //添加Sqlite列名称
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
                 foreach (DataRow dr in dt.Rows) {
                     try {
-                        SQLiteHelper.Execute(LocalSQLiteName, " ALTER TABLE Content ADD COLUMN [" + dr["LabelName"] + "] VARCHAR; ");
+                        DbHelper.Execute(LocalSQLiteName, " ALTER TABLE Content ADD COLUMN [" + dr["LabelName"] + "] VARCHAR; ");
                     }
                     catch {
                         continue;

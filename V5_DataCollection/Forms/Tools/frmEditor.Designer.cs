@@ -28,6 +28,7 @@
             this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_RunScript = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_ScriptSave = new System.Windows.Forms.ToolStripButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -67,7 +68,8 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton_RunScript});
+            this.toolStripButton_RunScript,
+            this.toolStripButton_ScriptSave});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(682, 25);
@@ -76,13 +78,23 @@
             // 
             // toolStripButton_RunScript
             // 
-            this.toolStripButton_RunScript.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_RunScript.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButton_RunScript.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_RunScript.Image")));
             this.toolStripButton_RunScript.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_RunScript.Name = "toolStripButton_RunScript";
-            this.toolStripButton_RunScript.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton_RunScript.Text = "toolStripButton1";
+            this.toolStripButton_RunScript.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton_RunScript.Text = "测试";
             this.toolStripButton_RunScript.Click += new System.EventHandler(this.toolStripButton_RunScript_Click);
+            // 
+            // toolStripButton_ScriptSave
+            // 
+            this.toolStripButton_ScriptSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_ScriptSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ScriptSave.Image")));
+            this.toolStripButton_ScriptSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ScriptSave.Name = "toolStripButton_ScriptSave";
+            this.toolStripButton_ScriptSave.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButton_ScriptSave.Text = "保存";
+            this.toolStripButton_ScriptSave.Click += new System.EventHandler(this.toolStripButton_ScriptSave_Click);
             // 
             // textBox1
             // 
@@ -102,6 +114,7 @@
             this.Controls.Add(this.fastColoredTextBox1);
             this.Name = "frmEditor";
             this.Text = "frmEditor";
+            this.Load += new System.EventHandler(this.frmEditor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -114,7 +127,8 @@
 
         private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton_RunScript;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_RunScript;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ScriptSave;
     }
 }

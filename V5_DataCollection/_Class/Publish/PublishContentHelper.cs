@@ -100,7 +100,7 @@ namespace V5_DataCollection._Class.Publish {
             try {
                 string str = string.Empty;
                 string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
-                DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
+                DataTable dtData = DbHelper.Query(LocalSQLiteName, "Select * From Content").Tables[0];
                 if (!Directory.Exists(Model.SaveDirectory2))
                     Directory.CreateDirectory(Model.SaveDirectory2);
                 if (Model.SaveFileFormat2.ToLower() == ".html") {
@@ -176,7 +176,7 @@ namespace V5_DataCollection._Class.Publish {
         #region 保存到数据库
         private void StartDataBase() {
             string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
-            DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
+            DataTable dtData = DbHelper.Query(LocalSQLiteName, "Select * From Content").Tables[0];
 
             int saveDateType = Model.SaveDataType3.Value;
             string connectionString = Model.SaveDataUrl3;
@@ -233,7 +233,7 @@ namespace V5_DataCollection._Class.Publish {
         #region 发布自定义网站
         private void StartDiyWeb() {
             string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
-            DataTable dtData = SQLiteHelper.Query1(LocalSQLiteName, "Select * From Content").Tables[0];
+            DataTable dtData = DbHelper.Query(LocalSQLiteName, "Select * From Content").Tables[0];
 
             var listDiyUrl = DALDiyWebUrlHelper.GetList(" And SelfId=" + Model.ID, "", 0);
             HttpHelper4 http = new HttpHelper4();

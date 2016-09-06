@@ -36,6 +36,14 @@ namespace V5_DataCollection.Forms.Task {
             this.chkIsSpiderUrl = new System.Windows.Forms.CheckBox();
             this.tabControlTaskEdit = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.linkSpiderListPlugin = new System.Windows.Forms.LinkLabel();
+            this.cmbSpiderUrlPlugins = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.panel_List1 = new System.Windows.Forms.Panel();
+            this.listBoxLinkUrl = new System.Windows.Forms.ListBox();
+            this.txtLinkUrlDelete = new System.Windows.Forms.Button();
+            this.btnLinkUrlEdit = new System.Windows.Forms.Button();
+            this.btnWizardEdit = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -54,10 +62,6 @@ namespace V5_DataCollection.Forms.Task {
             this.v5LinkLabel1 = new V5_WinControls.V5LinkLabel(this.components);
             this.chkIsHandGetUrl = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.listBoxLinkUrl = new System.Windows.Forms.ListBox();
-            this.txtLinkUrlDelete = new System.Windows.Forms.Button();
-            this.btnWizardEdit = new System.Windows.Forms.Button();
-            this.btnLinkUrlEdit = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.v5LinkLabel4 = new V5_WinControls.V5LinkLabel(this.components);
             this.txtLinkUrlCutAreaEnd = new V5_WinControls.V5RichTextBox();
@@ -66,6 +70,7 @@ namespace V5_DataCollection.Forms.Task {
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkIsSource = new System.Windows.Forms.CheckBox();
             this.txtDemoListUrl = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -150,8 +155,6 @@ namespace V5_DataCollection.Forms.Task {
             this.label21 = new System.Windows.Forms.Label();
             this.cmbSpiderContentPlugins = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.cmbSpiderUrlPlugins = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.numFtpPort = new System.Windows.Forms.NumericUpDown();
             this.chkFtpStatus = new System.Windows.Forms.CheckBox();
@@ -195,6 +198,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox1.SuspendLayout();
             this.tabControlTaskEdit.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel_List1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox19.SuspendLayout();
@@ -323,6 +327,10 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.linkSpiderListPlugin);
+            this.tabPage1.Controls.Add(this.cmbSpiderUrlPlugins);
+            this.tabPage1.Controls.Add(this.label19);
+            this.tabPage1.Controls.Add(this.panel_List1);
             this.tabPage1.Controls.Add(this.linkLabel1);
             this.tabPage1.Controls.Add(this.label16);
             this.tabPage1.Controls.Add(this.groupBox3);
@@ -335,6 +343,89 @@ namespace V5_DataCollection.Forms.Task {
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "第一步:采集网址规则";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // linkSpiderListPlugin
+            // 
+            this.linkSpiderListPlugin.AutoSize = true;
+            this.linkSpiderListPlugin.Location = new System.Drawing.Point(405, 403);
+            this.linkSpiderListPlugin.Name = "linkSpiderListPlugin";
+            this.linkSpiderListPlugin.Size = new System.Drawing.Size(29, 12);
+            this.linkSpiderListPlugin.TabIndex = 18;
+            this.linkSpiderListPlugin.TabStop = true;
+            this.linkSpiderListPlugin.Text = "编辑";
+            this.linkSpiderListPlugin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSpiderListPlugin_LinkClicked);
+            // 
+            // cmbSpiderUrlPlugins
+            // 
+            this.cmbSpiderUrlPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSpiderUrlPlugins.FormattingEnabled = true;
+            this.cmbSpiderUrlPlugins.Location = new System.Drawing.Point(313, 399);
+            this.cmbSpiderUrlPlugins.Name = "cmbSpiderUrlPlugins";
+            this.cmbSpiderUrlPlugins.Size = new System.Drawing.Size(86, 20);
+            this.cmbSpiderUrlPlugins.TabIndex = 17;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(206, 403);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(101, 12);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "采集网址插件列表";
+            // 
+            // panel_List1
+            // 
+            this.panel_List1.Controls.Add(this.listBoxLinkUrl);
+            this.panel_List1.Controls.Add(this.txtLinkUrlDelete);
+            this.panel_List1.Controls.Add(this.btnLinkUrlEdit);
+            this.panel_List1.Controls.Add(this.btnWizardEdit);
+            this.panel_List1.Location = new System.Drawing.Point(12, 61);
+            this.panel_List1.Name = "panel_List1";
+            this.panel_List1.Padding = new System.Windows.Forms.Padding(5);
+            this.panel_List1.Size = new System.Drawing.Size(724, 91);
+            this.panel_List1.TabIndex = 15;
+            // 
+            // listBoxLinkUrl
+            // 
+            this.listBoxLinkUrl.FormattingEnabled = true;
+            this.listBoxLinkUrl.ItemHeight = 12;
+            this.listBoxLinkUrl.Location = new System.Drawing.Point(7, 6);
+            this.listBoxLinkUrl.Name = "listBoxLinkUrl";
+            this.listBoxLinkUrl.Size = new System.Drawing.Size(636, 76);
+            this.listBoxLinkUrl.TabIndex = 1;
+            // 
+            // txtLinkUrlDelete
+            // 
+            this.txtLinkUrlDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.txtLinkUrlDelete.Location = new System.Drawing.Point(650, 59);
+            this.txtLinkUrlDelete.Name = "txtLinkUrlDelete";
+            this.txtLinkUrlDelete.Size = new System.Drawing.Size(68, 23);
+            this.txtLinkUrlDelete.TabIndex = 3;
+            this.txtLinkUrlDelete.Text = "删除";
+            this.txtLinkUrlDelete.UseVisualStyleBackColor = true;
+            this.txtLinkUrlDelete.Click += new System.EventHandler(this.txtLinkUrlDelete_Click);
+            // 
+            // btnLinkUrlEdit
+            // 
+            this.btnLinkUrlEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLinkUrlEdit.Location = new System.Drawing.Point(650, 31);
+            this.btnLinkUrlEdit.Name = "btnLinkUrlEdit";
+            this.btnLinkUrlEdit.Size = new System.Drawing.Size(68, 23);
+            this.btnLinkUrlEdit.TabIndex = 3;
+            this.btnLinkUrlEdit.Text = "修改";
+            this.btnLinkUrlEdit.UseVisualStyleBackColor = true;
+            this.btnLinkUrlEdit.Click += new System.EventHandler(this.btnLinkUrlEdit_Click);
+            // 
+            // btnWizardEdit
+            // 
+            this.btnWizardEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnWizardEdit.Location = new System.Drawing.Point(649, 5);
+            this.btnWizardEdit.Name = "btnWizardEdit";
+            this.btnWizardEdit.Size = new System.Drawing.Size(68, 23);
+            this.btnWizardEdit.TabIndex = 3;
+            this.btnWizardEdit.Text = "添加";
+            this.btnWizardEdit.UseVisualStyleBackColor = true;
+            this.btnWizardEdit.Click += new System.EventHandler(this.btnWizardEdit_Click);
             // 
             // linkLabel1
             // 
@@ -359,10 +450,6 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.groupBox3.Controls.Add(this.groupBox20);
             this.groupBox3.Controls.Add(this.groupBox19);
-            this.groupBox3.Controls.Add(this.listBoxLinkUrl);
-            this.groupBox3.Controls.Add(this.txtLinkUrlDelete);
-            this.groupBox3.Controls.Add(this.btnWizardEdit);
-            this.groupBox3.Controls.Add(this.btnLinkUrlEdit);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.Location = new System.Drawing.Point(6, 46);
             this.groupBox3.Name = "groupBox3";
@@ -379,9 +466,9 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox20.Controls.Add(this.label5);
             this.groupBox20.Controls.Add(this.txtLinkUrlMustIncludeStr);
             this.groupBox20.Controls.Add(this.txtLinkUrlNoMustIncludeStr);
-            this.groupBox20.Location = new System.Drawing.Point(380, 220);
+            this.groupBox20.Location = new System.Drawing.Point(380, 231);
             this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(350, 115);
+            this.groupBox20.Size = new System.Drawing.Size(350, 110);
             this.groupBox20.TabIndex = 14;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "链接过滤";
@@ -402,7 +489,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.txtLinkUrlNoMustIncludeStr.Location = new System.Drawing.Point(180, 20);
             this.txtLinkUrlNoMustIncludeStr.Name = "txtLinkUrlNoMustIncludeStr";
-            this.txtLinkUrlNoMustIncludeStr.Size = new System.Drawing.Size(135, 90);
+            this.txtLinkUrlNoMustIncludeStr.Size = new System.Drawing.Size(135, 83);
             this.txtLinkUrlNoMustIncludeStr.TabIndex = 8;
             this.txtLinkUrlNoMustIncludeStr.Text = "";
             // 
@@ -430,7 +517,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.txtLinkUrlMustIncludeStr.Location = new System.Drawing.Point(30, 20);
             this.txtLinkUrlMustIncludeStr.Name = "txtLinkUrlMustIncludeStr";
-            this.txtLinkUrlMustIncludeStr.Size = new System.Drawing.Size(135, 90);
+            this.txtLinkUrlMustIncludeStr.Size = new System.Drawing.Size(135, 82);
             this.txtLinkUrlMustIncludeStr.TabIndex = 8;
             this.txtLinkUrlMustIncludeStr.Text = "";
             // 
@@ -451,7 +538,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox19.Controls.Add(this.chkIsHandGetUrl);
             this.groupBox19.Controls.Add(this.label36);
             this.groupBox19.Controls.Add(this.txtHandCollectionUrlRegex);
-            this.groupBox19.Location = new System.Drawing.Point(10, 102);
+            this.groupBox19.Location = new System.Drawing.Point(10, 112);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(720, 112);
             this.groupBox19.TabIndex = 6;
@@ -535,48 +622,6 @@ namespace V5_DataCollection.Forms.Task {
             this.label36.TabIndex = 0;
             this.label36.Text = "提取规则：";
             // 
-            // listBoxLinkUrl
-            // 
-            this.listBoxLinkUrl.FormattingEnabled = true;
-            this.listBoxLinkUrl.ItemHeight = 12;
-            this.listBoxLinkUrl.Location = new System.Drawing.Point(10, 20);
-            this.listBoxLinkUrl.Name = "listBoxLinkUrl";
-            this.listBoxLinkUrl.Size = new System.Drawing.Size(648, 76);
-            this.listBoxLinkUrl.TabIndex = 1;
-            // 
-            // txtLinkUrlDelete
-            // 
-            this.txtLinkUrlDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.txtLinkUrlDelete.Location = new System.Drawing.Point(664, 78);
-            this.txtLinkUrlDelete.Name = "txtLinkUrlDelete";
-            this.txtLinkUrlDelete.Size = new System.Drawing.Size(68, 23);
-            this.txtLinkUrlDelete.TabIndex = 3;
-            this.txtLinkUrlDelete.Text = "删除";
-            this.txtLinkUrlDelete.UseVisualStyleBackColor = true;
-            this.txtLinkUrlDelete.Click += new System.EventHandler(this.txtLinkUrlDelete_Click);
-            // 
-            // btnWizardEdit
-            // 
-            this.btnWizardEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnWizardEdit.Location = new System.Drawing.Point(664, 20);
-            this.btnWizardEdit.Name = "btnWizardEdit";
-            this.btnWizardEdit.Size = new System.Drawing.Size(68, 23);
-            this.btnWizardEdit.TabIndex = 3;
-            this.btnWizardEdit.Text = "添加";
-            this.btnWizardEdit.UseVisualStyleBackColor = true;
-            this.btnWizardEdit.Click += new System.EventHandler(this.btnWizardEdit_Click);
-            // 
-            // btnLinkUrlEdit
-            // 
-            this.btnLinkUrlEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLinkUrlEdit.Location = new System.Drawing.Point(664, 49);
-            this.btnLinkUrlEdit.Name = "btnLinkUrlEdit";
-            this.btnLinkUrlEdit.Size = new System.Drawing.Size(68, 23);
-            this.btnLinkUrlEdit.TabIndex = 3;
-            this.btnLinkUrlEdit.Text = "修改";
-            this.btnLinkUrlEdit.UseVisualStyleBackColor = true;
-            this.btnLinkUrlEdit.Click += new System.EventHandler(this.btnLinkUrlEdit_Click);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.v5LinkLabel4);
@@ -585,9 +630,9 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox4.Controls.Add(this.txtLinkUrlCutAreaStart);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Location = new System.Drawing.Point(10, 220);
+            this.groupBox4.Location = new System.Drawing.Point(10, 231);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(350, 115);
+            this.groupBox4.Size = new System.Drawing.Size(350, 110);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "设置区域(选定区域采集)";
@@ -606,9 +651,9 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // txtLinkUrlCutAreaEnd
             // 
-            this.txtLinkUrlCutAreaEnd.Location = new System.Drawing.Point(200, 20);
+            this.txtLinkUrlCutAreaEnd.Location = new System.Drawing.Point(200, 19);
             this.txtLinkUrlCutAreaEnd.Name = "txtLinkUrlCutAreaEnd";
-            this.txtLinkUrlCutAreaEnd.Size = new System.Drawing.Size(135, 90);
+            this.txtLinkUrlCutAreaEnd.Size = new System.Drawing.Size(135, 83);
             this.txtLinkUrlCutAreaEnd.TabIndex = 9;
             this.txtLinkUrlCutAreaEnd.Text = "";
             // 
@@ -626,9 +671,9 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // txtLinkUrlCutAreaStart
             // 
-            this.txtLinkUrlCutAreaStart.Location = new System.Drawing.Point(30, 20);
+            this.txtLinkUrlCutAreaStart.Location = new System.Drawing.Point(30, 19);
             this.txtLinkUrlCutAreaStart.Name = "txtLinkUrlCutAreaStart";
-            this.txtLinkUrlCutAreaStart.Size = new System.Drawing.Size(135, 90);
+            this.txtLinkUrlCutAreaStart.Size = new System.Drawing.Size(135, 83);
             this.txtLinkUrlCutAreaStart.TabIndex = 8;
             this.txtLinkUrlCutAreaStart.Text = "";
             // 
@@ -652,6 +697,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkIsSource);
             this.groupBox2.Controls.Add(this.txtDemoListUrl);
             this.groupBox2.Controls.Add(this.label27);
             this.groupBox2.Controls.Add(this.label3);
@@ -662,11 +708,22 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             // 
+            // chkIsSource
+            // 
+            this.chkIsSource.AutoSize = true;
+            this.chkIsSource.Location = new System.Drawing.Point(683, 16);
+            this.chkIsSource.Name = "chkIsSource";
+            this.chkIsSource.Size = new System.Drawing.Size(48, 16);
+            this.chkIsSource.TabIndex = 4;
+            this.chkIsSource.Text = "源码";
+            this.chkIsSource.UseVisualStyleBackColor = true;
+            this.chkIsSource.CheckedChanged += new System.EventHandler(this.chkIsSource_CheckedChanged);
+            // 
             // txtDemoListUrl
             // 
             this.txtDemoListUrl.Location = new System.Drawing.Point(276, 13);
             this.txtDemoListUrl.Name = "txtDemoListUrl";
-            this.txtDemoListUrl.Size = new System.Drawing.Size(432, 21);
+            this.txtDemoListUrl.Size = new System.Drawing.Size(404, 21);
             this.txtDemoListUrl.TabIndex = 3;
             // 
             // label27
@@ -1455,8 +1512,6 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox13.Controls.Add(this.label21);
             this.groupBox13.Controls.Add(this.cmbSpiderContentPlugins);
             this.groupBox13.Controls.Add(this.label20);
-            this.groupBox13.Controls.Add(this.cmbSpiderUrlPlugins);
-            this.groupBox13.Controls.Add(this.label19);
             this.groupBox13.Location = new System.Drawing.Point(12, 230);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(337, 89);
@@ -1517,24 +1572,6 @@ namespace V5_DataCollection.Forms.Task {
             this.label20.Size = new System.Drawing.Size(53, 12);
             this.label20.TabIndex = 0;
             this.label20.Text = "采集内容";
-            // 
-            // cmbSpiderUrlPlugins
-            // 
-            this.cmbSpiderUrlPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSpiderUrlPlugins.FormattingEnabled = true;
-            this.cmbSpiderUrlPlugins.Location = new System.Drawing.Point(65, 20);
-            this.cmbSpiderUrlPlugins.Name = "cmbSpiderUrlPlugins";
-            this.cmbSpiderUrlPlugins.Size = new System.Drawing.Size(86, 20);
-            this.cmbSpiderUrlPlugins.TabIndex = 1;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 23);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(53, 12);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "采集网址";
             // 
             // groupBox12
             // 
@@ -1970,6 +2007,7 @@ namespace V5_DataCollection.Forms.Task {
             this.tabControlTaskEdit.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel_List1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
@@ -2115,10 +2153,8 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.Button btnLabelUp;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ComboBox cmbSpiderContentPlugins;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.ComboBox cmbSpiderUrlPlugins;
         private System.Windows.Forms.ComboBox cmbPublishContentPlugins;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txtFtpIp;
@@ -2190,5 +2226,10 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.ComboBox txtSaveDataUrl3;
+        private System.Windows.Forms.CheckBox chkIsSource;
+        private System.Windows.Forms.Panel panel_List1;
+        private System.Windows.Forms.ComboBox cmbSpiderUrlPlugins;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.LinkLabel linkSpiderListPlugin;
     }
 }

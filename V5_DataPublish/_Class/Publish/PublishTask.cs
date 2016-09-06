@@ -380,7 +380,7 @@ namespace V5_DataPublish._Class.Publish {
                 Directory.CreateDirectory(VideoDir);
             }
             if (!File.Exists(SQLiteName)) {
-                SQLiteHelper.CreateDataBase(SQLiteName);
+                DbHelper.CreateDataBase(SQLiteName);
                 string createSQL = string.Empty;
                 /* 修改表
                  BEGIN TRANSACTION;   
@@ -401,7 +401,7 @@ namespace V5_DataPublish._Class.Publish {
                     AddDateTime varchar
                 );
             ";
-                SQLiteHelper.Execute(LocalSQLiteName, SQL);
+                DbHelper.Execute(LocalSQLiteName, SQL);
             }
         }
         /// <summary>
@@ -415,7 +415,7 @@ namespace V5_DataPublish._Class.Publish {
             if (File.Exists(SQLiteName)) {
                 string SQL = string.Empty;//And Content='{1}
                 SQL = string.Format(@"Select Count(1) From Content Where Title='{0}' ", Title, Content.Replace("'", "''"), DateTime.Now.ToString());
-                int result = StringHelper.Instance.SetNumber(SQLiteHelper.Execute(LocalSQLiteName, SQL));
+                int result = StringHelper.Instance.SetNumber(DbHelper.Execute(LocalSQLiteName, SQL));
                 if (result > 0) {
                     return true;
                 }
@@ -440,7 +440,7 @@ namespace V5_DataPublish._Class.Publish {
                 SQL = string.Format(@"Insert Into  Content(Title,Content,AddDateTime)values
                         ('{0}','{1}','{2}')
                         ", Title, Content, DateTime.Now.ToString());
-                SQLiteHelper.Execute(LocalSQLiteName, SQL);
+                DbHelper.Execute(LocalSQLiteName, SQL);
             }
         }
         #endregion
