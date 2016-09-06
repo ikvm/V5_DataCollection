@@ -13,7 +13,7 @@ namespace V5_DataCollection {
         public BaseForm() {
             InitializeComponent();
 
-            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            // this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
         }
 
 

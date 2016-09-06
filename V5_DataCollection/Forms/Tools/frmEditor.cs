@@ -38,7 +38,7 @@ namespace V5_DataCollection.Forms.Tools {
 
         private void toolStripButton_ScriptSave_Click(object sender, EventArgs e) {
             File.WriteAllText(this.PythonFilePath, this.fastColoredTextBox1.Text);
-            this.Close();
+            this.Hide();
         }
 
         private void frmEditor_Load(object sender, EventArgs e) {
