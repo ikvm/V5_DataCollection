@@ -43,7 +43,8 @@ namespace V5_DataCollection._Class.Gather {
                     string regContent = HtmlHelper.Instance.ParseCollectionStrings(itemLabel.LabelNameCutRegex);
                     regContent = CommonHelper.ReplaceSystemRegexTag(regContent);
                     string CutContent = CollectionHelper.Instance.CutStr(pageContent, regContent)[0];
-                    #region 标签是循环
+
+                    #region 结果为循环
                     if (itemLabel.IsLoop == 1) {
                         string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
                         foreach (string s in LabelString) {
@@ -53,52 +54,7 @@ namespace V5_DataCollection._Class.Gather {
                         CutContent = CutContent.Remove(n, 4);
                     }
                     #endregion
-                    #region 标签是链接
-                    if (itemLabel.IsLinkUrl == 1) {
-                        CutContent = CollectionHelper.Instance.DefiniteUrl(CutContent, Test_ViewUrl);
-                        CutContent = CollectionHelper.Instance.GetHttpPage(CutContent, 1000, Encoding.GetEncoding(Model.PageEncode));
-                        regContent = HtmlHelper.Instance.ParseCollectionStrings(itemLabel.LabelValueLinkUrlRegex);
-                        //
-                        regContent = regContent.Replace("\\(\\*)", ".+?");
-                        regContent = regContent.Replace("\\[参数]", "([\\S\\s].*?)");
-                        CutContent = CollectionHelper.Instance.CutStr(CutContent, regContent)[0];
-                        //
-                    }
-                    #endregion
-                    #region 标签是分页
-                    if (itemLabel.IsPager == 1) {
-                        regContent = HtmlHelper.Instance.ParseCollectionStrings(itemLabel.LabelValuePagerRegex);
-                        regContent = regContent.Replace("\\(\\*)", ".+?");
-                        regContent = regContent.Replace("\\[参数]", "([\\S\\s].*?)");
-                        string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
 
-                        foreach (string pageUrl in LabelString) {
-                            string url = CollectionHelper.Instance.DefiniteUrl(pageUrl, Test_ViewUrl);
-                            string pageContentPager = CollectionHelper.Instance.GetHttpPage(url, 100000);
-                            if (pageContent.Equals("$UrlIsFalse$") || pageContent.Equals("$GetFalse$")) {
-
-                                CutContent += "=====分页内容=======================================================\r\n";
-                                CutContent += "远程链接内容失败!";
-                            }
-                            else {
-                                //重新截取标签
-                                string regContent1 = HtmlHelper.Instance.ParseCollectionStrings(itemLabel.LabelNameCutRegex);
-                                regContent1 = CommonHelper.ReplaceSystemRegexTag(regContent1);
-                                string CutContent1 = CollectionHelper.Instance.CutStr(pageContentPager, regContent1)[0];
-
-                                CutContent += "=====分页内容=======================================================\r\n";
-                                CutContent += CutContent1;
-                            }
-                        }
-                    }
-                    #endregion
-                    #region 过滤标签Html
-                    if (itemLabel.LblHtmlRemove != null) {
-                        //
-                        string[] arr = itemLabel.LblHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
-                        CutContent = CollectionHelper.ScriptHtml(CutContent, arr);
-                    }
-                    #endregion
                     #region 过滤Html
                     if (itemLabel.LabelHtmlRemove != null) {
                         //
@@ -126,6 +82,7 @@ namespace V5_DataCollection._Class.Gather {
                         }
                     }
                     #endregion
+
                     #region 排除字符
                     if (itemLabel.LabelRemove != null) {
                         foreach (string str in itemLabel.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
@@ -134,11 +91,12 @@ namespace V5_DataCollection._Class.Gather {
                                 CutContent = CollectionHelper.RemoveHtml(CutContent, ListStr[0]);
                             }
                             else {
-                                CutContent = CutContent.Replace(str, "");
+                                CutContent = CutContent.Replace(ListStr[0], "");
                             }
                         }
                     }
                     #endregion
+
                     #region 替换字符
                     if (itemLabel.LabelReplace != null) {
                         foreach (string str in itemLabel.LabelReplace.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
@@ -147,13 +105,16 @@ namespace V5_DataCollection._Class.Gather {
                         }
                     }
                     #endregion
+
                     CutContent = CutContent.Replace("\t", "");
+
                     #region 使用插件
                     string SpiderLabelPlugin = itemLabel.SpiderLabelPlugin;
                     if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
                         CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { Test_ViewUrl, CutContent });
                     }
                     #endregion
+
                     sContent += CutContent;
                     sbTest.AppendLine(sContent);
                 }
@@ -167,6 +128,92 @@ namespace V5_DataCollection._Class.Gather {
         }
 
         #endregion
+
+        #region 测试标签
+
+        public string TestLabel(ModelTaskLabel itemLabel, string pageContent) {
+            var sContent = string.Empty;
+            //var pageContent = CommonHelper.getPageContent(itemLabel.TestViewUrl, Model.PageEncode);
+            sContent += "【" + itemLabel.LabelName + "】： ";
+            string regContent = HtmlHelper.Instance.ParseCollectionStrings(itemLabel.LabelNameCutRegex);
+            regContent = CommonHelper.ReplaceSystemRegexTag(regContent);
+            string CutContent = CollectionHelper.Instance.CutStr(pageContent, regContent)[0];
+
+            #region 结果为循环
+            if (itemLabel.IsLoop == 1) {
+                string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
+                foreach (string s in LabelString) {
+                    CutContent += s + "$$$$";
+                }
+                int n = CutContent.LastIndexOf("$$$$");
+                CutContent = CutContent.Remove(n, 4);
+            }
+            #endregion
+
+            #region 过滤Html
+            if (itemLabel.LabelHtmlRemove != null) {
+                string[] arr = itemLabel.LabelHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string str in arr) {
+                    if (str == "all") {
+                        CutContent = HtmlHelper.ReplaceNormalHtml(CutContent, itemLabel.TestViewUrl, false);
+                        CutContent = CollectionHelper.Instance.NoHtml(CutContent);
+                        break;
+                    }
+                    else if (str == "table") {
+                        CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "table", 2);
+                    }
+                    else if (str == "font<span>") {
+                        CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "font", 3);
+                        CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "span", 3);
+                    }
+                    else if (str == "script") {
+                        CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "script", 3);
+                    }
+                    else if (str == "a") {
+                        CutContent = CollectionHelper.Instance.ScriptHtml(CutContent, "a", 3);
+                    }
+                }
+            }
+            #endregion
+
+            #region 排除字符
+            if (itemLabel.LabelRemove != null) {
+                foreach (string str in itemLabel.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    string[] ListStr = str.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (ListStr[1] == "1") {
+                        CutContent = CollectionHelper.RemoveHtml(CutContent, ListStr[0]);
+                    }
+                    else {
+                        CutContent = CutContent.Replace(ListStr[0], "");
+                    }
+                }
+            }
+            #endregion
+
+            #region 替换字符
+            if (itemLabel.LabelReplace != null) {
+                foreach (string str in itemLabel.LabelReplace.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    string[] ListStr = str.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
+                    CutContent = CutContent.Replace(ListStr[0], ListStr[1]);
+                }
+            }
+            #endregion
+
+            CutContent = CutContent.Replace("\t", "");
+
+            #region 使用插件
+            string SpiderLabelPlugin = itemLabel.SpiderLabelPlugin;
+            if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
+                CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { Model.TestViewUrl, CutContent });
+            }
+            #endregion
+
+            sContent += CutContent;
+
+            return sContent;
+        }
+        #endregion
+
 
         #region 采集详细
         public void SpiderContent(string viewUrl, List<ModelTaskLabel> Test_LabelList) {
@@ -196,7 +243,7 @@ namespace V5_DataCollection._Class.Gather {
                     int ii = 1;
                     foreach (var img in imgTag) {
                         var remoteImg = CollectionHelper.Instance.FormatUrl(Model.TestViewUrl, img);
-                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + ii + ".jpg";
+                        var newImg = DateTime.Now.ToString("yyyyMMddHHmmssffffff") + "_" + ii + ".jpg";
                         if (!string.IsNullOrEmpty(m.DownResourceExts)) {
                             var imgExt = remoteImg.Substring(remoteImg.LastIndexOf("."));
                             if (imgExtArr.SingleOrDefault(x => x.ToLower() == imgExt.ToLower()) != imgExt.ToLower()) {
@@ -205,7 +252,7 @@ namespace V5_DataCollection._Class.Gather {
                         }
                         CutContent = CutContent.Replace(img, downImgPath + newImg);
                         //
-                        QueueImgHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, 500);
+                        QueueImgHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, Model.CollectionContentStepTime.Value);
                         ii++;
                     }
                 }
@@ -226,56 +273,6 @@ namespace V5_DataCollection._Class.Gather {
                     }
                     int n = CutContent.LastIndexOf("$$$$");
                     CutContent = CutContent.Remove(n, 4);
-                }
-                #endregion
-
-                #region 结果为连接
-                if (m.IsLinkUrl == 1) {
-                    string[] CutContentArr = CutContent.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string sUrl in CutContentArr) {
-                        CutContent = CollectionHelper.Instance.DefiniteUrl(sUrl, Model.TestViewUrl);//地址
-                        CutContent = CollectionHelper.Instance.GetHttpPage(CutContent, 1000, Encoding.GetEncoding(Model.PageEncode));
-                        regContent = HtmlHelper.Instance.ParseCollectionStrings(m.LabelValueLinkUrlRegex);
-                        regContent = regContent.Replace("\\(\\*)", ".+?");
-                        regContent = regContent.Replace("\\[参数]", "([\\S\\s].*?)");
-                        CutContent = CollectionHelper.Instance.CutStr(CutContent, regContent)[0];
-                    }
-                }
-                #endregion
-
-                #region 过滤标签Html
-                if (m.LblHtmlRemove != null) {
-                    //
-                    string[] arr = m.LblHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
-                    CutContent = CollectionHelper.ScriptHtml(CutContent, arr);
-                }
-                #endregion
-
-                #region 标签是分页
-                if (m.IsPager == 1) {
-                    regContent = HtmlHelper.Instance.ParseCollectionStrings(m.LabelValuePagerRegex);
-                    regContent = regContent.Replace("\\(\\*)", ".+?");
-                    regContent = regContent.Replace("\\[参数]", "([\\S\\s].*?)");
-                    string[] LabelString = CollectionHelper.Instance.CutStr(pageContent, regContent);
-
-                    foreach (string pageUrl in LabelString) {
-                        string url1 = CollectionHelper.Instance.DefiniteUrl(pageUrl, viewUrl);
-                        string pageContentPager = CollectionHelper.Instance.GetHttpPage(url1, 100000);
-                        if (pageContent.Equals("$UrlIsFalse$") || pageContent.Equals("$GetFalse$")) {
-
-                            CutContent += "=====分页内容=======================================================\r\n";
-                            CutContent += "远程链接内容失败!";
-                        }
-                        else {
-                            //重新截取标签
-                            string regContent1 = HtmlHelper.Instance.ParseCollectionStrings(m.LabelNameCutRegex);
-                            regContent1 = CommonHelper.ReplaceSystemRegexTag(regContent1);
-                            string CutContent1 = CollectionHelper.Instance.CutStr(pageContentPager, regContent1)[0];
-
-                            CutContent += "=====分页内容=======================================================\r\n";
-                            CutContent += CutContent1;
-                        }
-                    }
                 }
                 #endregion
 
@@ -309,7 +306,7 @@ namespace V5_DataCollection._Class.Gather {
                             CutContent = CollectionHelper.RemoveHtml(CutContent, ListStr[0]);
                         }
                         else {
-                            CutContent = CutContent.Replace(str, "");
+                            CutContent = CutContent.Replace(ListStr[0], "");
                         }
                     }
                 }
@@ -338,7 +335,6 @@ namespace V5_DataCollection._Class.Gather {
                     sb3.Append(" " + m.LabelName.Replace("'", "''") + "='" + CutContent.Replace("'", "''") + "' and");
                 }
                 #endregion
-
             }
 
             try {

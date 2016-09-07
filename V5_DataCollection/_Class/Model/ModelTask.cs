@@ -11,18 +11,27 @@ namespace V5_Model {
     [Serializable]
     public class ModelTask {
 
+        /// <summary>
+        /// 任务标签
+        /// </summary>
+        public List<ModelTaskLabel> ListTaskLabel { set; get; }
+        /// <summary>
+        /// 任务发布模块
+        /// </summary>
+        public List<ModelWebPublishModule> ListModelWebPublishModule { set; get; }
+
         #region Model
-        private int _id = 0;
+        private int _id=0;
+        private int? _taskclassid = 0;
         private string _taskname = string.Empty;
         private int? _isspiderurl = 0;
         private int? _isspidercontent = 0;
         private int? _ispublishcontent = 0;
-        private string _pageencode = "utf-8";
+        private string _pageencode = string.Empty;
         private int? _collectiontype = 0;
         private string _collectioncontent = string.Empty;
         private string _linkurlmustincludestr = string.Empty;
         private string _linkurlnomustincludestr = string.Empty;
-        private string _linkspliceurlstr = string.Empty;
         private string _linkurlcutareastart = string.Empty;
         private string _linkurlcutareaend = string.Empty;
         private string _testviewurl = string.Empty;
@@ -40,126 +49,140 @@ namespace V5_Model {
         private string _savesqlcontent4 = string.Empty;
         private string _savesqldirectory4 = string.Empty;
         private string _guid = string.Empty;
-
-
+        private string _pluginspiderurl = string.Empty;
+        private string _pluginspidercontent = string.Empty;
+        private string _pluginsavecontent = string.Empty;
+        private string _pluginpublishcontent = string.Empty;
+        private int? _status = 0;
+        private int? _collectioncontentthreadcount = 0;
+        private int? _collectioncontentsteptime = 0;
+        private int? _publishcontentthreadcount = 0;
+        private int? _publishcontentsteptimemin = 0;
+        private int? _publishcontentsteptimemax = 0;
+        private string _demolisturl = string.Empty;
+        private int? _isplan = 0;
+        private string _planformat = string.Empty;
+        private int? _issource = 0;
+        private string _sourcetext = string.Empty;
+        private int? _collectionurlsteptime = 0;
+        private DateTime? _createtime = DateTime.Now;
+        private DateTime? _updatetime = DateTime.Now;
+        private int? _ishandgeturl = 0;
+        private string _handcollectionurlregex=string.Empty;
         /// <summary>
-        /// 任务ID
+        /// 
         /// </summary>
         public int ID {
             set { _id = value; }
             get { return _id; }
         }
         /// <summary>
-        /// 任务分类ID
+        /// 
         /// </summary>
-        public int TaskClassID { get; set; }
+        public int? TaskClassID {
+            set { _taskclassid = value; }
+            get { return _taskclassid; }
+        }
         /// <summary>
-        /// 任务名称
+        /// 
         /// </summary>
         public string TaskName {
             set { _taskname = value; }
             get { return _taskname; }
         }
         /// <summary>
-        /// 是否采集列表地址
+        /// 
         /// </summary>
         public int? IsSpiderUrl {
             set { _isspiderurl = value; }
             get { return _isspiderurl; }
         }
         /// <summary>
-        /// 是否采集内容
+        /// 
         /// </summary>
         public int? IsSpiderContent {
             set { _isspidercontent = value; }
             get { return _isspidercontent; }
         }
         /// <summary>
-        /// 是否发布内容
+        /// 
         /// </summary>
         public int? IsPublishContent {
             set { _ispublishcontent = value; }
             get { return _ispublishcontent; }
         }
         /// <summary>
-        /// 页面编码
+        /// 
         /// </summary>
         public string PageEncode {
             set { _pageencode = value; }
             get { return _pageencode; }
         }
         /// <summary>
-        /// 采集类型
+        /// 
         /// </summary>
         public int? CollectionType {
             set { _collectiontype = value; }
             get { return _collectiontype; }
         }
         /// <summary>
-        /// 采集列表内容
+        /// 
         /// </summary>
         public string CollectionContent {
             set { _collectioncontent = value; }
             get { return _collectioncontent; }
         }
         /// <summary>
-        /// 链接包含
+        /// 
         /// </summary>
         public string LinkUrlMustIncludeStr {
             set { _linkurlmustincludestr = value; }
             get { return _linkurlmustincludestr; }
         }
         /// <summary>
-        /// 链接不包含
+        /// 
         /// </summary>
         public string LinkUrlNoMustIncludeStr {
             set { _linkurlnomustincludestr = value; }
             get { return _linkurlnomustincludestr; }
         }
         /// <summary>
-        /// 拼接地址
-        /// </summary>
-        public string LinkSpliceUrlStr {
-            set { _linkspliceurlstr = value; }
-            get { return _linkspliceurlstr; }
-        }
-        /// <summary>
-        /// 列表截取开始区域
+        /// 
         /// </summary>
         public string LinkUrlCutAreaStart {
             set { _linkurlcutareastart = value; }
             get { return _linkurlcutareastart; }
         }
         /// <summary>
-        /// 列表截取结束区域
+        /// 
         /// </summary>
         public string LinkUrlCutAreaEnd {
             set { _linkurlcutareaend = value; }
             get { return _linkurlcutareaend; }
         }
         /// <summary>
-        /// 测试列表地址
+        /// 
         /// </summary>
         public string TestViewUrl {
             set { _testviewurl = value; }
             get { return _testviewurl; }
         }
         /// <summary>
-        /// 是否在线发布
+        /// 
         /// </summary>
         public int? IsWebOnlinePublish1 {
             set { _iswebonlinepublish1 = value; }
             get { return _iswebonlinepublish1; }
         }
         /// <summary>
-        /// 是否保存本地
+        /// 
         /// </summary>
         public int? IsSaveLocal2 {
             set { _issavelocal2 = value; }
             get { return _issavelocal2; }
         }
         /// <summary>
-        ///
+        /// 
         /// </summary>
         public string SaveFileFormat2 {
             set { _savefileformat2 = value; }
@@ -187,212 +210,202 @@ namespace V5_Model {
             get { return _saveiscreateindex2; }
         }
         /// <summary>
-        /// 是否保存数据库
+        /// 
         /// </summary>
         public int? IsSaveDataBase3 {
             set { _issavedatabase3 = value; }
             get { return _issavedatabase3; }
         }
         /// <summary>
-        /// 保存数据库类型
+        /// 
         /// </summary>
         public int? SaveDataType3 {
             set { _savedatatype3 = value; }
             get { return _savedatatype3; }
         }
         /// <summary>
-        /// 保存数据库地址
+        /// 
         /// </summary>
         public string SaveDataUrl3 {
             set { _savedataurl3 = value; }
             get { return _savedataurl3; }
         }
         /// <summary>
-        /// 保存数据库SQL语句
+        /// 
         /// </summary>
         public string SaveDataSQL3 {
             set { _savedatasql3 = value; }
             get { return _savedatasql3; }
         }
         /// <summary>
-        /// 是否保存SQL语句
+        /// 
         /// </summary>
         public int? IsSaveSQL4 {
             set { _issavesql4 = value; }
             get { return _issavesql4; }
         }
         /// <summary>
-        /// SQL内容
+        /// 
         /// </summary>
         public string SaveSQLContent4 {
             set { _savesqlcontent4 = value; }
             get { return _savesqlcontent4; }
         }
         /// <summary>
-        /// 保存目录
+        /// 
         /// </summary>
         public string SaveSQLDirectory4 {
             set { _savesqldirectory4 = value; }
             get { return _savesqldirectory4; }
         }
-
         /// <summary>
-        /// 生成Guid
+        /// 
         /// </summary>
         public string Guid {
-            get { return _guid; }
             set { _guid = value; }
+            get { return _guid; }
         }
-
-        string _PluginSpiderUrl;
         /// <summary>
-        /// 采集地址结束后插件
+        /// 
         /// </summary>
         public string PluginSpiderUrl {
-            get { return _PluginSpiderUrl; }
-            set { _PluginSpiderUrl = value; }
+            set { _pluginspiderurl = value; }
+            get { return _pluginspiderurl; }
         }
-        string _PluginSpiderContent;
         /// <summary>
-        /// 采集内容结束后插件
+        /// 
         /// </summary>
         public string PluginSpiderContent {
-            get { return _PluginSpiderContent; }
-            set { _PluginSpiderContent = value; }
+            set { _pluginspidercontent = value; }
+            get { return _pluginspidercontent; }
         }
-        string _PluginSaveContent;
         /// <summary>
-        /// 保存内容结束后插件
+        /// 
         /// </summary>
         public string PluginSaveContent {
-            get { return _PluginSaveContent; }
-            set { _PluginSaveContent = value; }
+            set { _pluginsavecontent = value; }
+            get { return _pluginsavecontent; }
         }
-        string _PluginPublishContent;
         /// <summary>
-        /// 发布内容前插件
+        /// 
         /// </summary>
         public string PluginPublishContent {
-            get { return _PluginPublishContent; }
-            set { _PluginPublishContent = value; }
+            set { _pluginpublishcontent = value; }
+            get { return _pluginpublishcontent; }
         }
-        #endregion Model
-
         /// <summary>
-        /// 是否源码采集列表
+        /// 
         /// </summary>
-        public int IsSource { get; set; } = 0;
-        /// <summary>
-        /// 采集列表源码
-        /// </summary>
-        public string SourceText { get; set; } = string.Empty;
-        /// <summary>
-        /// 任务标签
-        /// </summary>
-
-        public List<ModelTaskLabel> ListTaskLabel { set; get; }
-        /// <summary>
-        /// 任务发布模块
-        /// </summary>
-        public List<ModelWebPublishModule> ListModelWebPublishModule { set; get; }
-
-
-        private int _CollectionContentThreadCount = 1;
-        /// <summary>
-        /// 采集内容线程个数
-        /// </summary>
-        public int CollectionContentThreadCount {
-            get { return _CollectionContentThreadCount; }
-            set { _CollectionContentThreadCount = value; }
+        public int? Status {
+            set { _status = value; }
+            get { return _status; }
         }
-
-        private int _CollectionContentStepTime = 500;
         /// <summary>
-        /// 采集内容间隔时间
+        /// 
         /// </summary>
-        public int CollectionContentStepTime {
-            get { return _CollectionContentStepTime; }
-            set { _CollectionContentStepTime = value; }
+        public int? CollectionContentThreadCount {
+            set { _collectioncontentthreadcount = value; }
+            get { return _collectioncontentthreadcount; }
         }
-
-        private int _PublishContentThreadCount = 1;
         /// <summary>
-        /// 发布内容线程个数
+        /// 
         /// </summary>
-        public int PublishContentThreadCount {
-            get { return _PublishContentThreadCount; }
-            set { _PublishContentThreadCount = value; }
+        public int? CollectionContentStepTime {
+            set { _collectioncontentsteptime = value; }
+            get { return _collectioncontentsteptime; }
         }
-
-        private int _PublishContentStepTimeMin = 500;
         /// <summary>
-        /// 发布内容间隔最小值
+        /// 
         /// </summary>
-        public int PublishContentStepTimeMin {
-            get { return _PublishContentStepTimeMin; }
-            set { _PublishContentStepTimeMin = value; }
+        public int? PublishContentThreadCount {
+            set { _publishcontentthreadcount = value; }
+            get { return _publishcontentthreadcount; }
         }
-
-        private int _PublishContentStepTimeMax = 5000;
         /// <summary>
-        /// 发布内容间隔最大值
+        /// 
         /// </summary>
-        public int PublishContentStepTimeMax {
-            get { return _PublishContentStepTimeMax; }
-            set { _PublishContentStepTimeMax = value; }
+        public int? PublishContentStepTimeMin {
+            set { _publishcontentsteptimemin = value; }
+            get { return _publishcontentsteptimemin; }
         }
-
-        private int _Status = 0;
         /// <summary>
-        /// 任务状态
+        /// 
         /// </summary>
-        public int Status {
-            get { return _Status; }
-            set { _Status = value; }
+        public int? PublishContentStepTimeMax {
+            set { _publishcontentsteptimemax = value; }
+            get { return _publishcontentsteptimemax; }
         }
-
-
-        int _IsHandGetUrl = 0;
         /// <summary>
-        /// 是否手动获取地址
-        /// </summary>
-        public int IsHandGetUrl {
-            get { return _IsHandGetUrl; }
-            set { _IsHandGetUrl = value; }
-        }
-
-
-        string _HandCollectionUrlRegex = string.Empty;
-        /// <summary>
-        /// 手动获取地址表达式
-        /// </summary>
-        public string HandCollectionUrlRegex {
-            get { return _HandCollectionUrlRegex; }
-            set { _HandCollectionUrlRegex = value; }
-        }
-
-        string _DemoListUrl = string.Empty;
-        /// <summary>
-        /// 测试列表地址
+        /// 
         /// </summary>
         public string DemoListUrl {
-            get { return _DemoListUrl; }
-            set { _DemoListUrl = value; }
+            set { _demolisturl = value; }
+            get { return _demolisturl; }
         }
-
-        private int _IsPlan = 0;
-
-        public int IsPlan {
-            get { return _IsPlan; }
-            set { _IsPlan = value; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? IsPlan {
+            set { _isplan = value; }
+            get { return _isplan; }
         }
-
-        private string _PlanFormat = string.Empty;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string PlanFormat {
-            get { return _PlanFormat; }
-            set { _PlanFormat = value; }
+            set { _planformat = value; }
+            get { return _planformat; }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? IsSource {
+            set { _issource = value; }
+            get { return _issource; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SourceText {
+            set { _sourcetext = value; }
+            get { return _sourcetext; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? CollectionUrlStepTime {
+            set { _collectionurlsteptime = value; }
+            get { return _collectionurlsteptime; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? CreateTime {
+            set { _createtime = value; }
+            get { return _createtime; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? UpdateTime {
+            set { _updatetime = value; }
+            get { return _updatetime; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? IsHandGetUrl {
+            set { _ishandgeturl = value; }
+            get { return _ishandgeturl; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string HandCollectionUrlRegex {
+            set { _handcollectionurlregex = value; }
+            get { return _handcollectionurlregex; }
+        }
+        #endregion Model
 
     }
 }

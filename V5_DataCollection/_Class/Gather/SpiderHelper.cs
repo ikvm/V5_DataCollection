@@ -187,7 +187,7 @@ namespace V5_DataCollection._Class.Gather {
             var taskList = new TaskFactory().StartNew(() => {
                 if (modelTask.IsSpiderContent == 1 && _listLinkUrl.Count > 0) {
 
-                    MessageOut("开始采集列表地址详细内容!");
+                    MessageOut($"开始采集列表地址详细内容!采集间隔{modelTask.CollectionContentStepTime}毫秒");
 
                     var spiderViewHelper = new SpiderViewHelper();
                     spiderViewHelper.Model = modelTask;
@@ -215,6 +215,8 @@ namespace V5_DataCollection._Class.Gather {
 
                             #endregion
                             spiderViewHelper.SpiderContent(mlink.Url, modelTask.ListTaskLabel);
+                            //暂停时间
+                            Thread.Sleep(modelTask.CollectionContentStepTime.Value);
                         }
                         catch (Exception ex) {
                             LoggerHelper.Write(V5_WinLibs.LogLevel.Error, ex);

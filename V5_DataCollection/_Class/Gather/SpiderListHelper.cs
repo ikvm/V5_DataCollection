@@ -130,9 +130,11 @@ namespace V5_DataCollection._Class.Gather {
 
                 OutTreeNodeHandler?.Invoke(url, title, num);
 
-                int minTime = 10;
-                int maxTime = 100;
-                Thread.Sleep(new Random().Next(minTime, maxTime));
+                if (Model.IsSource == 0) {
+                    int minTime = 10;
+                    int maxTime = 100;
+                    Thread.Sleep(new Random().Next(minTime, maxTime));
+                }
             }
         }
 

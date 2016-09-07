@@ -432,7 +432,7 @@ namespace V5_DataCollection.Forms.Task {
             //重建表结构
             CreateDataFile(currentTaskName, currentMaxId);
             //
-            this.ClassID = model.TaskClassID;
+            this.ClassID = model.TaskClassID.Value;
             Bind_DataList();
         }
 

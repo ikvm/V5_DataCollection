@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml.Serialization;
 using V5_DataCollection._Class.DAL;
 using V5_DataCollection._Class.Gather;
@@ -213,7 +214,10 @@ namespace V5_DataCollection._Class.Publish {
                 try {
                     sql = exeSQL;
                     foreach (ModelTaskLabel mTaskLabel in Model.ListTaskLabel) {
-                        sql = sql.Replace("[" + mTaskLabel.LabelName + "]", dr[mTaskLabel.LabelName].ToString().Replace("'", "''"));
+                        if (string.IsNullOrEmpty(dr[mTaskLabel.LabelName].ToString())) {
+                            break;
+                        }
+                        sql = sql.Replace("[" + mTaskLabel.LabelName + "]", dr[mTaskLabel.LabelName].ToString().Replace("'", "''").Replace("\\", "/"));
                     }
                     sql = sql.Replace("[Guid]", Guid.NewGuid().ToString());
                     sql = sql.Replace("[Url]", dr["HrefSource"].ToString());

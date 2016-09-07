@@ -26,12 +26,11 @@ namespace V5_DataCollection._Class.DAL {
         /// </summary>
         public int Add(ModelTaskLabel model) {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into S_TaskLabel(");
-            strSql.Append("LabelName,LabelSource,LabelNameCutRegex,LabelHtmlRemove,LblHtmlRemove,LabelRemove,LabelReplace,TaskID,GuidNum,OrderID,CreateTime,IsLoop,IsNoNull,IsLinkUrl,IsPager,LabelValueLinkUrlRegex,LabelValuePagerRegex,SpiderLabelPlugin,IsDownResource,DownResourceExts)");
+            strSql.Append("insert into [S_TaskLabel] (");
+            strSql.Append("LabelName,IsLoop,TestViewUrl,LabelNameCutRegex,LabelHtmlRemove,LabelRemove,LabelReplace,TaskID,GuidNum,OrderID,CreateTime,SpiderLabelPlugin,IsDownResource,DownResourceExts)");
             strSql.Append(" values (");
-            strSql.Append("@LabelName,@LabelSource,@LabelNameCutRegex,@LabelHtmlRemove,@LblHtmlRemove,@LabelRemove,@LabelReplace,@TaskID,@GuidNum,@OrderID,@CreateTime,@IsLoop,@IsNoNull,@IsLinkUrl,@IsPager,@LabelValueLinkUrlRegex,@LabelValuePagerRegex,@SpiderLabelPlugin,@IsDownResource,@DownResourceExts)");
-            strSql.Append(";select LAST_INSERT_ROWID()");
-            object obj = DbHelper.ExecuteScalar(CommonHelper.SQLiteConnectionString, strSql.ToString(), model);
+            strSql.Append("@LabelName,@IsLoop,@TestViewUrl,@LabelNameCutRegex,@LabelHtmlRemove,@LabelRemove,@LabelReplace,@TaskID,@GuidNum,@OrderID,@CreateTime,@SpiderLabelPlugin,@IsDownResource,@DownResourceExts)");
+            object obj = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString(), model);
             if (obj == null) {
                 return 0;
             }
@@ -45,28 +44,22 @@ namespace V5_DataCollection._Class.DAL {
         /// </summary>
         public bool Update(ModelTaskLabel model) {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update S_TaskLabel set ");
+            strSql.Append("update [S_TaskLabel] set ");
             strSql.Append("LabelName=@LabelName,");
-            strSql.Append("LabelSource=@LabelSource,");
+            strSql.Append("IsLoop=@IsLoop,");
+            strSql.Append("TestViewUrl=@TestViewUrl,");
             strSql.Append("LabelNameCutRegex=@LabelNameCutRegex,");
             strSql.Append("LabelHtmlRemove=@LabelHtmlRemove,");
-            strSql.Append("LblHtmlRemove=@LblHtmlRemove,");
             strSql.Append("LabelRemove=@LabelRemove,");
             strSql.Append("LabelReplace=@LabelReplace,");
             strSql.Append("TaskID=@TaskID,");
             strSql.Append("GuidNum=@GuidNum,");
             strSql.Append("OrderID=@OrderID,");
             strSql.Append("CreateTime=@CreateTime,");
-            strSql.Append("IsLoop=@IsLoop,");
-            strSql.Append("IsNoNull=@IsNoNull,");
-            strSql.Append("IsLinkUrl=@IsLinkUrl,");
-            strSql.Append("IsPager=@IsPager,");
-            strSql.Append("LabelValueLinkUrlRegex=@LabelValueLinkUrlRegex,");
-            strSql.Append("LabelValuePagerRegex=@LabelValuePagerRegex,");
             strSql.Append("SpiderLabelPlugin=@SpiderLabelPlugin,");
             strSql.Append("IsDownResource=@IsDownResource,");
             strSql.Append("DownResourceExts=@DownResourceExts");
-            strSql.Append(" where ID=@ID");
+            strSql.Append(" where ID=@ID ");
             int rowsAffected = DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString(), model);
             if (rowsAffected > 0) {
                 return true;

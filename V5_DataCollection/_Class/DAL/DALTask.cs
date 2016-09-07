@@ -29,11 +29,12 @@ namespace V5_DataCollection._Class.DAL {
         /// 增加一条数据
         /// </summary>
         public void Add(ModelTask model) {
+
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into S_Task(");
-            strSql.Append("ID,TaskClassID,TaskName,IsSpiderUrl,IsSpiderContent,IsPublishContent,PageEncode,CollectionType,CollectionContent,LinkUrlMustIncludeStr,LinkUrlNoMustIncludeStr,LinkSpliceUrlStr,LinkUrlCutAreaStart,LinkUrlCutAreaEnd,TestViewUrl,IsWebOnlinePublish1,IsSaveLocal2,SaveFileFormat2,SaveDirectory2,SaveHtmlTemplate2,SaveIsCreateIndex2,IsSaveDataBase3,SaveDataType3,SaveDataUrl3,SaveDataSQL3,IsSaveSQL4,SaveSQLContent4,SaveSQLDirectory4,Guid,PluginSpiderUrl,PluginSpiderContent,PluginSaveContent,PluginPublishContent,Status,CollectionContentThreadCount,CollectionContentStepTime,PublishContentThreadCount,PublishContentStepTimeMin,PublishContentStepTimeMax,IsHandGetUrl,HandCollectionUrlRegex,DemoListUrl,IsPlan,PlanFormat,IsSource,SourceText)");
+            strSql.Append("insert into [S_Task] (");
+            strSql.Append("ID,TaskClassID,TaskName,IsSpiderUrl,IsSpiderContent,IsPublishContent,PageEncode,CollectionType,CollectionContent,LinkUrlMustIncludeStr,LinkUrlNoMustIncludeStr,LinkUrlCutAreaStart,LinkUrlCutAreaEnd,TestViewUrl,IsWebOnlinePublish1,IsSaveLocal2,SaveFileFormat2,SaveDirectory2,SaveHtmlTemplate2,SaveIsCreateIndex2,IsSaveDataBase3,SaveDataType3,SaveDataUrl3,SaveDataSQL3,IsSaveSQL4,SaveSQLContent4,SaveSQLDirectory4,Guid,PluginSpiderUrl,PluginSpiderContent,PluginSaveContent,PluginPublishContent,Status,CollectionContentThreadCount,CollectionContentStepTime,PublishContentThreadCount,PublishContentStepTimeMin,PublishContentStepTimeMax,DemoListUrl,IsPlan,PlanFormat,IsSource,SourceText,CollectionUrlStepTime,CreateTime,UpdateTime,IsHandGetUrl,HandCollectionUrlRegex)");
             strSql.Append(" values (");
-            strSql.Append("@ID,@TaskClassID,@TaskName,@IsSpiderUrl,@IsSpiderContent,@IsPublishContent,@PageEncode,@CollectionType,@CollectionContent,@LinkUrlMustIncludeStr,@LinkUrlNoMustIncludeStr,@LinkSpliceUrlStr,@LinkUrlCutAreaStart,@LinkUrlCutAreaEnd,@TestViewUrl,@IsWebOnlinePublish1,@IsSaveLocal2,@SaveFileFormat2,@SaveDirectory2,@SaveHtmlTemplate2,@SaveIsCreateIndex2,@IsSaveDataBase3,@SaveDataType3,@SaveDataUrl3,@SaveDataSQL3,@IsSaveSQL4,@SaveSQLContent4,@SaveSQLDirectory4,@Guid,@PluginSpiderUrl,@PluginSpiderContent,@PluginSaveContent,@PluginPublishContent,@Status,@CollectionContentThreadCount,@CollectionContentStepTime,@PublishContentThreadCount,@PublishContentStepTimeMin,@PublishContentStepTimeMax,@IsHandGetUrl,@HandCollectionUrlRegex,@DemoListUrl,@IsPlan,@PlanFormat,@IsSource,@SourceText)");
+            strSql.Append("@ID,@TaskClassID,@TaskName,@IsSpiderUrl,@IsSpiderContent,@IsPublishContent,@PageEncode,@CollectionType,@CollectionContent,@LinkUrlMustIncludeStr,@LinkUrlNoMustIncludeStr,@LinkUrlCutAreaStart,@LinkUrlCutAreaEnd,@TestViewUrl,@IsWebOnlinePublish1,@IsSaveLocal2,@SaveFileFormat2,@SaveDirectory2,@SaveHtmlTemplate2,@SaveIsCreateIndex2,@IsSaveDataBase3,@SaveDataType3,@SaveDataUrl3,@SaveDataSQL3,@IsSaveSQL4,@SaveSQLContent4,@SaveSQLDirectory4,@Guid,@PluginSpiderUrl,@PluginSpiderContent,@PluginSaveContent,@PluginPublishContent,@Status,@CollectionContentThreadCount,@CollectionContentStepTime,@PublishContentThreadCount,@PublishContentStepTimeMin,@PublishContentStepTimeMax,@DemoListUrl,@IsPlan,@PlanFormat,@IsSource,@SourceText,@CollectionUrlStepTime,@CreateTime,@UpdateTime,@IsHandGetUrl,@HandCollectionUrlRegex)");
 
             DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString(), model);
         }
@@ -44,7 +45,7 @@ namespace V5_DataCollection._Class.DAL {
         public bool Update(ModelTask model) {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update S_Task set ");
+            strSql.Append("update [S_Task] set ");
             strSql.Append("TaskClassID=@TaskClassID,");
             strSql.Append("TaskName=@TaskName,");
             strSql.Append("IsSpiderUrl=@IsSpiderUrl,");
@@ -55,7 +56,6 @@ namespace V5_DataCollection._Class.DAL {
             strSql.Append("CollectionContent=@CollectionContent,");
             strSql.Append("LinkUrlMustIncludeStr=@LinkUrlMustIncludeStr,");
             strSql.Append("LinkUrlNoMustIncludeStr=@LinkUrlNoMustIncludeStr,");
-            strSql.Append("LinkSpliceUrlStr=@LinkSpliceUrlStr,");
             strSql.Append("LinkUrlCutAreaStart=@LinkUrlCutAreaStart,");
             strSql.Append("LinkUrlCutAreaEnd=@LinkUrlCutAreaEnd,");
             strSql.Append("TestViewUrl=@TestViewUrl,");
@@ -83,13 +83,16 @@ namespace V5_DataCollection._Class.DAL {
             strSql.Append("PublishContentThreadCount=@PublishContentThreadCount,");
             strSql.Append("PublishContentStepTimeMin=@PublishContentStepTimeMin,");
             strSql.Append("PublishContentStepTimeMax=@PublishContentStepTimeMax,");
-            strSql.Append("IsHandGetUrl=@IsHandGetUrl,");
-            strSql.Append("HandCollectionUrlRegex=@HandCollectionUrlRegex,");
             strSql.Append("DemoListUrl=@DemoListUrl,");
             strSql.Append("IsPlan=@IsPlan,");
             strSql.Append("PlanFormat=@PlanFormat,");
             strSql.Append("IsSource=@IsSource,");
-            strSql.Append("SourceText=@SourceText");
+            strSql.Append("SourceText=@SourceText,");
+            strSql.Append("CollectionUrlStepTime=@CollectionUrlStepTime,");
+            strSql.Append("CreateTime=@CreateTime,");
+            strSql.Append("UpdateTime=@UpdateTime,");
+            strSql.Append("IsHandGetUrl=@IsHandGetUrl,");
+            strSql.Append("HandCollectionUrlRegex=@HandCollectionUrlRegex");
             strSql.Append(" where ID=@ID ");
 
             return DbHelper.Execute(CommonHelper.SQLiteConnectionString, strSql.ToString(), model) > 0 ? true : false;

@@ -9,71 +9,65 @@ namespace V5_Model {
     /// </summary>
     public class ModelTaskLabel {
         #region Model
+        public string TestViewUrl { get; set; } = string.Empty;
+        public int IsLoop { get; set; } = 0;
         private int _id = 0;
         private string _labelname = string.Empty;
-        private int? _labelsource = 0;
-        private string _labelcutstart = string.Empty;
-        private string _labelcutend = string.Empty;
+        private string _labelnamecutregex = string.Empty;
         private string _labelhtmlremove = string.Empty;
-        private string _lblhtmlremove = string.Empty;
         private string _labelremove = string.Empty;
         private string _labelreplace = string.Empty;
         private int? _taskid = 0;
         private string _guidnum = string.Empty;
         private int? _orderid = 0;
-        private string _createtime = string.Empty;
-        private string _spiderLabelPlugin = string.Empty;
+        private DateTime? _createtime = DateTime.Now;
+        private string _spiderlabelplugin = string.Empty;
+        private int? _isdownresource = 0;
+        private string _downresourceexts = string.Empty;
         /// <summary>
-        /// 标签ID
+        /// 
         /// </summary>
         public int ID {
             set { _id = value; }
             get { return _id; }
         }
         /// <summary>
-        /// 标签名称
+        /// 
         /// </summary>
         public string LabelName {
             set { _labelname = value; }
             get { return _labelname; }
         }
         /// <summary>
-        /// 标签截取表达式
+        /// 
         /// </summary>
         public string LabelNameCutRegex {
-            set { _labelcutstart = value; }
-            get { return _labelcutstart; }
+            set { _labelnamecutregex = value; }
+            get { return _labelnamecutregex; }
         }
         /// <summary>
-        /// 标签Html移除
+        /// 
         /// </summary>
         public string LabelHtmlRemove {
             set { _labelhtmlremove = value; }
             get { return _labelhtmlremove; }
         }
         /// <summary>
-        /// 标签HTML内容移动
-        /// </summary>
-        public string LblHtmlRemove {
-            set { _lblhtmlremove = value; }
-            get { return _lblhtmlremove; }
-        }
-        /// <summary>
-        /// 标签内容移除
+        /// 
         /// </summary>
         public string LabelRemove {
             set { _labelremove = value; }
             get { return _labelremove; }
         }
         /// <summary>
-        /// 标签内容过滤
+        /// 
         /// </summary>
         public string LabelReplace {
             set { _labelreplace = value; }
             get { return _labelreplace; }
         }
         /// <summary>
-        /// 所属任务ID
+        /// 
         /// </summary>
         public int? TaskID {
             set { _taskid = value; }
@@ -87,94 +81,40 @@ namespace V5_Model {
             get { return _guidnum; }
         }
         /// <summary>
-        /// 排序ID
+        /// 
         /// </summary>
         public int? OrderID {
             set { _orderid = value; }
             get { return _orderid; }
         }
         /// <summary>
-        /// 创建时间
+        /// 
         /// </summary>
-        public string CreateTime {
+        public DateTime? CreateTime {
             set { _createtime = value; }
             get { return _createtime; }
         }
-
-
-        private int? _IsLoop = 0;
         /// <summary>
-        /// 标签是循环标签
-        /// </summary>
-        public int? IsLoop {
-            get { return _IsLoop; }
-            set { _IsLoop = value; }
-        }
-        int? _IsNoNull = 0;
-        /// <summary>
-        /// 标签不得为空
-        /// </summary>
-        public int? IsNoNull {
-            get { return _IsNoNull; }
-            set { _IsNoNull = value; }
-        }
-
-        int? _IsLinkUrl = 0;
-        /// <summary>
-        /// 标签是链接
-        /// </summary>
-        public int? IsLinkUrl {
-            get { return _IsLinkUrl; }
-            set { _IsLinkUrl = value; }
-        }
-        int? _IsPager = 0;
-        /// <summary>
-        /// 标签是分页
-        /// </summary>
-        public int? IsPager {
-            get { return _IsPager; }
-            set { _IsPager = value; }
-        }
-        string _LabelValueLinkUrlRegex = string.Empty;
-        /// <summary>
-        /// 标签是链接表达式
-        /// </summary>
-        public string LabelValueLinkUrlRegex {
-            get { return _LabelValueLinkUrlRegex; }
-            set { _LabelValueLinkUrlRegex = value; }
-        }
-        string _LabelValuePagerRegex = string.Empty;
-        /// <summary>
-        /// 标签是分页表达式
-        /// </summary>
-        public string LabelValuePagerRegex {
-            get { return _LabelValuePagerRegex; }
-            set { _LabelValuePagerRegex = value; }
-        }
-        /// <summary>
-        /// 采集标签插件
+        /// 
         /// </summary>
         public string SpiderLabelPlugin {
-            get { return _spiderLabelPlugin; }
-            set { _spiderLabelPlugin = value; }
+            set { _spiderlabelplugin = value; }
+            get { return _spiderlabelplugin; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? IsDownResource {
+            set { _isdownresource = value; }
+            get { return _isdownresource; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DownResourceExts {
+            set { _downresourceexts = value; }
+            get { return _downresourceexts; }
         }
         #endregion Model
-
-
-        private int _IsDownResource;
-
-        public int IsDownResource {
-            get { return _IsDownResource; }
-            set { _IsDownResource = value; }
-        }
-
-        private string _DownResouceExts;
-
-        public string DownResourceExts {
-            get { return _DownResouceExts; }
-            set { _DownResouceExts = value; }
-        }
-
-
     }
 }

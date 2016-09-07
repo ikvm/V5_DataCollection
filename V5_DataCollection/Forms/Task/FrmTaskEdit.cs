@@ -337,17 +337,23 @@ namespace V5_DataCollection.Forms.Task {
             foreach (ListViewItem ss in s) {
                 Test_LabelList.Add(dal.GetModel(ss.SubItems[0].Text, ID));
             }
+
             var model = new ModelTask() {
+                TestViewUrl = Test_ViewUrl,
+                PageEncode = encode
             };
-            var spiderViewHelper = new SpiderViewHelper();
-            spiderViewHelper.Model = model;
-            spiderViewHelper.OutViewUrlContentHandler += (string content) => {
-                this.txtTestViewUrlShow.Invoke(new MethodInvoker(delegate () {
-                    this.txtTestViewUrlShow.AppendText(content);
-                    this.btnTestViewUrl.Enabled = true;
-                }));
-            };
-            spiderViewHelper.Test(Test_ViewUrl, Test_LabelList);
+
+            var task = new TaskFactory().StartNew(() => {
+                var spiderViewHelper = new SpiderViewHelper();
+                spiderViewHelper.Model = model;
+                spiderViewHelper.OutViewUrlContentHandler += (string content) => {
+                    this.txtTestViewUrlShow.Invoke(new MethodInvoker(delegate () {
+                        this.txtTestViewUrlShow.AppendText(content);
+                        this.btnTestViewUrl.Enabled = true;
+                    }));
+                };
+                spiderViewHelper.Test(Test_ViewUrl, Test_LabelList);
+            });
         }
         #endregion
 
@@ -374,6 +380,7 @@ namespace V5_DataCollection.Forms.Task {
             FormTaskSpiderLabel.ViewLabel = AddViewLabel;
             FormTaskSpiderLabel.TaskID = ID;
             FormTaskSpiderLabel.TestUrl = this.txtTextViewUrl.Text;
+            FormTaskSpiderLabel.PageEncode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
             FormTaskSpiderLabel.ShowDialog(this);
         }
         /// <summary>
@@ -396,6 +403,7 @@ namespace V5_DataCollection.Forms.Task {
                     FormTaskSpiderLabel.ViewLabel = AddViewLabel;
                     FormTaskSpiderLabel.TaskID = ID;
                     FormTaskSpiderLabel.TestUrl = this.txtTextViewUrl.Text;
+                    FormTaskSpiderLabel.PageEncode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
                     FormTaskSpiderLabel.ShowDialog(this);
                 }
             }
@@ -513,7 +521,7 @@ namespace V5_DataCollection.Forms.Task {
         }
         #endregion
 
-        #region Sql
+        #region 发布测试SQL
         private void btnSaveDataBaseConfig_Click(object sender, EventArgs e) {
             btnSaveDataBaseConfig.Enabled = false;
             if (string.IsNullOrEmpty(this.txtSaveDataUrl3.Text)) {
@@ -660,13 +668,13 @@ namespace V5_DataCollection.Forms.Task {
             this.cmbPublishContentPlugins.Text = model.PluginPublishContent;
 
             //
-            this.nudCollectionContentThreadCount.Value = model.CollectionContentThreadCount;
-            this.nudCollectionContentStepTime.Value = model.CollectionContentStepTime;
-            this.nudPublishContentThreadCount.Value = model.PublishContentThreadCount;
-            this.nudPublishContentStepTimeMin.Value = model.PublishContentStepTimeMin;
-            this.nudPublishContentStepTimeMax.Value = model.PublishContentStepTimeMax;
+            this.nudCollectionContentThreadCount.Value = model.CollectionContentThreadCount.Value;
+            this.nudCollectionContentStepTime.Value = model.CollectionContentStepTime.Value;
+            this.nudPublishContentThreadCount.Value = model.PublishContentThreadCount.Value;
+            this.nudPublishContentStepTimeMin.Value = model.PublishContentStepTimeMin.Value;
+            this.nudPublishContentStepTimeMax.Value = model.PublishContentStepTimeMax.Value;
 
-            this.chkIsHandGetUrl.Checked = model.IsHandGetUrl == 1 ? true : false;
+            this.chkIsHandGetUrl.Checked = model.IsHandGetUrl.Value == 1 ? true : false;
             this.txtHandCollectionUrlRegex.Text = model.HandCollectionUrlRegex;
 
             this.txtDemoListUrl.Text = model.DemoListUrl;
@@ -749,7 +757,7 @@ namespace V5_DataCollection.Forms.Task {
                 SaveDataType3 = 5;
             }
             string SaveDataUrl3 = this.txtSaveDataUrl3.Text;
-            string SaveDataSQL3 = this.txtSaveDataSQL3.Text.Replace("'", "''");
+            string SaveDataSQL3 = this.txtSaveDataSQL3.Text;
             int IsSaveSQL4 = this.chkPublish04.Checked ? 1 : 0;
             //string SaveSQLContent4 = this.txtSaveSQLContent4.Text.Replace("'", "''");
             //string SaveSQLDirectory4 = this.txtSaveSQLDirectory4.Text;
@@ -761,7 +769,7 @@ namespace V5_DataCollection.Forms.Task {
             decimal PublishContentStepTimeMax = this.nudPublishContentStepTimeMax.Value;
 
             int IsHandGetUrl = this.chkIsHandGetUrl.Checked ? 1 : 0;
-            string HandCollectionUrlRegex = this.txtHandCollectionUrlRegex.Text.Replace("'", "''");
+            string HandCollectionUrlRegex = this.txtHandCollectionUrlRegex.Text;
             //
             int IsPlan = this.chkTaskSetStatus.Checked ? 1 : 0;
             string PlanFormat = this.txtHiddenPlanFormat.Text;
@@ -799,6 +807,7 @@ namespace V5_DataCollection.Forms.Task {
             model.PluginSaveContent = this.cmbSaveConentPlugins.Text;
             model.PluginPublishContent = this.cmbPublishContentPlugins.Text;
             //2012 2-16
+            model.CollectionUrlStepTime = int.Parse(nudCollectionUrlStepTime.Value.ToString());
             model.CollectionContentThreadCount = Convert.ToInt32(CollectionContentThreadCount);
             model.CollectionContentStepTime = Convert.ToInt32(CollectionContentStepTime);
             model.PublishContentThreadCount = Convert.ToInt32(PublishContentThreadCount);
@@ -817,6 +826,7 @@ namespace V5_DataCollection.Forms.Task {
             model.IsSource = this.chkIsSource.Checked ? 1 : 0;
             model.SourceText = this.txtSourceText.Text;
 
+           
             if (ID == 0) {
                 string guid = Guid.NewGuid().ToString();
                 ID = dal.GetMaxId();
@@ -1047,6 +1057,8 @@ namespace V5_DataCollection.Forms.Task {
                 FormTaskSpiderLabel.EditItem = this.listViewTaskLabel.SelectedItems;
                 FormTaskSpiderLabel.ViewLabel = AddViewLabel;
                 FormTaskSpiderLabel.TaskID = ID;
+                FormTaskSpiderLabel.TestUrl = this.txtTextViewUrl.Text;
+                FormTaskSpiderLabel.PageEncode = ((ListItem)this.ddlItemEncode.SelectedItem).Value;
                 FormTaskSpiderLabel.ShowDialog(this);
             }
         }

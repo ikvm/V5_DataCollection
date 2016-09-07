@@ -70,8 +70,8 @@ namespace V5_DataCollection.Forms.Docking {
                 }
                 if (d != null) {
                     OutDownload(d);
+                    Thread.Sleep(d.StepTime);
                 }
-                Thread.Sleep(100);
             }
         }
 
@@ -92,6 +92,8 @@ namespace V5_DataCollection.Forms.Docking {
 
                     this.txtLogView.AppendText($"任务ID:{d.TaskId} 远程图片:{d.RemoteImg} 本地图片:{d.LocalImg} 下载完成!");
                     this.txtLogView.AppendText("\r\n");
+
+
                 }
                 catch (Exception ex) {
                     this.txtLogView.AppendText($"任务ID:{d.TaskId} 远程图片:{d.RemoteImg} 本地图片:{d.LocalImg} 失败!{ex.Message}");

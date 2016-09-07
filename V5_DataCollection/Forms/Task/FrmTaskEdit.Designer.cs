@@ -195,6 +195,8 @@ namespace V5_DataCollection.Forms.Task {
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.nudCollectionUrlStepTime = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.tabControlTaskEdit.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -229,6 +231,7 @@ namespace V5_DataCollection.Forms.Task {
             this.tabPage5.SuspendLayout();
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCollectionUrlStepTime)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -1752,6 +1755,8 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox10.Controls.Add(this.label30);
             this.groupBox10.Controls.Add(this.nudPublishContentThreadCount);
             this.groupBox10.Controls.Add(this.label31);
+            this.groupBox10.Controls.Add(this.nudCollectionUrlStepTime);
+            this.groupBox10.Controls.Add(this.label37);
             this.groupBox10.Controls.Add(this.nudCollectionContentThreadCount);
             this.groupBox10.Controls.Add(this.label29);
             this.groupBox10.Location = new System.Drawing.Point(12, 14);
@@ -1764,7 +1769,7 @@ namespace V5_DataCollection.Forms.Task {
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(198, 137);
+            this.label34.Location = new System.Drawing.Point(198, 160);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(41, 12);
             this.label34.TabIndex = 2;
@@ -1772,7 +1777,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // nudPublishContentStepTimeMax
             // 
-            this.nudPublishContentStepTimeMax.Location = new System.Drawing.Point(106, 133);
+            this.nudPublishContentStepTimeMax.Location = new System.Drawing.Point(106, 156);
             this.nudPublishContentStepTimeMax.Maximum = new decimal(new int[] {
             60000,
             0,
@@ -1789,7 +1794,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // nudPublishContentStepTimeMin
             // 
-            this.nudPublishContentStepTimeMin.Location = new System.Drawing.Point(106, 106);
+            this.nudPublishContentStepTimeMin.Location = new System.Drawing.Point(106, 129);
             this.nudPublishContentStepTimeMin.Maximum = new decimal(new int[] {
             60000,
             0,
@@ -1806,7 +1811,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // nudCollectionContentStepTime
             // 
-            this.nudCollectionContentStepTime.Location = new System.Drawing.Point(106, 52);
+            this.nudCollectionContentStepTime.Location = new System.Drawing.Point(106, 75);
             this.nudCollectionContentStepTime.Maximum = new decimal(new int[] {
             60000,
             0,
@@ -1824,7 +1829,7 @@ namespace V5_DataCollection.Forms.Task {
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(12, 108);
+            this.label32.Location = new System.Drawing.Point(12, 131);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(77, 12);
             this.label32.TabIndex = 0;
@@ -1833,7 +1838,7 @@ namespace V5_DataCollection.Forms.Task {
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(12, 54);
+            this.label30.Location = new System.Drawing.Point(12, 77);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(77, 12);
             this.label30.TabIndex = 0;
@@ -1841,7 +1846,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // nudPublishContentThreadCount
             // 
-            this.nudPublishContentThreadCount.Location = new System.Drawing.Point(106, 79);
+            this.nudPublishContentThreadCount.Location = new System.Drawing.Point(106, 102);
             this.nudPublishContentThreadCount.Name = "nudPublishContentThreadCount";
             this.nudPublishContentThreadCount.Size = new System.Drawing.Size(69, 21);
             this.nudPublishContentThreadCount.TabIndex = 1;
@@ -1854,7 +1859,7 @@ namespace V5_DataCollection.Forms.Task {
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(12, 81);
+            this.label31.Location = new System.Drawing.Point(12, 104);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(77, 12);
             this.label31.TabIndex = 0;
@@ -1862,7 +1867,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // nudCollectionContentThreadCount
             // 
-            this.nudCollectionContentThreadCount.Location = new System.Drawing.Point(106, 25);
+            this.nudCollectionContentThreadCount.Location = new System.Drawing.Point(106, 48);
             this.nudCollectionContentThreadCount.Name = "nudCollectionContentThreadCount";
             this.nudCollectionContentThreadCount.Size = new System.Drawing.Size(69, 21);
             this.nudCollectionContentThreadCount.TabIndex = 1;
@@ -1875,7 +1880,7 @@ namespace V5_DataCollection.Forms.Task {
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(12, 27);
+            this.label29.Location = new System.Drawing.Point(12, 50);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(77, 12);
             this.label29.TabIndex = 0;
@@ -1981,6 +1986,37 @@ namespace V5_DataCollection.Forms.Task {
             this.cmbStatus.Size = new System.Drawing.Size(70, 20);
             this.cmbStatus.TabIndex = 10;
             // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(12, 22);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(77, 12);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "采集地址间隔";
+            // 
+            // nudCollectionUrlStepTime
+            // 
+            this.nudCollectionUrlStepTime.Location = new System.Drawing.Point(106, 20);
+            this.nudCollectionUrlStepTime.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.nudCollectionUrlStepTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCollectionUrlStepTime.Name = "nudCollectionUrlStepTime";
+            this.nudCollectionUrlStepTime.Size = new System.Drawing.Size(69, 21);
+            this.nudCollectionUrlStepTime.TabIndex = 1;
+            this.nudCollectionUrlStepTime.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
             // FrmTaskEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2055,6 +2091,7 @@ namespace V5_DataCollection.Forms.Task {
             this.tabPage5.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCollectionUrlStepTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2231,5 +2268,7 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.ComboBox cmbSpiderUrlPlugins;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.LinkLabel linkSpiderListPlugin;
+        private System.Windows.Forms.NumericUpDown nudCollectionUrlStepTime;
+        private System.Windows.Forms.Label label37;
     }
 }
