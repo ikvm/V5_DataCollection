@@ -4,21 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace V5_WinLibs.Core {
-    /*
- * 姓名：谭义
- * 时间：2008.5.28
- * Q  Q：260511433
- * MSN ：luoye0732@hotmail.com
- * 邮箱：luoye0732@163.com
- * 备注：如果大家对此模块还需要补充或完善修改的，请和我联系，大家一起努力。
- * 注意：此模块只能获得一个键的值，如果谁能完善获得一个小节的所有键与值，请与我联系。
-*/
-
     /// <summary>
     /// Ini文件操作类
     /// </summary>
     public sealed class IniHelper {
-        private static string _filePath = string.Empty;//文件路径
+        private static string _filePath = string.Empty;
 
         /// <summary>
         /// 文件路径

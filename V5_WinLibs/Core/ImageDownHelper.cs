@@ -31,9 +31,6 @@ namespace V5_WinLibs.Core {
                         continue;
                     }
                 }
-                //替换
-                //CutContent = CutContent.Replace(img, downImgPath + newImg);
-                //QueueHelper.AddImg(downImgPath + newImg, img);
             }
         }
 
@@ -47,7 +44,6 @@ namespace V5_WinLibs.Core {
             string[] strAry = new string[reg.Matches(_strHTML).Count];
             int i = 0;
             foreach (Match match in reg.Matches(_strHTML)) {
-                //strAry[i] = GetImgUrl(match.Value);
                 strAry[i] = match.Groups[1].Value;
                 i++;
             }
@@ -75,8 +71,8 @@ namespace V5_WinLibs.Core {
         /// <param name="nowyymm">年月</param>  
         /// <param name="nowdd">日</param>  
         public static string SaveUrlPics(string strHTML, string path) {
-            string nowym = DateTime.Now.ToString("yyyy-MM");  //当前年月  
-            string nowdd = DateTime.Now.ToString("dd");       //当天号数  
+            string nowym = DateTime.Now.ToString("yyyy-MM");    
+            string nowdd = DateTime.Now.ToString("dd");         
             path = path + nowym + "/" + nowdd;
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
@@ -105,8 +101,8 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         public static string DownUrlPics(string imgUrl, string path)
         {
-            string nowym = DateTime.Now.ToString("yyyy-MM");  //当前年月  
-            string nowdd = DateTime.Now.ToString("dd");       //当天号数  
+            string nowym = DateTime.Now.ToString("yyyy-MM");    
+            string nowdd = DateTime.Now.ToString("dd");         
             path = path + nowym + "/" + nowdd;
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 

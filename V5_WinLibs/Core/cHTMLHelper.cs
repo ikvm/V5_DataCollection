@@ -151,12 +151,6 @@ namespace V5_WinLibs.Core {
         /// <summary>
         /// 获取字符流
         /// </summary>
-        //---------------------------------------------------------------------------------------------------------------
-        // 示例:
-        // System.Net.CookieContainer cookie = new System.Net.CookieContainer(); 
-        // Stream s = HttpHelper.GetStream("http://ptlogin2.qq.com/getimage?aid=15000102&0.43878429697395826", cookie);
-        // picVerify.Image = Image.FromStream(s);
-        //---------------------------------------------------------------------------------------------------------------
         /// <param name="url">地址</param>
         /// <param name="cookieContainer">cookieContainer</param>
         public static Stream GetStream(string url, CookieContainer cookieContainer) {
@@ -204,10 +198,8 @@ namespace V5_WinLibs.Core {
         ///<param name="NoHTML">包括HTML的源码</param>   
         ///<returns>已经去除后的文字</returns>   
         public static string NoHTML(string Htmlstring) {
-            //删除脚本   
             Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
 
-            //删除HTML   
             Regex regex = new Regex("<.+?>", RegexOptions.IgnoreCase);
             Htmlstring = regex.Replace(Htmlstring, "");
             Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
@@ -319,7 +311,7 @@ namespace V5_WinLibs.Core {
                 myRequest.ContentType = "application/x-www-form-urlencoded";
                 myRequest.ContentLength = POST.Length;
                 Stream newStream = myRequest.GetRequestStream();
-                newStream.Write(POST, 0, POST.Length); //设置POST
+                newStream.Write(POST, 0, POST.Length); 
                 newStream.Close();
                 HttpWebResponse myResponse = (HttpWebResponse)myRequest.GetResponse();
                 StreamReader reader = new StreamReader(myResponse.GetResponseStream(), Encoding.Default);
@@ -337,7 +329,7 @@ namespace V5_WinLibs.Core {
         /// 压缩HTML输出
         /// </summary>
         public static string ZipHtml(string Html) {
-            Html = Regex.Replace(Html, @">\s+?<", "><");//去除HTML中的空白字符
+            Html = Regex.Replace(Html, @">\s+?<", "><");
             Html = Regex.Replace(Html, @"\r\n\s*", "");
             Html = Regex.Replace(Html, @"<body([\s|\S]*?)>([\s|\S]*?)</body>", @"<body$1>$2</body>", RegexOptions.IgnoreCase);
             return Html;

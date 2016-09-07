@@ -249,7 +249,6 @@ namespace V5_DataPlugins.Model {
         #endregion
 
         #region 随机值
-        //
         List<ModelRandom> _ListRandomModel = new List<ModelRandom>();
         /// <summary>
         /// 随机值

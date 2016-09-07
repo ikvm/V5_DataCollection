@@ -98,8 +98,6 @@ namespace V5_WinControls.DataGrid
 
             if (handledMessage)
             {
-                //All of these messages expect a 0 return if the
-                //message was handled
                 m.Result = new IntPtr(0);
             }
             else

@@ -74,7 +74,7 @@ namespace V5_WinLibs.Core {
                 return GetHtml(url, ref cookieContainer);
             }
 
-            Thread.Sleep(NetworkDelay);//等待
+            Thread.Sleep(NetworkDelay);
 
             currentTry++;
 
@@ -111,10 +111,6 @@ namespace V5_WinLibs.Core {
                 return html;
             }
             catch (Exception e) {
-                //Console.ForegroundColor = ConsoleColor.Red;
-                //Console.WriteLine(DateTime.Now.ToString("HH:mm:ss ") + e.Message);
-                //Console.ForegroundColor = ConsoleColor.White;
-
                 if (currentTry <= maxTry) {
                     GetHtml(url, postData, isPost, ref cookieContainer);
                 }
@@ -166,10 +162,6 @@ namespace V5_WinLibs.Core {
                 return html;
             }
             catch (Exception e) {
-                //Console.ForegroundColor = ConsoleColor.Red;
-                //Console.WriteLine(DateTime.Now.ToString("HH:mm:ss ") + e.Message);
-                //Console.ForegroundColor = ConsoleColor.White;
-
                 if (currentTry <= maxTry) {
                     GetHtml(url, ref cookieContainer);
                 }
@@ -209,8 +201,6 @@ namespace V5_WinLibs.Core {
         /// <param name="cookieContainer">cookieContainer</param>
         /// <returns>Stream</returns>
         public static Stream GetStream(string url, CookieContainer cookieContainer) {
-            //Thread.Sleep(delay); 
-
             currentTry++;
             HttpWebRequest httpWebRequest = null;
             HttpWebResponse httpWebResponse = null;
@@ -230,16 +220,9 @@ namespace V5_WinLibs.Core {
                 Stream responseStream = httpWebResponse.GetResponseStream();
                 currentTry--;
 
-                //httpWebRequest.Abort(); 
-                //httpWebResponse.Close(); 
-
                 return responseStream;
             }
             catch (Exception e) {
-                //Console.ForegroundColor = ConsoleColor.Red;
-                //Console.WriteLine(DateTime.Now.ToString("HH:mm:ss ") + e.Message);
-                //Console.ForegroundColor = ConsoleColor.White;
-
                 if (currentTry <= maxTry) {
                     GetHtml(url, ref cookieContainer);
                 }

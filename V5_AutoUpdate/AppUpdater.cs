@@ -223,7 +223,6 @@ namespace V5.AutoUpdate
                 MessageBox.Show(ex.Message, "´íÎó", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			//return tempPath;
 		}
 	}
 }

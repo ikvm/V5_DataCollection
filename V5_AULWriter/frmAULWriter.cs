@@ -24,7 +24,6 @@ namespace AULWriter
 
         #endregion [基本入口构造函数]
 
-
         #region [关闭写程序界面]
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -93,7 +92,6 @@ namespace AULWriter
 
         private void btnProduce_Click(object sender, EventArgs e)
         {
-            //建立新线程
             Thread thrdProduce = new Thread(new ThreadStart(WriterAUList));
 
             if (this.btnProduce.Text == "生成(&G)")
@@ -142,8 +140,6 @@ namespace AULWriter
                 Application.DoEvents();
                 if (MessageBox.Show(this, "是否停止文件生成更新文件?", "AutoUpdater", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    //thrdProduce.Interrupt();
-                    //thrdProduce.Abort();
                     if (thrdProduce.IsAlive)
                     {
                         thrdProduce.Abort();
@@ -233,8 +229,6 @@ namespace AULWriter
                     FileVersionInfo m_lcObjFVI = FileVersionInfo.GetVersionInfo(strColl[i].ToString());
 
                     string rootDir = this.txtSrc.Text.Substring(0, this.txtSrc.Text.LastIndexOf(@"\")) + @"\";
-
-                    //MessageBox.Show( @strColl[i].Replace(@rootDir,""));
 
                     sw.Write("\t\t<File Ver=\""
                         + string.Format("{0}.{1}.{2}.{3}", _lcObjFVI.FileMajorPart, _lcObjFVI.FileMinorPart, _lcObjFVI.FileBuildPart, _lcObjFVI.FilePrivatePart)

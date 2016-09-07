@@ -8,7 +8,6 @@ using V5_DataCollection._Class.Common;
 using V5_DataCollection._Class.PythonExt;
 using V5_Model;
 using V5_WinLibs.Core;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.Gather {
@@ -61,7 +60,6 @@ namespace V5_DataCollection._Class.Gather {
                         string[] arr = itemLabel.LabelHtmlRemove.Split(new string[] { "||||" }, StringSplitOptions.RemoveEmptyEntries);
                         foreach (string str in arr) {
                             if (str == "all") {
-                                //替换标准标签包含 图片 视频  文档 压缩文件 什么的
                                 CutContent = HtmlHelper.ReplaceNormalHtml(CutContent, Test_ViewUrl, false);
                                 CutContent = CollectionHelper.Instance.NoHtml(CutContent);
                                 break;
@@ -111,7 +109,7 @@ namespace V5_DataCollection._Class.Gather {
                     #region 使用插件
                     string SpiderLabelPlugin = itemLabel.SpiderLabelPlugin;
                     if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
-                        CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { Test_ViewUrl, CutContent });
+                        CutContent = PythonExtHelper.RunPython(PluginUtility.SpiderContentPluginPath + SpiderLabelPlugin, new object[] { Model.TestViewUrl, CutContent });
                     }
                     #endregion
 
@@ -133,7 +131,6 @@ namespace V5_DataCollection._Class.Gather {
 
         public string TestLabel(ModelTaskLabel itemLabel, string pageContent) {
             var sContent = string.Empty;
-            //var pageContent = CommonHelper.getPageContent(itemLabel.TestViewUrl, Model.PageEncode);
             sContent += "【" + itemLabel.LabelName + "】： ";
             string regContent = HtmlHelper.Instance.ParseCollectionStrings(itemLabel.LabelNameCutRegex);
             regContent = CommonHelper.ReplaceSystemRegexTag(regContent);
@@ -204,7 +201,7 @@ namespace V5_DataCollection._Class.Gather {
             #region 使用插件
             string SpiderLabelPlugin = itemLabel.SpiderLabelPlugin;
             if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
-                CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { Model.TestViewUrl, CutContent });
+                CutContent = PythonExtHelper.RunPython(PluginUtility.SpiderContentPluginPath + SpiderLabelPlugin, new object[] { Model.TestViewUrl, CutContent });
             }
             #endregion
 
@@ -251,13 +248,11 @@ namespace V5_DataCollection._Class.Gather {
                             }
                         }
                         CutContent = CutContent.Replace(img, downImgPath + newImg);
-                        //
                         QueueImgHelper.AddImg(Model.ID, downImgPath + newImg, remoteImg, Model.CollectionContentStepTime.Value);
                         ii++;
                     }
                 }
                 else {
-                    //替换内容中的链接为远程链接
                     foreach (var img in imgTag) {
                         var remoteImg = CollectionHelper.Instance.FormatUrl(Model.TestViewUrl, img);
                         CutContent = CutContent.Replace(img, remoteImg);
@@ -324,7 +319,7 @@ namespace V5_DataCollection._Class.Gather {
                 #region 加载插件
                 string SpiderLabelPlugin = m.SpiderLabelPlugin;
                 if (SpiderLabelPlugin != "不使用插件" && !string.IsNullOrEmpty(SpiderLabelPlugin)) {
-                    CutContent = PythonExtHelper.RunPython(SpiderLabelPlugin, new object[] { viewUrl, CutContent });
+                    CutContent = PythonExtHelper.RunPython(PluginUtility.SpiderContentPluginPath + SpiderLabelPlugin, new object[] { Model.TestViewUrl, CutContent });
                 }
                 #endregion
 

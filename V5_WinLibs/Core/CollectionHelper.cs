@@ -73,7 +73,6 @@ namespace V5_WinLibs.Core {
                 WebClient wc = new WebClient();
                 wc.Credentials = CredentialCache.DefaultCredentials;
                 wc.Encoding = EnCodeType;
-                //MyWebClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 wc.Headers.Add("Content-Type", "text/xml");
                 strResult = wc.DownloadString(url);
             }
@@ -91,7 +90,7 @@ namespace V5_WinLibs.Core {
             if (url.Length < 10)
                 return "$UrlIsFalse$";
             try {
-                WebClient wc = new WebClient(); //创建WebClient实例myWebClient
+                WebClient wc = new WebClient(); 
                 wc.Credentials = CredentialCache.DefaultCredentials;
                 byte[] myDataBuffer = wc.DownloadData(url);
                 string strWebData = Encoding.Default.GetString(myDataBuffer);
@@ -297,10 +296,8 @@ namespace V5_WinLibs.Core {
             TempStr = TempStr.Replace("\"", "");
             TempStr = TempStr.Replace("'", "");
             TempStr = TempStr.Replace(" ", "");
-            //SavePath = SavePath + "/UploadFiles/" + Easp.Fso.GetDateDir();
             if (!System.IO.Directory.Exists(SavePath))
                 System.IO.Directory.CreateDirectory(SavePath);
-            //去掉重复图片
             TempArr = TempStr.Split(new string[] { "$Array$" }, StringSplitOptions.None);
             TempStr = string.Empty;
             for (int i = 0; i < TempArr.Length; i++) {
@@ -318,11 +315,9 @@ namespace V5_WinLibs.Core {
                 if (isSave == "1") {
                     string fileType = RemoteFileUrl.Substring(RemoteFileUrl.LastIndexOf('.'));
                     string filename = string.Empty;
-                    //filename = Easp.Fso.GetDateFile();
                     filename += fileType;
                     if (SaveRemotePhoto(SavePath + "/" + filename, RemoteFileUrl)) {
 
-                        //RemoteFileUrl = CDir + "/UploadFiles/" + Easp.Fso.GetDateDir() + "/" + filename;
                     }
                 }
                 pageStr = imgReg.Replace(pageStr, RemoteFileUrl);
@@ -410,7 +405,7 @@ namespace V5_WinLibs.Core {
                 }
                 else {
                     if (PrimitiveUrl.IndexOf('.') > -1) {
-                        string lastUrl = ConsultUrl;//.Substring(ConsultUrl.LastIndexOf('.'));
+                        string lastUrl = ConsultUrl;
                         if (ConsultUrl.Substring(ConsultUrl.Length - 1) == "/") {
                             if (lastUrl == "com" || lastUrl == "cn" || lastUrl == "net" || lastUrl == "org")
                                 returnStr = "http:\\" + PrimitiveUrl + "/";
@@ -472,17 +467,7 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         public bool SaveRemotePhoto(string fileName, string RemoteFileUrl, string RefererUrl) {
             try {
-                //HttpWebRequest request = WebRequest.Create(RemoteFileUrl);
-                //request.Timeout = 20000;
-                //request.Headers.Add("Referer", RefererUrl);
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(RemoteFileUrl);
-                //request.Timeout = 20000;
-                //request.Referer = RefererUrl;
-                //Stream stream = request.GetResponse().GetResponseStream();
-                //Image getImage = Image.FromStream(stream);
-                //getImage.Save(fileName);
                 WebClient wc = new WebClient();
-                //wc.Headers.Add("Referer", RefererUrl);
                 wc.DownloadFile(RemoteFileUrl, fileName);
                 return true;
             }
@@ -564,35 +549,7 @@ namespace V5_WinLibs.Core {
                     matchs = tmpreg.Matches(conStr);
                 }
 
-                //if (tag == "div")
-                //{
-                //    while (matchs.Count > 0)
-                //    {
-                //        for (int i = 0; i < matchs.Count; i++)
-                //        {
-                //            conStr = conStr.Replace(matchs[i].Value, "");
-                //        }
-                //        matchs = tmpreg.Matches(conStr);
-                //    }
-                //}
-                //else
-                //{
-                //    for (int i = 0; i < matchs.Count; i++)
-                //    {
-                //        conStr = conStr.Replace(matchs[i].Value, "");
-                //    }
-                //}
 
-
-                //Regex tmpreg = new Regex(string.Format(pattern, Regex.Escape(tag)), RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                //MatchCollection matchs = tmpreg.Matches(conStr);
-                //for (int i = 0; i < matchs.Count; i++)
-                //{
-                //    conStr = conStr.Replace(matchs[i].Value, "");
-                //}
-                //Match match = Regex.Match(conStr, string.Format(pattern, Regex.Escape(tag)));
-                //if (match.Success)
-                //    conStr = conStr.Replace(match.Value, "");
             }
             return conStr;
         }
@@ -603,7 +560,6 @@ namespace V5_WinLibs.Core {
             string[] arr = removeCon.Split(new string[] { "@@@@" }, StringSplitOptions.RemoveEmptyEntries);
             string pattern = @"<([a-z]+)(?:(?!\bid\b)[^<>])*" + arr[0] + @"=([""']?){0}\2[^>]*>(?><\1[^>]*>(?<o>)|</\1>(?<-o>)|(?:(?!</?\1).)*)*(?(o)(?!))</\1>";
             Regex tmpreg = new Regex(string.Format(pattern, Regex.Escape(arr[1])), RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            //Match match = Regex.Match(conStr, string.Format(pattern, Regex.Escape(arr[1])), RegexOptions.Singleline | RegexOptions.IgnoreCase);
             MatchCollection matchs = tmpreg.Matches(conStr);
             while (matchs.Count > 0)
             {
@@ -658,22 +614,17 @@ namespace V5_WinLibs.Core {
         /// <param name="path">保存路径</param>
         /// <returns></returns>
         public string AutoUploadStringPhoto(string content, string path) {
-            //自动保存远程图片
             WebClient client = new WebClient();
-            //备用Reg:<img.*?src=([\"\'])(http:\/\/.+\.(jpg|gif|bmp|bnp))\1.*?>
             Regex reg = new Regex("IMG[^>]*?src\\s*=\\s*(?:\"(?<1>[^\"]*)\"|'(?<1>[^\']*)')", RegexOptions.IgnoreCase);
             MatchCollection m = reg.Matches(content);
             foreach (Match math in m) {
                 string imgUrl = math.Groups[1].Value;
-                //在原图片名称前加YYMMDD重名名并上传
                 Regex regName = new Regex(@"\w+.(?:jpg|gif|bmp|png)", RegexOptions.IgnoreCase);
                 string strNewImgName = DateTime.Now.ToShortDateString().Replace("-", "") + regName.Match(imgUrl).ToString();
                 try {
-                    //保存图片
                     client.DownloadFile(imgUrl, (path + strNewImgName));
                 }
                 catch {
-                    //return ex.Message;
                 }
                 finally {
                 }

@@ -275,14 +275,12 @@
     <Compile Include="Forms\Task\Tools\frmTaskDiyWebUrl.Designer.cs">
       <DependentUpon>frmTaskDiyWebUrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Task\ModelTaskIndexRegex.cs" />
     <Compile Include="Forms\Task\TaskData\frmTaskDataList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Task\TaskData\frmTaskDataList.Designer.cs">
       <DependentUpon>frmTaskDataList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Task\TaskIndexRegex.cs" />
     <Compile Include="Forms\Task\Tools\frmTaskPlanSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -375,7 +373,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Class\Common\CommonHelper.cs" />
     <Compile Include="_Class\DAL\DALDiyWebUrlHelper.cs" />
-    <Compile Include="_Class\DataAccessHelper.cs" />
     <Compile Include="_Class\Publish\PublishContentHelper.cs" />
     <Compile Include="_Class\PythonExt\PythonExtHelper.cs" />
     <Compile Include="_Class\DAL\DALTask.cs" />
@@ -392,6 +389,7 @@
     <Compile Include="_Class\Model\ModelTaskLabel.cs" />
     <Compile Include="_Class\Model\ModelWebPublishModule.cs" />
     <Compile Include="_Class\PluginUtility.cs" />
+    <Compile Include="_Class\Task\TaskStatus.cs" />
     <Compile Include="_Class\TestHelper.cs" />
     <Compile Include="_Class\WebPublishModule\cWebPublishModule.cs" />
     <Compile Include="_Class\WebPublishModule\ModelWebPublishModule.cs" />
@@ -542,16 +540,25 @@
     <Content Include="Plugins\PublishContent\readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Plugins\PublishContent\PublishContent.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plugins\SaveContent\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plugins\SaveContent\SaveContent.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Plugins\SpiderContent\readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Plugins\SpiderContent\SpiderContent.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plugins\SpiderUrl\readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Plugins\SpiderUrl\test.py">
+    <Content Include="Plugins\SpiderUrl\SpiderUrl.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="x64\SQLite.Interop.dll">

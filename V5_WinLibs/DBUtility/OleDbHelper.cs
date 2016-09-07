@@ -1,9 +1,3 @@
-//===============================================================================
-// This file is based on the Microsoft Data Access Application Block for .NET
-// For more information please go to 
-// http://msdn.microsoft.com/library/en-us/dnbda/html/daab-rm.asp
-//===============================================================================
-
 using System;
 using System.Configuration;
 using System.Data;
@@ -19,13 +13,11 @@ namespace V5_WinLibs.DBUtility {
     /// </summary>
     public abstract class OleDbHelper {
 
-        //Database connection strings
         public static readonly string ConnectionStringLocalTransaction = ConfigurationManager.AppSettings["SQLConnString1"];
         public static readonly string ConnectionStringInventoryDistributedTransaction = ConfigurationManager.AppSettings["SQLConnString2"];
         public static readonly string ConnectionStringOrderDistributedTransaction = ConfigurationManager.AppSettings["SQLConnString3"];
         public static readonly string ConnectionStringProfile = ConfigurationManager.AppSettings["SQLProfileConnString"];
 
-        // Hashtable to store cached parameters
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
         public static string ConnectionConn(string connStr) {
             return "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + connStr + ";";
@@ -135,9 +127,6 @@ namespace V5_WinLibs.DBUtility {
             OleDbCommand cmd = new OleDbCommand();
             OleDbConnection conn = new OleDbConnection(connectionString);
 
-            // we use a try/catch here because if the method throws an exception we want to 
-            // close the connection throw code, because no datareader will exist, hence the 
-            // commandBehaviour.CloseConnection will not work
             try {
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
                 OleDbDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);

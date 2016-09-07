@@ -94,14 +94,13 @@ namespace V5_DataPublish.Forms.Desk {
                 object Item;
                 MemoryStream vMemoryStream;
                 string webTitle = "新标题";
-                Item = e.Data.GetData(DataFormats.Html, true);//转换为指定格式
+                Item = e.Data.GetData(DataFormats.Html, true);
                 bool htmlflag = false;
                 if (Item == null) {
                     Item = e.Data.GetData(DataFormats.Text);
                     vMemoryStream = new MemoryStream(Encoding.UTF8.GetBytes(Item.ToString()));
                 }
                 else {
-                    //自动获取标题
                     htmlflag = true;
                     vMemoryStream = e.Data.GetData("Html Format") as MemoryStream;
                 }
@@ -120,7 +119,6 @@ namespace V5_DataPublish.Forms.Desk {
                         webTitle = StringHelper.Instance.Replace(webTitle, "<title>", "");
                         webTitle = StringHelper.Instance.Replace(webTitle, "</title>", "");
                         if (string.IsNullOrEmpty(webTitle)) {
-                            //自动获取标题
                             Regex regUrl = new Regex(@"SourceURL:([\s\S]*?)\r\n", RegexOptions.IgnoreCase);
                             string webUrl = regUrl.Match(s1).ToString();
                             webUrl = StringHelper.Instance.Replace(webUrl, "SourceURL:", "");
@@ -139,11 +137,6 @@ namespace V5_DataPublish.Forms.Desk {
                             var docNode = doc.DocumentNode;
 
                             webTitle = docNode.CssSelect("title").ToArray()[0].InnerText;
-                            //string c = webContent;
-                            //c = HtmlHelper.ParseTags(c);
-                            //c.Replace("\r\n", "");
-                            //c = c.Substring(0, 200);
-                            //webTitle = c;
                         }
                     }
                     catch {
@@ -153,11 +146,7 @@ namespace V5_DataPublish.Forms.Desk {
                 else {
                     webContent = s1;
                 }
-                //frmHandInsert myWebInsert = new frmHandInsert();
-                //myWebInsert.Title = webTitle;
-                //myWebInsert.Content = content;
-                ////myWebInsert.TopMost = true;
-                //myWebInsert.Show();
+
                 frmHandWebInsert ff = new frmHandWebInsert();
                 ff.Title = webTitle;
                 ff.Content = webContent;
@@ -190,7 +179,6 @@ namespace V5_DataPublish.Forms.Desk {
         /// 退出程序
         /// </summary>
         private void ToolStripMenuItem_Exit_Click(object sender, EventArgs e) {
-            //m_frmMain.SaveWinSize(m_frmMain);
             System.Environment.Exit(0);
         }
 

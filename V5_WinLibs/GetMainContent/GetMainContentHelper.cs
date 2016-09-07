@@ -103,7 +103,6 @@ namespace V5_WinLibs.GetMainContent {
             string str = string.Empty;
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
 
-            //设置http头
             request.AllowAutoRedirect = true;
             request.AllowWriteStreamBuffering = true;
             request.Referer = "";
@@ -114,7 +113,6 @@ namespace V5_WinLibs.GetMainContent {
             try {
                 response = (HttpWebResponse)request.GetResponse();
                 if (response.StatusCode == HttpStatusCode.OK) {
-                    //根据http应答的http头来判断编码
                     string characterSet = response.CharacterSet;
                     Encoding encode;
                     if (characterSet != "") {
@@ -127,7 +125,6 @@ namespace V5_WinLibs.GetMainContent {
                         encode = Encoding.Default;
                     }
 
-                    //声明一个内存流来保存http应答流
                     Stream receiveStream = response.GetResponseStream();
                     MemoryStream mStream = new MemoryStream();
 
@@ -141,7 +138,6 @@ namespace V5_WinLibs.GetMainContent {
 
                     mStream.Seek(0, SeekOrigin.Begin);
 
-                    //从内存流里读取字符串
                     StreamReader reader = new StreamReader(mStream, encode);
                     char[] buffer = new char[1024];
                     count = reader.Read(buffer, 0, 1024);
@@ -150,8 +146,6 @@ namespace V5_WinLibs.GetMainContent {
                         count = reader.Read(buffer, 0, 1024);
                     }
 
-                    //从解析出的字符串里判断charset，如果和http应答的编码不一直
-                    //那么以页面声明的为准，再次从内存流里重新读取文本
                     Regex reg =
                         new Regex(@"<meta[\s\S]+?charset=(.*)""[\s\S]+?>",
                                   RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -195,10 +189,8 @@ namespace V5_WinLibs.GetMainContent {
             string reg2 =
                 @"(\[([^=]*)(=[^\]]*)?\][\s\S]*?\[/\1\])|(?<lj>(?=[^\u4E00-\u9FA5\uFE30-\uFFA0,."");])<a\s+[^>]*>[^<]{2,}</a>(?=[^\u4E00-\u9FA5\uFE30-\uFFA0,."");]))|(?<Style><style[\s\S]+?/style>)|(?<select><select[\s\S]+?/select>)|(?<Script><script[\s\S]*?/script>)|(?<Explein><\!\-\-[\s\S]*?\-\->)|(?<li><li(\s+[^>]+)?>[\s\S]*?/li>)|(?<Html></?\s*[^> ]+(\s*[^=>]+?=['""]?[^""']+?['""]?)*?[^\[<]*>)|(?<Other>&[a-zA-Z]+;)|(?<Other2>\#[a-z0-9]{6})|(?<Space>\s+)|(\&\#\d+\;)";
 
-            //1、获取网页的所有div标签
             List<string> list = GetTags(input, "div");
 
-            //2、去除汉字少于200字的div
             List<string> needToRemove = new List<string>();
             foreach (string s in list) {
                 Regex r = new Regex("[\u4e00-\u9fa5]");
@@ -210,20 +202,16 @@ namespace V5_WinLibs.GetMainContent {
                 list.Remove(s);
             }
 
-            //3、把剩下的div按汉字比例多少倒序排列,
             list.Sort(CompareDinosByChineseLength);
             if (list.Count < 1) {
                 return "";
             }
             input = list[list.Count - 1];
 
-            //4、把p和br替换成特殊的占位符[p][br]
             input = new Regex(reg1, RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "[$1]");
 
-            //5、去掉HTML标签，保留汉字
             input = new Regex(reg2, RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "");
 
-            //6、把特殊占维护替换成回车和换行
             input = new Regex("\\[p]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "\r\n　　");
             input = new Regex("\\[br]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "\r\n");
             return input;

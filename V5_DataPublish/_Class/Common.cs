@@ -28,11 +28,6 @@ namespace V5_DataPublish._Class {
             using (XDatabase db = XDatabase.Open(baseDir)) {
                 db.Store(t);
                 return true;
-                //var query = db.Query<TSource>();
-                //if (query != null) {
-                //    db.Store(t);
-                //    return true;
-                //}
             }
             return false;
         }

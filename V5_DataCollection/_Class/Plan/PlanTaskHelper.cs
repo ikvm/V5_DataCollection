@@ -75,9 +75,7 @@ namespace V5_DataCollection._Class.Plan {
         /// 初始化一个调度器
         /// </summary>
         public static void InitScheduler() {
-            //创建一个调度器
             scheduler = StdSchedulerFactory.GetDefaultScheduler();
-            //开始调度器
             scheduler.Start();
         }
 
@@ -100,7 +98,7 @@ namespace V5_DataCollection._Class.Plan {
                     }
                     var dic3 = new Dictionary<string, ModelTask>();
                     dic3.Add(jobNum, job);
-                    //把运行任务添加到任务队列中
+
                     IJobDetail job3 = JobBuilder.Create<JobDetailHelper>()
                         .WithIdentity(jobNum)
                         .SetJobData(new JobDataMap(dic3))
@@ -109,7 +107,7 @@ namespace V5_DataCollection._Class.Plan {
 
                     #region 调度器
                     Quartz.Collection.ISet<ITrigger> ll = new Quartz.Collection.HashSet<ITrigger>();
-                    //添加到调度器中
+
                     var triggerNum = string.Format("trigger_{0}", dr["Id"].ToString());
                     var t3 = TriggerBuilder.Create();
                     t3.WithIdentity(triggerNum);
@@ -137,7 +135,7 @@ namespace V5_DataCollection._Class.Plan {
             }
             var dic3 = new Dictionary<string, ModelTask>();
             dic3.Add(jobNum, job);
-            //把运行任务添加到任务队列中
+
             IJobDetail job3 = JobBuilder.Create<JobDetailHelper>()
                 .WithIdentity(jobNum)
                 .SetJobData(new JobDataMap(dic3))

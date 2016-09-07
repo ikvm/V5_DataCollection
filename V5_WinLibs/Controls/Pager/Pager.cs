@@ -222,12 +222,12 @@ namespace V5_WinControls.Pager
         private int _PageIndex = 1;
         private int _PageCount = 0;
         private int _TotalCount = 0;
-        private string _TableName;//表名
-        private string _QueryFieldName = "*";//表字段FieldStr
-        private string _OrderStr = string.Empty; //排序_SortStr
-        private string _QueryCondition = string.Empty;//查询的条件 RowFilter
-        private string _PrimaryKey = string.Empty;//主键
-        private bool _isQueryTotalCounts = true;//是否查询总的记录条数
+        private string _TableName;
+        private string _QueryFieldName = "*";
+        private string _OrderStr = string.Empty; 
+        private string _QueryCondition = string.Empty; 
+        private string _PrimaryKey = string.Empty;
+        private bool _isQueryTotalCounts = true;
         /// <summary>
         /// 是否查询总的记录条数
         /// </summary>
@@ -355,25 +355,6 @@ namespace V5_WinControls.Pager
         }
         public DataSet QueryDataTable()
         {
-            //SqlParameter[] parameters = {
-            //        new SqlParameter("@Tables", SqlDbType.VarChar, 255),
-            //        new SqlParameter("@PrimaryKey" , SqlDbType.VarChar , 255),	
-            //        new SqlParameter("@Sort", SqlDbType.VarChar , 255 ),
-            //        new SqlParameter("@CurrentPage", SqlDbType.Int),
-            //        new SqlParameter("@PageSize", SqlDbType.Int),									
-            //        new SqlParameter("@Fields", SqlDbType.VarChar, 255),
-            //        new SqlParameter("@Filter", SqlDbType.VarChar,1000),
-            //        new SqlParameter("@Group" ,SqlDbType.VarChar , 1000 )
-            //        };
-            //parameters[0].Value = _TableName;
-            //parameters[1].Value = _PrimaryKey;
-            //parameters[2].Value = _OrderStr;
-            //parameters[3].Value = PageIndex;
-            //parameters[4].Value = PageSize;
-            //parameters[5].Value =_QueryFieldName;
-            //parameters[6].Value = _QueryCondition;
-            //parameters[7].Value = string.Empty;
-            //DataSet ds = DbHelperSQL.RunProcedure("SP_Pagination", parameters, "dd");
             DataSet ds = null;
             if (_isQueryTotalCounts)
             {

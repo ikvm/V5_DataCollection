@@ -62,20 +62,6 @@ namespace V5_DataCollection {
         /// 配置委托函数
         /// </summary>
         private IDockContent GetContentFromPersistString(string persistString) {
-            //if (dockPanel.DocumentStyle == DocumentStyle.DockingMdi) {
-            //    foreach (Form form in MdiChildren)
-            //        if (form.Text == persistString)
-            //            return form as IDockContent;
-
-            //    return null;
-            //}
-            //else {
-            //    foreach (IDockContent content in dockPanel.Documents)
-            //        if (content.DockHandler.TabText == persistString)
-            //            return content;
-
-            //    return null;
-            //}
             if (persistString == typeof(frmTreeBox).ToString()) {
                 return m_frmTreeBox;
             }
@@ -88,9 +74,6 @@ namespace V5_DataCollection {
             else {
                 return null;
             }
-            //Type t = Type.GetType(persistString);
-            //object o = System.Activator.CreateInstance(t);
-            //return (DockContent)o;
         }
         /// <summary>
         /// 主窗体加载
@@ -98,7 +81,6 @@ namespace V5_DataCollection {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void frmMain_Load(object sender, EventArgs e) {
-            //加载浮动设置
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Config/DockPanel.config");
             if (File.Exists(configFile)) {
                 try {
@@ -242,11 +224,6 @@ namespace V5_DataCollection {
 
         private void 重新启动ToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Restart();
-        }
-
-        private void sQLToolStripMenuItem_Click(object sender, EventArgs e) {
-            //frmSQL formSQL = new frmSQL();
-            //formSQL.ShowDialog(this);
         }
 
         private void v5ToolStripMenuItem_Click(object sender, EventArgs e) {

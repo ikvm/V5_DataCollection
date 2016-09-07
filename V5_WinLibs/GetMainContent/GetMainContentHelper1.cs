@@ -124,7 +124,7 @@ namespace V5_WinLibs.GetMainContent {
                 List<string> tags = GetTags(input, "div");
                 List<string> list2 = new List<string>();
                 foreach (string str3 in tags) {
-                    Regex regex = new Regex("[一-龥]");//
+                    Regex regex = new Regex("[一-龥]");
                     if (regex.Matches(str3).Count < 300) {
                         list2.Add(str3);
                     }
@@ -135,7 +135,7 @@ namespace V5_WinLibs.GetMainContent {
                 List<string> collection = GetTags(input, "td");
                 List<string> list4 = new List<string>();
                 foreach (string str5 in collection) {
-                    Regex regex2 = new Regex("[一-龥]");//
+                    Regex regex2 = new Regex("[一-龥]");
                     if (regex2.Matches(str5).Count < 300) {
                         list4.Add(str5);
                     }
@@ -154,7 +154,6 @@ namespace V5_WinLibs.GetMainContent {
                 input = new Regex(@"\[p]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "<br>　　");
                 input = new Regex(@"\[br]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "<br>");
                 input = new Regex(@"\[([http|www].+?\.jpg|png|gif|gpeg)\]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "<br/><img src=\"$1\"/><br/>");
-                //input = new Regex(@"\[([/|../|\d].+?\.jpg|png|gif|gpeg)\]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "<br/><img src=\"" + Domain + "$1\"/><br/>");
                 input = new Regex(@"\[[\s\S]*\]", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(input, "");
                 return input;
 

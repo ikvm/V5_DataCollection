@@ -183,9 +183,6 @@ namespace V5_DataCollection.Forms.Docking {
                     });
                 }
             }
-            //else if (SelectedNode == this.treeView_TaskList.Nodes[1]) {
-                
-            //}
         }
     }
 }

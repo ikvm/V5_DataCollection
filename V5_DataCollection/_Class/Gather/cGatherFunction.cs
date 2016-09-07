@@ -27,9 +27,7 @@ namespace V5_DataCollection._Class.Gather {
                     Urls.Add(Url);
                     return Urls;
                 }
-                //判断是否存在
                 while (Regex.IsMatch(Url, "{.*}")) {
-                    //提取参数内容
                     string strMatch = "(?<={)[^}]*(?=})";
                     Match s = Regex.Match(Url, strMatch, RegexOptions.IgnoreCase);
                     string UrlPara = s.Groups[0].Value;
@@ -42,7 +40,6 @@ namespace V5_DataCollection._Class.Gather {
                 }
             }
             catch (Exception) {
-                //log.Error("分割采集Url失败!", ex);
             }
             return Urls;
         }
@@ -99,8 +96,7 @@ namespace V5_DataCollection._Class.Gather {
                     case "Date":
                         string[] ary = { "yyyyMMdd", "yyyy-MM-dd" };
                         string lurl = "";
-                        if (Array.IndexOf(ary, dicPre.Substring(dicPre.IndexOf(":") + 1)) >= 0)
-                        {
+                        if (Array.IndexOf(ary, dicPre.Substring(dicPre.IndexOf(":") + 1)) >= 0) {
                             lurl = DateTime.Now.ToString(dicPre.Substring(dicPre.IndexOf(":") + 1));
                             list_Para.Add(lurl);
                         }
@@ -108,7 +104,6 @@ namespace V5_DataCollection._Class.Gather {
                 }
             }
             catch (Exception) {
-                //log.Error("分割采集Url失败!", ex);
             }
             return list_Para;
         }

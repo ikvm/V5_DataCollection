@@ -14,7 +14,6 @@ namespace V5_WinControls._Class.V5RichTextBox
         }
 
         //////////////////////////////////////////////////////////////////
-        // api磗 to get device context of the window frame
         //////////////////////////////////////////////////////////////////
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowDC(IntPtr hWnd);
@@ -30,7 +29,6 @@ namespace V5_WinControls._Class.V5RichTextBox
             int nRightRect, int nBottomRect);
 
         //////////////////////////////////////////////////////////////////
-        // api磗 for xp visual styles 
         //////////////////////////////////////////////////////////////////
         [StructLayout(LayoutKind.Sequential)]
         public struct DLLVersionInfo
@@ -120,7 +118,6 @@ namespace V5_WinControls._Class.V5RichTextBox
 
             public Point Location { get { return new Point(Left, Top); } }
 
-            // Handy method for converting to a System.Drawing.Rectangle
             public Rectangle ToRectangle()
             { return Rectangle.FromLTRB(Left, Top, Right, Bottom); }
 

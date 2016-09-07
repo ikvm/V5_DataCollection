@@ -26,18 +26,10 @@ public struct OLECMD {
     public uint cmdf;
 }
 
-// Interop definition for IOleCommandTarget.
 [ComImport,
 Guid("b722bccb-4e68-101b-a2bc-00aa00404770"),
 InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface IOleCommandTarget {
-    //IMPORTANT: The order of the methods is critical here. You
-    //perform early binding in most cases, so the order of the methods
-    //here MUST match the order of their vtable layout (which is determined
-    //by their layout in IDL). The interop calls key off the vtable ordering,
-    //not the symbolic names. Therefore, if you switched these method declarations
-    //and tried to call the Exec method on an IOleCommandTarget interface from your
-    //application, it would translate into a call to the QueryStatus method instead.
     void QueryStatus(ref Guid pguidCmdGroup, UInt32 cCmds,
         [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] OLECMD[] prgCmds, ref OLECMDTEXT CmdText);
     void Exec(ref Guid pguidCmdGroup, uint nCmdId, uint nCmdExecOpt, ref object pvaIn, ref object pvaOut);
@@ -64,10 +56,8 @@ namespace V5.DataWebBrowser {
         ///2-返回导出数据的cookie，
         ///3-返回导出数据的post数据，
         ///4-正常的浏览器
-        //
         private int m_GetFlag = 4;
 
-        //private SHDocVw.WebBrowser wb;
         private Guid cmdGuid = new Guid("ED016940-BD5B-11CF-BA4E-00C04FD70816");
         private enum MiscCommandTarget { Find = 1, ViewSource, Options }
 
@@ -115,8 +105,6 @@ namespace V5.DataWebBrowser {
                 case 3:
                     break;
                 case 4:
-                    //this.toolOkExit.Enabled = false;
-                    // this.toolOkExit.Visible = false;
                     this.toolCancleExit.Text = "关闭";
                     break;
                 default:
@@ -174,7 +162,6 @@ namespace V5.DataWebBrowser {
             SHDocVw.WebBrowser wb = CreateNewWebBrowser();
 
 
-            // Return if nowhere to go
             if (url == "")
                 return;
 
@@ -227,31 +214,18 @@ namespace V5.DataWebBrowser {
 
         private void wb_StatusTextChange(string Text) {
             this.toolStripStatusLabel1.Text = Text;
-            //Application.DoEvents();
-
         }
 
         private SHDocVw.WebBrowser CreateNewWebBrowser() {
-            //此版本不支持多Tab页，如果支持多Tab页需要对webbrowser重新进行封装，第一期暂不做了
-
             this.toolSource.Enabled = true;
 
             System.Windows.Forms.WebBrowser TmpWebBrowser = new System.Windows.Forms.WebBrowser();
 
             if (this.WebBrowserTab.TabPages.Count == 1 && this.WebBrowserTab.TabPages[0].Controls.Count == 0) {
-                //表示第一次启动打开网页，则在默认的分页中增加webbrowser，不需要增加tab页
-
                 this.WebBrowserTab.TabPages[0].Controls.Add(TmpWebBrowser);
 
             }
             else {
-                //TabPage newTabPage = new TabPage();
-                //((WebBrowserTag)TmpWebBrowser.Tag).TabIndex = this.WebBrowserTab.TabPages.Count + 1;
-                //newTabPage.Controls.Add(TmpWebBrowser);
-
-                //this.WebBrowserTab.TabPages.Add(newTabPage);
-                //this.WebBrowserTab.SelectedTab = newTabPage;
-
 
                 this.WebBrowserTab.TabPages[0].Controls.Clear();
 
@@ -362,8 +336,6 @@ namespace V5.DataWebBrowser {
         }
 
         private void toolOkExit_Click(object sender, EventArgs e) {
-            //OkExit();
-
             Console.Write(this.textBox1.Text);
             System.Environment.Exit(-1);
         }

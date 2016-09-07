@@ -11,21 +11,20 @@ using System.IO;
 using V5_DataCollection._Class.DAL;
 using V5_DataCollection._Class.Gather;
 using V5_DataCollection._Class.Common;
+using V5_DataCollection.Forms.Tools;
+using V5_DataCollection._Class;
+using V5_DataPlugins;
 
 namespace V5_DataCollection.Forms.Task {
     public partial class frmTaskSpiderLabel : BaseForm {
-        #region 委托
+
+        #region 委托 访问器
         public TaskEventHandler.AddViewLabel ViewLabel;
         private TaskEvents.AddViewLabelEvents ev = new TaskEvents.AddViewLabelEvents();
-        #endregion
-
-        #region 访问器
-        private object _EditItem = null;
-
-        public object EditItem {
-            get { return _EditItem; }
-            set { _EditItem = value; }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public object EditItem { get; set; } = null;
         /// <summary>
         /// 任务Id
         /// </summary>
@@ -73,7 +72,6 @@ namespace V5_DataCollection.Forms.Task {
 
             #region 内容排除
             foreach (ListViewItem item in this.listViewContentRemove.Items) {
-                //model.LabelRemove += item.SubItems[0].Text + "$$$$";
                 model.LabelRemove += item.SubItems[0].Text + "||" + item.SubItems[1].Text + "$$$$";
             }
             if (model.LabelRemove.Trim() != "") {
@@ -91,24 +89,20 @@ namespace V5_DataCollection.Forms.Task {
             #endregion
 
             model.IsLoop = this.chkLabelIsLoop.Checked ? 1 : 0;
-
             model.SpiderLabelPlugin = this.cmbSpiderPlugin.Text;
-            //下载文件
             model.IsDownResource = this.chkDownResource.Checked ? 1 : 0;
             model.DownResourceExts = this.txtDownResourceExt.Text;
+
             if (ID > 0) {
                 model.ID = ID;
                 dal.Update(model);
             }
             else if (ID == 0) {
-                //获取最大的排序ID
                 int OrderID = dal.GetMaxOrderID(TaskID) + 1;
                 model.OrderID = OrderID;
                 ID = dal.Add(model);
             }
-            if (ViewLabel != null) {
-                ViewLabel(this, ev);
-            }
+            ViewLabel?.Invoke(this, ev);
             this.Hide();
             this.Close();
         }
@@ -122,8 +116,6 @@ namespace V5_DataCollection.Forms.Task {
             this.txtTestUrl.Text = this.TestUrl;
 
             Bind_SpiderContentPlugin();
-
-
 
             if (EditItem != null) {
                 Bind_DataEdit();
@@ -166,8 +158,6 @@ namespace V5_DataCollection.Forms.Task {
             #region 内容排除
             if (!string.IsNullOrEmpty(model.LabelRemove)) {
                 foreach (string str in model.LabelRemove.Split(new string[] { "$$$$" }, StringSplitOptions.RemoveEmptyEntries)) {
-                    //ListViewItem lvi = new ListViewItem(str);
-                    //this.listViewContentRemove.Items.Add(lvi);
                     string[] aa = str.Split(new string[] { "||" }, StringSplitOptions.None);
                     ListViewItem lvi = new ListViewItem(aa[0]);
                     lvi.SubItems.Add(aa[1]);
@@ -186,13 +176,9 @@ namespace V5_DataCollection.Forms.Task {
                 }
             }
             #endregion
-
-
+            
             this.chkLabelIsLoop.Checked = model.IsLoop == 1 ? true : false;
-
             this.cmbSpiderPlugin.Text = model.SpiderLabelPlugin == string.Empty ? "不使用插件" : model.SpiderLabelPlugin;
-
-            //下载资源
             this.chkDownResource.Checked = model.IsDownResource == 1 ? true : false;
             this.txtDownResourceExt.Text = model.DownResourceExts;
         }
@@ -259,13 +245,6 @@ namespace V5_DataCollection.Forms.Task {
         /// <param name="RemoveStr"></param>
         /// <param name="DbType"></param>
         private void OutTaskLabelRemove(int itemIndex, string RemoveStr, string CheckLabel, string DbType) {
-            //if (DbType == "add") {
-            //    ListViewItem lvi = new ListViewItem(RemoveStr);
-            //    this.listViewContentRemove.Items.Add(lvi);
-            //}
-            //else if (DbType == "edit") {
-            //    this.listViewContentRemove.Items[itemIndex].SubItems[0].Text = RemoveStr;
-            //}
             if (DbType == "add") {
                 ListViewItem lvi = new ListViewItem(RemoveStr);
                 lvi.SubItems.Add(CheckLabel);
@@ -351,19 +330,18 @@ namespace V5_DataCollection.Forms.Task {
         }
         #endregion
 
-        private static string SpiderUrlPluginPath = AppDomain.CurrentDomain.BaseDirectory + "\\System\\SpiderLabel\\";
 
         private void Bind_SpiderContentPlugin() {
-            if (!Directory.Exists(SpiderUrlPluginPath)) {
-                Directory.CreateDirectory(SpiderUrlPluginPath);
+
+            PluginUtility.LoadAllDlls();
+            List<IPlugin> Plugins = PluginUtility.ListISpiderContentPlugin;
+            foreach (IPlugin item in Plugins) {
+                this.cmbSpiderPlugin.Items.Add(item.PluginName);
             }
-            var publishFiles = Directory.GetFiles(SpiderUrlPluginPath, "*.py");
-
+            var publishFiles = Directory.GetFiles(PluginUtility.SpiderContentPluginPath, "*.py");
             foreach (string str2 in publishFiles) {
-
-                FileInfo fi = new FileInfo(str2);
-                string fullName = "System\\SpiderLabel\\" + fi.Name;
-                this.cmbSpiderPlugin.Items.Add(fullName);
+                var fileInfo = new FileInfo(str2);
+                this.cmbSpiderPlugin.Items.Add(fileInfo.Name);
             }
 
             this.cmbSpiderPlugin.Items.Insert(0, "不使用插件");
@@ -423,8 +401,10 @@ namespace V5_DataCollection.Forms.Task {
             model.SpiderLabelPlugin = this.cmbSpiderPlugin.Text;
             model.IsDownResource = this.chkDownResource.Checked ? 1 : 0;
             model.DownResourceExts = this.txtDownResourceExt.Text;
+
             var task = new System.Threading.Tasks.TaskFactory().StartNew(() => {
-                
+
+                this.btnTest.Enabled = false;
 
                 var pageContent = CommonHelper.getPageContent(model.TestViewUrl, PageEncode);
                 var spider = new SpiderViewHelper();
@@ -440,7 +420,25 @@ namespace V5_DataCollection.Forms.Task {
                     this.txtLogView.AppendText(s);
                     this.txtLogView.AppendText("\r\n");
                 }
+
+                this.btnTest.Enabled = true;
+
             });
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+
+            var item = this.cmbSpiderPlugin.SelectedItem as string;
+
+            if (item != "不使用插件") {
+                var list = new List<string>();
+                list.Add(this.txtTestUrl.Text);
+                list.Add("我是测试内容!");
+                var form = new frmEditor();
+                form.PythonFilePath = PluginUtility.SpiderContentPluginPath + item;
+                form.PythonInputParam = list.ToArray();
+                form.Show(this);
+            }
         }
     }
 }

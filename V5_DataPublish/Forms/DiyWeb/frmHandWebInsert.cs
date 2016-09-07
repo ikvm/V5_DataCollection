@@ -38,8 +38,6 @@ namespace V5_DataPublish.Forms.DiyWeb {
         public frmHandWebInsert() {
             InitializeComponent();
 
-            //this.WindowState = FormWindowState.Maximized;
-
             this.fckHtmlEditorControl1.OnEditorInitialized += fckHtmlEditorControl1_OnEditorInitialized;
         }
 
@@ -124,10 +122,8 @@ namespace V5_DataPublish.Forms.DiyWeb {
                 this.cmbClassList.Focus();
                 return;
             }
-            //
             var th = new ThreadMultiHelper(1);
             th.WorkMethod += new ThreadMultiHelper.DelegateWork(delegate(int taskindex, int threadindex) {
-                //调用接口发送数据
                 string nowTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 string baseData = "cmd=sendcontent"
                     + "&username=" + model.UserName
@@ -151,7 +147,7 @@ namespace V5_DataPublish.Forms.DiyWeb {
                 });
                 var html = result.Html;
                 this.lblResult.Text = "操作结果成功!结果为:" + html;
-                //解析字符
+
                 try {
                     var json = JObject.Parse(html);
                     var code = json["code"].Value<string>();
@@ -210,7 +206,6 @@ namespace V5_DataPublish.Forms.DiyWeb {
                     URL = senUrl + "?" + sendData
                 });
                 var html = result.Html;
-                //解析字符串
                 try {
                     var json = JObject.Parse(html);
                     var code = json["code"].Value<string>();
@@ -231,7 +226,6 @@ namespace V5_DataPublish.Forms.DiyWeb {
                     }
                     OutMsg = new OutCmbMsg(OutClassListMsg);
                     OutMsg(listClassList);
-                    //OutClassListMsg(listClassList);
                 }
                 catch (Exception ex) {
                 }

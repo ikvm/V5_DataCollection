@@ -13,7 +13,6 @@ using V5_Model;
 using V5_Utility.Utility;
 using V5_WinLibs;
 using V5_WinLibs.Core;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.Utility;
 
 namespace V5_DataCollection._Class.Gather {
@@ -215,7 +214,6 @@ namespace V5_DataCollection._Class.Gather {
 
                             #endregion
                             spiderViewHelper.SpiderContent(mlink.Url, modelTask.ListTaskLabel);
-                            //暂停时间
                             Thread.Sleep(modelTask.CollectionContentStepTime.Value);
                         }
                         catch (Exception ex) {

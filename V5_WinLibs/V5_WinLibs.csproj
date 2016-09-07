@@ -141,7 +141,6 @@
     <Compile Include="Core\InputHelper.cs" />
     <Compile Include="Core\RequestHelper.cs" />
     <Compile Include="Core\ValidatorHelper.cs" />
-    <Compile Include="DBHelper\DBObject\IDataBase.cs" />
     <Compile Include="DBUtility\DbHelper.cs" />
     <Compile Include="DBUtility\DbHelperDapper.cs" />
     <Compile Include="Ftp\FTPClient.cs" />
@@ -174,7 +173,6 @@
     <Compile Include="Expand\ListItem.cs" />
     <Compile Include="GetMainContent\DistanceUtility.cs" />
     <Compile Include="GetMainContent\GetMainContentHelper.cs" />
-    <Compile Include="Security\RsaHelper.cs" />
     <Compile Include="Core\DESHelper1.cs" />
     <Compile Include="Core\ThreadMultiHelper1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

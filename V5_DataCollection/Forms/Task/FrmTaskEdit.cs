@@ -19,7 +19,6 @@ using V5_DataCollection.Forms.Task.Tools;
 using V5_DataCollection._Class.DAL;
 using V5_DataCollection._Class.Plan;
 using V5_DataCollection._Class;
-using V5_WinLibs.DBHelper;
 using V5_Utility.Utility;
 using V5_WinLibs.Core;
 using V5_WinLibs.Utility;
@@ -162,7 +161,6 @@ namespace V5_DataCollection.Forms.Task {
 
         void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
             string s = "[" + e.ClickedItem.Text + "]";
-            //BindLabel_W(this.txtSaveSQLContent4, s);
         }
 
         void contextMenuStrip_Label_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
@@ -187,7 +185,6 @@ namespace V5_DataCollection.Forms.Task {
         /// </summary>
         private void Bind_UrlEncode() {
             var data = cPageEncode.GetPageEnCode(); ;
-            //data.Insert(0, new ListItem("Auto", "自动编码"));
             this.ddlItemEncode.DataSource = data;
             this.ddlItemEncode.DisplayMember = "Text";
             this.ddlItemEncode.ValueMember = "Value";
@@ -217,7 +214,6 @@ namespace V5_DataCollection.Forms.Task {
         /// LinkUrl 委托显示
         /// </summary>
         private void AddUrl(object sender, TaskEvents.AddLinkUrlEvents e) {
-            //this.txtLinkUrlType.Text = e.LinkType.ToString();
             this.listBoxLinkUrl.Items.Clear();
             foreach (string item in e.LinkObject) {
                 this.listBoxLinkUrl.Items.Insert(0, item);
@@ -476,14 +472,6 @@ namespace V5_DataCollection.Forms.Task {
             if (PublishDialog.ShowDialog(this) == DialogResult.OK) {
                 this.txtSaveDirectory2.Text = PublishDialog.SelectedPath;
             }
-            //if (LocalFileDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    LocalFileDialog.l
-            //    LocalFileDialog.OpenFile();
-            //    string fileName = this.LocalFileDialog.FileName;
-            //    string fileDir = System.IO.Path.GetDirectoryName(fileName);
-            //    this.txtSaveLocalPath.Text = fileDir;
-            //}
         }
 
         private void btnSaveLocalHtmlTemplatePath_Click(object sender, EventArgs e) {
@@ -514,9 +502,7 @@ namespace V5_DataCollection.Forms.Task {
         #region 保存插入SQL语句
         private void btnSaveSqlPath_Click(object sender, EventArgs e) {
             if (PublishDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
-                //PublishDialog.OpenFile();
                 string fileName = PublishDialog.SelectedPath;
-                //this.txtSaveSQLDirectory4.Text = fileName;
             }
         }
         #endregion
@@ -561,36 +547,6 @@ namespace V5_DataCollection.Forms.Task {
             }
 
         }
-        /*
-        int dbType = 0;
-        private void btnSaveDataBaseConfig_Click(object sender, EventArgs e) {
-            if (this.rbtnAccess.Checked) {
-                frmDataBaseConfigAccess formDataBaseConfigAccess = new frmDataBaseConfigAccess();
-                formDataBaseConfigAccess.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigAccess.ShowDialog();
-            }
-            else if (this.rbtnMsSql.Checked) {
-                frmDataBaseConfigSqlServer formDataBaseConfigSqlServer = new frmDataBaseConfigSqlServer();
-                formDataBaseConfigSqlServer.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigSqlServer.ShowDialog();
-            }
-            else if (this.rbtnSqlite.Checked) {
-                frmDataBaseConfigSQLite formDataBaseConfigSQLite = new frmDataBaseConfigSQLite();
-                formDataBaseConfigSQLite.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigSQLite.ShowDialog();
-            }
-            else if (this.rbtnMySql.Checked) {
-                frmDataBaseConfigMySql formDataBaseConfigMySql = new frmDataBaseConfigMySql();
-                formDataBaseConfigMySql.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigMySql.ShowDialog();
-            }
-            else if (this.rbtnOracle.Checked) {
-                frmDataBaseConfigOracle formDataBaseConfigOracle = new frmDataBaseConfigOracle();
-                formDataBaseConfigOracle.OutDBConfig = OutDbConfigUrl;
-                formDataBaseConfigOracle.ShowDialog();
-            }
-        }
-        */
         private void OutDbConfigUrl(string strDbUrl) {
             this.txtSaveDataUrl3.Invoke(new MethodInvoker(delegate () {
                 this.txtSaveDataUrl3.Text = strDbUrl;
@@ -659,9 +615,7 @@ namespace V5_DataCollection.Forms.Task {
             this.txtSaveDataUrl3.Text = model.SaveDataUrl3;
             this.txtSaveDataSQL3.Text = model.SaveDataSQL3;
             this.chkPublish04.Checked = model.IsSaveSQL4.ToString() == "1" ? true : false;
-            //this.txtSaveSQLContent4.Text = model.SaveSQLContent4;
-            //this.txtSaveSQLDirectory4.Text = model.SaveSQLDirectory4;
-            //
+
             this.cmbSpiderUrlPlugins.Text = model.PluginSpiderUrl;
             this.cmbSpiderContentPlugins.Text = model.PluginSpiderContent;
             this.cmbSaveConentPlugins.Text = model.PluginSaveContent;
@@ -714,7 +668,6 @@ namespace V5_DataCollection.Forms.Task {
                 return;
             }
             int ID = int.Parse(this.txtID.Text);
-            //基本操作
             int TaskClassID = int.Parse(this.cmbSiteClassID.SelectedValue.ToString());
             string TaskName = this.txtTaskName.Text;
             string OldTaskName = this.txtOldTaskName.Text;
@@ -730,9 +683,7 @@ namespace V5_DataCollection.Forms.Task {
             string LinkUrlNoMustIncludeStr = this.txtLinkUrlNoMustIncludeStr.Text;
             string LinkUrlCutAreaStart = this.txtLinkUrlCutAreaStart.Text.Replace("'", "''");
             string LinkUrlCutAreaEnd = this.txtLinkUrlCutAreaEnd.Text.Replace("'", "''");
-            //标签操作
             string TestViewUrl = this.txtTextViewUrl.Text;
-            //发布
             int IsWebOnlinePublish1 = this.chkPublish01.Checked ? 1 : 0;
             int IsSaveLocal2 = this.chkPublish02.Checked ? 1 : 0;
             string SaveFileFormat2 = this.ddlSaveFileFormat2.Text;
@@ -904,17 +855,6 @@ namespace V5_DataCollection.Forms.Task {
                 if (createSQL.Trim() != "") {
                     createSQL = createSQL.Remove(createSQL.Length - 1);
                 }
-                /* 修改表
-                 BEGIN TRANSACTION;   
-                    CREATE TEMPORARY TABLE temp_table(a);
-                    INSERT INTO temp_table SELECT a FROM 表;   
-                    DROP TABLE 表;
-                    CREATE TABLE 表(a);   
-                    INSERT INTO 表 SELECT a FROM temp_table;   
-                    DROP TABLE temp_table;
-                    COMMIT;
-                 */
-                //select * from sqlite_master  where tbl_name='Content'
                 string ss = string.Empty;
                 if (!string.IsNullOrEmpty(createSQL)) {
                     ss = ",";
@@ -931,7 +871,6 @@ namespace V5_DataCollection.Forms.Task {
                 DbHelper.Execute(LocalSQLiteName, SQL);
             }
             else {
-                //添加Sqlite列名称
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
                 foreach (DataRow dr in dt.Rows) {
                     try {
@@ -941,7 +880,6 @@ namespace V5_DataCollection.Forms.Task {
                         continue;
                     }
                 }
-
             }
         }
         #endregion
@@ -1047,7 +985,6 @@ namespace V5_DataCollection.Forms.Task {
 
         private void btnDataBaseLabelTag4_Click(object sender, EventArgs e) {
             Bind_contextMenuStrip_Label(contextMenuStrip1);
-            //this.contextMenuStrip1.Show(btnDataBaseLabelTag4, 0, 21);
         }
 
         private void listViewTaskLabel_DoubleClick(object sender, EventArgs e) {

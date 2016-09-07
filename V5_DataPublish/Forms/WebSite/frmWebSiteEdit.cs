@@ -45,7 +45,6 @@ namespace V5_DataPublish.Forms.WebSite {
             if (!string.IsNullOrEmpty(this.OldValue)) {
                 Bind_DataEdit(this.OldValue);
             }
-            //this.Bind_FileSourceClassList();
             this.Bind_ClassList();
         }
         /// <summary>
@@ -114,7 +113,6 @@ namespace V5_DataPublish.Forms.WebSite {
         private void Bind_DataEdit(string UUId) {
             WebSiteHelper model = Common.GetList<WebSiteHelper>(p => p.Uuid == UUId).SingleOrDefault();
             this.txtID.Text = model.Uuid.ToString();
-            //this.txtClassID.Text = model.ClassID.ToString();
             this.cmbClassID.SelectedValue = model.ClassID.ToString();
             this.txtWebSiteName.Text = model.WebSiteName;
             this.txtWebSiteUrl.Text = model.WebSiteUrl;
@@ -122,9 +120,6 @@ namespace V5_DataPublish.Forms.WebSite {
             this.txtLoginUserName.Text = model.LoginUserName;
             this.txtLoginUserPwd.Text = model.LoginUserPwd;
             this.cmbPublishName.Text = model.PublishName;
-            //this.txtCookiesValue.Text = model.CookiesValue;
-            //this.txtIsCookie.Text = model.IsCookie.ToString();
-            //this.txtStatus.Text = model.Status.ToString();
             this.chkIsLinkPic.Checked = model.IsLinkPic.ToString() == "1" ? true : false;
             this.chkIsLinkWord.Checked = model.IsLinkWord.ToString() == "1" ? true : false;
             this.chkIsLinkPdf.Checked = model.IsLinkPdf.ToString() == "1" ? true : false;
@@ -132,8 +127,6 @@ namespace V5_DataPublish.Forms.WebSite {
             this.chkIsTitleFalse.Checked = model.IsTitleFalse.ToString() == "1" ? true : false;
             this.chkIsContentFalse.Checked = model.IsContentFalse.ToString() == "1" ? true : false;
             this.chkIsAddTask.Checked = model.IsAddTask.ToString() == "1" ? true : false;
-            //
-
             int DataSourceType = model.DataSourceType.Value;
             if (DataSourceType == 1) {
                 this.rbtnDataSourceType1.Checked = true;
@@ -222,7 +215,6 @@ namespace V5_DataPublish.Forms.WebSite {
             model.PublishName = this.cmbPublishName.Text;
             model.LoginUserName = this.txtLoginUserName.Text;
             model.LoginUserPwd = this.txtLoginUserPwd.Text;
-            //
             model.IsLinkPic = this.chkIsLinkPic.Checked ? 1 : 0;
             model.IsLinkWord = this.chkIsLinkWord.Checked ? 1 : 0;
             model.IsLinkPdf = this.chkIsLinkPdf.Checked ? 1 : 0;
@@ -268,9 +260,6 @@ namespace V5_DataPublish.Forms.WebSite {
                     OO(this, "修改成功!", Common.Option.edit);
                 }
             }
-            //增加数据备份
-            //PublishTask task = new PublishTask();
-            //task.CreateDataFile(UUID.ToString());
             this.Close();
             this.Dispose();
         }
@@ -313,7 +302,6 @@ namespace V5_DataPublish.Forms.WebSite {
                 MessageBox.Show(Msg.ToString());
             }
             else if (pt == PublishType.GetClassListOver) {
-                //加入分类
                 List<ModelClassItem> ListModelClassItem = (List<ModelClassItem>)oResult;
                 int WebSiteID = StringHelper.Instance.SetNumber(this.txtID.Text);
                 DALWebSiteClassList dal = new DALWebSiteClassList();
@@ -334,24 +322,6 @@ namespace V5_DataPublish.Forms.WebSite {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCreateClass_Click(object sender, EventArgs e) {
-            //IPublish p = Utility.GetIPublishByName(this.cmbPublishName.Text);
-            //if (p != null) {
-            //    p.Login(this.txtWebSiteUrl.Text, this.txtWebSiteLoginUrl.Text,
-            //                        this.txtLoginUserName.Text, this.txtLoginUserPwd.Text,
-            //                        0, string.Empty)
-            //    if (.ToLower() == "true") {
-            //        string ss = p.CreateClassList(this.txtClassName.Text);
-            //        if (ss.ToLower() == "true") {
-            //            MessageBox.Show("创建分类成功!");
-            //        }
-            //        else {
-            //            MessageBox.Show("创建分类失败!");
-            //        }
-            //    }
-            //    else {
-            //        MessageBox.Show("后台登陆失败!");
-            //    }
-            //}
         }
         /// <summary>
         /// 加载分类

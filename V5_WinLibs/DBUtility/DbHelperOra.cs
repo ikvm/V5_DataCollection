@@ -15,7 +15,6 @@ namespace V5_WinLibs.DBUtility
 	/// </summary>
 	public abstract class DbHelperOra
 	{
-        //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
         public static string connectionString = PubConstant.ConnectionString;     
 		public DbHelperOra()
 		{			
@@ -352,7 +351,6 @@ namespace V5_WinLibs.DBUtility
 					OracleCommand cmd = new OracleCommand();
 					try 
 					{
-						//循环
 						foreach (DictionaryEntry myDE in SQLStringList)
 						{	
 							string 	cmdText=myDE.Key.ToString();
@@ -516,7 +514,7 @@ namespace V5_WinLibs.DBUtility
 			cmd.CommandText = cmdText;
 			if (trans != null)
 				cmd.Transaction = trans;
-			cmd.CommandType = CommandType.Text;//cmdType;
+			cmd.CommandType = CommandType.Text;
 			if (cmdParms != null) 
 			{
 				foreach (OracleParameter parm in cmdParms)
@@ -602,7 +600,6 @@ namespace V5_WinLibs.DBUtility
 				OracleCommand command = BuildIntCommand(connection,storedProcName, parameters );
 				rowsAffected = command.ExecuteNonQuery();
 				result = (int)command.Parameters["ReturnValue"].Value;
-				//Connection.Close();
 				return result;
 			}
 		}

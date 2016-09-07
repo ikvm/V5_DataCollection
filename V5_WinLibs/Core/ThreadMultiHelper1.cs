@@ -29,9 +29,9 @@ namespace V5_WinLibs.Core {
 
         private Thread[] _threads;
         private bool[] _threadState;
-        private int _taskCount = 0;//任务个数
-        private int _taskindex = 0;//任务索引
-        private int _threadCount = 5;//默认线程数
+        private int _taskCount = 0;
+        private int _taskindex = 0;
+        private int _threadCount = 5;
 
         #endregion
         /// <summary>
@@ -103,7 +103,6 @@ namespace V5_WinLibs.Core {
         /// </summary>
         /// <param name="arg"></param>
         private void Work(object arg) {
-            //提取任务并执行
             int threadindex = int.Parse(arg.ToString());
             int taskindex = GetTask();
 
@@ -111,23 +110,18 @@ namespace V5_WinLibs.Core {
                 WorkMethod(taskindex, threadindex + 1);
                 taskindex = GetTask();
             }
-            //所有的任务执行完毕
             _threadState[threadindex] = true;
 
-            //处理并发 如果有两个线程同时完成只允许一个触发complete事件
             lock (this) {
                 for (int i = 0; i < _threadState.Length; i++) {
                     if (_threadState[i] == false) {
                         return;
                     }
                 }
-                //如果全部完成
                 if (CompleteEvent != null) {
                     CompleteEvent();
                 }
 
-                //触发complete事件后 重置线程状态
-                //为了下个同时完成的线程不能通过上面的判断
                 for (int j = 0; j < _threadState.Length; j++) {
                     _threadState[j] = false;
                 }

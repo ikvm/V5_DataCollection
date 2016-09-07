@@ -10,9 +10,9 @@ using System.Security.Cryptography;
 namespace V5_WinLibs.Core {
 
     public class ObjFileStoreHelper {
-        const string keyStr = "v5soft123";  //加密的KEY字符，用MD5码生成128位KEY密钥
+        const string keyStr = "v5soft123";  
 
-        const string ivStr = "v5soft123";  //加密的IV字符，用MD5码生成128位IV密钥
+        const string ivStr = "v5soft123";  
         public ObjFileStoreHelper() { }
 
         /// <summary>
@@ -71,15 +71,12 @@ namespace V5_WinLibs.Core {
 
 
 
-        //获取或设置对称算法的机密密钥。机密密钥既用于加密，也用于解密。为了保证对称算法的安全，必须只有发送方和接收方知道该机密密钥。
-        //有效密钥大小是由特定对称算法实现指定的，密钥大小在 LegalKeySizes 中列出。
         private static byte[] DESKey = new byte[] { 11, 23, 93, 102, 72, 41, 18, 12 };
-        //获取或设置对称算法的初始化向量
         private static byte[] DESIV = new byte[] { 75, 158, 46, 97, 78, 57, 17, 36 };
 
         public static void Serialize(object data, string filePath) {
             try {
-                DESCryptoServiceProvider objDes = new DESCryptoServiceProvider();//des加密
+                DESCryptoServiceProvider objDes = new DESCryptoServiceProvider();
                 FileStream fout = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
                 CryptoStream objcry = new CryptoStream(fout, objDes.CreateEncryptor(DESKey, DESIV), CryptoStreamMode.Write);
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -88,7 +85,6 @@ namespace V5_WinLibs.Core {
                 fout.Close();
             }
             catch (Exception ex) {
-                //MessageBox.Show(ex.Message, "序列化", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -104,7 +100,6 @@ namespace V5_WinLibs.Core {
                 fs.Close();
             }
             catch (Exception ex) {
-                //MessageBox.Show(ex.Message, "反序列化", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return data;
         }

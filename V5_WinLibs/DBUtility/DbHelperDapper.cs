@@ -51,11 +51,10 @@ namespace V5_WinLibs.DBUtility {
         /// MySql:Database=xxx;Data Source=.;User Id=root;Password=root;charset=gbk;
         /// SQLite:Data Source=D:\\a.db
         /// </summary>
-        public static string connectionString = string.Empty;// PubConstant.ConnectionString;
+        public static string connectionString = string.Empty; 
         public static DataBaseType dbType = DataBaseType.SqlServer;
 
         private static IDbDataAdapter myAda;
-        //打开数据库
         public static IDbConnection GetDbConnection(DataBaseType m_dbType, string dbLink) {
             IDbConnection conn = null;
             dbType = m_dbType;
@@ -181,20 +180,6 @@ namespace V5_WinLibs.DBUtility {
             return dd;
         }
 
-        //public static DataSet RunProcedure(string storedProcName, DynamicParameters param, string tableName) {
-        //    using (var conn = GetDbConnection(dbType, connectionString)) {
-        //        var dataSet = new DataSet();
-        //        IDbCommand commond = conn.CreateCommand();
-        //        commond.CommandType = CommandType.StoredProcedure;
-        //        foreach (var parameter in param.ParameterNames) {
-        //            commond.Parameters.Add(param.AddDynamicParams());
-        //        }
-        //        myAda.SelectCommand = commond;
-        //        myAda.Fill(dataSet);
-        //        conn.Close();
-        //        return dataSet;
-        //    }
-        //}
         #endregion
 
 

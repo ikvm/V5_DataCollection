@@ -6,11 +6,9 @@ using System.Management;
 
 namespace V5_WinLibs.Core {
     public class HardwareInfoHelper {
-        //取机器名 
         public string GetHostName() {
             return System.Net.Dns.GetHostName();
         }
-        //取CPU编号 
         public String GetCpuID() {
             try {
                 ManagementClass mc = new ManagementClass("Win32_Processor");
@@ -26,7 +24,6 @@ namespace V5_WinLibs.Core {
                 return "";
             }
         }
-        //取第一块硬盘编号 
         public String GetHardDiskID() {
             try {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMedia");

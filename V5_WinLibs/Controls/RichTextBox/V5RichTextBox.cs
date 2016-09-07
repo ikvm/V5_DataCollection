@@ -73,15 +73,13 @@ namespace V5_WinControls
 
             this.ContextMenu = cm1;
 
-            //
-
             LoadColor();
         }
 
         #region
         void miCopy_Click(object sender, EventArgs e)
         {
-            this.ContextMenu.SourceControl.Select();//先获取焦点，防止点两下才运行
+            this.ContextMenu.SourceControl.Select();
             V5RichTextBox rtb = (V5RichTextBox)this.ContextMenu.SourceControl;
             rtb.Copy();
         }
@@ -121,26 +119,15 @@ namespace V5_WinControls
             ShangSe(@"(【(.*?)】：|[(*)])", this, Color.Green);
             ShangSe(@"(【(.*?)】)", this, Color.Green);
             ShangSe(@"(\[(.*?)\])", this, Color.Green);
-            //ShangSe(@"(insert|into|values|where)", this, Color.Blue);
         }
         protected override void OnTextChanged(EventArgs e)
         {
             LoadColor();
             base.OnTextChanged(e);
-            //int index = this.SelectionStart;　　//记录修改的位置
-            //this.SelectAll();
-            //this.SelectionColor = Color.Black;
-            //string[] keystr ={ "select ", "from ", "where ", " and ", " or ", " order ", " by ", " desc ", " when ", " case ",
-            //" then ", " end ", " on ", " in ", " is ", " else ", " left ", " join ", " not ", " null ","(*)" };
-            //for (int i = 0; i < keystr.Length; i++)
-            //    this.getbunch(keystr[i], this.Text);
-            //this.Select(index, 0);　　 //返回修改的位置
-            //this.SelectionColor = Color.Black;
         }
 
         private void ShangSe(string tokens, RichTextBox rt,Color cl)
         {
-            //string tokens = "(【(.*?)】：|[(*)])";// "(auto|double|int|struct|break|else|long|switch|case|enum|register|typedef|char|extern|return|union|const|float|short|unsigned|continue|for|signed|void|default|goto|sizeof|volatile|do|if|static|while)";
             Regex rex = new Regex(tokens);
             MatchCollection mc = rex.Matches(this.Text);
             int StartCursorPosition = rt.SelectionStart;
@@ -157,7 +144,7 @@ namespace V5_WinControls
             rt.Select(StartCursorPosition, 0);
         }
 
-        public int getbunch(string p, string s) //给关键字上色
+        public int getbunch(string p, string s) 
         {
             int cnt = 0; int M = p.Length; int N = s.Length;
             char[] ss = s.ToCharArray(), pp = p.ToCharArray();
@@ -187,13 +174,13 @@ namespace V5_WinControls
         {
             switch (m.Msg)
             {
-                case NativeMethods.WM_NCPAINT: // the border painting is done here.
+                case NativeMethods.WM_NCPAINT:       
                     WmNcpaint(ref m);
                     break;
-                case NativeMethods.WM_NCCALCSIZE: // the size of the client area is calcuated here.
+                case NativeMethods.WM_NCCALCSIZE:          
                     WmNccalcsize(ref m);
                     break;
-                case NativeMethods.WM_THEMECHANGED: // Updates styles when the theme is changing.
+                case NativeMethods.WM_THEMECHANGED:        
                     UpdateStyles();
                     break;
                 default:
@@ -207,53 +194,42 @@ namespace V5_WinControls
         /// </summary>
         void WmNccalcsize(ref Message m)
         {
-            // let the richtextbox control draw the scrollbar if necessary.
             base.WndProc(ref m);
 
-            // we visual styles are not enabled and BorderStyle is not Fixed3D then we have nothing more to do.
             if (!this.RenderWithVisualStyles())
                 return;
 
-            // contains detailed information about WM_NCCALCSIZE message
             NativeMethods.NCCALCSIZE_PARAMS par = new NativeMethods.NCCALCSIZE_PARAMS();
 
-            // contains the window frame RECT
             NativeMethods.RECT windowRect;
 
-            if (m.WParam == IntPtr.Zero) // LParam points to a RECT struct
+            if (m.WParam == IntPtr.Zero)       
             {
                 windowRect = (NativeMethods.RECT)Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.RECT));
             }
-            else // LParam points to a NCCALCSIZE_PARAMS struct
+            else       
             {
                 par = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
                 windowRect = par.rgrc0;
             }
 
-            // contains the client area of the control
             NativeMethods.RECT contentRect;
 
-            // get the DC
             IntPtr hDC = NativeMethods.GetWindowDC(this.Handle);
 
-            // open theme data
             IntPtr hTheme = NativeMethods.OpenThemeData(this.Handle, "EDIT");
 
-            // find out how much space the borders needs
             if (NativeMethods.GetThemeBackgroundContentRect(hTheme, hDC, NativeMethods.EP_EDITTEXT, NativeMethods.ETS_NORMAL
                 , ref windowRect
                 , out contentRect) == NativeMethods.S_OK)
             {
-                // shrink the client area the make more space for containing text.
                 contentRect.Inflate(-1, -1);
 
-                // remember the space of the borders
                 this.borderRect = new NativeMethods.RECT(contentRect.Left - windowRect.Left
                     , contentRect.Top - windowRect.Top
                     , windowRect.Right - contentRect.Right
                     , windowRect.Bottom - contentRect.Bottom);
 
-                // update LParam of the message with the new client area
                 if (m.WParam == IntPtr.Zero)
                 {
                     Marshal.StructureToPtr(contentRect, m.LParam, false);
@@ -264,14 +240,11 @@ namespace V5_WinControls
                     Marshal.StructureToPtr(par, m.LParam, false);
                 }
 
-                // force the control to redraw it磗 client area
                 m.Result = new IntPtr(NativeMethods.WVR_REDRAW);
             }
 
-            // release theme data handle
             NativeMethods.CloseThemeData(hTheme);
 
-            // release DC
             NativeMethods.ReleaseDC(this.Handle, hDC);
         }
 
@@ -288,13 +261,10 @@ namespace V5_WinControls
             }
 
             /////////////////////////////////////////////////////////////////////////////
-            // Get the DC of the window frame and paint the border using uxTheme API磗
             /////////////////////////////////////////////////////////////////////////////
 
-            // set the part id to TextBox
             int partId = NativeMethods.EP_EDITTEXT;
 
-            // set the state id of the current TextBox
             int stateId;
             if (this.Enabled)
                 if (this.ReadOnly)
@@ -304,16 +274,13 @@ namespace V5_WinControls
             else
                 stateId = NativeMethods.ETS_DISABLED;
 
-            // define the windows frame rectangle of the TextBox
             NativeMethods.RECT windowRect;
             NativeMethods.GetWindowRect(this.Handle, out windowRect);
             windowRect.Right -= windowRect.Left; windowRect.Bottom -= windowRect.Top;
             windowRect.Top = windowRect.Left = 0;
 
-            // get the device context of the window frame
             IntPtr hDC = NativeMethods.GetWindowDC(this.Handle);
 
-            // define a rectangle inside the borders and exclude it from the DC
             NativeMethods.RECT clientRect = windowRect;
             clientRect.Left += this.borderRect.Left;
             clientRect.Top += this.borderRect.Top;
@@ -321,26 +288,20 @@ namespace V5_WinControls
             clientRect.Bottom -= this.borderRect.Bottom;
             NativeMethods.ExcludeClipRect(hDC, clientRect.Left, clientRect.Top, clientRect.Right, clientRect.Bottom);
 
-            // open theme data
             IntPtr hTheme = NativeMethods.OpenThemeData(this.Handle, "EDIT");
 
-            // make sure the background is updated when transparent background is used.
             if (NativeMethods.IsThemeBackgroundPartiallyTransparent(hTheme
                 , NativeMethods.EP_EDITTEXT, NativeMethods.ETS_NORMAL) != 0)
             {
                 NativeMethods.DrawThemeParentBackground(this.Handle, hDC, ref windowRect);
             }
 
-            // draw background
             NativeMethods.DrawThemeBackground(hTheme, hDC, partId, stateId, ref windowRect, IntPtr.Zero);
 
-            // close theme data
             NativeMethods.CloseThemeData(hTheme);
 
-            // release dc
             NativeMethods.ReleaseDC(this.Handle, hDC);
 
-            // we have processed the message so set the result to zero
             m.Result = IntPtr.Zero;
         }
 
@@ -349,13 +310,11 @@ namespace V5_WinControls
         /// </summary>
         bool VisualStylesEnabled()
         {
-            // Check if RenderWithVisualStyles property is available in the Application class (New feature in NET 2.0)
             Type t = typeof(Application);
             System.Reflection.PropertyInfo pi = t.GetProperty("RenderWithVisualStyles");
 
             if (pi == null)
             {
-                // NET 1.1
                 OperatingSystem os = System.Environment.OSVersion;
                 if (os.Platform == PlatformID.Win32NT && (((os.Version.Major == 5) && (os.Version.Minor >= 1)) || (os.Version.Major > 5)))
                 {
@@ -371,7 +330,6 @@ namespace V5_WinControls
             }
             else
             {
-                // NET 2.0
                 bool result = (bool)pi.GetValue(null, null);
                 return result;
             }
@@ -395,7 +353,6 @@ namespace V5_WinControls
             {
                 CreateParams p = base.CreateParams;
 
-                // remove the Fixed3D border style
                 if (this.RenderWithVisualStyles() && (p.ExStyle & NativeMethods.WS_EX_CLIENTEDGE) == NativeMethods.WS_EX_CLIENTEDGE)
                     p.ExStyle ^= NativeMethods.WS_EX_CLIENTEDGE;
 

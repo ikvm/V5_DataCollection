@@ -5,7 +5,6 @@ using System.Text;
 using V5_Model;
 using System.Data;
 using V5_DataCollection._Class.Common;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
@@ -112,7 +111,7 @@ namespace V5_DataCollection._Class.DAL {
             else {
                 return false;
             }
-        }       /// <summary>
+        }        
                 /// 删除一条数据
                 /// </summary>
         public bool DeleteList(string IDlist) {
@@ -152,9 +151,6 @@ namespace V5_DataCollection._Class.DAL {
             }
             return DbHelper.Query(CommonHelper.SQLiteConnectionString, strSql.ToString());
         }
-
-        /*
-        */
 
         #endregion  Method
 

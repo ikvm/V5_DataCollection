@@ -109,8 +109,6 @@ namespace V5_WinLibs.Core {
                 Request.Proxy = wp;
 
 
-            //
-
 
             Stream MyRequestStrearm = Request.GetRequestStream();
             StreamWriter MyStreamWriter = new StreamWriter(MyRequestStrearm, Encoding.ASCII);
@@ -163,7 +161,7 @@ namespace V5_WinLibs.Core {
             System.IO.StreamReader sr = null;
             Response = (HttpWebResponse)Request.GetResponse();
             if (CookieHeader.Trim() == "") {
-                CookieHeader = Request.CookieContainer.GetCookieHeader(new Uri(strURL));//Cookies
+                CookieHeader = Request.CookieContainer.GetCookieHeader(new Uri(strURL));
             }
             myCookies = Response.Cookies;
             sr = new System.IO.StreamReader(Response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
@@ -186,8 +184,7 @@ namespace V5_WinLibs.Core {
             string strArgs,
             string strReferer,
             string strPageCode) {
-            string boundary = DateTime.Now.Ticks.ToString("x");//"WebKitFormBoundaryAiFqmgvG4u1Bf17w";// 
-            //请求 
+            string boundary = DateTime.Now.Ticks.ToString("x"); 
             WebRequest request = WebRequest.Create(strURL);
             request.Method = "POST";
             request.ContentType = "multipart/form-data; boundary=---------------------------" + boundary;
@@ -197,24 +194,15 @@ namespace V5_WinLibs.Core {
 
             if (string.IsNullOrEmpty(strPageCode))
                 strPageCode = Encoding.Default.EncodingName;
-            //组织表单数据 ;
             strArgs = strArgs.Replace("${boundary}", boundary);
             byte[] postFormData = Encoding.GetEncoding(strPageCode).GetBytes(strArgs);
-            //post总长度 
             long length = postFormData.Length;
             request.ContentLength = length;
 
             Stream requestStream = request.GetRequestStream();
-            //发送表单参数 
             requestStream.Write(postFormData, 0, postFormData.Length);
             requestStream.Close();
-            //发送表单文件
             ////文件内容 
-            //byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)fileStream.Length))]; 
-            //int bytesRead = 0; 
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) 
-            //requestStream.Write(buffer, 0, bytesRead); 
-            //响应 
             WebResponse response = request.GetResponse();
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
             string html = sr.ReadToEnd().Trim();
@@ -236,7 +224,6 @@ namespace V5_WinLibs.Core {
           string strPageCode,
             string boundaryType,
             string boundary) {
-            //请求 
             WebRequest request = WebRequest.Create(strURL);
             request.Method = "POST";
             request.ContentType = "multipart/form-data; boundary=" + boundaryType;
@@ -246,24 +233,15 @@ namespace V5_WinLibs.Core {
 
             if (string.IsNullOrEmpty(strPageCode))
                 strPageCode = Encoding.Default.EncodingName;
-            //组织表单数据 ;
             strArgs = strArgs.Replace("${boundary}", boundary);
             byte[] postFormData = Encoding.GetEncoding(strPageCode).GetBytes(strArgs);
-            //post总长度 
             long length = postFormData.Length;
             request.ContentLength = length;
 
             Stream requestStream = request.GetRequestStream();
-            //发送表单参数 
             requestStream.Write(postFormData, 0, postFormData.Length);
             requestStream.Close();
-            //发送表单文件
             ////文件内容 
-            //byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)fileStream.Length))]; 
-            //int bytesRead = 0; 
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) 
-            //requestStream.Write(buffer, 0, bytesRead); 
-            //响应 
             WebResponse response = request.GetResponse();
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
             string html = sr.ReadToEnd().Trim();
@@ -291,7 +269,6 @@ namespace V5_WinLibs.Core {
             string strReferer,
             string strPageCode) {
             string boundary = DateTime.Now.Ticks.ToString("x");
-            //请求 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strURL);
             request.Method = "POST";
             request.ContentType = "multipart/form-data; boundary=---------------------------" + boundary;
@@ -301,27 +278,18 @@ namespace V5_WinLibs.Core {
 
             if (string.IsNullOrEmpty(strPageCode))
                 strPageCode = Encoding.Default.EncodingName;
-            //组织表单数据 ;
             strArgs = strArgs.Replace("${boundary}", boundary);
             byte[] postFormData = Encoding.GetEncoding(strPageCode).GetBytes(strArgs);
-            //post总长度 
             long length = postFormData.Length;
             request.ContentLength = length;
 
             Stream requestStream = request.GetRequestStream();
-            //发送表单参数 
             requestStream.Write(postFormData, 0, postFormData.Length);
             requestStream.Close();
-            //发送表单文件
             ////文件内容 
-            //byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)fileStream.Length))]; 
-            //int bytesRead = 0; 
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) 
-            //requestStream.Write(buffer, 0, bytesRead); 
-            //响应 
             WebResponse response = request.GetResponse();
             if (CookieHeader.Trim() == "") {
-                CookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));//Cookies
+                CookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));
             }
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
             string html = sr.ReadToEnd().Trim();
@@ -340,19 +308,6 @@ namespace V5_WinLibs.Core {
         ///// 通过RPC发布博客
         ///// </summary>
         ///// <returns></returns>
-        //public string SendByXmlRPC(string blogxmlrpc, string blogid, string username, string password, string title, string content) {
-        //    MetaBlogAPI mba = new MetaBlogAPI();
-        //    mba.Url = blogxmlrpc;
-        //    Post newpost = new Post();
-        //    newpost.title = title;
-        //    newpost.dateCreated = DateTime.Now;
-        //    newpost.description = content;
-        //    newpost.mt_keywords = "应用技术";
-        //    newpost.categories = new string[] { "C#" };
-        //    string a = mba.newPost(blogid, username, password, newpost, true);
-        //    return a;
-        //}
-
 
 
         public void PostPage(
@@ -378,7 +333,6 @@ namespace V5_WinLibs.Core {
         public static extern bool InternetGetCookie(
           string url, string cookieName,
           StringBuilder cookieData, ref int size);
-        /**/
         /// <summary>
         /// 获取当前<see cref="Uri"/>的<see cref="CookieContainer"/>实例。
         /// </summary>
@@ -387,7 +341,6 @@ namespace V5_WinLibs.Core {
         public CookieContainer GetUriCookieContainer(Uri uri) {
             CookieContainer cookies = null;
 
-            // 定义Cookie数据的大小。
             int datasize = 256;
             StringBuilder cookieData = new StringBuilder(datasize);
 
@@ -396,7 +349,6 @@ namespace V5_WinLibs.Core {
                 if (datasize < 0)
                     return null;
 
-                // 确信有足够大的空间来容纳Cookie数据。
                 cookieData = new StringBuilder(datasize);
                 if (!InternetGetCookie(uri.ToString(), null, cookieData,
                   ref datasize))

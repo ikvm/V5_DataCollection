@@ -42,8 +42,6 @@ namespace V5_WinControls {
 
             this.RichTextBox.SelectionStart = startPos + s.Length;
             this.RichTextBox.ScrollToCaret();
-            //
-            
             base.OnMouseClick(e);
         }
 

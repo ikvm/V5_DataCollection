@@ -5,7 +5,6 @@ using System.Text;
 using V5_DataCollection._Class.Common;
 using System.Data;
 using V5_Model;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {

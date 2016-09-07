@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using V5_DataCollection._Class.Common;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection.Forms.Tools {

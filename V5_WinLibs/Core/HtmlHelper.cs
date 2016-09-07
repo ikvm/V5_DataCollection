@@ -35,7 +35,7 @@ namespace V5_WinLibs.Core {
             StringBuilder build = new StringBuilder();
             HtmlTextWriter htmlWriter = new HtmlTextWriter(new StringWriter(build));
             UserControl uc = new UserControl();
-            Control ctrl = uc.LoadControl(pathName);//加载用户定义控件
+            Control ctrl = uc.LoadControl(pathName);
             string html = string.Empty;
             Page p = new Page();
             p.Controls.Add(ctrl);
@@ -51,31 +51,6 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         public string Include(string pathName) {
             try {
-                /*
-                 public static string RangerUsControl(string controlName)
-        {
-            StringBuilder build = new StringBuilder();
-            HtmlTextWriter htmlWriter = new HtmlTextWriter(new StringWriter(build));
-            UserControl uc = new UserControl();
-            Control ctrl=uc.LoadControl(controlName+".ascx");//加载用户定义控件
-           
-            TextBox txtBox1 = ctrl.FindControl("TextBox1") as TextBox;//获得id为“TextBox1”的控件
-            txtBox1.Text = "测试"; //给控件初始化
-            string result;
-            try 
-            { 
-                ctrl.RenderControl(htmlWriter);
-            }
-            catch { }
-            finally 
-            { 
-                htmlWriter.Flush();
-                result=build.ToString();
-            }
-
-            return result;//返回控件的HTML代码
-        }
-                 */
                 System.Web.UI.Page page = new System.Web.UI.Page();
                 UserControl ctl = (UserControl)page.LoadControl(pathName);
                 page.Controls.Add(ctl);
@@ -430,7 +405,7 @@ namespace V5_WinLibs.Core {
             string str = "";
             Regex reg = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             foreach (Match match in reg.Matches(imgTagStr)) {
-                str = match.Groups["imgUrl"].Value;//.Value;
+                str = match.Groups["imgUrl"].Value;
             }
             return str;
         }
@@ -442,10 +417,7 @@ namespace V5_WinLibs.Core {
         /// <param name="removeWHtml"></param>
         /// <returns></returns>
         public static string ReplaceNormalHtml(string strHtml, string url, bool removeWHtml) {
-            //<img.+?/>
             Regex reg = new Regex("<img.+?>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //string[] strAry = new string[reg.Matches(strHtml).Count];
-            //int i = 0;
             foreach (Match match in reg.Matches(strHtml)) {
                 strHtml = strHtml.Replace(match.Value, "[IMG]" + CollectionHelper.Instance.DefiniteUrl(GetImgUrlSrc(match.Value), url) + "[/IMG]");
             }
@@ -463,8 +435,6 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         public static string ReplaceNornalHtmlByHref(string strHtml, string strUrl, string strDownFormat) {
             Regex reg = new Regex("<(?:jpg|gif|bmp|png)>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            //string[] strAry = new string[reg.Matches(strHtml).Count];
-            //int i = 0;
             foreach (Match match in reg.Matches(strHtml)) {
                 strHtml = strHtml.Replace(match.Value, "[A]" + CollectionHelper.Instance.DefiniteUrl(GetImgUrlSrc(match.Value), strUrl) + "[/A]");
             }
@@ -504,28 +474,24 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[p][/p]标记
-            //处[p][/p]标记
             r = new Regex(@"((\r\n)*\[p\])(.*?)((\r\n)*\[\/p\])", RegexOptions.IgnoreCase | RegexOptions.Singleline);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(), "<P class=\"pstyle\">" + m.Groups[3].ToString() + "</P>");
             }
             #endregion
             #region 处[sup][/sup]标记
-            //处[sup][/sup]标记
             r = new Regex(@"(\[sup\])([ \S\t]*?)(\[\/sup\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(), "<SUP>" + m.Groups[2].ToString() + "</SUP>");
             }
             #endregion
             #region 处[sub][/sub]标记
-            //处[sub][/sub]标记
             r = new Regex(@"(\[sub\])([ \S\t]*?)(\[\/sub\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(), "<SUB>" + m.Groups[2].ToString() + "</SUB>");
             }
             #endregion
             #region 处[img][/img]标记
-            //处[img][/img]标记
             r = new Regex(@"(\[img\])([ \S\t]*?)(\[\/img\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -533,7 +499,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[url][/url]标记
-            //处[url][/url]标记
             r = new Regex(@"(\[url\])([ \S\t]*?)(\[\/url\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -542,7 +507,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[url=xxx][/url]标记
-            //处[url=xxx][/url]标记
             r = new Regex(@"(\[url=([ \S\t]+)\])([ \S\t]*?)(\[\/url\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -551,7 +515,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[email][/email]标记
-            //处[email][/email]标记
             r = new Regex(@"(\[email\])([ \S\t]*?)(\[\/email\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -560,7 +523,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[email=xxx][/email]标记
-            //处[email=xxx][/email]标记
             r = new Regex(@"(\[email=([ \S\t]+)\])([ \S\t]*?)(\[\/email\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -569,7 +531,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[size=x][/size]标记
-            //处[size=x][/size]标记
             r = new Regex(@"(\[size=([1-7])\])([ \S\t]*?)(\[\/size\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -578,7 +539,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[color=x][/color]标记
-            //处[color=x][/color]标记
             r = new Regex(@"(\[color=([\S]+)\])([ \S\t]*?)(\[\/color\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -587,7 +547,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[font=x][/font]标记
-            //处[font=x][/font]标记
             r = new Regex(@"(\[font=([\S]+)\])([ \S\t]*?)(\[\/font\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -596,7 +555,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处理图片链接
-            //处理图片链接
             r = new Regex("\\[picture\\](\\d+?)\\[\\/picture\\]", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -606,7 +564,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处理[align=x][/align]
-            //处理[align=x][/align]
             r = new Regex(@"(\[align=([\S]+)\])([ \S\t]*?)(\[\/align\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -615,7 +572,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处[H=x][/H]标记
-            //处[H=x][/H]标记
             r = new Regex(@"(\[H=([1-6])\])([ \S\t]*?)(\[\/H\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(),
@@ -624,7 +580,6 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处理[list=x][*][/list]
-            //处理[list=x][*][/list]
             r = new Regex(@"(\[list(=(A|a|I|i| ))?\]([ \S\t]*)\r\n)((\[\*\]([ \S\t]*\r\n))*?)(\[\/list\])", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 string strLI = m.Groups[5].ToString();
@@ -639,12 +594,10 @@ namespace V5_WinLibs.Core {
             }
             #endregion
             #region 处理换行
-            //处理换行，在每个新行的前面添加两个全角空格
             r = new Regex(@"(\r\n((&nbsp;)|　)+)(?<正文>\S+)", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch()) {
                 sDetail = sDetail.Replace(m.Groups[0].ToString(), "<BR>　　" + m.Groups["正文"].ToString());
             }
-            //处理换行，在每个新行的前面添加两个全角空格
             sDetail = sDetail.Replace("\r\n", "<BR>");
             #endregion
             return sDetail;
@@ -659,9 +612,7 @@ namespace V5_WinLibs.Core {
                 return "";
             Htmlstring = Regex.Replace(Htmlstring, @"<br*?>", "$br$", RegexOptions.IgnoreCase);
             Htmlstring = Regex.Replace(Htmlstring, @"\r\n", "$br$", RegexOptions.IgnoreCase);
-            //删除脚本
             Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
-            //删除HTML
             Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
             Htmlstring = Regex.Replace(Htmlstring, @"([\r\n])[\s]+", "", RegexOptions.IgnoreCase);
             Htmlstring = Regex.Replace(Htmlstring, @"-->", "", RegexOptions.IgnoreCase);

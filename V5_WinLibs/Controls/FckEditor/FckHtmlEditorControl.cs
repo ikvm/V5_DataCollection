@@ -9,16 +9,13 @@ using System.ComponentModel;
 using System.IO;
 namespace V5.DataPublish.Controls {
     public class FckHtmlEditorControl : UserControl {
-        // Fields
         private IContainer components = null;
         private WebBrowser webBrowser1;
 
-        // Events
         public event EventHandler OnEditorInitialized;
 
         public event EventHandler OnTextChanged;
 
-        // Methods
         public FckHtmlEditorControl() {
             this.InitializeComponent();
             try {
@@ -37,17 +34,12 @@ namespace V5.DataPublish.Controls {
         }
         public void InitEditor() {
             this.webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
-            //this.webBrowser1.Navigate(Path.GetDirectoryName(Application.ExecutablePath) + @"\data\browser\editor\fckeditor\editor.html");
             this.webBrowser1.Url = new Uri(this.EditorPath);
-            //this.webBrowser1.Url = new Uri(AppDomain.CurrentDomain.BaseDirectory + @"data\browser\editor\fckeditor\editor.html");
         }
 
         private void InitializeComponent() {
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
-            // 
-            // webBrowser1
-            // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
@@ -55,9 +47,6 @@ namespace V5.DataPublish.Controls {
             this.webBrowser1.Size = new System.Drawing.Size(384, 232);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.webBrowser1_PreviewKeyDown);
-            // 
-            // FckHtmlEditorControl
-            // 
             this.Controls.Add(this.webBrowser1);
             this.Name = "FckHtmlEditorControl";
             this.Size = new System.Drawing.Size(384, 232);

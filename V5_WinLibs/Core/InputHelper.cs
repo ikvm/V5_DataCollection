@@ -18,26 +18,6 @@ namespace V5_AllFrameWorkTools._Class
             return Convert.ToInt32("0" + o);
         }
 
-        //public int GetStrLen(String ss)
-        //{
-        //    Char[] cc = ss.ToCharArray();
-        //    int intLen = ss.Length;
-        //    int i;
-        //    if ("浪子回眸".Length == 8)
-        //    {
-        //        //是非 中文 的 平台 
-        //        return intLen;
-        //    }
-        //    for (i = 0; i < cc.Length; i++)
-        //    {
-        //        if (cc[i].ToInt32() > 255)
-        //        {
-        //            intLen++;
-        //        }
-        //    }
-        //    return intLen;
-        //}
-
         /// <summary>           
         /// 得到字符串的长度，一个汉字算3个字符           
         /// </summary>           

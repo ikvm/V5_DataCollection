@@ -14,7 +14,6 @@ namespace V5_WinLibs.Html2Article {
             Html2Article.AppendMode = false;
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            // 将Html解析为Article结构化数据
             Article article = Html2Article.GetArticle(html);
             sw.Stop();
 

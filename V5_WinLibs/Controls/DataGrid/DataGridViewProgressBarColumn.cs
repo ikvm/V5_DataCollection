@@ -142,7 +142,6 @@ namespace V5_WinControls.DataGrid {
 
             bool isSelected = (cellState & DataGridViewElementStates.Selected) == DataGridViewElementStates.Selected;
 
-            //±³¾°É«
             Color bkColor;
 
             if (isSelected && (paintParts & DataGridViewPaintParts.SelectionBackground) == DataGridViewPaintParts.SelectionBackground) {

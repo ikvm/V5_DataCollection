@@ -200,10 +200,10 @@ namespace V5_WinLibs.Ftp {
         /// <param name="ttType">传输模式</param>
         public void SetTransferType(TransferType ttType) {
             if (ttType == TransferType.Binary) {
-                SendCommand("TYPE I");//binary类型传输
+                SendCommand("TYPE I");
             }
             else {
-                SendCommand("TYPE A");//ASCII类型传输
+                SendCommand("TYPE A");
             }
             if (iReplyCode != 200) {
                 throw new IOException(strReply.Substring(4));
@@ -247,7 +247,7 @@ namespace V5_WinLibs.Ftp {
             }
             char[] seperator = { '\n' };
             string[] strsFileList = strMsg.Split(seperator);
-            socketData.Close(); //数据socket关闭时也会有返回码
+            socketData.Close(); 
             if (iReplyCode != 226) {
                 ReadReply();
                 if (iReplyCode != 226) {
@@ -369,7 +369,6 @@ namespace V5_WinLibs.Ftp {
             if (iReplyCode != 350) {
                 throw new IOException(strReply.Substring(4));
             }
-            //  如果新文件名与原有文件重名,将覆盖原有文件
             SendCommand("RNTO " + strNewFileName);
             if (iReplyCode != 250) {
                 throw new IOException(strReply.Substring(4));
@@ -389,7 +388,7 @@ namespace V5_WinLibs.Ftp {
             }
             string[] strFiles = Dir(strFileNameMask);
             foreach (string strFile in strFiles) {
-                if (!strFile.Equals(""))//一般来说strFiles的最后一个元素可能是空字符串
+                if (!strFile.Equals(""))
                 {
                     Get(strFile, strFolder, strFile);
                 }
@@ -707,7 +706,7 @@ namespace V5_WinLibs.Ftp {
             else {
                 strMsg = mess[0];
             }
-            if (!strMsg.Substring(3, 1).Equals(" ")) //返回字符串正确的是以应答码(如220开头,后面接一空格,再接问候字符串)
+            if (!strMsg.Substring(3, 1).Equals(" ")) 
             {
                 return ReadLine();
             }

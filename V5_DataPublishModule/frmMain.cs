@@ -55,7 +55,6 @@ namespace V5_DataPublishModuleEdit {
                 string CutStrContent = SimulationHelper.CutStr(randContent, RandomCutRegex)[0];
                 if (!dic.ContainsKey(m.LabelName)) {
                     dic.Add(m.LabelName, HttpUtility.UrlEncode(CutStrContent, ec));
-                    //dic.Add(m.LabelName, CutStrContent);
                 }
             }
             #endregion
@@ -138,9 +137,7 @@ namespace V5_DataPublishModuleEdit {
             string PostData = model.LoginPostData;
             PostData = PostData.Replace("[用户名]", this.txtTestUserName.Text);
             PostData = PostData.Replace("[密码]", this.txtTestUserPwd.Text);
-            //加载随机值
             this.Load_RandomLabel("登陆");
-            //替换随机值
             foreach (KeyValuePair<string, string> item in dic) {
                 PostData = PostData.Replace("[" + item.Key + "]", item.Value);
             }
@@ -229,9 +226,7 @@ namespace V5_DataPublishModuleEdit {
             }
             string PostData = model.ListCreatePostData;
             PostData = PostData.Replace("[分类名称]", this.txtClassName.Text);
-            //加载随机值
             this.Load_RandomLabel("列表");
-            //替换随机值
             foreach (KeyValuePair<string, string> item in dic) {
                 PostData = PostData.Replace("[" + item.Key + "]", item.Value);
             }
@@ -277,9 +272,7 @@ namespace V5_DataPublishModuleEdit {
             ListItem li = (ListItem)this.cmbViewClassList.SelectedItem;
             PostData = PostData.Replace("[分类ID]", li.Value);
             PostData = PostData.Replace("[分类名称]", li.Text);
-            //加载随机值
             this.Load_RandomLabel("内容");
-            //替换随机值
             foreach (KeyValuePair<string, string> item in dic) {
                 PostData = PostData.Replace("[" + item.Key + "]", item.Value);
             }

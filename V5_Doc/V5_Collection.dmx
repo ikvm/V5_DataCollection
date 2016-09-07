@@ -300,6 +300,7 @@ Top=9.00</GraphDesc>
   <OrderNo>2</OrderNo>
   <DisplayName>分类Id</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -330,6 +331,7 @@ Top=9.00</GraphDesc>
   <OrderNo>4</OrderNo>
   <DisplayName>是否采集列表</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -345,6 +347,7 @@ Top=9.00</GraphDesc>
   <OrderNo>5</OrderNo>
   <DisplayName>是否采集内容</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -360,6 +363,7 @@ Top=9.00</GraphDesc>
   <OrderNo>6</OrderNo>
   <DisplayName>是否发布内容</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -390,6 +394,7 @@ Top=9.00</GraphDesc>
   <OrderNo>8</OrderNo>
   <DisplayName>采集类型</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -495,6 +500,7 @@ Top=9.00</GraphDesc>
   <OrderNo>15</OrderNo>
   <DisplayName>是否在线发布</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -510,6 +516,7 @@ Top=9.00</GraphDesc>
   <OrderNo>16</OrderNo>
   <DisplayName>是否保存本地</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -569,6 +576,7 @@ Top=9.00</GraphDesc>
   <ModifyDate>1899/12/30</ModifyDate>
   <OrderNo>20</OrderNo>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -584,6 +592,7 @@ Top=9.00</GraphDesc>
   <OrderNo>21</OrderNo>
   <DisplayName>是否保存数据库</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -599,6 +608,7 @@ Top=9.00</GraphDesc>
   <OrderNo>22</OrderNo>
   <DisplayName>保存数据库类型</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -644,6 +654,7 @@ Top=9.00</GraphDesc>
   <OrderNo>25</OrderNo>
   <DisplayName>是否保存SQL语句</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -764,6 +775,7 @@ Top=9.00</GraphDesc>
   <OrderNo>33</OrderNo>
   <DisplayName>任务状态</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -779,6 +791,7 @@ Top=9.00</GraphDesc>
   <OrderNo>34</OrderNo>
   <DisplayName>采集列表暂停时间</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -794,6 +807,7 @@ Top=9.00</GraphDesc>
   <OrderNo>35</OrderNo>
   <DisplayName>采集内容线程个数</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -809,6 +823,7 @@ Top=9.00</GraphDesc>
   <OrderNo>36</OrderNo>
   <DisplayName>采集内容暂停时间</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -824,6 +839,7 @@ Top=9.00</GraphDesc>
   <OrderNo>37</OrderNo>
   <DisplayName>发布内容线程个数</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -839,6 +855,7 @@ Top=9.00</GraphDesc>
   <OrderNo>38</OrderNo>
   <DisplayName>发布内容最小暂停时间</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -854,6 +871,7 @@ Top=9.00</GraphDesc>
   <OrderNo>39</OrderNo>
   <DisplayName>发布内容最大暂停时间</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -884,6 +902,7 @@ Top=9.00</GraphDesc>
   <OrderNo>41</OrderNo>
   <DisplayName>是否计划任务</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -914,6 +933,7 @@ Top=9.00</GraphDesc>
   <OrderNo>43</OrderNo>
   <DisplayName>是否源码采集</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -972,6 +992,7 @@ Top=9.00</GraphDesc>
   <OrderNo>47</OrderNo>
   <DisplayName>是否手动获取地址</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -1110,6 +1131,7 @@ Top=10.00</GraphDesc>
   <OrderNo>7</OrderNo>
   <DisplayName>所属任务</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -1139,6 +1161,7 @@ Top=10.00</GraphDesc>
   <OrderNo>9</OrderNo>
   <DisplayName>排序</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -1183,6 +1206,7 @@ Top=10.00</GraphDesc>
   <OrderNo>12</OrderNo>
   <DisplayName>是否下载资源</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -1214,6 +1238,7 @@ Top=10.00</GraphDesc>
   <OrderNo>14</OrderNo>
   <DisplayName>标签内容为循环</DisplayName>
   <DataType>2</DataType>
+  <DefaultValue>0</DefaultValue>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>

@@ -44,14 +44,8 @@ namespace V5.AutoUpdate {
 
 
         public FrmUpdate() {
-            //
-            // Windows 窗体设计器支持所必需的
-            //
             InitializeComponent();
 
-            //
-            // TODO: 在 InitializeComponent 调用后添加任何构造函数代码
-            //
         }
 
         /// <summary>
@@ -98,18 +92,12 @@ namespace V5.AutoUpdate {
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(96, 240);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // panel1
-            // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.lvUpdateList);
@@ -120,17 +108,11 @@ namespace V5.AutoUpdate {
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(280, 240);
             this.panel1.TabIndex = 2;
-            // 
-            // label1
-            // 
             this.label1.Location = new System.Drawing.Point(16, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 16);
             this.label1.TabIndex = 9;
             this.label1.Text = "以下为更新文件列表";
-            // 
-            // groupBox2
-            // 
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox2.Location = new System.Drawing.Point(0, 238);
             this.groupBox2.Name = "groupBox2";
@@ -138,9 +120,6 @@ namespace V5.AutoUpdate {
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
-            // 
-            // lvUpdateList
-            // 
             this.lvUpdateList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																						   this.chFileName,
 																						   this.chVersion,
@@ -150,65 +129,38 @@ namespace V5.AutoUpdate {
             this.lvUpdateList.Size = new System.Drawing.Size(272, 120);
             this.lvUpdateList.TabIndex = 6;
             this.lvUpdateList.View = System.Windows.Forms.View.Details;
-            // 
-            // chFileName
-            // 
             this.chFileName.Text = "组件名";
             this.chFileName.Width = 123;
-            // 
-            // chVersion
-            // 
             this.chVersion.Text = "版本号";
             this.chVersion.Width = 98;
-            // 
-            // chProgress
-            // 
             this.chProgress.Text = "进度";
             this.chProgress.Width = 47;
-            // 
-            // pbDownFile
-            // 
             this.pbDownFile.Location = new System.Drawing.Point(3, 200);
             this.pbDownFile.Name = "pbDownFile";
             this.pbDownFile.Size = new System.Drawing.Size(274, 17);
             this.pbDownFile.TabIndex = 5;
-            // 
-            // lbState
-            // 
             this.lbState.Location = new System.Drawing.Point(3, 176);
             this.lbState.Name = "lbState";
             this.lbState.Size = new System.Drawing.Size(240, 16);
             this.lbState.TabIndex = 4;
             this.lbState.Text = "点击“下一步”开始更新文件";
-            // 
-            // groupBox1
-            // 
             this.groupBox1.Location = new System.Drawing.Point(0, 32);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(280, 8);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            // 
-            // btnNext
-            // 
             this.btnNext.Location = new System.Drawing.Point(224, 264);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(80, 24);
             this.btnNext.TabIndex = 3;
             this.btnNext.Text = "下一步(&N)>";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnCancel
-            // 
             this.btnCancel.Location = new System.Drawing.Point(312, 264);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 24);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消(&C)";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // panel2
-            // 
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.linkLabel1);
             this.panel2.Controls.Add(this.label3);
@@ -220,17 +172,11 @@ namespace V5.AutoUpdate {
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(112, 24);
             this.panel2.TabIndex = 5;
-            // 
-            // label4
-            // 
             this.label4.Location = new System.Drawing.Point(144, 184);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 16);
             this.label4.TabIndex = 13;
             this.label4.Text = "中国亿万电器网";
-            // 
-            // linkLabel1
-            // 
             this.linkLabel1.Location = new System.Drawing.Point(136, 208);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(128, 16);
@@ -238,35 +184,23 @@ namespace V5.AutoUpdate {
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "http://www.e10000.cn";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // label3
-            // 
             this.label3.Location = new System.Drawing.Point(24, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(184, 16);
             this.label3.TabIndex = 11;
             this.label3.Text = "欢迎以后继续关注我们的产品。";
-            // 
-            // label2
-            // 
             this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(134)));
             this.label2.Location = new System.Drawing.Point(24, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(232, 48);
             this.label2.TabIndex = 10;
             this.label2.Text = "     程序更新完成,如果程序更新期间被关闭,点击\"完成\"自动更新程序会自动重新启动系统。";
-            // 
-            // label5
-            // 
             this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(134)));
             this.label5.Location = new System.Drawing.Point(16, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 24);
             this.label5.TabIndex = 9;
             this.label5.Text = "感谢使用在线升级";
-            // 
-            // groupBox3
-            // 
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox3.Location = new System.Drawing.Point(0, 22);
             this.groupBox3.Name = "groupBox3";
@@ -274,26 +208,17 @@ namespace V5.AutoUpdate {
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "groupBox2";
-            // 
-            // groupBox4
-            // 
             this.groupBox4.Location = new System.Drawing.Point(0, 32);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(280, 8);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            // 
-            // btnFinish
-            // 
             this.btnFinish.Location = new System.Drawing.Point(136, 264);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(80, 24);
             this.btnFinish.TabIndex = 3;
             this.btnFinish.Text = "完成(&F)";
             this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
-            // 
-            // FrmUpdate
-            // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(424, 301);
             this.ControlBox = false;
@@ -335,7 +260,6 @@ namespace V5.AutoUpdate {
 
 
             try {
-                //从本地读取更新配置文件信息
                 updaterXmlFiles = new XmlFiles(localXmlFile);
             }
             catch (Exception ex) {
@@ -343,13 +267,11 @@ namespace V5.AutoUpdate {
                 this.Close();
                 return;
             }
-            //获取服务器地址
             updateUrl = updaterXmlFiles.GetNodeValue("//Url");
 
             AppUpdater appUpdater = new AppUpdater();
             appUpdater.UpdaterUrl = updateUrl + "/UpdateList.xml";
 
-            //与服务器连接,下载更新配置文件
             try {
                 tempUpdatePath = Environment.GetEnvironmentVariable("Temp") + "\\" + "_" + updaterXmlFiles.FindNode("//Application").Attributes["applicationId"].Value + "_" + "y" + "_" + "x" + "_" + "m" + "_" + "\\";
                 appUpdater.DownAutoUpdateFile(tempUpdatePath);
@@ -361,7 +283,6 @@ namespace V5.AutoUpdate {
 
             }
 
-            //获取更新文件列表
             Hashtable htUpdateFile = new Hashtable();
 
             serverXmlFile = tempUpdatePath + "\\UpdateList.xml";
@@ -376,8 +297,6 @@ namespace V5.AutoUpdate {
                     lvUpdateList.Items.Add(new ListViewItem(fileArray));
                 }
             }
-            //			else
-            //				btnNext.Enabled = false;
         }
 
         private void btnCancel_Click(object sender, System.EventArgs e) {
@@ -409,7 +328,6 @@ namespace V5.AutoUpdate {
                         p.Threads[i].Dispose();
                     p.Kill();
                     isRun = true;
-                    //break;
                 }
             }
             WebClient wcClient = new WebClient();
@@ -465,7 +383,6 @@ namespace V5.AutoUpdate {
             InvalidateControl();
             this.Cursor = Cursors.Default;
         }
-        //创建目录
         private void CreateDirtory(string path) {
             if (!File.Exists(path)) {
                 string[] dirArray = path.Split('\\');
@@ -478,9 +395,7 @@ namespace V5.AutoUpdate {
             }
         }
 
-        //复制文件;
         public void CopyFile(string sourcePath, string objPath) {
-            //			char[] split = @"\".ToCharArray();
             if (!Directory.Exists(objPath)) {
                 Directory.CreateDirectory(objPath);
             }
@@ -497,10 +412,8 @@ namespace V5.AutoUpdate {
         }
 
         private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e) {
-            //打开亿万网首页
             System.Diagnostics.Process.Start(linkLabel1.Text);
         }
-        //点击完成复制更新文件到应用程序目录
         private void btnFinish_Click(object sender, System.EventArgs e) {
 
             this.Close();
@@ -515,7 +428,6 @@ namespace V5.AutoUpdate {
             if (true == this.isRun) Process.Start(mainAppExe);
         }
 
-        //重新绘制窗体部分控件属性
         private void InvalidateControl() {
             panel2.Location = panel1.Location;
             panel2.Size = panel1.Size;
@@ -527,7 +439,6 @@ namespace V5.AutoUpdate {
             btnFinish.Location = btnCancel.Location;
             btnFinish.Visible = true;
         }
-        //判断主应用程序是否正在运行
         private bool IsMainAppRun() {
             string mainAppExe = updaterXmlFiles.GetNodeValue("//EntryPoint");
             bool isRun = false;
@@ -536,7 +447,6 @@ namespace V5.AutoUpdate {
 
                 if (p.ProcessName.ToLower() + ".exe" == mainAppExe.ToLower()) {
                     isRun = true;
-                    //break;
                 }
             }
             return isRun;

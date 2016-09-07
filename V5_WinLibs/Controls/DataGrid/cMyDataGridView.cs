@@ -92,7 +92,6 @@ namespace V5_WinControls.DataGrid
                 }
                 catch (System.Exception)
                 {
-                    //仅捕获错误，不做任何处理，只要保障不跳出程序即可
                 }
             }
         }
@@ -101,7 +100,7 @@ namespace V5_WinControls.DataGrid
         {
             get
             {
-                string FileName = "";// Program.getPrjPath() + "data\\" + this.TaskName + "-" + this.TaskRunID + ".xml";
+                string FileName = "";           
                 return FileName;
             }
 

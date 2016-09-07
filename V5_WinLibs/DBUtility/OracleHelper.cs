@@ -14,14 +14,12 @@ namespace V5_WinLibs.DBUtility
     public abstract class OracleHelper
     {
 
-        // Read the connection strings from the configuration file
         public static readonly string ConnectionStringLocalTransaction = ConfigurationManager.AppSettings["OraConnString1"];
         public static readonly string ConnectionStringInventoryDistributedTransaction = ConfigurationManager.AppSettings["OraConnString2"];
         public static readonly string ConnectionStringOrderDistributedTransaction = ConfigurationManager.AppSettings["OraConnString3"];
         public static readonly string ConnectionStringProfile = ConfigurationManager.AppSettings["OraProfileConnString"];
         public static readonly string ConnectionStringMembership = ConfigurationManager.AppSettings["OraMembershipConnString"];
 
-        //Create a hashtable for the parameter cached
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
 
         /// <summary>
@@ -34,17 +32,13 @@ namespace V5_WinLibs.DBUtility
         /// <returns></returns>
         public static int ExecuteNonQuery(string connectionString, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
-            // Create a new Oracle command
             OracleCommand cmd = new OracleCommand();
 
-            //Create a connection
             using (OracleConnection connection = new OracleConnection(connectionString))
             {
 
-                //Prepare the command
                 PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
 
-                //Execute the command
                 int val = cmd.ExecuteNonQuery();
                 connection.Close();
                 cmd.Parameters.Clear();
@@ -120,7 +114,7 @@ namespace V5_WinLibs.DBUtility
             cmd.CommandText = cmdText;
             if (trans != null)
                 cmd.Transaction = trans;
-            cmd.CommandType = CommandType.Text;//cmdType;
+            cmd.CommandType = CommandType.Text;
             if (cmdParms != null)
             {
                 foreach (OracleParameter parameter in cmdParms)
@@ -277,7 +271,6 @@ namespace V5_WinLibs.DBUtility
             OracleConnection conn = new OracleConnection(connectionString);
             try
             {
-                //Prepare the command to execute
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);                
                 OracleDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 cmd.Parameters.Clear();
@@ -332,15 +325,12 @@ namespace V5_WinLibs.DBUtility
             if (transaction != null && transaction.Connection == null)
                 throw new ArgumentException("The transaction was rollbacked	or commited, please	provide	an open	transaction.", "transaction");
 
-            // Create a	command	and	prepare	it for execution
             OracleCommand cmd = new OracleCommand();
 
             PrepareCommand(cmd, transaction.Connection, transaction, commandType, commandText, commandParameters);
 
-            // Execute the command & return	the	results
             object retval = cmd.ExecuteScalar();
 
-            // Detach the SqlParameters	from the command object, so	they can be	used again
             cmd.Parameters.Clear();
             return retval;
         }
@@ -390,10 +380,8 @@ namespace V5_WinLibs.DBUtility
             if (cachedParms == null)
                 return null;
 
-            // If the parameters are in the cache
             OracleParameter[] clonedParms = new OracleParameter[cachedParms.Length];
 
-            // return a copy of the parameters
             for (int i = 0, j = cachedParms.Length; i < j; i++)
                 clonedParms[i] = (OracleParameter)((ICloneable)cachedParms[i]).Clone();
 
@@ -411,20 +399,16 @@ namespace V5_WinLibs.DBUtility
         private static void PrepareCommand(OracleCommand cmd, OracleConnection conn, OracleTransaction trans, CommandType cmdType, string cmdText, OracleParameter[] commandParameters)
         {
 
-            //Open the connection if required
             if (conn.State != ConnectionState.Open)
                 conn.Open();
 
-            //Set up the command
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
             cmd.CommandType = cmdType;
 
-            //Bind it to the transaction if it exists
             if (trans != null)
                 cmd.Transaction = trans;
 
-            // Bind the parameters passed in
             if (commandParameters != null)
             {
                 foreach (OracleParameter parm in commandParameters)
@@ -483,7 +467,6 @@ namespace V5_WinLibs.DBUtility
                                 {
                                     tx.Rollback();
                                     throw new Exception("Oracle:违背要求" + c.CommandText + "必须符合select count(..的格式");
-                                    //return false;
                                 }
 
                                 object obj = cmd.ExecuteScalar();
@@ -498,13 +481,11 @@ namespace V5_WinLibs.DBUtility
                                 {
                                     tx.Rollback();
                                     throw new Exception("Oracle:违背要求" + c.CommandText + "返回值必须大于0");
-                                    //return false;
                                 }
                                 if (c.EffentNextType == EffentNextType.WhenNoHaveContine && isHave)
                                 {
                                     tx.Rollback();
                                     throw new Exception("Oracle:违背要求" + c.CommandText + "返回值必须等于0");
-                                    //eturn false;
                                 }
                                 continue;
                             }
@@ -513,7 +494,6 @@ namespace V5_WinLibs.DBUtility
                             {
                                 tx.Rollback();
                                 throw new Exception("Oracle:违背要求" + c.CommandText + "必须有影像行");
-                                // return false;
                             }
                         }
                     }

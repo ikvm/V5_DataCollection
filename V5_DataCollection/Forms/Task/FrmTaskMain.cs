@@ -16,7 +16,6 @@ using V5_DataCollection._Class.Gather;
 using V5_DataCollection.Forms.Task.TaskData;
 using V5_DataCollection.Forms.Task.Tools;
 using V5_DataCollection._Class.DAL;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.Core;
 using V5_Utility.Utility;
 using V5_WinLibs.DBUtility;

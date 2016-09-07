@@ -11,7 +11,6 @@ namespace V5_WinLibs.DBUtility {
     /// 数据访问抽象基础类
     /// </summary>
     public abstract class DbHelperSQL {
-        //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
         public static string connectionString = PubConstant.ConnectionString;
         public DbHelperSQL() {
         }
@@ -64,7 +63,6 @@ namespace V5_WinLibs.DBUtility {
         /// <returns></returns>
         public static bool TabExists(string TableName) {
             string strsql = "select count(*) from sysobjects where id = object_id(N'[" + TableName + "]') and OBJECTPROPERTY(id, N'IsUserTable') = 1";
-            //string strsql = "SELECT count(*) FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + TableName + "]') AND type in (N'U')";
             object obj = DbHelperSQL.GetSingle(strsql);
             int cmdresult;
             if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value))) {
@@ -168,7 +166,6 @@ namespace V5_WinLibs.DBUtility {
                             if (myDE.CommandText.ToLower().IndexOf("count(") == -1) {
                                 tx.Rollback();
                                 throw new Exception("违背要求" + myDE.CommandText + "必须符合select count(..的格式");
-                                //return 0;
                             }
 
                             object obj = cmd.ExecuteScalar();
@@ -178,7 +175,6 @@ namespace V5_WinLibs.DBUtility {
                             }
                             isHave = Convert.ToInt32(obj) > 0;
                             if (isHave) {
-                                //引发事件
                                 myDE.OnSolicitationEvent();
                             }
                         }
@@ -186,7 +182,6 @@ namespace V5_WinLibs.DBUtility {
                             if (myDE.CommandText.ToLower().IndexOf("count(") == -1) {
                                 tx.Rollback();
                                 throw new Exception("SQL:违背要求" + myDE.CommandText + "必须符合select count(..的格式");
-                                //return 0;
                             }
 
                             object obj = cmd.ExecuteScalar();
@@ -199,12 +194,10 @@ namespace V5_WinLibs.DBUtility {
                             if (myDE.EffentNextType == EffentNextType.WhenHaveContine && !isHave) {
                                 tx.Rollback();
                                 throw new Exception("SQL:违背要求" + myDE.CommandText + "返回值必须大于0");
-                                //return 0;
                             }
                             if (myDE.EffentNextType == EffentNextType.WhenNoHaveContine && isHave) {
                                 tx.Rollback();
                                 throw new Exception("SQL:违背要求" + myDE.CommandText + "返回值必须等于0");
-                                //return 0;
                             }
                             continue;
                         }
@@ -212,7 +205,6 @@ namespace V5_WinLibs.DBUtility {
                         if (myDE.EffentNextType == EffentNextType.ExcuteEffectRows && val == 0) {
                             tx.Rollback();
                             throw new Exception("SQL:违背要求" + myDE.CommandText + "必须有影响行");
-                            //return 0;
                         }
                         cmd.Parameters.Clear();
                     }
@@ -221,7 +213,6 @@ namespace V5_WinLibs.DBUtility {
                     if (!res) {
                         tx.Rollback();
                         throw new Exception("Oracle执行失败");
-                        // return -1;
                     }
                     tx.Commit();
                     return 1;
@@ -509,7 +500,6 @@ namespace V5_WinLibs.DBUtility {
                 using (SqlTransaction trans = conn.BeginTransaction()) {
                     SqlCommand cmd = new SqlCommand();
                     try {
-                        //循环
                         foreach (DictionaryEntry myDE in SQLStringList) {
                             string cmdText = myDE.Key.ToString();
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Value;
@@ -537,7 +527,6 @@ namespace V5_WinLibs.DBUtility {
                     SqlCommand cmd = new SqlCommand();
                     try {
                         int count = 0;
-                        //循环
                         foreach (CommandInfo myDE in cmdList) {
                             string cmdText = myDE.CommandText;
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Parameters;
@@ -595,7 +584,6 @@ namespace V5_WinLibs.DBUtility {
                     SqlCommand cmd = new SqlCommand();
                     try {
                         int indentity = 0;
-                        //循环
                         foreach (CommandInfo myDE in SQLStringList) {
                             string cmdText = myDE.CommandText;
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Parameters;
@@ -633,7 +621,6 @@ namespace V5_WinLibs.DBUtility {
                     SqlCommand cmd = new SqlCommand();
                     try {
                         int indentity = 0;
-                        //循环
                         foreach (DictionaryEntry myDE in SQLStringList) {
                             string cmdText = myDE.Key.ToString();
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Value;
@@ -745,7 +732,7 @@ namespace V5_WinLibs.DBUtility {
             cmd.CommandText = cmdText;
             if (trans != null)
                 cmd.Transaction = trans;
-            cmd.CommandType = CommandType.Text;//cmdType;
+            cmd.CommandType = CommandType.Text;
             if (cmdParms != null) {
 
 
@@ -825,7 +812,6 @@ namespace V5_WinLibs.DBUtility {
             command.CommandType = CommandType.StoredProcedure;
             foreach (SqlParameter parameter in parameters) {
                 if (parameter != null) {
-                    // 检查未分配值的输出参数,将其分配以DBNull.Value.
                     if ((parameter.Direction == ParameterDirection.InputOutput || parameter.Direction == ParameterDirection.Input) &&
                         (parameter.Value == null)) {
                         parameter.Value = DBNull.Value;
@@ -851,7 +837,6 @@ namespace V5_WinLibs.DBUtility {
                 SqlCommand command = BuildIntCommand(connection, storedProcName, parameters);
                 rowsAffected = command.ExecuteNonQuery();
                 result = (int)command.Parameters["ReturnValue"].Value;
-                //Connection.Close();
                 return result;
             }
         }

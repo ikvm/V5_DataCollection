@@ -28,7 +28,6 @@ namespace V5_DataPublish {
     public partial class frmMain : BaseForm {
 
 
-        //构造函数
         public frmMain() {
             InitializeComponent();
         }
@@ -55,17 +54,13 @@ namespace V5_DataPublish {
         /// </summary>
         private void Bind_LoadSeoMenu() {
             DataSet ds = new DataSet();
-            //从XML中读取数据。数据结构后面详细讲一下。
             ds.ReadXml(@"System\SeoMenu.xml");
             DataView dv = ds.Tables[0].DefaultView;
             for (int i = 0; i < dv.Count; i++) {
-                //创建一个菜单项
                 ToolStripMenuItem topMenu = new ToolStripMenuItem();
-                //给菜单赋Text值。也就是在界面上看到的值。
                 topMenu.Text = dv[i]["text"].ToString();
                 topMenu.Tag = dv[i]["url"].ToString();
                 topMenu.Click += new EventHandler(topMenu_Click);
-                //将递归附加好的菜单加到菜单根项上。
                 this.ToolStripMenuItem_Tool_SEO.DropDownItems.Add(topMenu);
             }
         }
@@ -90,7 +85,6 @@ namespace V5_DataPublish {
             this.txtOpLogView.Invoke(new MethodInvoker(delegate() {
                 this.txtOpLogView.AppendText(e.Message);
                 this.txtOpLogView.AppendText("\r\n");
-                //SetRichTextBoxColor(this.txtOpLogView, e.Message, Color.Green);
             }));
 
             this.txtCollectionLog.Invoke(new MethodInvoker(delegate() {
@@ -128,7 +122,7 @@ namespace V5_DataPublish {
         private FormWindowState fwsPrevious;
         #region NotifyIcon
         private bool _state = true;
-        public bool State//设置状态值属性 用来控件程序关闭
+        public bool State 
         {
             get { return _state; }
             set { _state = value; }
@@ -147,7 +141,7 @@ namespace V5_DataPublish {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void frmMain_SizeChanged(object sender, System.EventArgs e) {
-            if (this.WindowState == FormWindowState.Minimized)//最小化Form窗口
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 m_frmDeskTop.Show();
                 NormalToMinimized();
@@ -181,16 +175,12 @@ namespace V5_DataPublish {
             #region 浮动窗体
             m_frmDeskTop = new frmDeskTop(this);
             m_frmDeskTop.Show();
-            this.notifyIcon.Visible = false;//初始化NotifyIcon图标显示状态---隐藏
+            this.notifyIcon.Visible = false;
             #endregion
             #region 计划任务
-            //thPublish.PublishOP = WritePublishMessage;
-            //thPublish.StartTask();
             #endregion
-            //LoadWinSize(this);
             this.dataGridView_Main.AutoGenerateColumns = false;
             this.dataGridView_Main.AllowUserToAddRows = false;
-            //Bind_LoadSeoMenu();
         }
         /// <summary>
         /// 程序退出
@@ -203,9 +193,7 @@ namespace V5_DataPublish {
                 e.Cancel = true;
                 NormalToMinimized();
             }
-            //保存窗体大小
             SaveMainFormSize();
-            //SaveWinSize(this);
         }
         /// <summary>
         /// 保存窗体最后位置大小
@@ -410,36 +398,6 @@ namespace V5_DataPublish {
         /// 网站加载数据格式化
         /// </summary>
         private void dataGridView_Main_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
-            //string cellName = this.dataGridView_Main.Columns[e.ColumnIndex].Name.ToLower();
-            //if (cellName == "status") {
-            //    string values = e.Value.ToString();
-            //    if (values == "1") {
-            //        e.Value = "正常";
-            //    }
-            //    else {
-            //        e.Value = "暂停";
-            //    }
-            //}
-            //else if (cellName == "datasource") {
-            //    string value = e.Value.ToString();
-            //    switch (value) {
-            //        case "1":
-            //            e.Value = "数据库";
-            //            break;
-            //        case "2":
-            //            e.Value = "索引库";
-            //            break;
-            //        case "3":
-            //            e.Value = "文件夹";
-            //            break;
-            //        case "4":
-            //            e.Value = "网络";
-            //            break;
-            //        default:
-            //            e.Value = "不明";
-            //            break;
-            //    }
-            //}
         }
         #endregion
 
@@ -465,9 +423,7 @@ namespace V5_DataPublish {
         private void ToolStripMenuItem_Main_DataGrid_PublishSingleData_Click(object sender, EventArgs e) {
             string WebSiteID = Get_DataViewID();
             if (!string.IsNullOrEmpty(WebSiteID)) {
-                //ModelWebSiteItem model = new DALWebSite().GetModle(ID);
                 frmHandInsert formHandInsert = new frmHandInsert();
-                //formHandInsert.ModelSite = model;
                 formHandInsert.Show(this);
             }
         }
@@ -477,9 +433,7 @@ namespace V5_DataPublish {
         private void ToolStripMenuItem_Main_DataGrid_ViewPublishData_Click(object sender, EventArgs e) {
             string WebSiteID = Get_DataViewID();
             if (!string.IsNullOrEmpty(WebSiteID)) {
-                //ModelWebSiteItem model = new DALWebSite().GetModle(ID);
                 frmWebSiteLogList formWebSiteLogList = new frmWebSiteLogList();
-                //formWebSiteLogList.ModelSite = model;
                 formWebSiteLogList.ShowDialog(this);
             }
         }
@@ -514,13 +468,6 @@ namespace V5_DataPublish {
         private void ToolStripMenuItem_LoginAdmin_Click(object sender, EventArgs e) {
             try {
                 string WebSiteID = Get_DataViewID();
-                //ModelWebSiteItem model = new DALWebSite().GetModle(ID);
-                //IPublish p = Utility.GetIPublishByName(model.PublishName);
-                //if (p != null) {
-                //    string loginUrl = p.Publish_GetLoginAdminUrl(model.WebSiteUrl,
-                //         model.WebSiteLoginUrl);
-                //    System.Diagnostics.Process.Start(loginUrl);
-                //}
             }
             catch (Exception ex) {
                 Log4Helper.Write(LogLevel.Error, ex);
@@ -580,7 +527,6 @@ namespace V5_DataPublish {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ToolStripMenuItem_Application_Exit_Click(object sender, EventArgs e) {
-            //SaveWinSize(this);
             System.Environment.Exit(0);
         }
         #endregion
@@ -605,7 +551,6 @@ namespace V5_DataPublish {
             if (iTop < 0) {
                 iTop = 0;
             }
-            //设置窗体状态
             form.Size = new Size(iWidth, iHeight);
             form.Location = new Point(iLeft, iTop);
         }
@@ -669,12 +614,6 @@ namespace V5_DataPublish {
 
         private void ToolStripMenuItem_RunTask_Click(object sender, EventArgs e) {
             string WebSiteID = Get_DataViewID();
-            //DALWebSite dal = new DALWebSite();
-            //ModelWebSiteItem model = new DALWebSite().GetModle(ID);
-            //PublishFileSource PublishFileSource = new PublishFileSource();
-            //PublishFileSource.Model = model;
-            //PublishFileSource.PublishOP = WritePublishMessage;
-            //PublishFileSource.Start();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e) {

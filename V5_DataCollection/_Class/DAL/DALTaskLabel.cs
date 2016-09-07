@@ -5,7 +5,6 @@ using System.Text;
 using System.Data;
 using V5_Model;
 using V5_DataCollection._Class.Common;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection._Class.DAL {
@@ -126,9 +125,6 @@ namespace V5_DataCollection._Class.DAL {
             return DbHelper.Query(CommonHelper.SQLiteConnectionString, strSql.ToString());
         }
 
-        /*
-        */
-
         #endregion  Method
 
         public void UpdateTaskLabelByTaskID(int TaskID) {
@@ -172,7 +168,6 @@ namespace V5_DataCollection._Class.DAL {
         /// <param name="orderType">1为向上 -1向下</param>
         /// <returns></returns>
         public bool UpdateOrder(int TaskID, int ID, int orderType) {
-            //step1 找到比它小的且最大的ID的那条记录
             int OrderID = 0, tempID = 0;
             string sql = string.Empty;
             if (orderType == -1) {
@@ -182,10 +177,8 @@ namespace V5_DataCollection._Class.DAL {
                     OrderID = int.Parse("0" + dt.Rows[0][0]);
                     tempID = int.Parse("0" + dt.Rows[0][1]);
                     if (tempID != 0) {
-                        //step2 更新当前一条记录，让ID+1 
                         sql = "Update S_TaskLabel Set OrderID=" + OrderID + " Where ID=" + ID;
                         DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
-                        //3 更新当前记录，让ID=前一条记录
                         sql = "Update S_TaskLabel Set OrderID=OrderID+1 Where ID=" + tempID;
                         DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
                     }
@@ -198,10 +191,8 @@ namespace V5_DataCollection._Class.DAL {
                     OrderID = int.Parse("0" + dt.Rows[0][0]);
                     tempID = int.Parse("0" + dt.Rows[0][1]);
                     if (tempID != 0) {
-                        //step2 更新当前一条记录，让ID+1 
                         sql = "Update S_TaskLabel Set OrderID=" + OrderID + " Where ID=" + ID;
                         DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
-                        //3 更新当前记录，让ID=前一条记录
                         sql = "Update S_TaskLabel Set OrderID=OrderID-1 Where ID=" + tempID;
                         DbHelper.Execute(CommonHelper.SQLiteConnectionString, sql);
                     }

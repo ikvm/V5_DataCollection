@@ -60,7 +60,6 @@ namespace V5_DataPublish._Class.Publish {
                             sbContent.Append(sr.ReadToEnd());
                             sr.Close();
                             if (sbContent.Length >= 300) {
-                                //发布文章
                                 ModelGatherItem mGatherItem = new ModelGatherItem();
                                 mGatherItem.Title = Title;
                                 mGatherItem.Content = sbContent.ToString();
@@ -70,9 +69,8 @@ namespace V5_DataPublish._Class.Publish {
                                 iPublish.Publish_PostData(mGatherItem, mClassList);
                             }
                             sbContent.Remove(0, sbContent.Length);
-                            //
                             File.Delete(file);
-                            Thread.Sleep(1000);//这个可以自定义时间
+                            Thread.Sleep(1000);
                         }
                         catch (Exception ex) {
                             Log4Helper.Write(LogLevel.Error, "文件发布错误!", ex);

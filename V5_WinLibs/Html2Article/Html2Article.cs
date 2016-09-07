@@ -1,5 +1,4 @@
-﻿// Author: StanZhai 翟士丹（jasondan325@163.com）. All rights reserved. See License.md in the project root for license information.
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,11 +31,9 @@ namespace V5_WinLibs.Html2Article {
     public class Html2Article {
         #region 参数设置
 
-        // 正则表达式过滤：正则表达式，要替换成的文本
         private static readonly string[][] _filters = new string[][]{
                 new string[] { @"(?is)<script.*?>.*?</script>", "" },
                 new string[] { @"(?is)<style.*?>.*?</style>", "" },
-                // 针对链接密集型的网站的处理，主要是门户类的网站，降低链接干扰
                 new string[] { @"(?is)</a>", "</a>\n"}
             };
 
@@ -69,9 +66,7 @@ namespace V5_WinLibs.Html2Article {
             set { _limitCount = value; }
         }
 
-        // 确定文章正文头部时，向上查找，连续的空行到达_headEmptyLines，则停止查找
         private static int _headEmptyLines = 2;
-        // 用于确定文章结束的字符数
         private static int _endLimitCharCount = 20;
 
         #endregion
@@ -82,30 +77,19 @@ namespace V5_WinLibs.Html2Article {
         /// <param name="html"></param>
         /// <returns></returns>
         public static Article GetArticle(string html) {
-            // 如果换行符的数量小于10，则认为html为压缩后的html
-            // 由于处理算法是按照行进行处理，需要为html标签添加换行符，便于处理
             if (html.Count(c => c == '\n') < 10) {
                 html = html.Replace(">", ">\n");
             }
 
-            // 获取html，body标签内容
             string body = "";
             string bodyFilter = @"(?is)<body.*?</body>";
             Match m = Regex.Match(html, bodyFilter);
             if (m.Success) {
                 body = m.ToString();
             }
-            // 过滤样式，脚本等不相干标签
             foreach (var filter in Html2Article._filters) {
                 body = Regex.Replace(body, filter[0], filter[1]);
             }
-            // 标签规整化处理，将标签属性格式化处理到同一行
-            // 处理形如以下的标签：
-            //  <a 
-            //   href='http://www.baidu.com'
-            //   class='test'
-            // 处理后为
-            //  <a href='http://www.baidu.com' class='test'>
             body = Regex.Replace(body, @"(<[^<>]+)\s*\n\s*", FormatTag);
 
             string content;
@@ -154,7 +138,6 @@ namespace V5_WinLibs.Html2Article {
                 title = Regex.Replace(match.Groups[0].Value, clearFilter, "");
             }
 
-            // 正文的标题一般在h1中，比title中的标题更干净
             match = Regex.Match(html, h1Filter, RegexOptions.IgnoreCase);
             if (match.Success) {
                 string h1 = Regex.Replace(match.Groups[0].Value, clearFilter, "");
@@ -171,7 +154,6 @@ namespace V5_WinLibs.Html2Article {
         /// <param name="html"></param>
         /// <returns></returns>
         private static DateTime GetPublishDate(string html) {
-            // 过滤html标签，防止标签对日期提取产生影响
             string text = Regex.Replace(html, "(?is)<.*?>", "");
             Match match = Regex.Match(
                 text,
@@ -188,7 +170,6 @@ namespace V5_WinLibs.Html2Article {
                             break;
                         }
                     }
-                    // 对中文日期的处理
                     if (dateStr.Contains("年")) {
                         StringBuilder sb = new StringBuilder();
                         foreach (var ch in dateStr) {
@@ -221,15 +202,13 @@ namespace V5_WinLibs.Html2Article {
         /// <param name="content">返回文本正文，不包含标签</param>
         /// <param name="contentWithTags">返回文本正文包含标签</param>
         private static void GetContent(string bodyText, out string content, out string contentWithTags) {
-            string[] orgLines = null;   // 保存原始内容，按行存储
-            string[] lines = null;      // 保存干净的文本内容，不包含标签
+            string[] orgLines = null;    
+            string[] lines = null;       
 
             orgLines = bodyText.Split('\n');
             lines = new string[orgLines.Length];
-            // 去除每行的空白字符,剔除标签
             for (int i = 0; i < orgLines.Length; i++) {
                 string lineInfo = orgLines[i];
-                // 处理回车，使用[crlf]做为回车标记符，最后统一处理
                 lineInfo = Regex.Replace(lineInfo, "(?is)</p>|<br.*?/>", "[crlf]");
                 lines[i] = Regex.Replace(lineInfo, "(?is)<.*?>", "").Trim();
             }
@@ -237,19 +216,18 @@ namespace V5_WinLibs.Html2Article {
             StringBuilder sb = new StringBuilder();
             StringBuilder orgSb = new StringBuilder();
 
-            int preTextLen = 0;         // 记录上一次统计的字符数量
-            int startPos = -1;          // 记录文章正文的起始位置
+            int preTextLen = 0;          
+            int startPos = -1;           
             for (int i = 0; i < lines.Length - _depth; i++) {
                 int len = 0;
                 for (int j = 0; j < _depth; j++) {
                     len += lines[i + j].Length;
                 }
 
-                if (startPos == -1)     // 还没有找到文章起始位置，需要判断起始位置
+                if (startPos == -1)      
                 {
-                    if (preTextLen > _limitCount && len > 0)    // 如果上次查找的文本数量超过了限定字数，且当前行数字符数不为0，则认为是开始位置
+                    if (preTextLen > _limitCount && len > 0)     
                     {
-                        // 查找文章起始位置, 如果向上查找，发现2行连续的空行则认为是头部
                         int emptyCount = 0;
                         for (int j = i - 1; j > 0; j--) {
                             if (String.IsNullOrEmpty(lines[j])) {
@@ -263,11 +241,9 @@ namespace V5_WinLibs.Html2Article {
                                 break;
                             }
                         }
-                        // 如果没有定位到文章头，则以当前查找位置作为文章头
                         if (startPos == -1) {
                             startPos = i;
                         }
-                        // 填充发现的文章起始部分
                         for (int j = startPos; j <= i; j++) {
                             sb.Append(lines[j]);
                             orgSb.Append(orgLines[j]);
@@ -275,8 +251,7 @@ namespace V5_WinLibs.Html2Article {
                     }
                 }
                 else {
-                    //if (len == 0 && preTextLen == 0)    // 当前长度为0，且上一个长度也为0，则认为已经结束
-                    if (len <= _endLimitCharCount && preTextLen < _endLimitCharCount)    // 当前长度为0，且上一个长度也为0，则认为已经结束
+                    if (len <= _endLimitCharCount && preTextLen < _endLimitCharCount)     
                     {
                         if (!_appendMode) {
                             break;
@@ -290,10 +265,8 @@ namespace V5_WinLibs.Html2Article {
             }
 
             string result = sb.ToString();
-            // 处理回车符，更好的将文本格式化输出
             content = result.Replace("[crlf]", Environment.NewLine);
             content = System.Web.HttpUtility.HtmlDecode(content);
-            // 输出带标签文本
             contentWithTags = orgSb.ToString();
         }
     }

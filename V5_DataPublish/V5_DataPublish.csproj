@@ -363,7 +363,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Forms\Desk\HTMLPage1.html" />
     <Content Include="Forms\DiyWeb\TextFile1.txt" />
     <Content Include="Images\pic037.gif" />
     <Content Include="Images\pic040.gif" />

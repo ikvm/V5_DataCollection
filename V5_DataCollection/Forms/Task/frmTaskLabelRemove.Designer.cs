@@ -32,10 +32,8 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.chkLabel = new System.Windows.Forms.CheckBox();
             this.txtRemoveStr = new V5_WinControls.V5RichTextBox();
-            this.v5LinkLabel1 = new V5_WinControls.V5LinkLabel(this.components);
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,25 +61,6 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 202);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(185, 12);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "间隔字符串为@@@@(如id@@@@div2)";
-            // 
-            // chkLabel
-            // 
-            this.chkLabel.AutoSize = true;
-            this.chkLabel.Location = new System.Drawing.Point(106, 183);
-            this.chkLabel.Name = "chkLabel";
-            this.chkLabel.Size = new System.Drawing.Size(96, 16);
-            this.chkLabel.TabIndex = 6;
-            this.chkLabel.Text = "过滤整个标签";
-            this.chkLabel.UseVisualStyleBackColor = true;
-            // 
             // txtRemoveStr
             // 
             this.txtRemoveStr.Location = new System.Drawing.Point(13, 13);
@@ -90,36 +69,26 @@
             this.txtRemoveStr.TabIndex = 8;
             this.txtRemoveStr.Text = "";
             // 
-            // v5LinkLabel1
+            // linkLabel1
             // 
-            this.v5LinkLabel1.AutoSize = true;
-            this.v5LinkLabel1.LabelValue = "(*)";
-            this.v5LinkLabel1.Location = new System.Drawing.Point(12, 186);
-            this.v5LinkLabel1.Name = "v5LinkLabel1";
-            this.v5LinkLabel1.RichTextBox = this.txtRemoveStr;
-            this.v5LinkLabel1.Size = new System.Drawing.Size(23, 12);
-            this.v5LinkLabel1.TabIndex = 9;
-            this.v5LinkLabel1.TabStop = true;
-            this.v5LinkLabel1.Text = "(*)";
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(12, 185);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(119, 24);
+            this.linkLabel1.TabIndex = 9;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "每行一个字符串,\r\n过滤Html标签用@@a@@";
             // 
             // frmTaskLabelRemove
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 217);
-            this.Controls.Add(this.v5LinkLabel1);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.txtRemoveStr);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.chkLabel);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSubmit);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "frmTaskLabelRemove";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "字符排除";
             this.Load += new System.EventHandler(this.frmTaskLabelRemove_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
@@ -133,9 +102,7 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox chkLabel;
         private V5_WinControls.V5RichTextBox txtRemoveStr;
-        private V5_WinControls.V5LinkLabel v5LinkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

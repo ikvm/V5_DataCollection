@@ -1,7 +1,4 @@
-﻿/*
- 
- */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +16,7 @@ namespace V5_DataCollection._Class.Common {
         /// <param name="regexContent"></param>
         public static string ReplaceSystemRegexTag(string regexContent) {
             regexContent = regexContent.Replace("\\(\\*)", ".+?");
-            regexContent = regexContent.Replace("\\[参数]", "([\\S\\s]*?)");//([\\S\\s].*?)   多个一个点
+            regexContent = regexContent.Replace("\\[参数]", "([\\S\\s]*?)");
             return regexContent;
         }
         /// <summary>

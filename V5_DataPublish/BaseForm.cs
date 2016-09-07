@@ -10,15 +10,11 @@ namespace V5_DataPublish {
         public frmLoadingDialog loadingDialog = null;
         public BaseForm() {
             InitializeComponent();
-            //skinEngine1.SkinFile = System.Environment.CurrentDirectory + "\\skins\\" + "Emerald.ssk";
         }
 
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
             this.SuspendLayout();
-            // 
-            // BaseForm
-            // 
             this.ClientSize = new System.Drawing.Size(457, 295);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BaseForm";

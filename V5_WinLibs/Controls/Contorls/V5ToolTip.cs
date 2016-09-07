@@ -33,7 +33,6 @@ namespace V5_WinControls {
         }
 
         protected override void OnMouseHover(EventArgs e) {
-            //this.V5ToolTipControl.SetToolTip(this, this.Message);
             base.OnMouseHover(e);
         }
 

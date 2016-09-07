@@ -16,9 +16,9 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         [DllImport("user32", SetLastError = true)]
         public static extern int GetWindowText(
-        IntPtr hWnd, //窗口句柄
-        StringBuilder lpString, //标题
-        int nMaxCount  //最大值
+        IntPtr hWnd, 
+        StringBuilder lpString, 
+        int nMaxCount  
         );
         /// <summary>
         /// 获取类的名字
@@ -29,9 +29,9 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         [DllImport("user32.dll")]
         private static extern int GetClassName(
-            IntPtr hWnd, //句柄
-            StringBuilder lpString, //类名
-            int nMaxCount //最大值
+            IntPtr hWnd, 
+            StringBuilder lpString, 
+            int nMaxCount 
         );
         /// <summary>
         /// 根据坐标获取窗口句柄
@@ -40,7 +40,7 @@ namespace V5_WinLibs.Core {
         /// <returns></returns>
         [DllImport("user32")]
         private static extern IntPtr WindowFromPoint(
-        Point Point  //坐标
+        Point Point  
         );
         /// <summary>
         /// 获取窗口句柄

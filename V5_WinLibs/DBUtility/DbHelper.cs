@@ -18,7 +18,6 @@ namespace V5_WinLibs.DBUtility {
 
         private static IDbDataAdapter myAda;
 
-        //打开数据库
         public static IDbConnection GetDbConnection(string dbLink) {
             IDbConnection conn = null;
             try {

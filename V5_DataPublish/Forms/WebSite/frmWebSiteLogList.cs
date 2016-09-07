@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 using V5_DataPublish._Class;
 using System.IO;
-using V5_WinLibs.DBHelper;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataPublish.Forms.WebSite {
@@ -39,7 +38,7 @@ namespace V5_DataPublish.Forms.WebSite {
             string SQLiteName = baseDir + sWebSiteID + "\\SpiderResult.db";
             string LocalSQLiteName = "Data\\Spider\\" + sWebSiteID + "\\SpiderResult.db";
             if (File.Exists(SQLiteName)) {
-                string SQL = string.Empty;//And Content='{1}
+                string SQL = string.Empty; 
                 SQL = "Select * from Content Order by ID  Desc";
                 DataSet ds = DbHelper.Query(LocalSQLiteName, SQL);
                 this.dataGridView_LogList.DataSource = ds.Tables[0].DefaultView;

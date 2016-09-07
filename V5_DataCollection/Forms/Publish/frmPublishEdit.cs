@@ -15,18 +15,15 @@ using V5_WinLibs.Core;
 using System.Diagnostics;
 using V5_DataCollection._Class.Common;
 
-namespace V5_DataCollection.Forms.Publish
-{
-    public partial class frmPublishEdit : BaseForm
-    {
+namespace V5_DataCollection.Forms.Publish {
+    public partial class frmPublishEdit : BaseForm {
 
         public delegate void EditComplateEventHandler(int ipID, string msg);
         public EditComplateEventHandler ECEH;
         string modulePath = AppDomain.CurrentDomain.BaseDirectory + "/Modules/";
         private object _EditItem = null;
 
-        public object EditItem
-        {
+        public object EditItem {
             get { return _EditItem; }
             set { _EditItem = value; }
         }
@@ -35,45 +32,36 @@ namespace V5_DataCollection.Forms.Publish
         /// <summary>
         /// 任务ID
         /// </summary>
-        public int TaskID
-        {
+        public int TaskID {
             get { return _TaskID; }
             set { _TaskID = value; }
         }
 
-        public frmPublishEdit()
-        {
+        public frmPublishEdit() {
             InitializeComponent();
         }
 
-        private void Bind_ModuleList()
-        {
-            try
-            {
+        private void Bind_ModuleList() {
+            try {
                 this.listBoxPublishModule.Items.Clear();
                 DirectoryInfo di = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/Modules/");
                 FileInfo[] files = di.GetFiles();
-                foreach (FileInfo fi in files)
-                {
+                foreach (FileInfo fi in files) {
                     this.listBoxPublishModule.Items.Add(fi.Name);
                 }
             }
-            catch
-            {
+            catch {
             }
         }
 
-        private void frmPublishEdit_Load(object sender, EventArgs e)
-        {
+        private void frmPublishEdit_Load(object sender, EventArgs e) {
             Bind_ModuleList();
-            if (EditItem != null)
-            {
+            if (EditItem != null) {
                 this.Bind_DataEdit();
             }
         }
 
-        private void Bind_DataEdit()
-        {
+        private void Bind_DataEdit() {
             ListView.SelectedListViewItemCollection item = (ListView.SelectedListViewItemCollection)EditItem;
             DALWebPublishModule dal = new DALWebPublishModule();
             int ID = Int32.Parse("0" + item[0].Tag);
@@ -91,21 +79,17 @@ namespace V5_DataCollection.Forms.Publish
             this.listBoxPublishModule.SelectedItem = model.ModuleNameFile;
         }
 
-        private void btnGetClass_Click(object sender, EventArgs e)
-        {
+        private void btnGetClass_Click(object sender, EventArgs e) {
             SiteUrl = this.txtWebPublishUrl.Text;
             object item = this.listBoxPublishModule.SelectedItem;
             modelLogin = GetModelXml((string)item);
 
-            if (this.chkCookies.Checked)
-            {
+            if (this.chkCookies.Checked) {
                 LoginedCookies = this.txtWebPublishCookies.Text;
                 GetClassList();
             }
-            else
-            {
-                if (!string.IsNullOrEmpty(modelLogin.LoginVerCodeUrl))
-                {
+            else {
+                if (!string.IsNullOrEmpty(modelLogin.LoginVerCodeUrl)) {
                     //打开登录窗口登录
                     //frmLoginVerCode LoginVerCode = new frmLoginVerCode();
                     //LoginVerCode.LoginVerCodeUrl = SiteUrl + modelLogin.LoginVerCodeUrl;
@@ -118,19 +102,16 @@ namespace V5_DataCollection.Forms.Publish
         private string LoginedCookies = string.Empty, LoginPostData = string.Empty;//
         cPublishModuleItem modelLogin;
         private string SiteUrl = string.Empty;
-        private void combClassList_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        private void combClassList_SelectedIndexChanged(object sender, EventArgs e) {
             string item = (string)this.combClassList.SelectedItem;
             this.txtClassID.Text = item;
         }
 
-        private void OutCookie(string cookie)
-        {
+        private void OutCookie(string cookie) {
             LoginedCookies = cookie;
         }
 
-        private void OutVerCode(string verCode, string username, string userpwd)
-        {
+        private void OutVerCode(string verCode, string username, string userpwd) {
             LoginPostData = modelLogin.LoginPostData;
             LoginPostData = LoginPostData.Replace("【验证码】", verCode);
             LoginPostData = LoginPostData.Replace("【用户名】", username);
@@ -138,54 +119,40 @@ namespace V5_DataCollection.Forms.Publish
             LoginCMS();
         }
 
-        private void LoginCMS()
-        {
-            try
-            {
+        private void LoginCMS() {
+            try {
                 string result = SimulationHelper.PostLogin(SiteUrl + modelLogin.LoginUrl,
                     LoginPostData,
                     SiteUrl + modelLogin.LoginRefUrl,
                     modelLogin.PageEncode,
                     ref LoginedCookies);
-                foreach (string str in modelLogin.LoginErrorResult.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (result.IndexOf(str) > -1)
-                    {
+                foreach (string str in modelLogin.LoginErrorResult.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    if (result.IndexOf(str) > -1) {
                         this.txtLogView.Clear();
                         this.txtLogView.AppendText("登录失败!值为:" + str);
                         return;
                     }
                 }
-                if (modelLogin.LoginSuccessResult.Trim() != "")
-                {
-                    if (result.IndexOf(modelLogin.LoginSuccessResult) > -1)
-                    {
+                if (modelLogin.LoginSuccessResult.Trim() != "") {
+                    if (result.IndexOf(modelLogin.LoginSuccessResult) > -1) {
                         GetClassList();
-                        //this.txtLogView.Clear();
-                        //this.txtLogView.AppendText("登录成功!Cookies值为:" + LoginedCookies);
                     }
-                    else
-                    {
+                    else {
                         this.txtLogView.Clear();
                         this.txtLogView.AppendText("登录失败!没找到成功的值为:" + modelLogin.LoginSuccessResult);
                     }
                 }
-                else
-                {
+                else {
                     GetClassList();
-                    //this.txtLogView.Clear();
-                    //this.txtLogView.AppendText("登录成功!Cookies值为:" + LoginedCookies);
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 this.txtLogView.Clear();
                 this.txtLogView.AppendText(ex.Message);
             }
         }
 
-        private void GetClassList()
-        {
+        private void GetClassList() {
 
             LoginPostData = "";
             string result = SimulationHelper.PostPage(SiteUrl + modelLogin.ListUrl,
@@ -196,33 +163,27 @@ namespace V5_DataCollection.Forms.Publish
             string ClassListRegex = modelLogin.ListClassIDRegex.Replace("[参数1]", "(.*?)");
             string[] aa = CollectionHelper.Instance.CutStr(result, ClassListRegex);
             this.txtLogView.Clear();
-            foreach (string str in aa)
-            {
-                //this.txtLogView.AppendText(str + "\r\n");
+            foreach (string str in aa) {
                 this.combClassList.Items.Add(str);
             }
         }
 
-        public cPublishModuleItem GetModelXml(string pathName)
-        {
+        public cPublishModuleItem GetModelXml(string pathName) {
             cPublishModuleItem model = new cPublishModuleItem();
             XmlSerializer serializer = new XmlSerializer(typeof(cPublishModuleItem));
-            try
-            {
+            try {
                 string fileName = modulePath + pathName;
                 FileStream fs = new FileStream(fileName, FileMode.Open);
                 model = (cPublishModuleItem)serializer.Deserialize(fs);
                 fs.Close();
             }
-            catch
-            {
+            catch {
 
             }
             return model;
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
+        private void btnSubmit_Click(object sender, EventArgs e) {
             int ID = Int32.Parse("0" + this.txtID.Text);
             int TaskID = this.TaskID;
             string ModuleName = this.txtWebPublishName.Text;
@@ -250,41 +211,34 @@ namespace V5_DataCollection.Forms.Publish
             model.ModuleNameFile = ModuleNameFile;
             model.CreateTime = CreateTime;
 
-            if (ID == 0)
-            {
+            if (ID == 0) {
                 ID = dal.Add(model);
             }
-            else if (ID > 0)
-            {
+            else if (ID > 0) {
                 dal.Update(model);
             }
-            if (ECEH != null)
-            {
+            if (ECEH != null) {
                 ECEH(ID, "操作成功!");
             }
             this.Hide();
             this.Close();
         }
 
-        private void EditEH(string msg)
-        {
+        private void EditEH(string msg) {
             Bind_ModuleList();
         }
 
-        private void btnTestWebPublish_Click(object sender, EventArgs e)
-        {
+        private void btnTestWebPublish_Click(object sender, EventArgs e) {
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
+        private void btnCancel_Click(object sender, EventArgs e) {
             this.Hide();
             this.Close();
         }
 
-        private void GetCookies(string val)
-        {
-            this.txtWebPublishCookies.Text=val;
+        private void GetCookies(string val) {
+            this.txtWebPublishCookies.Text = val;
         }
 
         private void btnGetCookies_Click(object sender, EventArgs e) {

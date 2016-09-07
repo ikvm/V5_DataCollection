@@ -1,9 +1,4 @@
-﻿/*
- 使用:
- *      加密:DESHelper.Encrypt("123456","12345678");
- *      解密:DESHelper.Decrypt("EADABC123XABC","12345678");
- */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,7 +32,6 @@ namespace V5_WinLibs.Core {
                 using (CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(), CryptoStreamMode.Write)) {
                     cs.Write(dataByteArray, 0, dataByteArray.Length);
                     cs.FlushFinalBlock();
-                    //輸出資料   
                     foreach (byte b in ms.ToArray()) {
                         sb.AppendFormat("{0:X2}", b);
                     }

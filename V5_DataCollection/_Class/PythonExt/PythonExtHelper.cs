@@ -28,9 +28,8 @@ namespace V5_DataCollection._Class.PythonExt {
             #region 字符串
             var code = @"import sys" + "\n" +
                 @"from System.IO import Path" + "\n" +
-                //@"sys.path.append("".\pythonlib.zip"")" + "\n" +
+                @"sys.path.append("".\pythonlib.zip"")" + "\n" +
                 @"import clr" + "\n" +
-                //@"clr.AddReferenceToFileAndPath(Path.GetFullPath(r'System\pythonlibs\V5_PythonLibs.dll'))" + "\n" +
                 @"execfile(Path.GetFullPath(r'" + pythonFile + @"'))";
             var source = _engine.CreateScriptSourceFromString(code);
 
@@ -60,6 +59,7 @@ namespace V5_DataCollection._Class.PythonExt {
             #region 字符串
             var code = @"import sys" + "\n" +
                 @"import clr" + "\n" +
+                @"sys.path.append("".\pythonlib.zip"")" + "\n" +
                 @"sys.stdout=my" + "\n" +
                 @pythonContent;
             var source = _engine.CreateScriptSourceFromString(code);

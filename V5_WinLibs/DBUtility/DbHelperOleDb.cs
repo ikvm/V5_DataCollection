@@ -345,7 +345,6 @@ namespace V5_WinLibs.DBUtility
 					OleDbCommand cmd = new OleDbCommand();
 					try 
 					{
-						//Ñ­»·
 						foreach (DictionaryEntry myDE in SQLStringList)
 						{	
 							string 	cmdText=myDE.Key.ToString();
@@ -460,7 +459,7 @@ namespace V5_WinLibs.DBUtility
 			cmd.CommandText = cmdText;
 			if (trans != null)
 				cmd.Transaction = trans;
-			cmd.CommandType = CommandType.Text;//cmdType;
+			cmd.CommandType = CommandType.Text;
 			if (cmdParms != null) 
 			{
 				foreach (OleDbParameter parm in cmdParms)
@@ -546,7 +545,6 @@ namespace V5_WinLibs.DBUtility
 				OleDbCommand command = BuildIntCommand(connection,storedProcName, parameters );
 				rowsAffected = command.ExecuteNonQuery();
 				result = (int)command.Parameters["ReturnValue"].Value;
-				//Connection.Close();
 				return result;
 			}
 		}

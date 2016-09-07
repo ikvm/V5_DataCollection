@@ -43,10 +43,7 @@ namespace V5_DataPublish.Forms.Desk {
                     MessageBox.Show(this, "文章标题不能为空!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                //if (string.IsNullOrEmpty(this.txtContent.InnerHtml)) {
-                //    MessageBox.Show(this, "文章内容不能为空!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //    return;
-                //}
+
                 if (!this.backgroundWorker.IsBusy) {
                     this.backgroundWorker.RunWorkerAsync();
                 }
@@ -60,32 +57,10 @@ namespace V5_DataPublish.Forms.Desk {
             this.Invoke(new MethodInvoker(delegate() {
                 try {
                     Title = this.txtTitle.Text;
-                    //Content = this.txtContent.InnerHtml;
                     ModelGatherItem m_GatherItem = new ModelGatherItem();
                     m_GatherItem.Title = Title;
                     m_GatherItem.Content = Content;
                     m_GatherItem.CreateTime = DateTime.Now.ToString();
-                    //for (int i = 0; i < checkedListBox_WebSiteClassList.Items.Count; i++) {
-                    //    if (checkedListBox_WebSiteClassList.GetItemChecked(i)) {
-                    //        ModelWebSiteChecked model = (ModelWebSiteChecked)this.checkedListBox_WebSiteClassList.Items[i];
-                    //        string[] ArrValue = model.Value.Split(new string[] { "→" }, StringSplitOptions.None);
-                    //        string[] ArrClassName = model.Name.Split(new string[] { "→" }, StringSplitOptions.None);
-
-                    //        WebSiteHelper ModelSite = Common.GetList<WebSiteHelper>(p => p.Uuid == ArrValue[1]).SingleOrDefault();
-                    //        ModelClassItem m_ClassItem = new ModelClassItem();
-                    //        m_ClassItem.ClassID = ArrValue[2];
-                    //        m_ClassItem.ClassName = ArrClassName[2];
-
-                    //        IPublish iPublish = Utility.GetIPublishByName(ModelSite.PublishName);
-                    //        iPublish.Publish_Type = PublishType.PostData;
-                    //        iPublish.Publish_Init(ModelSite.WebSiteUrl, "admin", ModelSite.LoginUserName, ModelSite.LoginUserPwd, 0, string.Empty);
-                    //        iPublish.Publish_PostData(m_GatherItem, m_ClassItem);
-                    //    }
-                    //}
-                    //if (MessageBox.Show(this, "站点信息发布完成!是否关闭本窗口~", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.OK) {
-                    //    this.Close();
-                    //    this.Dispose();
-                    //}
                 }
                 catch (Exception ex) {
                     MessageBox.Show(this, "文章发布出错!" + ex.Message + ex.InnerException + ex.StackTrace + ex.Source,
@@ -100,8 +75,6 @@ namespace V5_DataPublish.Forms.Desk {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            //this.Close();
-            //this.Dispose();
             this.lblProcess.Text = "发布完成!";
         }
         /// <summary>
@@ -112,9 +85,6 @@ namespace V5_DataPublish.Forms.Desk {
         private void frmHandInsert_Load(object sender, EventArgs e) {
 
             this.txtTitle.Text = this.Title;
-            //this.txtContent.InnerHtml = this.Content;
-
-
             BLLDeskTopPublish bll = new BLLDeskTopPublish();
             List<ModelWebSiteChecked> list = new List<ModelWebSiteChecked>();
             list = bll.GetXmlConfig();
@@ -176,34 +146,11 @@ namespace V5_DataPublish.Forms.Desk {
         /// </summary>
         /// <param name="list"></param>
         private void Bind_WebSiteList(List<ModelWebSiteChecked> list) {
-            //foreach (ModelWebSiteChecked model in list) {
-            //    this.checkedListBox_WebSiteClassList.Items.Add(new ModelWebSiteChecked() {
-            //        Name = model.Name,
-            //        IsChecked = model.IsChecked,
-            //        Value = model.Value
-            //    }, model.IsChecked ? true : false
-            // );
-            //}
-            //this.checkedListBox_WebSiteClassList.DisplayMember = "Name";
-            //this.checkedListBox_WebSiteClassList.ValueMember = "CheckedValue";
+
         }
 
         private void Save_CheckBoxList() {
-            //BLLDeskTopPublish bll = new BLLDeskTopPublish();
-            //List<ModelWebSiteChecked> list = new List<ModelWebSiteChecked>();
-            //for (int i = 0; i < checkedListBox_WebSiteClassList.Items.Count; i++) {
-            //    bool IsChecked = false;
-            //    if (checkedListBox_WebSiteClassList.GetItemChecked(i)) {
-            //        IsChecked = true;
-            //    }
-            //    ModelWebSiteChecked model = (ModelWebSiteChecked)checkedListBox_WebSiteClassList.Items[i];
-            //    list.Add(new ModelWebSiteChecked() {
-            //        Name = model.Name,
-            //        IsChecked = IsChecked,
-            //        Value = model.Value
-            //    });
-            //}
-            //bll.SaveXmlConfig(list);
+
         }
     }
 }

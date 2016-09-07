@@ -113,72 +113,6 @@ namespace V5_DataCollection.Forms.Task.Tools {
 
         }
 
-
-        //private void LoadFormatText() {
-        //    StringBuilder sb = new StringBuilder();
-
-        //    string strSecond = this.txtSencond.Text;
-        //    if (strSecond == "0") {
-        //        sb.Append(" 不限制秒 ");
-        //    }
-        //    else if (strSecond.IndexOf("/") > -1) {
-        //        sb.Append(string.Format(" 每{0}秒执行 ", strSecond.Split(new[] { "/" }, StringSplitOptions.None)[1]));
-        //    }
-        //    else {
-        //        sb.Append(string.Format(" {0}秒后执行一次 ", strSecond));
-        //    }
-
-        //    string strMinute = this.txtMinute.Text;
-        //    if (strMinute == "0" || strMinute == "*") {
-        //        sb.Append(" 不限制分 ");
-        //    }
-        //    else if (strMinute.IndexOf("/") > -1) {
-        //        sb.Append(string.Format(" 每{0}分执行 ", strMinute.Split(new[] { "/" }, StringSplitOptions.None)[1]));
-        //    }
-        //    else {
-        //        sb.Append(string.Format(" {0}分后执行一次 ", strMinute));
-        //    }
-
-        //    string strHour = this.txtHour.Text;
-        //    if (strHour == "0" || strHour == "*") {
-        //        sb.Append(" 不限制小时 ");
-        //    }
-        //    else if (strHour.IndexOf("/") > -1) {
-        //        sb.Append(string.Format(" 每{0}小时执行 ", strHour.Split(new[] { "/" }, StringSplitOptions.None)[1]));
-        //    }
-        //    else {
-        //        sb.Append(string.Format(" {0}小时后执行一次 ", strHour));
-        //    }
-
-        //    string strDay = this.txtDay.Text;
-        //    if (strDay == "0" || strDay == "*") {
-        //        sb.Append(" 不限制天 ");
-        //    }
-        //    else if (strDay.IndexOf("/") > -1) {
-        //        sb.Append(string.Format(" 每{0}号执行 ", strDay.Split(new[] { "/" }, StringSplitOptions.None)[1]));
-        //    }
-        //    else {
-        //        sb.Append(string.Format(" {0}号执行一次 ", strDay));
-        //    }
-
-        //    string strWeek = this.txtWeek.Text;
-        //    if (strWeek == "*") {
-        //        sb.Append(" 无周 ");
-        //    }
-        //    else {
-        //        sb.Append(string.Format(" 周{0} ", strWeek));
-        //    }
-
-        //    string strYear = this.txtYear.Text;
-        //    if (strYear == "?") {
-        //        sb.Append(" 每年 ");
-        //    }
-        //    else {
-        //        sb.Append(string.Format(" {0}年 ", strYear));
-        //    }
-        //}
-
-
         private void Init_Corn() {
             var sec = "0";
             var min = "0/5";
@@ -293,6 +227,7 @@ namespace V5_DataCollection.Forms.Task.Tools {
                 }
             }
             #endregion
+
             this.txtDiyTriggerTime.Text = string.Format("{0} {1} {2} {3} {4} {5}", sec, min, hour, day, month, week);
 
             this.txtStartTime.Text = startDateTime.ToString("yyyy-MM-dd HH:mm:ss");

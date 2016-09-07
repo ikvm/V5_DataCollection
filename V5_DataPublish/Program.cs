@@ -12,7 +12,6 @@ namespace V5_DataPublish {
         /// </summary>
         [STAThread]
         static void Main() {
-            //try 
             {
                 bool isAppRunning = false;
                 System.Threading.Mutex mutex = new System.Threading.Mutex(
@@ -33,10 +32,6 @@ namespace V5_DataPublish {
                     }
                 }
             }
-            //catch (Exception ex) {
-            //    MessageBox.Show(ex.Message);
-             //   Log4Helper.Write(LogLevel.Error, ex);
-            //}
         }
     }
 }

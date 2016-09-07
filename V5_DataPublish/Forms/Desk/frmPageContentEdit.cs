@@ -46,13 +46,7 @@ namespace V5_DataPublish.Forms.Desk {
                 MessageBox.Show("文章标题不能为空!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            //if (string.IsNullOrEmpty(this.txtFckEditorContent.InnerHtml)) {
-            //    MessageBox.Show("文章内容不能为空!", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return;
-            //}
-            //if (rcEH != null) {
-            //    rcEH(this.txtTitle.Text, this.txtFckEditorContent.InnerHtml);
-            //}
+
             this.Close();
             this.Dispose();
         }
@@ -63,7 +57,6 @@ namespace V5_DataPublish.Forms.Desk {
         /// <param name="e"></param>
         private void frmPageContentEdit_Load(object sender, EventArgs e) {
             this.txtTitle.Text = this.Title;
-            //this.txtFckEditorContent.InnerHtml = this.Content;
         }
         /// <summary>
         /// 编辑器初始化加载
@@ -71,7 +64,7 @@ namespace V5_DataPublish.Forms.Desk {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void txtFckEditorContent_OnEditorInitialized(object sender, EventArgs e) {
-            //this.txtFckEditorContent.InnerHtml = this.Content;
+            
         }
 
     }

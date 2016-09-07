@@ -10,7 +10,6 @@ namespace V5_WinLibs.Core {
     /// 伪原创Helper
     /// </summary>
     public class cFalseOriginalHelper {
-        //static Dictionary<string, string> _FalseOriginalWords = new Dictionary<string, string>();
         /// <summary>
         /// 加载伪原创词
         /// </summary>
@@ -30,8 +29,6 @@ namespace V5_WinLibs.Core {
                 string[] ltemparr;
                 while ((temp = sr.ReadLine()) != null) {
                     ltemparr = temp.Split(new string[] { "→" }, StringSplitOptions.None);
-                    //Dictionary<string,string> tempDic = new Dictionary<string,string>();
-                    //tempDic.Add(ltemparr[0], ltemparr[1]);
                     if (!ret.ContainsKey(ltemparr[0])) {
                         ret.Add(ltemparr[0], ltemparr[1]);
                     }
@@ -53,24 +50,23 @@ namespace V5_WinLibs.Core {
                 return strContent;
             }
             string[] sArray = Regex.Split(strContent, strOldStr, RegexOptions.IgnoreCase);
-            //注   比如含有两个带替换的词 则分为了三组 
             for (int tt = 0; tt < sArray.Length; tt++) {
-                if (tt == sArray.Length - 1)//最后一个不加特殊符号
+                if (tt == sArray.Length - 1)
                 { temp += sArray[tt]; }
                 else { temp += sArray[tt] + "|" + (tt + 1).ToString() + "||"; }
             }
             string lyg = "";
-            for (int i = 0; i < iReplaceNum; i++)//取随机位置 去掉重复
+            for (int i = 0; i < iReplaceNum; i++) 
             {
                 Random r = new Random();
                 int j = r.Next(1, sArray.Length - 1);
                 if (lyg.Contains("-" + j.ToString() + "+")) { i--; }
                 else {
-                    lyg += "-" + j.ToString() + "+";//取到位置 记录
-                    temp = temp.Replace("|" + (j).ToString() + "||", strNewStr);//替换
+                    lyg += "-" + j.ToString() + "+"; 
+                    temp = temp.Replace("|" + (j).ToString() + "||", strNewStr);
                 }
             }
-            for (int j = 0; j < sArray.Length; j++)//处理没有替换的部分
+            for (int j = 0; j < sArray.Length; j++)
             { temp = temp.Replace("|" + (j + 1).ToString() + "||", strOldStr); }
             return temp;
         }

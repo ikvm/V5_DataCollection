@@ -32,10 +32,7 @@ namespace V5_DataCollection.Forms.Tools {
             foreach (DataGridViewColumn c in v5DataGridView1.Columns) {
                 row.Cells.Add(c.CellTemplate.Clone() as DataGridViewCell);//给行添加单元格
             }
-            //DataGridViewCell cell;
-            //cell.Value = "1";
-            //var s = new DataGridViewTextBoxColumn();
-            //row.Cells.Add(cell);
+
             row.Cells[0].Value = "01111";
             row.Cells[1].Value = 0;
 
@@ -84,8 +81,7 @@ namespace V5_DataCollection.Forms.Tools {
         }
 
         private void btnTestPython_Click(object sender, EventArgs e) {
-            //var s = PythonExtHelper.RunPython(@"Plugins\SpiderUrl\test.py", new object[] { "你好啊随碟附送大放送的"});
-            new frmEditor().Show(this);
+            var s = PythonExtHelper.RunPython(@"Plugins\SpiderUrl\test.py", new object[] { "你好啊随碟附送大放送的"});
         }
     }
 }

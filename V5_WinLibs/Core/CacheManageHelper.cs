@@ -73,12 +73,12 @@ namespace V5_WinLibs.Core {
         }
         public void Add(string key, object value, string filePath) {
             if (!Contains(key)) {
-                Add(key, value, filePath, 0);//再插入Cache
+                Add(key, value, filePath, 0);
             }
         }
         public void Add(string key, object value, string filePath, int cacheTimeMinutes) {
             if (!Contains(key)) {
-                Insert(key, value, filePath, cacheTimeMinutes);//再插入Cache
+                Insert(key, value, filePath, cacheTimeMinutes);
             }
         }
         /// <summary>
@@ -94,7 +94,7 @@ namespace V5_WinLibs.Core {
             }
             int cacheTime = cacheTimeMinutes;
             if (cacheTimeMinutes == 0) {
-                cacheTime = 1000;//
+                cacheTime = 1000;
             }
             theCache.Insert(key, value, theCacheDependency, DateTime.Now.AddMinutes(cacheTime == 0 ? 20 : cacheTime), TimeSpan.Zero, CacheItemPriority.Default, null);
             if (cacheState.ContainsKey(key)) {

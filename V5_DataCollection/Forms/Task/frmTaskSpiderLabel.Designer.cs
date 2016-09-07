@@ -89,7 +89,7 @@ namespace V5_DataCollection.Forms.Task
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(339, 440);
+            this.txtID.Location = new System.Drawing.Point(339, 462);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(75, 21);
             this.txtID.TabIndex = 2;
@@ -151,7 +151,6 @@ namespace V5_DataCollection.Forms.Task
             this.chkLabelIsLoop.TabIndex = 3;
             this.chkLabelIsLoop.Text = "循环";
             this.chkLabelIsLoop.UseVisualStyleBackColor = true;
-            this.chkLabelIsLoop.Visible = false;
             // 
             // label2
             // 
@@ -417,7 +416,7 @@ namespace V5_DataCollection.Forms.Task
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(536, 437);
+            this.btnSubmit.Location = new System.Drawing.Point(536, 459);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 4;
@@ -427,7 +426,7 @@ namespace V5_DataCollection.Forms.Task
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(621, 437);
+            this.btnCancel.Location = new System.Drawing.Point(621, 459);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -487,7 +486,7 @@ namespace V5_DataCollection.Forms.Task
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 443);
+            this.label3.Location = new System.Drawing.Point(8, 465);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 12);
             this.label3.TabIndex = 9;
@@ -496,9 +495,9 @@ namespace V5_DataCollection.Forms.Task
             // cmbSpiderPlugin
             // 
             this.cmbSpiderPlugin.FormattingEnabled = true;
-            this.cmbSpiderPlugin.Location = new System.Drawing.Point(49, 441);
+            this.cmbSpiderPlugin.Location = new System.Drawing.Point(49, 463);
             this.cmbSpiderPlugin.Name = "cmbSpiderPlugin";
-            this.cmbSpiderPlugin.Size = new System.Drawing.Size(111, 20);
+            this.cmbSpiderPlugin.Size = new System.Drawing.Size(169, 20);
             this.cmbSpiderPlugin.TabIndex = 10;
             // 
             // groupBox10
@@ -506,7 +505,7 @@ namespace V5_DataCollection.Forms.Task
             this.groupBox10.Controls.Add(this.txtLogView);
             this.groupBox10.Location = new System.Drawing.Point(6, 343);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(693, 87);
+            this.groupBox10.Size = new System.Drawing.Size(693, 110);
             this.groupBox10.TabIndex = 15;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "日志";
@@ -519,12 +518,12 @@ namespace V5_DataCollection.Forms.Task
             this.txtLogView.Multiline = true;
             this.txtLogView.Name = "txtLogView";
             this.txtLogView.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLogView.Size = new System.Drawing.Size(687, 67);
+            this.txtLogView.Size = new System.Drawing.Size(687, 90);
             this.txtLogView.TabIndex = 0;
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(448, 437);
+            this.btnTest.Location = new System.Drawing.Point(448, 459);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(75, 23);
             this.btnTest.TabIndex = 14;
@@ -535,18 +534,19 @@ namespace V5_DataCollection.Forms.Task
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(167, 446);
+            this.linkLabel1.Location = new System.Drawing.Point(224, 468);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(29, 12);
             this.linkLabel1.TabIndex = 16;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "编辑";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // frmTaskSpiderLabel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(706, 475);
+            this.ClientSize = new System.Drawing.Size(706, 492);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.btnTest);

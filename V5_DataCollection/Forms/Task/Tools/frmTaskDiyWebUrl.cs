@@ -54,7 +54,6 @@ namespace V5_DataCollection.Forms.Task.Tools {
                     this.txtEditId.Text = this.EditItem.ToString();
                 }
             }
-            //加载标签
             Bind_UrlEncode();
         }
 
@@ -63,7 +62,6 @@ namespace V5_DataCollection.Forms.Task.Tools {
         /// </summary>
         private void Bind_UrlEncode() {
             var data = cPageEncode.GetPageEnCode(); ;
-            //data.Insert(0, new ListItem("Auto", "自动编码"));
             this.cmbUrlEncode.DataSource = data;
             this.cmbUrlEncode.DisplayMember = "Text";
             this.cmbUrlEncode.ValueMember = "Value";

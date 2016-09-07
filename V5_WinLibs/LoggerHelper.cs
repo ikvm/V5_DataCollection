@@ -19,7 +19,7 @@ namespace V5_WinLibs {
     /// LogNet4封装
     /// </summary>
     public class LoggerHelper {
-        private static readonly ILog log;//= LogManager.GetLogger("V5_WinLibs");
+        private static readonly ILog log; 
 
         static LoggerHelper() {
             log4net.Config.XmlConfigurator.Configure(new System.IO.FileInfo(AppDomain.CurrentDomain.BaseDirectory + @"Config/lognet4.config"));

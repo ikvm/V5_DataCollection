@@ -95,43 +95,25 @@ namespace V5_WinLibs.Core {
 
             Encoding enPageCode = Encoding.GetEncoding(strPageCode);
             byte[] paramByte = enPageCode.GetBytes(strArgs);
-            //
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strURL);
             request.AllowAutoRedirect = true;
             request.KeepAlive = true;
-            //request.Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-excel, application/msword, application/x-shockwave-flash, */*";
-
             request.Accept = "application/x-shockwave-flash, image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-silverlight, */*";
             request.Referer = strReferer;
 
-            //request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Maxthon; .NET CLR 2.0.50727)";
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; CIBA)";
             request.ContentType = "application/x-www-form-urlencoded";
             request.Method = "POST";
             if (!string.IsNullOrEmpty(cookieHeader)) {
                 request.Headers.Add("cookie:" + cookieHeader);
             }
-            //if (!string.IsNullOrEmpty(cookieHeader)) {
-            //    CookieContainer cook = new CookieContainer();
-            //    cook.SetCookies(new Uri(strURL), cookieHeader);
-            //    request.CookieContainer = new CookieContainer();
-            //}
-
             Stream MyRequestStrearm = request.GetRequestStream();
-            MyRequestStrearm.Write(paramByte, 0, paramByte.Length);    //写入参数
+            MyRequestStrearm.Write(paramByte, 0, paramByte.Length);    
             MyRequestStrearm.Close();
-
-            //StreamWriter MyStreamWriter = new StreamWriter(MyRequestStrearm, Encoding.ASCII);
-            // MyStreamWriter.Write(strArgs);
-            // MyStreamWriter.Close();
-            //MyRequestStrearm.Close();
 
             HttpWebResponse response = null;
             System.IO.StreamReader sr = null;
             response = (HttpWebResponse)request.GetResponse();
-            //获取新的cookies
-            //cookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));
-            //
             sr = new System.IO.StreamReader(response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
             strResult = sr.ReadToEnd();
             return strResult;
@@ -166,31 +148,19 @@ namespace V5_WinLibs.Core {
                 request.Method = "POST";
 
                 #region
-                //if (!string.IsNullOrEmpty(cookieHeader)) {
-                //    request.Headers.Add("cookie:" + cookieHeader);
-                //}
                 CookieCollection myCookies = null;
                 CookieContainer myCookieContainer = new CookieContainer();
-                //if (!string.IsNullOrEmpty(cookieHeader)) {
-                //    myCookieContainer.SetCookies(new Uri(strReferer), cookieHeader);
-                //}
                 request.CookieContainer = myCookieContainer;
                 #endregion
 
-                //Stream requestStrearm = request.GetRequestStream();
-                //StreamWriter MyStreamWriter = new StreamWriter(requestStrearm, Encoding.ASCII);
-                //MyStreamWriter.Write(strArgs);
-                //MyStreamWriter.Close();
-                //requestStrearm.Close();
-
                 Stream MyRequestStrearm = request.GetRequestStream();
-                MyRequestStrearm.Write(paramByte, 0, paramByte.Length);    //写入参数
+                MyRequestStrearm.Write(paramByte, 0, paramByte.Length);    
                 MyRequestStrearm.Close();
 
                 HttpWebResponse response = null;
                 System.IO.StreamReader sr = null;
                 response = (HttpWebResponse)request.GetResponse();
-                cookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));//获取cookies
+                cookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));
                 myCookies = response.Cookies;
                 sr = new System.IO.StreamReader(response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
                 strResult = sr.ReadToEnd();
@@ -212,7 +182,7 @@ namespace V5_WinLibs.Core {
                 Uri myUri = new Uri(url);
                 WebRequest webRequest = WebRequest.Create(myUri);
                 WebResponse webResponse = webRequest.GetResponse();
-                cookieHeader = webResponse.Headers["Set-Cookie"];//
+                cookieHeader = webResponse.Headers["Set-Cookie"];
 
                 Bitmap myImage = new Bitmap(webResponse.GetResponseStream());
                 return (Image)myImage;
@@ -237,8 +207,7 @@ namespace V5_WinLibs.Core {
             string strArgs,
             string strReferer,
             string strPageCode) {
-            string boundary = DateTime.Now.Ticks.ToString("x");//"WebKitFormBoundaryAiFqmgvG4u1Bf17w";// 
-            //请求 
+            string boundary = DateTime.Now.Ticks.ToString("x"); 
             WebRequest request = WebRequest.Create(strURL);
             request.Method = "POST";
             request.ContentType = "multipart/form-data; boundary=---------------------------" + boundary;
@@ -248,24 +217,15 @@ namespace V5_WinLibs.Core {
 
             if (string.IsNullOrEmpty(strPageCode))
                 strPageCode = Encoding.Default.EncodingName;
-            //组织表单数据 ;
             strArgs = strArgs.Replace("${boundary}", boundary);
             byte[] postFormData = Encoding.GetEncoding(strPageCode).GetBytes(strArgs);
-            //post总长度 
             long length = postFormData.Length;
             request.ContentLength = length;
 
             Stream requestStream = request.GetRequestStream();
-            //发送表单参数 
             requestStream.Write(postFormData, 0, postFormData.Length);
             requestStream.Close();
-            //发送表单文件
             ////文件内容 
-            //byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)fileStream.Length))]; 
-            //int bytesRead = 0; 
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) 
-            //requestStream.Write(buffer, 0, bytesRead); 
-            //响应 
             WebResponse response = request.GetResponse();
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
             string html = sr.ReadToEnd().Trim();
@@ -287,7 +247,6 @@ namespace V5_WinLibs.Core {
           string strPageCode,
             string boundaryType,
             string boundary) {
-            //请求 
             WebRequest request = WebRequest.Create(strURL);
             request.Method = "POST";
             request.ContentType = "multipart/form-data; boundary=" + boundaryType;
@@ -297,24 +256,15 @@ namespace V5_WinLibs.Core {
 
             if (string.IsNullOrEmpty(strPageCode))
                 strPageCode = Encoding.Default.EncodingName;
-            //组织表单数据 ;
             strArgs = strArgs.Replace("${boundary}", boundary);
             byte[] postFormData = Encoding.GetEncoding(strPageCode).GetBytes(strArgs);
-            //post总长度 
             long length = postFormData.Length;
             request.ContentLength = length;
 
             Stream requestStream = request.GetRequestStream();
-            //发送表单参数 
             requestStream.Write(postFormData, 0, postFormData.Length);
             requestStream.Close();
-            //发送表单文件
             ////文件内容 
-            //byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)fileStream.Length))]; 
-            //int bytesRead = 0; 
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) 
-            //requestStream.Write(buffer, 0, bytesRead); 
-            //响应 
             WebResponse response = request.GetResponse();
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(strPageCode));
             string html = sr.ReadToEnd().Trim();
@@ -342,7 +292,6 @@ namespace V5_WinLibs.Core {
             string strReferer,
             string strPageCode) {
             string boundary = DateTime.Now.Ticks.ToString("x");
-            //请求 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(strURL);
             request.Method = "POST";
             request.ContentType = "multipart/form-data; boundary=---------------------------" + boundary;
@@ -352,27 +301,18 @@ namespace V5_WinLibs.Core {
 
             if (string.IsNullOrEmpty(strPageCode))
                 strPageCode = Encoding.Default.EncodingName;
-            //组织表单数据 ;
             strArgs = strArgs.Replace("${boundary}", boundary);
             byte[] postFormData = Encoding.GetEncoding(strPageCode).GetBytes(strArgs);
-            //post总长度 
             long length = postFormData.Length;
             request.ContentLength = length;
 
             Stream requestStream = request.GetRequestStream();
-            //发送表单参数 
             requestStream.Write(postFormData, 0, postFormData.Length);
             requestStream.Close();
-            //发送表单文件
             ////文件内容 
-            //byte[] buffer = new Byte[checked((uint)Math.Min(4096, (int)fileStream.Length))]; 
-            //int bytesRead = 0; 
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0) 
-            //requestStream.Write(buffer, 0, bytesRead); 
-            //响应 
             WebResponse response = request.GetResponse();
             if (CookieHeader.Trim() == "") {
-                CookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));//Cookies
+                CookieHeader = request.CookieContainer.GetCookieHeader(new Uri(strURL));
             }
             StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
             string html = sr.ReadToEnd().Trim();

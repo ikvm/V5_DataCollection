@@ -14,13 +14,9 @@ namespace V5_WinLibs.Core {
     /// </summary>
     public class HttpHelper4 {
         #region 预定义方法或者变更
-        //默认的编码
         private Encoding encoding = Encoding.Default;
-        //Post数据编码
         private Encoding postencoding = Encoding.Default;
-        //HttpWebRequest对象用来发起请求
         private HttpWebRequest request = null;
-        //获取影响流的数据对象
         private HttpWebResponse response = null;
         /// <summary>
         /// 根据相传入的数据，得到相应页面数据
@@ -28,10 +24,8 @@ namespace V5_WinLibs.Core {
         /// <param name="item">参数类对象</param>
         /// <returns>返回HttpResult类型</returns>
         public HttpResult GetHtml(HttpItem item) {
-            //返回参数
             HttpResult result = new HttpResult();
             try {
-                //准备参数
                 SetRequest(item);
             }
             catch (Exception ex) {
@@ -47,22 +41,16 @@ namespace V5_WinLibs.Core {
                     if (response.Headers["set-cookie"] != null) result.Cookie = response.Headers["set-cookie"];
                     byte[] ResponseByte = null;
                     using (MemoryStream _stream = new MemoryStream()) {
-                        //GZIIP处理
                         if (response.ContentEncoding != null && response.ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase)) {
-                            //开始读取流并设置编码方式
                             new GZipStream(response.GetResponseStream(), CompressionMode.Decompress).CopyTo(_stream, 10240);
                         }
                         else {
-                            //开始读取流并设置编码方式
                             response.GetResponseStream().CopyTo(_stream, 10240);
                         }
-                        //获取Byte
                         ResponseByte = _stream.ToArray();
                     }
                     if (ResponseByte != null & ResponseByte.Length > 0) {
-                        //是否返回Byte类型数据
                         if (item.ResultType == ResultType.Byte) result.ResultByte = ResponseByte;
-                        //从这里开始我们要无视编码了
                         if (encoding == null) {
                             Match meta = Regex.Match(Encoding.Default.GetString(ResponseByte), "<meta([^<]*)charset=([^<]*)[\"']", RegexOptions.IgnoreCase);
                             string c = (meta.Groups.Count > 1) ? meta.Groups[2].Value.ToLower().Trim() : string.Empty;
@@ -82,18 +70,15 @@ namespace V5_WinLibs.Core {
                                 else encoding = Encoding.GetEncoding(response.CharacterSet);
                             }
                         }
-                        //得到返回的HTML
                         result.Html = encoding.GetString(ResponseByte);
                     }
                     else {
-                        //得到返回的HTML
                         result.Html = "本次请求并未返回任何数据";
                     }
                 }
                 #endregion
             }
             catch (WebException ex) {
-                //这里是在发生异常时返回的错误信息
                 response = (HttpWebResponse)ex.Response;
                 result.Html = ex.Message;
                 if (response != null) {
@@ -112,17 +97,13 @@ namespace V5_WinLibs.Core {
         /// </summary>
         ///<param name="item">参数列表</param>
         private void SetRequest(HttpItem item) {
-            // 验证证书
             SetCer(item);
-            //设置Header参数
             if (item.Header != null && item.Header.Count > 0) foreach (string key in item.Header.AllKeys) {
                     request.Headers.Add(key, item.Header[key]);
                 }
-            // 设置代理
             SetProxy(item);
             if (item.ProtocolVersion != null) request.ProtocolVersion = item.ProtocolVersion;
             request.ServicePoint.Expect100Continue = item.Expect100Continue;
-            //请求方式Get或者Post
             request.Method = item.Method;
             request.Timeout = item.Timeout;
             request.KeepAlive = item.KeepAlive;
@@ -130,23 +111,14 @@ namespace V5_WinLibs.Core {
             if (!string.IsNullOrWhiteSpace(item.Host)) {
                 request.Host = item.Host;
             }
-            //Accept
             request.Accept = item.Accept;
-            //ContentType返回类型
             request.ContentType = item.ContentType;
-            //UserAgent客户端的访问类型，包括浏览器版本和操作系统信息
             request.UserAgent = item.UserAgent;
-            // 编码
             encoding = item.Encoding;
-            //设置Cookie
             SetCookie(item);
-            //来源地址
             request.Referer = item.Referer;
-            //是否执行跳转功能
             request.AllowAutoRedirect = item.Allowautoredirect;
-            //设置Post数据
             SetPostData(item);
-            //设置最大连接
             if (item.Connectionlimit > 0) request.ServicePoint.ConnectionLimit = item.Connectionlimit;
         }
         /// <summary>
@@ -155,16 +127,12 @@ namespace V5_WinLibs.Core {
         /// <param name="item"></param>
         private void SetCer(HttpItem item) {
             if (!string.IsNullOrWhiteSpace(item.CerPath)) {
-                //这一句一定要写在创建连接的前面。使用回调的方法进行证书验证。
                 ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
-                //初始化对像，并设置请求的URL地址
                 request = (HttpWebRequest)WebRequest.Create(item.URL);
                 SetCerList(item);
-                //将证书添加到请求里
                 request.ClientCertificates.Add(new X509Certificate(item.CerPath));
             }
             else {
-                //初始化对像，并设置请求的URL地址
                 request = (HttpWebRequest)WebRequest.Create(item.URL);
                 SetCerList(item);
             }
@@ -185,11 +153,9 @@ namespace V5_WinLibs.Core {
         /// </summary>
         /// <param name="item">Http参数</param>
         private void SetCookie(HttpItem item) {
-            //Cookie
             if (item.ResultCookieType == ResultCookieType.String) {
                 if (!string.IsNullOrEmpty(item.Cookie)) request.Headers[HttpRequestHeader.Cookie] = item.Cookie;
             }
-            //设置CookieCollection
             else if (item.ResultCookieType == ResultCookieType.CookieCollection) {
                 request.CookieContainer = new CookieContainer();
                 if (item.CookieCollection != null && item.CookieCollection.Count > 0)
@@ -201,22 +167,19 @@ namespace V5_WinLibs.Core {
         /// </summary>
         /// <param name="item">Http参数</param>
         private void SetPostData(HttpItem item) {
-            //验证在得到结果时是否有传入数据
             if (request.Method.Trim().ToLower().Contains("post")) {
                 if (item.PostEncoding != null) {
                     postencoding = item.PostEncoding;
                 }
                 byte[] buffer = null;
-                //写入Byte类型
                 if (item.PostDataType == PostDataType.Byte && item.PostdataByte != null && item.PostdataByte.Length > 0) {
-                    //验证在得到结果时是否有传入数据
                     buffer = item.PostdataByte;
-                }//写入文件
+                }
                 else if (item.PostDataType == PostDataType.FilePath && !string.IsNullOrWhiteSpace(item.Postdata)) {
                     StreamReader r = new StreamReader(item.Postdata, postencoding);
                     buffer = postencoding.GetBytes(r.ReadToEnd());
                     r.Close();
-                } //写入字符串
+                } 
                 else if (!string.IsNullOrWhiteSpace(item.Postdata)) {
                     buffer = postencoding.GetBytes(item.Postdata);
                 }
@@ -232,20 +195,15 @@ namespace V5_WinLibs.Core {
         /// <param name="item">参数对象</param>
         private void SetProxy(HttpItem item) {
             if (!string.IsNullOrWhiteSpace(item.ProxyIp)) {
-                //设置代理服务器
                 if (item.ProxyIp.Contains(":")) {
                     string[] plist = item.ProxyIp.Split(':');
                     WebProxy myProxy = new WebProxy(plist[0].Trim(), Convert.ToInt32(plist[1].Trim()));
-                    //建议连接
                     myProxy.Credentials = new NetworkCredential(item.ProxyUserName, item.ProxyPwd);
-                    //给当前请求对象
                     request.Proxy = myProxy;
                 }
                 else {
                     WebProxy myProxy = new WebProxy(item.ProxyIp, false);
-                    //建议连接
                     myProxy.Credentials = new NetworkCredential(item.ProxyUserName, item.ProxyPwd);
-                    //给当前请求对象
                     request.Proxy = myProxy;
                 }
                 request.Credentials = CredentialCache.DefaultCredentials;
@@ -426,7 +384,6 @@ namespace V5_WinLibs.Core {
             set { header = value; }
         }
         /// <summary>
-        //     获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
         /// </summary>
         public Version ProtocolVersion { get; set; }
         private Boolean _expect100continue = true;

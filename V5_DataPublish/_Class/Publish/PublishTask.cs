@@ -16,7 +16,6 @@ using V5_DataPublish._Class;
 using V5_Utility.Utility;
 using V5_WinLibs.Core;
 using V5_WinLibs.DBUtility;
-using V5_WinLibs.DBHelper;
 
 namespace V5_DataPublish._Class.Publish {
     public class PublishTask {
@@ -110,7 +109,6 @@ namespace V5_DataPublish._Class.Publish {
             try {
                 LoadPublishModule(ModelWebSite.PublishName);
                 if (iPublish != null) {
-                    //OutFalseOriginal(ref Title, ref Content);
                     Title = Title.Replace("'", "''");
                     Content = Content.Replace("'", "''");
 
@@ -160,7 +158,6 @@ namespace V5_DataPublish._Class.Publish {
                 iPublish.Publish_PostData(mGatherItem, mClassList);
             }
             else if (pt == PublishType.PostDataOver) {
-                //备份数据库
                 this.BakDataBase(Title, Content);
             }
         }
@@ -180,11 +177,9 @@ namespace V5_DataPublish._Class.Publish {
                     DbHelperSQL.connectionString = ModelWebSite.DataLinkUrl;
                     DataTable dt = DbHelperSQL.Query(ModelWebSite.DataQuerySQL.Replace("[参数]", strWhere)).Tables[0];
                     foreach (DataRow dr in dt.Rows) {
-                        //判断是否已经发送了
                         Title = dr["Title"].ToString();
                         Content = dr["Content"].ToString();
                         if (!CheckArticleContentIsSend(Title, Content)) {
-                            //发布文章
                             this.SendArticleContent(ModelWebSite, Title, Content, ClassName, ClassID);
                         }
                         Thread.Sleep(0);
@@ -224,11 +219,9 @@ namespace V5_DataPublish._Class.Publish {
                         Content = sr.ReadToEnd();
                         sr.Close();
                         if (!CheckArticleContentIsSend(Title, Content)) {
-                            //发布文章
                             this.SendArticleContent(ModelWebSite, Title, Content, ClassName, "1");
                         }
                         else {
-                            //文章存在
                             MeOutPut.Message = string.Format("地址:{0} 分类:{1} 标题:{2} 文章存在!",
                              ModelWebSite.WebSiteUrl, ClassName, Title);
                             if (PublishOP != null) {
@@ -236,7 +229,7 @@ namespace V5_DataPublish._Class.Publish {
                             }
                         }
                         File.Delete(file);
-                        Thread.Sleep(0);//这个可以自定义时间
+                        Thread.Sleep(0);
                     }
                     catch (Exception ex) {
                         MeOutPut.Message = string.Format("网站名称:{0} 网站地址:{1} 信息:{2} 发布失败!",
@@ -264,7 +257,6 @@ namespace V5_DataPublish._Class.Publish {
                             ClassID = dr["ClassID"].ToString();
                             ClassName = dr["ClassName"].ToString();
                             string dataDir = ModelWebSite.ID + "-" + ClassID;
-                            //2.发布内容
                             string[] files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\NetWork\\" + dataDir + "\\", "*.html");
                             int lLen = files.Length;
                             for (int i = 0; i < lLen; i++) {
@@ -280,11 +272,9 @@ namespace V5_DataPublish._Class.Publish {
                                     Content = sr.ReadToEnd();
                                     sr.Close();
                                     if (!CheckArticleContentIsSend(Title, Content)) {
-                                        //发布文章
                                         this.SendArticleContent(ModelWebSite, Title, Content, ClassName, ClassID);
                                     }
                                     else {
-                                        //文章存在
                                         MeOutPut.Message = string.Format("地址:{0} 分类:{1} 标题:{2} 文章存在!",
                                          ModelWebSite.WebSiteUrl, ClassName, Title);
                                         if (PublishOP != null) {
@@ -292,7 +282,7 @@ namespace V5_DataPublish._Class.Publish {
                                         }
                                     }
                                     File.Delete(file);
-                                    Thread.Sleep(1);//这个可以自定义时间
+                                    Thread.Sleep(1);
                                 }
                                 catch (Exception ex) {
                                     MeOutPut.Message = string.Format("网站名称:{0} 网站地址:{1} 信息:{2} 发布失败!",
@@ -342,8 +332,10 @@ namespace V5_DataPublish._Class.Publish {
             retDict = null;
             #endregion
             #region 如果内容有图片 保存图片列表 图片大小为200X300 异步下载
+
             #endregion
             #region 自动生成  pdf word <200 个字符  提高Pr值 异步生成
+
             #endregion
         }
         #endregion
@@ -382,17 +374,6 @@ namespace V5_DataPublish._Class.Publish {
             if (!File.Exists(SQLiteName)) {
                 DbHelper.CreateDataBase(SQLiteName);
                 string createSQL = string.Empty;
-                /* 修改表
-                 BEGIN TRANSACTION;   
-                    CREATE TEMPORARY TABLE temp_table(a);
-                    INSERT INTO temp_table SELECT a FROM 表;   
-                    DROP TABLE 表;
-                    CREATE TABLE 表(a);   
-                    INSERT INTO 表 SELECT a FROM temp_table;   
-                    DROP TABLE temp_table;
-                    COMMIT;
-                 */
-                //select * from sqlite_master  where tbl_name='Content'
                 SQL = @"
                 create table Content(
                     ID integer primary key autoincrement,
@@ -413,7 +394,7 @@ namespace V5_DataPublish._Class.Publish {
             string SQLiteName = baseDir + sWebSiteID + "\\SpiderResult.db";
             string LocalSQLiteName = "Data\\Spider\\" + sWebSiteID + "\\SpiderResult.db";
             if (File.Exists(SQLiteName)) {
-                string SQL = string.Empty;//And Content='{1}
+                string SQL = string.Empty;
                 SQL = string.Format(@"Select Count(1) From Content Where Title='{0}' ", Title, Content.Replace("'", "''"), DateTime.Now.ToString());
                 int result = StringHelper.Instance.SetNumber(DbHelper.Execute(LocalSQLiteName, SQL));
                 if (result > 0) {
