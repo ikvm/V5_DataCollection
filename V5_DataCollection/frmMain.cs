@@ -2,62 +2,38 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using V5_DataCollection.Forms.Docking;
-using V5_DataCollection.Forms.Publish;
-using V5_DataCollection.Forms.Task;
-using V5_DataCollection.Forms.Tools;
-using System.Diagnostics;
-
 using V5_DataCollection._Class.Common;
 using V5_DataCollection._Class.DAL;
-using WeifenLuo.WinFormsUI.Docking;
+using V5_DataCollection.Forms.Docking;
+using V5_DataCollection.Forms.Task;
+using V5_DataCollection.Forms.Tools;
 using V5_WinLibs.Core;
-using V5_WinLibs.DBUtility;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace V5_DataCollection {
-    public partial class frmMain : Form {
-        private DeserializeDockContent m_deserializeDockContent;
 
-        #region 主界面浮动窗体
+    public partial class frmMain : Form {
+
+        #region 私有参数
+        private DeserializeDockContent m_deserializeDockContent;
         private frmTreeBox m_frmTreeBox = new frmTreeBox();
         private FrmTaskMain m_frmTaskMain = new FrmTaskMain();
         private frmOutPutBox m_frmOutPutBox = new frmOutPutBox();
         #endregion
 
+        #region 主窗体以及布局
         public frmMain() {
             InitializeComponent();
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
             CommonHelper.FormMain = this;
         }
-        /// <summary>
-        /// 任务树操作结果委托方法
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void m_frmTreeBox_OpOver(object sender, MainEvents.TreeViewEventArgs e) {
-            switch (e.Result) {
-                case "selectednode":
-                    this.m_frmTaskMain.Show();
-                    int ClassId = int.Parse("0" + e.ReturnObj);
-                    m_frmTaskMain.ClassID = ClassId;
-                    m_frmTaskMain.Bind_DataList();
-                    break;
-                case "selectednodetask":
-                    this.m_frmTaskMain.Show();
-                    m_frmTaskMain.Bind_DataList(" And IsPlan=1 ");
-                    break;
-                default:
-                    MessageBox.Show("操作:" + e.Result + ".结果:" + e.Message);
-                    break;
-            }
-        }
-
         /// <summary>
         /// 配置委托函数
         /// </summary>
@@ -93,35 +69,7 @@ namespace V5_DataCollection {
             m_frmTaskMain.OutPutWindowDelegate = OutPutWindowBox;
             m_frmTreeBox.OpOver += m_frmTreeBox_OpOver;
         }
-        /// <summary>
-        /// 程序退出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToolStripMenuItem_Operate_Exit_Click(object sender, EventArgs e) {
-            Exit();
-        }
-
-        #region  浮动控制
-        private void ToolStripMenuItem_View_TaskTree_Click(object sender, EventArgs e) {
-            m_frmTreeBox.Show(dockPanel, DockState.DockLeft);
-        }
-
-        private void ToolStripMenuItem_View_TaskView_Click(object sender, EventArgs e) {
-            m_frmTaskMain.Show(dockPanel, DockState.Document);
-        }
-
-
-        private void 资源下载列表ToolStripMenuItem_Click(object sender, EventArgs e) {
-           
-        }
-        #endregion
-
-        private void ToolStripMenuItem_View_OutWindow_Click(object sender, EventArgs e) {
-            m_frmOutPutBox.Show(dockPanel, DockState.DockBottom);
-        }
-
-        //保存浮动设置
+      
         private void SaveDockXml() {
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Config/DockPanel.config");
             if (!File.Exists(configFile)) {
@@ -149,18 +97,63 @@ namespace V5_DataCollection {
             System.Environment.Exit(0);
         }
 
-        #region OutPutWindow 输出窗口
         public void OutPutWindowBox(object sender, MainEvents.OutPutWindowEventArgs e) {
             m_frmOutPutBox.OutPutWindow(sender, e);
         }
+
+        /// <summary>
+        /// 任务树操作结果委托方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void m_frmTreeBox_OpOver(object sender, MainEvents.TreeViewEventArgs e) {
+            switch (e.Result) {
+                case "selectednode":
+                    this.m_frmTaskMain.Show();
+                    int ClassId = int.Parse("0" + e.ReturnObj);
+                    m_frmTaskMain.ClassID = ClassId;
+                    m_frmTaskMain.Bind_DataList();
+                    break;
+                case "selectednodetask":
+                    this.m_frmTaskMain.Show();
+                    m_frmTaskMain.Bind_DataList(" And IsPlan=1 ");
+                    break;
+                default:
+                    MessageBox.Show("操作:" + e.Result + ".结果:" + e.Message);
+                    break;
+            }
+        }
         #endregion
+
+        #region 菜单操作
+        /// <summary>
+        /// 程序退出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToolStripMenuItem_Operate_Exit_Click(object sender, EventArgs e) {
+            Exit();
+        }
+
+        private void ToolStripMenuItem_View_TaskTree_Click(object sender, EventArgs e) {
+            m_frmTreeBox.Show(dockPanel, DockState.DockLeft);
+        }
+
+        private void ToolStripMenuItem_View_TaskView_Click(object sender, EventArgs e) {
+            m_frmTaskMain.Show(dockPanel, DockState.Document);
+        }
+
+        private void ToolStripMenuItem_View_OutWindow_Click(object sender, EventArgs e) {
+            m_frmOutPutBox.Show(dockPanel, DockState.DockBottom);
+        }
 
         private void ToolStripMenuItem_Tool_Config_Click(object sender, EventArgs e) {
             frmOption option = new frmOption();
             option.Show();
         }
+        #endregion
 
-        #region 工具条
+        #region 工具条操作
         private void toolStripButton_TaskNew_Click(object sender, EventArgs e) {
             FrmTaskEdit FormTaskEdit = new FrmTaskEdit();
             FormTaskEdit.TaskOpDelegate = m_frmTaskMain.OutTaskOpDelegate;
@@ -197,8 +190,6 @@ namespace V5_DataCollection {
         private void toolStripButton_SoftAbout_Click(object sender, EventArgs e) {
             new frmAboutBox().ShowDialog(this);
         }
-
-        #endregion
 
         private void ToolStripMenuItem_ImportWebCollection_Click(object sender, EventArgs e) {
             frmImportWebCollectionModule formImportWebCollectionModule = new frmImportWebCollectionModule();
@@ -238,5 +229,8 @@ namespace V5_DataCollection {
         private void 导入PythonToolStripMenuItem_Click(object sender, EventArgs e) {
             new frmImportPythonScript().ShowDialog(this);
         }
+
+        #endregion
+
     }
 }

@@ -31,46 +31,26 @@ using V5_DataCollection.Forms.Tools;
 namespace V5_DataCollection.Forms.Task {
     public partial class FrmTaskEdit : BaseForm {
 
+        #region 访问器
         private cGatherFunction gatherWork = new cGatherFunction();
-
         private SpiderHelper Gather = new SpiderHelper();
-
-        #region 委托
         public TaskEventHandler.TaskOpHandler TaskOpDelegate;
         private TaskEvents.TaskOpEvents TaskOpEv = new TaskEvents.TaskOpEvents();
-        #endregion
-
-        #region 访问器
-        private int _ID = 0;
         /// <summary>
         /// 任务ID
         /// </summary>
-        public int ID {
-            get { return _ID; }
-            set { _ID = value; }
-        }
-
-        private string _OldTaskName = string.Empty;
+        public int ID { get; set; } = 0;
         /// <summary>
         /// 任务名称
         /// </summary>
-        public string OldTaskName {
-            get { return _OldTaskName; }
-            set { _OldTaskName = value; }
-        }
-
-        private int _TaskIndex = 0;
+        public string OldTaskName { get; set; } = string.Empty;
         /// <summary>
         /// 任务索引
         /// </summary>
-        public int TaskIndex {
-            get { return _TaskIndex; }
-            set { _TaskIndex = value; }
-        }
-        #endregion
-
+        public int TaskIndex { get; set; } = 0;
         protected Panel panel_List2 = new Panel();
         protected TextBox txtSourceText = new TextBox();
+        #endregion
 
         public FrmTaskEdit() {
 
@@ -116,21 +96,13 @@ namespace V5_DataCollection.Forms.Task {
 
             this.cmbSpiderUrlPlugins.Items.Insert(0, "不使用插件");
             this.cmbSpiderUrlPlugins.SelectedIndex = 0;
-            //
-            Plugins = PluginUtility.ListISpiderContentPlugin;
-            foreach (IPlugin item in Plugins) {
-                this.cmbSpiderContentPlugins.Items.Add(item.PluginName);
-            }
-            this.cmbSpiderContentPlugins.Items.Insert(0, "不使用插件");
-            this.cmbSpiderContentPlugins.SelectedIndex = 0;
-            //
+
             Plugins = PluginUtility.ListISaveContentPlugin;
             foreach (IPlugin item in Plugins) {
                 this.cmbSaveConentPlugins.Items.Add(item.PluginName);
             }
             this.cmbSaveConentPlugins.Items.Insert(0, "不使用插件");
             this.cmbSaveConentPlugins.SelectedIndex = 0;
-            //
             Plugins = PluginUtility.ListIPublishContentPlugin;
             foreach (IPlugin item in Plugins) {
                 this.cmbPublishContentPlugins.Items.Add(item.PluginName);
@@ -565,7 +537,6 @@ namespace V5_DataCollection.Forms.Task {
             this.Text = "编辑任务";
 
             ModelTask model = new DALTask().GetModel(ID);
-            //
             this.txtID.Text = model.ID.ToString();
             this.cmbSiteClassID.SelectedValue = model.TaskClassID;
             this.txtTaskName.Text = model.TaskName;
@@ -584,15 +555,12 @@ namespace V5_DataCollection.Forms.Task {
             this.txtLinkUrlNoMustIncludeStr.Text = model.LinkUrlNoMustIncludeStr;
             this.txtLinkUrlCutAreaStart.Text = model.LinkUrlCutAreaStart;
             this.txtLinkUrlCutAreaEnd.Text = model.LinkUrlCutAreaEnd;
-            //
             this.txtTextViewUrl.Text = model.TestViewUrl;
-            //
             this.chkPublish01.Checked = model.IsWebOnlinePublish1.ToString() == "1" ? true : false;
             this.chkPublish02.Checked = model.IsSaveLocal2.ToString() == "1" ? true : false;
             this.ddlSaveFileFormat2.Text = model.SaveFileFormat2;
             this.txtSaveDirectory2.Text = model.SaveDirectory2;
             this.txtSaveHtmlTemplate2.Text = model.SaveHtmlTemplate2;
-            //this.chkSaveIsCreateIndex2.Checked = model.SaveIsCreateIndex2.ToString() == "1" ? true : false;
             this.chkPublish03.Checked = model.IsSaveDataBase3.ToString() == "1" ? true : false;
             string SaveDataType3 = model.SaveDataType3.ToString();
             switch (SaveDataType3) {
@@ -617,11 +585,9 @@ namespace V5_DataCollection.Forms.Task {
             this.chkPublish04.Checked = model.IsSaveSQL4.ToString() == "1" ? true : false;
 
             this.cmbSpiderUrlPlugins.Text = model.PluginSpiderUrl;
-            this.cmbSpiderContentPlugins.Text = model.PluginSpiderContent;
             this.cmbSaveConentPlugins.Text = model.PluginSaveContent;
             this.cmbPublishContentPlugins.Text = model.PluginPublishContent;
 
-            //
             this.nudCollectionContentThreadCount.Value = model.CollectionContentThreadCount.Value;
             this.nudCollectionContentStepTime.Value = model.CollectionContentStepTime.Value;
             this.nudPublishContentThreadCount.Value = model.PublishContentThreadCount.Value;
@@ -633,7 +599,6 @@ namespace V5_DataCollection.Forms.Task {
 
             this.txtDemoListUrl.Text = model.DemoListUrl;
 
-            //
             this.chkTaskSetStatus.Checked = model.IsPlan == 1 ? true : false;
             this.txtHiddenPlanFormat.Text = model.PlanFormat;
 
@@ -689,7 +654,6 @@ namespace V5_DataCollection.Forms.Task {
             string SaveFileFormat2 = this.ddlSaveFileFormat2.Text;
             string SaveDirectory2 = this.txtSaveDirectory2.Text;
             string SaveHtmlTemplate2 = this.txtSaveHtmlTemplate2.Text;
-            //int SaveIsCreateIndex2 = this.chkSaveIsCreateIndex2.Checked ? 1 : 0;
             int IsSaveDataBase3 = this.chkPublish03.Checked ? 1 : 0;
             int SaveDataType3 = 0;
             if (this.rbtnAccess.Checked) {
@@ -710,9 +674,6 @@ namespace V5_DataCollection.Forms.Task {
             string SaveDataUrl3 = this.txtSaveDataUrl3.Text;
             string SaveDataSQL3 = this.txtSaveDataSQL3.Text;
             int IsSaveSQL4 = this.chkPublish04.Checked ? 1 : 0;
-            //string SaveSQLContent4 = this.txtSaveSQLContent4.Text.Replace("'", "''");
-            //string SaveSQLDirectory4 = this.txtSaveSQLDirectory4.Text;
-
             decimal CollectionContentThreadCount = this.nudCollectionContentThreadCount.Value;
             decimal CollectionContentStepTime = this.nudCollectionContentStepTime.Value;
             decimal PublishContentThreadCount = this.nudPublishContentThreadCount.Value;
@@ -721,10 +682,8 @@ namespace V5_DataCollection.Forms.Task {
 
             int IsHandGetUrl = this.chkIsHandGetUrl.Checked ? 1 : 0;
             string HandCollectionUrlRegex = this.txtHandCollectionUrlRegex.Text;
-            //
             int IsPlan = this.chkTaskSetStatus.Checked ? 1 : 0;
             string PlanFormat = this.txtHiddenPlanFormat.Text;
-            //
             model.ID = ID;
             model.TaskClassID = TaskClassID;
             model.TaskName = TaskName;
@@ -732,7 +691,6 @@ namespace V5_DataCollection.Forms.Task {
             model.IsSpiderContent = IsSpiderContent;
             model.IsPublishContent = IsPublishContent;
             model.PageEncode = PageEncode;
-            //model.CollectionType = CollectionType;
             model.CollectionContent = CollectionContent;
             model.LinkUrlMustIncludeStr = LinkUrlMustIncludeStr;
             model.LinkUrlNoMustIncludeStr = LinkUrlNoMustIncludeStr;
@@ -744,20 +702,14 @@ namespace V5_DataCollection.Forms.Task {
             model.SaveFileFormat2 = SaveFileFormat2;
             model.SaveDirectory2 = SaveDirectory2;
             model.SaveHtmlTemplate2 = SaveHtmlTemplate2;
-            //model.SaveIsCreateIndex2 = SaveIsCreateIndex2;
             model.IsSaveDataBase3 = IsSaveDataBase3;
             model.SaveDataType3 = SaveDataType3;
             model.SaveDataUrl3 = SaveDataUrl3;
             model.SaveDataSQL3 = SaveDataSQL3;
             model.IsSaveSQL4 = IsSaveSQL4;
-            //model.SaveSQLContent4 = SaveSQLContent4;
-            //model.SaveSQLDirectory4 = SaveSQLDirectory4;
-            //
             model.PluginSpiderUrl = this.cmbSpiderUrlPlugins.Text;
-            model.PluginSpiderContent = this.cmbSpiderContentPlugins.Text;
             model.PluginSaveContent = this.cmbSaveConentPlugins.Text;
             model.PluginPublishContent = this.cmbPublishContentPlugins.Text;
-            //2012 2-16
             model.CollectionUrlStepTime = int.Parse(nudCollectionUrlStepTime.Value.ToString());
             model.CollectionContentThreadCount = Convert.ToInt32(CollectionContentThreadCount);
             model.CollectionContentStepTime = Convert.ToInt32(CollectionContentStepTime);
@@ -769,7 +721,6 @@ namespace V5_DataCollection.Forms.Task {
             model.HandCollectionUrlRegex = HandCollectionUrlRegex;
 
             model.DemoListUrl = this.txtDemoListUrl.Text;
-            //
             model.IsPlan = IsPlan;
             model.PlanFormat = PlanFormat;
             model.Status = this.cmbStatus.SelectedIndex == 0 ? 1 : 0;
@@ -777,7 +728,7 @@ namespace V5_DataCollection.Forms.Task {
             model.IsSource = this.chkIsSource.Checked ? 1 : 0;
             model.SourceText = this.txtSourceText.Text;
 
-           
+
             if (ID == 0) {
                 string guid = Guid.NewGuid().ToString();
                 ID = dal.GetMaxId();

@@ -21,22 +21,26 @@ using V5_Utility.Utility;
 using V5_WinLibs.DBUtility;
 
 namespace V5_DataCollection.Forms.Task {
+
     public partial class FrmTaskMain : BaseContent {
 
+        #region 变量参数
         Dictionary<string, SpiderHelper> listGatherTask = new Dictionary<string, SpiderHelper>();
+
         public MainEventHandler.OutPutWindowHandler OutPutWindowDelegate;
 
-        private int _ClassID = 0;
+        public int ClassID { get; set; } = 0;
+        #endregion
 
-        public int ClassID {
-            get { return _ClassID; }
-            set { _ClassID = value; }
-        }
-
+        #region 主窗体操作
         public FrmTaskMain() {
             InitializeComponent();
             this.dataGridView_TaskList.AutoGenerateColumns = false;
             this.dataGridView_TaskList.AllowUserToAddRows = false;
+        }
+
+        private void FrmTaskMain_Load(object sender, EventArgs e) {
+            Bind_DataList();
         }
 
         /// <summary>
@@ -64,7 +68,64 @@ namespace V5_DataCollection.Forms.Task {
             }
         }
 
-        #region 右键菜单
+
+        /// <summary>
+        /// 数据格式化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView_TaskList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
+            if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "status") {
+                string s = e.Value.ToString();
+                if (s == "1") {
+                    e.Value = "正常";
+                }
+                else {
+                    e.Value = "暂停";
+                }
+            }
+
+            if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "col_taskid") {
+                string s = e.Value.ToString();
+                if (s == "1") {
+                    e.Value = "运行中";
+                }
+                else {
+                    e.Value = "停止";
+                }
+            }
+            if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "col_classid") {
+                string s = e.Value.ToString();
+                if (s == string.Empty) {
+                    e.Value = "未分类";
+                }
+            }
+        }
+
+        private void dataGridView_TaskList_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            var viewIds = Get_DataViewIDs();
+
+            var FormTaskEdit = new FrmTaskEdit();
+            FormTaskEdit.TaskOpDelegate = OutTaskOpDelegate;
+            FormTaskEdit.ID = int.Parse(viewIds[0]);
+            FormTaskEdit.TaskIndex = this.dataGridView_TaskList.SelectedRows[0].Index;
+            FormTaskEdit.ShowDialog(this);
+        }
+
+        int m_RowIndex = 0;
+        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e) {
+            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) {
+                if (e.RowIndex >= 0) {
+                    dataGridView_TaskList.ClearSelection();
+                    dataGridView_TaskList.Rows[e.RowIndex].Selected = true;
+
+                    m_RowIndex = e.RowIndex;
+                }
+            }
+        }
+        #endregion
+
+        #region 新建 编辑 删除
         /// <summary>
         /// 新建
         /// </summary>
@@ -259,41 +320,7 @@ namespace V5_DataCollection.Forms.Task {
         }
         #endregion
 
-        private void FrmTaskMain_Load(object sender, EventArgs e) {
-            Bind_DataList();
-        }
-        /// <summary>
-        /// 数据格式化
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridView_TaskList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
-            if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "status") {
-                string s = e.Value.ToString();
-                if (s == "1") {
-                    e.Value = "正常";
-                }
-                else {
-                    e.Value = "暂停";
-                }
-            }
-
-            if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "col_taskid") {
-                string s = e.Value.ToString();
-                if (s == "1") {
-                    e.Value = "运行中";
-                }
-                else {
-                    e.Value = "停止";
-                }
-            }
-            if (this.dataGridView_TaskList.Columns[e.ColumnIndex].Name.ToLower() == "col_classid") {
-                string s = e.Value.ToString();
-                if (s == string.Empty) {
-                    e.Value = "未分类";
-                }
-            }
-        }
+        #region 清除 重新构建 查看
         /// <summary>
         /// 清除所有任务数据
         /// </summary>
@@ -365,7 +392,6 @@ namespace V5_DataCollection.Forms.Task {
                 DbHelper.Execute(LocalSQLiteName, SQL);
             }
             else {
-                //添加Sqlite列名称
                 DataTable dt = new DALTaskLabel().GetList(" TaskID=" + taskID).Tables[0];
                 foreach (DataRow dr in dt.Rows) {
                     try {
@@ -390,22 +416,6 @@ namespace V5_DataCollection.Forms.Task {
             FromTaskDataList.ShowDialog(this);
         }
 
-        private void dataGridView_TaskList_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            var viewIds = Get_DataViewIDs();
-
-            var FormTaskEdit = new FrmTaskEdit();
-            FormTaskEdit.TaskOpDelegate = OutTaskOpDelegate;
-            FormTaskEdit.ID = int.Parse(viewIds[0]);
-            FormTaskEdit.TaskIndex = this.dataGridView_TaskList.SelectedRows[0].Index;
-            FormTaskEdit.ShowDialog(this);
-        }
-
-        private void 计划任务ToolStripMenuItem_Click(object sender, EventArgs e) {
-            int ID = Get_DataViewID();
-            var f = new frmTaskPlanSet();
-            f.ShowDialog(this);
-        }
-
         private void 复制任务ToolStripMenuItem_Click(object sender, EventArgs e) {
             int ID = Get_DataViewID();
             DALTask dal = new DALTask();
@@ -418,7 +428,6 @@ namespace V5_DataCollection.Forms.Task {
             model.ID = currentMaxId;
             model.TaskName = currentTaskName;
             dal.Add(model);
-            //
             DALTaskLabel dalLable = new DALTaskLabel();
             DataTable dt = dalLable.GetList(" TaskId=" + ID).Tables[0];
             if (dt != null && dt.Rows.Count > 0) {
@@ -428,11 +437,18 @@ namespace V5_DataCollection.Forms.Task {
                     dalLable.Add(modelLabel);
                 }
             }
-            //重建表结构
             CreateDataFile(currentTaskName, currentMaxId);
-            //
             this.ClassID = model.TaskClassID.Value;
             Bind_DataList();
+        }
+        #endregion
+
+        #region 计划任务
+
+        private void 计划任务ToolStripMenuItem_Click(object sender, EventArgs e) {
+            int ID = Get_DataViewID();
+            var f = new frmTaskPlanSet();
+            f.ShowDialog(this);
         }
 
         private void 导出采集规则ToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -443,16 +459,7 @@ namespace V5_DataCollection.Forms.Task {
 
             }
         }
-        int m_RowIndex = 0;
-        private void dataGridView_TaskList_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e) {
-            if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left) {
-                if (e.RowIndex >= 0) {
-                    dataGridView_TaskList.ClearSelection();
-                    dataGridView_TaskList.Rows[e.RowIndex].Selected = true;
+        #endregion
 
-                    m_RowIndex = e.RowIndex;
-                }
-            }
-        }
     }
 }

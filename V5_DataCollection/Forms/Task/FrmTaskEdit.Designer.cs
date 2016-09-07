@@ -148,13 +148,6 @@ namespace V5_DataCollection.Forms.Task {
             this.chkTaskSetStatus = new System.Windows.Forms.CheckBox();
             this.btnTaskSet = new System.Windows.Forms.Button();
             this.txtTaskSetFormat = new System.Windows.Forms.TextBox();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.cmbSaveConentPlugins = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.cmbPublishContentPlugins = new System.Windows.Forms.ComboBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.cmbSpiderContentPlugins = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.numFtpPort = new System.Windows.Forms.NumericUpDown();
             this.chkFtpStatus = new System.Windows.Forms.CheckBox();
@@ -167,11 +160,6 @@ namespace V5_DataCollection.Forms.Task {
             this.txtFtpUserName = new System.Windows.Forms.TextBox();
             this.txtFtpIp = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label34 = new System.Windows.Forms.Label();
             this.nudPublishContentStepTimeMax = new System.Windows.Forms.NumericUpDown();
@@ -181,6 +169,8 @@ namespace V5_DataCollection.Forms.Task {
             this.label30 = new System.Windows.Forms.Label();
             this.nudPublishContentThreadCount = new System.Windows.Forms.NumericUpDown();
             this.label31 = new System.Windows.Forms.Label();
+            this.nudCollectionUrlStepTime = new System.Windows.Forms.NumericUpDown();
+            this.label37 = new System.Windows.Forms.Label();
             this.nudCollectionContentThreadCount = new System.Windows.Forms.NumericUpDown();
             this.label29 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -195,8 +185,12 @@ namespace V5_DataCollection.Forms.Task {
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.nudCollectionUrlStepTime = new System.Windows.Forms.NumericUpDown();
+            this.cmbSaveConentPlugins = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.cmbPublishContentPlugins = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.tabControlTaskEdit.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -218,20 +212,18 @@ namespace V5_DataCollection.Forms.Task {
             this.tabPage4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFtpPort)).BeginInit();
-            this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPublishContentStepTimeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPublishContentStepTimeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCollectionContentStepTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPublishContentThreadCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCollectionUrlStepTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCollectionContentThreadCount)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCollectionUrlStepTime)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -350,7 +342,7 @@ namespace V5_DataCollection.Forms.Task {
             // linkSpiderListPlugin
             // 
             this.linkSpiderListPlugin.AutoSize = true;
-            this.linkSpiderListPlugin.Location = new System.Drawing.Point(405, 403);
+            this.linkSpiderListPlugin.Location = new System.Drawing.Point(477, 403);
             this.linkSpiderListPlugin.Name = "linkSpiderListPlugin";
             this.linkSpiderListPlugin.Size = new System.Drawing.Size(29, 12);
             this.linkSpiderListPlugin.TabIndex = 18;
@@ -364,7 +356,7 @@ namespace V5_DataCollection.Forms.Task {
             this.cmbSpiderUrlPlugins.FormattingEnabled = true;
             this.cmbSpiderUrlPlugins.Location = new System.Drawing.Point(313, 399);
             this.cmbSpiderUrlPlugins.Name = "cmbSpiderUrlPlugins";
-            this.cmbSpiderUrlPlugins.Size = new System.Drawing.Size(86, 20);
+            this.cmbSpiderUrlPlugins.Size = new System.Drawing.Size(158, 20);
             this.cmbSpiderUrlPlugins.TabIndex = 17;
             // 
             // label19
@@ -769,6 +761,9 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.linkLabel2);
+            this.tabPage2.Controls.Add(this.cmbSaveConentPlugins);
+            this.tabPage2.Controls.Add(this.label28);
             this.tabPage2.Controls.Add(this.groupBox7);
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -787,16 +782,19 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Location = new System.Drawing.Point(308, 7);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(434, 415);
+            this.groupBox7.Size = new System.Drawing.Size(434, 384);
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "采集页面测试";
             // 
             // txtTestViewUrlShow
             // 
+            this.txtTestViewUrlShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTestViewUrlShow.Location = new System.Drawing.Point(8, 43);
             this.txtTestViewUrlShow.Name = "txtTestViewUrlShow";
-            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 366);
+            this.txtTestViewUrlShow.Size = new System.Drawing.Size(420, 335);
             this.txtTestViewUrlShow.TabIndex = 3;
             this.txtTestViewUrlShow.Text = "";
             // 
@@ -838,7 +836,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox6.Controls.Add(this.listViewTaskLabel);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(296, 416);
+            this.groupBox6.Size = new System.Drawing.Size(296, 385);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "页面内容标签定义";
@@ -905,6 +903,9 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // listViewTaskLabel
             // 
+            this.listViewTaskLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewTaskLabel.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -914,7 +915,7 @@ namespace V5_DataCollection.Forms.Task {
             this.listViewTaskLabel.Location = new System.Drawing.Point(75, 20);
             this.listViewTaskLabel.MultiSelect = false;
             this.listViewTaskLabel.Name = "listViewTaskLabel";
-            this.listViewTaskLabel.Size = new System.Drawing.Size(215, 390);
+            this.listViewTaskLabel.Size = new System.Drawing.Size(215, 359);
             this.listViewTaskLabel.TabIndex = 0;
             this.listViewTaskLabel.UseCompatibleStateImageBehavior = false;
             this.listViewTaskLabel.View = System.Windows.Forms.View.Details;
@@ -931,6 +932,9 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.linkLabel3);
+            this.tabPage3.Controls.Add(this.cmbPublishContentPlugins);
+            this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.checkBox4);
             this.tabPage3.Controls.Add(this.textBox6);
             this.tabPage3.Controls.Add(this.label11);
@@ -949,7 +953,7 @@ namespace V5_DataCollection.Forms.Task {
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(352, 8);
+            this.checkBox4.Location = new System.Drawing.Point(318, 8);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(120, 16);
             this.checkBox4.TabIndex = 4;
@@ -1408,9 +1412,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             this.tabPage4.Controls.Add(this.groupBox5);
             this.tabPage4.Controls.Add(this.groupBox8);
-            this.tabPage4.Controls.Add(this.groupBox13);
             this.tabPage4.Controls.Add(this.groupBox12);
-            this.tabPage4.Controls.Add(this.groupBox11);
             this.tabPage4.Controls.Add(this.groupBox10);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -1424,7 +1426,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox5.Controls.Add(this.btnGetCookies);
             this.groupBox5.Controls.Add(this.txtCollectionCookies);
             this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Location = new System.Drawing.Point(369, 113);
+            this.groupBox5.Location = new System.Drawing.Point(369, 19);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(363, 111);
             this.groupBox5.TabIndex = 2;
@@ -1447,7 +1449,7 @@ namespace V5_DataCollection.Forms.Task {
             this.txtCollectionCookies.Location = new System.Drawing.Point(85, 21);
             this.txtCollectionCookies.Multiline = true;
             this.txtCollectionCookies.Name = "txtCollectionCookies";
-            this.txtCollectionCookies.Size = new System.Drawing.Size(263, 75);
+            this.txtCollectionCookies.Size = new System.Drawing.Size(272, 75);
             this.txtCollectionCookies.TabIndex = 1;
             // 
             // label9
@@ -1464,16 +1466,16 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox8.Controls.Add(this.chkTaskSetStatus);
             this.groupBox8.Controls.Add(this.btnTaskSet);
             this.groupBox8.Controls.Add(this.txtTaskSetFormat);
-            this.groupBox8.Location = new System.Drawing.Point(12, 328);
+            this.groupBox8.Location = new System.Drawing.Point(369, 136);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(337, 81);
+            this.groupBox8.Size = new System.Drawing.Size(363, 90);
             this.groupBox8.TabIndex = 2;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "计划任务";
             // 
             // txtHiddenPlanFormat
             // 
-            this.txtHiddenPlanFormat.Location = new System.Drawing.Point(251, 42);
+            this.txtHiddenPlanFormat.Location = new System.Drawing.Point(257, 42);
             this.txtHiddenPlanFormat.Name = "txtHiddenPlanFormat";
             this.txtHiddenPlanFormat.Size = new System.Drawing.Size(24, 21);
             this.txtHiddenPlanFormat.TabIndex = 3;
@@ -1481,7 +1483,7 @@ namespace V5_DataCollection.Forms.Task {
             // chkTaskSetStatus
             // 
             this.chkTaskSetStatus.AutoSize = true;
-            this.chkTaskSetStatus.Location = new System.Drawing.Point(284, 25);
+            this.chkTaskSetStatus.Location = new System.Drawing.Point(303, 25);
             this.chkTaskSetStatus.Name = "chkTaskSetStatus";
             this.chkTaskSetStatus.Size = new System.Drawing.Size(48, 16);
             this.chkTaskSetStatus.TabIndex = 2;
@@ -1490,7 +1492,7 @@ namespace V5_DataCollection.Forms.Task {
             // 
             // btnTaskSet
             // 
-            this.btnTaskSet.Location = new System.Drawing.Point(283, 52);
+            this.btnTaskSet.Location = new System.Drawing.Point(302, 52);
             this.btnTaskSet.Name = "btnTaskSet";
             this.btnTaskSet.Size = new System.Drawing.Size(48, 23);
             this.btnTaskSet.TabIndex = 1;
@@ -1504,77 +1506,8 @@ namespace V5_DataCollection.Forms.Task {
             this.txtTaskSetFormat.Multiline = true;
             this.txtTaskSetFormat.Name = "txtTaskSetFormat";
             this.txtTaskSetFormat.ReadOnly = true;
-            this.txtTaskSetFormat.Size = new System.Drawing.Size(268, 55);
+            this.txtTaskSetFormat.Size = new System.Drawing.Size(285, 55);
             this.txtTaskSetFormat.TabIndex = 0;
-            // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.cmbSaveConentPlugins);
-            this.groupBox13.Controls.Add(this.label28);
-            this.groupBox13.Controls.Add(this.cmbPublishContentPlugins);
-            this.groupBox13.Controls.Add(this.label21);
-            this.groupBox13.Controls.Add(this.cmbSpiderContentPlugins);
-            this.groupBox13.Controls.Add(this.label20);
-            this.groupBox13.Location = new System.Drawing.Point(12, 230);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(337, 89);
-            this.groupBox13.TabIndex = 1;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "插件设置";
-            // 
-            // cmbSaveConentPlugins
-            // 
-            this.cmbSaveConentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSaveConentPlugins.FormattingEnabled = true;
-            this.cmbSaveConentPlugins.Location = new System.Drawing.Point(65, 53);
-            this.cmbSaveConentPlugins.Name = "cmbSaveConentPlugins";
-            this.cmbSaveConentPlugins.Size = new System.Drawing.Size(86, 20);
-            this.cmbSaveConentPlugins.TabIndex = 1;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(6, 53);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(53, 12);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "保存内容";
-            // 
-            // cmbPublishContentPlugins
-            // 
-            this.cmbPublishContentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPublishContentPlugins.FormattingEnabled = true;
-            this.cmbPublishContentPlugins.Location = new System.Drawing.Point(222, 53);
-            this.cmbPublishContentPlugins.Name = "cmbPublishContentPlugins";
-            this.cmbPublishContentPlugins.Size = new System.Drawing.Size(86, 20);
-            this.cmbPublishContentPlugins.TabIndex = 1;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(163, 53);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(53, 12);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "发布内容";
-            // 
-            // cmbSpiderContentPlugins
-            // 
-            this.cmbSpiderContentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSpiderContentPlugins.FormattingEnabled = true;
-            this.cmbSpiderContentPlugins.Location = new System.Drawing.Point(222, 20);
-            this.cmbSpiderContentPlugins.Name = "cmbSpiderContentPlugins";
-            this.cmbSpiderContentPlugins.Size = new System.Drawing.Size(86, 20);
-            this.cmbSpiderContentPlugins.TabIndex = 1;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(163, 23);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 12);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "采集内容";
             // 
             // groupBox12
             // 
@@ -1589,9 +1522,9 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox12.Controls.Add(this.txtFtpUserName);
             this.groupBox12.Controls.Add(this.txtFtpIp);
             this.groupBox12.Controls.Add(this.label22);
-            this.groupBox12.Location = new System.Drawing.Point(369, 230);
+            this.groupBox12.Location = new System.Drawing.Point(12, 236);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(363, 179);
+            this.groupBox12.Size = new System.Drawing.Size(337, 179);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "数据发布完成时Ftp设置";
@@ -1700,51 +1633,6 @@ namespace V5_DataCollection.Forms.Task {
             this.label22.TabIndex = 0;
             this.label22.Text = "IP";
             // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.label35);
-            this.groupBox11.Controls.Add(this.textBox7);
-            this.groupBox11.Controls.Add(this.textBox4);
-            this.groupBox11.Controls.Add(this.label33);
-            this.groupBox11.Location = new System.Drawing.Point(369, 14);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(363, 93);
-            this.groupBox11.TabIndex = 0;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "文件保存";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(3, 54);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(77, 12);
-            this.label35.TabIndex = 3;
-            this.label35.Text = "文件保存格式";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(85, 49);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(263, 21);
-            this.textBox7.TabIndex = 2;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(85, 20);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(263, 21);
-            this.textBox4.TabIndex = 2;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(3, 27);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(77, 12);
-            this.label33.TabIndex = 1;
-            this.label33.Text = "下载文件后缀";
-            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.label34);
@@ -1761,7 +1649,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox10.Controls.Add(this.label29);
             this.groupBox10.Location = new System.Drawing.Point(12, 14);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(314, 210);
+            this.groupBox10.Size = new System.Drawing.Size(337, 212);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "任务运行设置";
@@ -1864,6 +1752,37 @@ namespace V5_DataCollection.Forms.Task {
             this.label31.Size = new System.Drawing.Size(77, 12);
             this.label31.TabIndex = 0;
             this.label31.Text = "发布内容线程";
+            // 
+            // nudCollectionUrlStepTime
+            // 
+            this.nudCollectionUrlStepTime.Location = new System.Drawing.Point(106, 20);
+            this.nudCollectionUrlStepTime.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.nudCollectionUrlStepTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCollectionUrlStepTime.Name = "nudCollectionUrlStepTime";
+            this.nudCollectionUrlStepTime.Size = new System.Drawing.Size(69, 21);
+            this.nudCollectionUrlStepTime.TabIndex = 1;
+            this.nudCollectionUrlStepTime.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(12, 22);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(77, 12);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "采集地址间隔";
             // 
             // nudCollectionContentThreadCount
             // 
@@ -1986,36 +1905,61 @@ namespace V5_DataCollection.Forms.Task {
             this.cmbStatus.Size = new System.Drawing.Size(70, 20);
             this.cmbStatus.TabIndex = 10;
             // 
-            // label37
+            // cmbSaveConentPlugins
             // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(12, 22);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(77, 12);
-            this.label37.TabIndex = 0;
-            this.label37.Text = "采集地址间隔";
+            this.cmbSaveConentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSaveConentPlugins.FormattingEnabled = true;
+            this.cmbSaveConentPlugins.Location = new System.Drawing.Point(83, 397);
+            this.cmbSaveConentPlugins.Name = "cmbSaveConentPlugins";
+            this.cmbSaveConentPlugins.Size = new System.Drawing.Size(219, 20);
+            this.cmbSaveConentPlugins.TabIndex = 3;
             // 
-            // nudCollectionUrlStepTime
+            // label28
             // 
-            this.nudCollectionUrlStepTime.Location = new System.Drawing.Point(106, 20);
-            this.nudCollectionUrlStepTime.Maximum = new decimal(new int[] {
-            60000,
-            0,
-            0,
-            0});
-            this.nudCollectionUrlStepTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudCollectionUrlStepTime.Name = "nudCollectionUrlStepTime";
-            this.nudCollectionUrlStepTime.Size = new System.Drawing.Size(69, 21);
-            this.nudCollectionUrlStepTime.TabIndex = 1;
-            this.nudCollectionUrlStepTime.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(22, 401);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(53, 12);
+            this.label28.TabIndex = 2;
+            this.label28.Text = "保存内容";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(314, 401);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(29, 12);
+            this.linkLabel2.TabIndex = 4;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "设置";
+            // 
+            // cmbPublishContentPlugins
+            // 
+            this.cmbPublishContentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPublishContentPlugins.FormattingEnabled = true;
+            this.cmbPublishContentPlugins.Location = new System.Drawing.Point(507, 5);
+            this.cmbPublishContentPlugins.Name = "cmbPublishContentPlugins";
+            this.cmbPublishContentPlugins.Size = new System.Drawing.Size(170, 20);
+            this.cmbPublishContentPlugins.TabIndex = 6;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(446, 8);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(53, 12);
+            this.label21.TabIndex = 5;
+            this.label21.Text = "发布内容";
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(694, 9);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(29, 12);
+            this.linkLabel3.TabIndex = 7;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "设置";
             // 
             // FrmTaskEdit
             // 
@@ -2054,6 +1998,7 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -2074,24 +2019,20 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox5.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFtpPort)).EndInit();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPublishContentStepTimeMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPublishContentStepTimeMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCollectionContentStepTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPublishContentThreadCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCollectionUrlStepTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCollectionContentThreadCount)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCollectionUrlStepTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2137,9 +2078,7 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.GroupBox groupBox14;
@@ -2190,10 +2129,6 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.Button btnLabelUp;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ComboBox cmbSpiderContentPlugins;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.ComboBox cmbPublishContentPlugins;
-        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txtFtpIp;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
@@ -2207,8 +2142,6 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.Button btnGetCookies;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txtDemoListUrl;
-        private System.Windows.Forms.ComboBox cmbSaveConentPlugins;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.CheckBox chkFtpStatus;
@@ -2222,10 +2155,6 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.NumericUpDown numFtpPort;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.NumericUpDown nudPublishContentStepTimeMax;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Button btnWizardEdit;
         private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.CheckBox chkIsHandGetUrl;
@@ -2270,5 +2199,11 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.LinkLabel linkSpiderListPlugin;
         private System.Windows.Forms.NumericUpDown nudCollectionUrlStepTime;
         private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox cmbSaveConentPlugins;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.ComboBox cmbPublishContentPlugins;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.LinkLabel linkLabel3;
     }
 }
