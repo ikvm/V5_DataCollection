@@ -320,7 +320,7 @@ namespace V5_DataCollection.Forms.Task {
                         this.btnTestViewUrl.Enabled = true;
                     }));
                 };
-                spiderViewHelper.Test(Test_ViewUrl, Test_LabelList);
+                spiderViewHelper.TestAllLabel(Test_ViewUrl, Test_LabelList);
             });
         }
         #endregion

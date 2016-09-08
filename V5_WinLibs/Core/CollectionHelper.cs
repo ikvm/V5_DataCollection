@@ -90,7 +90,7 @@ namespace V5_WinLibs.Core {
             if (url.Length < 10)
                 return "$UrlIsFalse$";
             try {
-                WebClient wc = new WebClient(); 
+                WebClient wc = new WebClient();
                 wc.Credentials = CredentialCache.DefaultCredentials;
                 byte[] myDataBuffer = wc.DownloadData(url);
                 string strWebData = Encoding.Default.GetString(myDataBuffer);
@@ -187,6 +187,9 @@ namespace V5_WinLibs.Core {
         /// <param name="theUrl"></param>
         /// <returns></returns>
         public string FormatUrl(string BaseUrl, string theUrl) {
+            if (string.IsNullOrEmpty(BaseUrl)) {
+                return theUrl;
+            }
             int pathLevel = 0;
             string hostName;
             theUrl = theUrl.ToLower();
@@ -508,8 +511,7 @@ namespace V5_WinLibs.Core {
         /// <param name="ConStr">源字符串</param>
         /// <param name="TagList">标签数组</param>
         /// <returns></returns>
-        public static string ScriptHtml(string ConStr, string[] TagList)
-        {
+        public static string ScriptHtml(string ConStr, string[] TagList) {
             string conStr = ConStr;
             string pattern = @"(?isx)
                       <({0})\b[^>]*>                  #开始标记“<tag...>”
@@ -524,10 +526,8 @@ namespace V5_WinLibs.Core {
                       </\1>                           #结束标记“</tag>”
                      ";
             string patt = pattern;
-            foreach (string tag in TagList)
-            {
-                switch (tag)
-                {
+            foreach (string tag in TagList) {
+                switch (tag) {
                     case "remark":
                         patt = "<!--.+?-->";
                         break;
@@ -540,10 +540,8 @@ namespace V5_WinLibs.Core {
                 }
                 Regex tmpreg = new Regex(string.Format(patt, Regex.Escape(tag)), RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 MatchCollection matchs = tmpreg.Matches(conStr);
-                while (matchs.Count > 0)
-                {
-                    for (int i = 0; i < matchs.Count; i++)
-                    {
+                while (matchs.Count > 0) {
+                    for (int i = 0; i < matchs.Count; i++) {
                         conStr = conStr.Replace(matchs[i].Value, "");
                     }
                     matchs = tmpreg.Matches(conStr);
@@ -554,17 +552,14 @@ namespace V5_WinLibs.Core {
             return conStr;
         }
 
-        public static string RemoveHtml(string ConStr, string removeCon)
-        {
+        public static string RemoveHtml(string ConStr, string removeCon) {
             string conStr = ConStr;
             string[] arr = removeCon.Split(new string[] { "@@@@" }, StringSplitOptions.RemoveEmptyEntries);
             string pattern = @"<([a-z]+)(?:(?!\bid\b)[^<>])*" + arr[0] + @"=([""']?){0}\2[^>]*>(?><\1[^>]*>(?<o>)|</\1>(?<-o>)|(?:(?!</?\1).)*)*(?(o)(?!))</\1>";
             Regex tmpreg = new Regex(string.Format(pattern, Regex.Escape(arr[1])), RegexOptions.Singleline | RegexOptions.IgnoreCase);
             MatchCollection matchs = tmpreg.Matches(conStr);
-            while (matchs.Count > 0)
-            {
-                for (int i = 0; i < matchs.Count; i++)
-                {
+            while (matchs.Count > 0) {
+                for (int i = 0; i < matchs.Count; i++) {
                     conStr = conStr.Replace(matchs[i].Value, "");
                 }
                 matchs = tmpreg.Matches(conStr);

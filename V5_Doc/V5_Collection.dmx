@@ -133,7 +133,7 @@ Top=10.00</GraphDesc>
   <CreateDate>2016/9/7 14:03:52</CreateDate>
   <ModifyDate>1899/12/30</ModifyDate>
   <OrderNo>7</OrderNo>
-  <DataType>1</DataType>
+  <DataType>4</DataType>
   <Nullable>1</Nullable>
   <EditorReadOnly>0</EditorReadOnly>
   <EditorEnabled>0</EditorEnabled>
@@ -143,6 +143,7 @@ Top=10.00</GraphDesc>
 <DataModels_item1_item0_item2>
   <CTVER>43543230</CTVER>
   <Name>S_PlanTask</Name>
+  <Caption>任务计划</Caption>
   <CreateDate>1899/12/30</CreateDate>
   <ModifyDate>1899/12/30</ModifyDate>
   <OrderNo>2</OrderNo>
@@ -163,7 +164,7 @@ Top=10.00</GraphDesc>
   <CreateDate>2016/9/7 14:03:52</CreateDate>
   <ModifyDate>1899/12/30</ModifyDate>
   <OrderNo>1</OrderNo>
-  <DataType>1</DataType>
+  <DataType>4</DataType>
   <Nullable>1</Nullable>
   <DataLength>50</DataLength>
   <EditorReadOnly>0</EditorReadOnly>
@@ -1027,7 +1028,7 @@ Top=10.00</GraphDesc>
 
 
 <DataModels_item1_item0_item4_item0>
-  <Count>15</Count>
+  <Count>16</Count>
 </DataModels_item1_item0_item4_item0>
 
 
@@ -1260,9 +1261,25 @@ Top=10.00</GraphDesc>
 </DataModels_item1_item0_item4_item0_item15>
 
 
+<DataModels_item1_item0_item4_item0_item16>
+  <CTVER>43543230</CTVER>
+  <ID>16</ID>
+  <Name>IsXPath</Name>
+  <CreateDate>2016/9/8 10:52:34</CreateDate>
+  <ModifyDate>1899/12/30</ModifyDate>
+  <OrderNo>16</OrderNo>
+  <DisplayName>是否XPath采集</DisplayName>
+  <DataType>2</DataType>
+  <Nullable>1</Nullable>
+  <EditorReadOnly>0</EditorReadOnly>
+  <EditorEnabled>0</EditorEnabled>
+</DataModels_item1_item0_item4_item0_item16>
+
+
 <DataModels_item1_item0_item5>
   <CTVER>43543230</CTVER>
   <Name>S_TreeClass</Name>
+  <Caption>任务分类</Caption>
   <CreateDate>1899/12/30</CreateDate>
   <ModifyDate>1899/12/30</ModifyDate>
   <OrderNo>5</OrderNo>
@@ -1322,6 +1339,7 @@ Top=10.00</GraphDesc>
 <DataModels_item1_item0_item6>
   <CTVER>43543230</CTVER>
   <Name>S_WebPublishModule</Name>
+  <Caption>网站发布模块</Caption>
   <CreateDate>1899/12/30</CreateDate>
   <ModifyDate>1899/12/30</ModifyDate>
   <OrderNo>6</OrderNo>

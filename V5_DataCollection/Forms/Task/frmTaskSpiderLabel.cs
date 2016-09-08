@@ -353,9 +353,11 @@ namespace V5_DataCollection.Forms.Task {
         }
 
         private void btnTest_Click(object sender, EventArgs e) {
-            this.txtLogView.Clear();
-            var model = new ModelTaskLabel();
 
+            this.txtLogView.Clear();
+            this.btnTest.Enabled = false;
+
+            var model = new ModelTaskLabel();
             model.TestViewUrl = this.txtTestUrl.Text;
             model.TaskID = TaskID;
             model.LabelName = this.txtLabelName.Text;
@@ -404,25 +406,15 @@ namespace V5_DataCollection.Forms.Task {
 
             var task = new System.Threading.Tasks.TaskFactory().StartNew(() => {
 
-                this.btnTest.Enabled = false;
-
                 var pageContent = CommonHelper.getPageContent(model.TestViewUrl, PageEncode);
                 var spider = new SpiderViewHelper();
-                var s = spider.TestLabel(model, pageContent);
+                var s = spider.TestSingleLabel(model, pageContent);
 
-                if (this.InvokeRequired) {
-                    this.Invoke(new MethodInvoker(() => {
-                        this.txtLogView.AppendText(s);
-                        this.txtLogView.AppendText("\r\n");
-                    }));
-                }
-                else {
+                this.Invoke(new MethodInvoker(() => {
+                    this.btnTest.Enabled = true;
                     this.txtLogView.AppendText(s);
                     this.txtLogView.AppendText("\r\n");
-                }
-
-                this.btnTest.Enabled = true;
-
+                }));
             });
         }
 
