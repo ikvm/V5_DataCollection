@@ -21,14 +21,8 @@ namespace V5_DataCollection.Forms.Tools {
 
             this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.Custom;
 
-            this.fastColoredTextBox1.TextChanged += FastColoredTextBox1_TextChanged;
-
-
         }
 
-        private void FastColoredTextBox1_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e) {
-
-        }
 
         private void toolStripButton_RunScript_Click(object sender, EventArgs e) {
             this.textBox1.Clear();

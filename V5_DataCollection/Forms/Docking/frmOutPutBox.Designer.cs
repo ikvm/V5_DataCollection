@@ -35,12 +35,12 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtOutWindowString = new FastColoredTextBoxNS.FastColoredTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtLogView = new System.Windows.Forms.TextBox();
             this.toolStrip_QueutCount = new System.Windows.Forms.ToolStrip();
             this.toolStrip_ViewQueue = new System.Windows.Forms.ToolStripButton();
             this.toolStrip_ClearLog = new System.Windows.Forms.ToolStripButton();
-            this.txtOutWindowString = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -106,6 +106,19 @@
             this.tabPage1.Text = "输出日志";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // txtOutWindowString
+            // 
+            this.txtOutWindowString.AutoScrollMinSize = new System.Drawing.Size(0, 13);
+            this.txtOutWindowString.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtOutWindowString.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOutWindowString.Font = new System.Drawing.Font("宋体", 9F);
+            this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
+            this.txtOutWindowString.Name = "txtOutWindowString";
+            this.txtOutWindowString.ShowLineNumbers = false;
+            this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
+            this.txtOutWindowString.TabIndex = 5;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.txtLogView);
@@ -159,16 +172,6 @@
             this.toolStrip_ClearLog.Text = "清除日志";
             this.toolStrip_ClearLog.Click += new System.EventHandler(this.toolStrip_ClearLog_Click);
             // 
-            // txtOutWindowString
-            // 
-            this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
-            this.txtOutWindowString.Multiline = true;
-            this.txtOutWindowString.Name = "txtOutWindowString";
-            this.txtOutWindowString.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
-            this.txtOutWindowString.TabIndex = 4;
-            // 
             // frmOutPutBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -208,6 +211,6 @@
         private System.Windows.Forms.TextBox txtLogView;
         private System.Windows.Forms.ToolStripButton toolStrip_ViewQueue;
         private System.Windows.Forms.ToolStripButton toolStrip_ClearLog;
-        private System.Windows.Forms.TextBox txtOutWindowString;
+        private FastColoredTextBoxNS.FastColoredTextBox txtOutWindowString;
     }
 }

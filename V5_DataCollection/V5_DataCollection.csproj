@@ -75,9 +75,9 @@
       <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FastColoredTextBox, Version=2.16.18.1, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+    <Reference Include="FastColoredTextBox, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\V5_Libs\FastColoredTextBox.dll</HintPath>
+      <HintPath>..\Debug\V5_DataCollection\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
@@ -444,6 +444,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tools\frmEditor.resx">
       <DependentUpon>frmEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tools\frmImportPythonScript.resx">
       <DependentUpon>frmImportPythonScript.cs</DependentUpon>
