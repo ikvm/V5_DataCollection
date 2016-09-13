@@ -19,7 +19,7 @@ namespace V5_DataCollection.Forms.Tools {
         public frmEditor() {
             InitializeComponent();
 
-            this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.Custom;
+            //this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.Custom;
 
         }
 

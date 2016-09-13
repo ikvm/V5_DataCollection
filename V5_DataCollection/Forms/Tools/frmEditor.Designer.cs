@@ -23,27 +23,14 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditor));
-            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_RunScript = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_ScriptSave = new System.Windows.Forms.ToolStripButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
+            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // fastColoredTextBox1
-            // 
-            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(171, 56);
-            this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-           this.fastColoredTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.fastColoredTextBox1.Location = new System.Drawing.Point(12, 35);
-            this.fastColoredTextBox1.Name = "fastColoredTextBox1";
-           this.fastColoredTextBox1.TabIndex = 0;
-            this.fastColoredTextBox1.Text = "def start(a):\r\n      b = \"bbb\"\r\n      print(b)\r\n      return \"aaa\"";
-
             // 
             // toolStrip1
             // 
@@ -84,18 +71,26 @@
             this.textBox1.Size = new System.Drawing.Size(658, 104);
             this.textBox1.TabIndex = 2;
             // 
+            // fastColoredTextBox1
+            // 
+            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(0, 17);
+            this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox1.Location = new System.Drawing.Point(12, 28);
+            this.fastColoredTextBox1.Name = "fastColoredTextBox1";
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(658, 377);
+            this.fastColoredTextBox1.TabIndex = 3;
+            // 
             // frmEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 527);
+            this.Controls.Add(this.fastColoredTextBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.fastColoredTextBox1);
             this.Name = "frmEditor";
             this.Text = "frmEditor";
             this.Load += new System.EventHandler(this.frmEditor_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -104,11 +99,11 @@
         }
 
         #endregion
-
-        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
+        
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripButton toolStripButton_RunScript;
         private System.Windows.Forms.ToolStripButton toolStripButton_ScriptSave;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
     }
 }
