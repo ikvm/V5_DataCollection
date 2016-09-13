@@ -55,9 +55,7 @@ namespace V5_DataCollection.Forms.Task {
             this.txtLinkUrlMustIncludeStr = new V5_WinControls.V5RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.v5LinkLabel8 = new V5_WinControls.V5LinkLabel(this.components);
             this.txtHandCollectionUrlRegex = new V5_WinControls.V5RichTextBox();
-            this.v5LinkLabel7 = new V5_WinControls.V5LinkLabel(this.components);
             this.v5LinkLabel2 = new V5_WinControls.V5LinkLabel(this.components);
             this.v5LinkLabel1 = new V5_WinControls.V5LinkLabel(this.components);
             this.chkIsHandGetUrl = new System.Windows.Forms.CheckBox();
@@ -77,6 +75,9 @@ namespace V5_DataCollection.Forms.Task {
             this.ddlItemEncode = new System.Windows.Forms.ComboBox();
             this.btnLinkUrlTest = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.cmbSaveConentPlugins = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtTestViewUrlShow = new V5_WinControls.V5RichTextBox();
             this.btnTestViewUrl = new System.Windows.Forms.Button();
@@ -93,6 +94,9 @@ namespace V5_DataCollection.Forms.Task {
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.cmbPublishContentPlugins = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -185,12 +189,8 @@ namespace V5_DataCollection.Forms.Task {
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
-            this.cmbSaveConentPlugins = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.cmbPublishContentPlugins = new System.Windows.Forms.ComboBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.v5LinkLabel7 = new V5_WinControls.V5LinkLabel(this.components);
+            this.v5LinkLabel8 = new V5_WinControls.V5LinkLabel(this.components);
             this.groupBox1.SuspendLayout();
             this.tabControlTaskEdit.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -540,18 +540,6 @@ namespace V5_DataCollection.Forms.Task {
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "手动设置获取规则";
             // 
-            // v5LinkLabel8
-            // 
-            this.v5LinkLabel8.AutoSize = true;
-            this.v5LinkLabel8.LabelValue = "[标签:XX]";
-            this.v5LinkLabel8.Location = new System.Drawing.Point(611, 57);
-            this.v5LinkLabel8.Name = "v5LinkLabel8";
-            this.v5LinkLabel8.RichTextBox = this.txtHandCollectionUrlRegex;
-            this.v5LinkLabel8.Size = new System.Drawing.Size(59, 12);
-            this.v5LinkLabel8.TabIndex = 16;
-            this.v5LinkLabel8.TabStop = true;
-            this.v5LinkLabel8.Text = "[标签:XX]";
-            // 
             // txtHandCollectionUrlRegex
             // 
             this.txtHandCollectionUrlRegex.Enabled = false;
@@ -561,35 +549,23 @@ namespace V5_DataCollection.Forms.Task {
             this.txtHandCollectionUrlRegex.TabIndex = 8;
             this.txtHandCollectionUrlRegex.Text = "";
             // 
-            // v5LinkLabel7
-            // 
-            this.v5LinkLabel7.AutoSize = true;
-            this.v5LinkLabel7.LabelValue = "(NUM)";
-            this.v5LinkLabel7.Location = new System.Drawing.Point(680, 22);
-            this.v5LinkLabel7.Name = "v5LinkLabel7";
-            this.v5LinkLabel7.RichTextBox = this.txtHandCollectionUrlRegex;
-            this.v5LinkLabel7.Size = new System.Drawing.Size(35, 12);
-            this.v5LinkLabel7.TabIndex = 15;
-            this.v5LinkLabel7.TabStop = true;
-            this.v5LinkLabel7.Text = "(NUM)";
-            // 
             // v5LinkLabel2
             // 
             this.v5LinkLabel2.AutoSize = true;
-            this.v5LinkLabel2.LabelValue = "[参数]";
-            this.v5LinkLabel2.Location = new System.Drawing.Point(611, 22);
+            this.v5LinkLabel2.LabelValue = "[链接]";
+            this.v5LinkLabel2.Location = new System.Drawing.Point(614, 24);
             this.v5LinkLabel2.Name = "v5LinkLabel2";
             this.v5LinkLabel2.RichTextBox = this.txtHandCollectionUrlRegex;
             this.v5LinkLabel2.Size = new System.Drawing.Size(41, 12);
             this.v5LinkLabel2.TabIndex = 10;
             this.v5LinkLabel2.TabStop = true;
-            this.v5LinkLabel2.Text = "[参数]";
+            this.v5LinkLabel2.Text = "[链接]";
             // 
             // v5LinkLabel1
             // 
             this.v5LinkLabel1.AutoSize = true;
             this.v5LinkLabel1.LabelValue = "(*)";
-            this.v5LinkLabel1.Location = new System.Drawing.Point(654, 22);
+            this.v5LinkLabel1.Location = new System.Drawing.Point(674, 24);
             this.v5LinkLabel1.Name = "v5LinkLabel1";
             this.v5LinkLabel1.RichTextBox = this.txtHandCollectionUrlRegex;
             this.v5LinkLabel1.Size = new System.Drawing.Size(23, 12);
@@ -774,6 +750,34 @@ namespace V5_DataCollection.Forms.Task {
             this.tabPage2.Text = "第二步:采集内容规则";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(314, 401);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(29, 12);
+            this.linkLabel2.TabIndex = 4;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "设置";
+            // 
+            // cmbSaveConentPlugins
+            // 
+            this.cmbSaveConentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSaveConentPlugins.FormattingEnabled = true;
+            this.cmbSaveConentPlugins.Location = new System.Drawing.Point(83, 397);
+            this.cmbSaveConentPlugins.Name = "cmbSaveConentPlugins";
+            this.cmbSaveConentPlugins.Size = new System.Drawing.Size(219, 20);
+            this.cmbSaveConentPlugins.TabIndex = 3;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(22, 401);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(53, 12);
+            this.label28.TabIndex = 2;
+            this.label28.Text = "保存内容";
+            // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.txtTestViewUrlShow);
@@ -949,6 +953,34 @@ namespace V5_DataCollection.Forms.Task {
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "第三步:发布内容规则";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(694, 9);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(29, 12);
+            this.linkLabel3.TabIndex = 7;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "设置";
+            // 
+            // cmbPublishContentPlugins
+            // 
+            this.cmbPublishContentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPublishContentPlugins.FormattingEnabled = true;
+            this.cmbPublishContentPlugins.Location = new System.Drawing.Point(507, 5);
+            this.cmbPublishContentPlugins.Name = "cmbPublishContentPlugins";
+            this.cmbPublishContentPlugins.Size = new System.Drawing.Size(170, 20);
+            this.cmbPublishContentPlugins.TabIndex = 6;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(446, 8);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(53, 12);
+            this.label21.TabIndex = 5;
+            this.label21.Text = "发布内容";
             // 
             // checkBox4
             // 
@@ -1905,61 +1937,29 @@ namespace V5_DataCollection.Forms.Task {
             this.cmbStatus.Size = new System.Drawing.Size(70, 20);
             this.cmbStatus.TabIndex = 10;
             // 
-            // cmbSaveConentPlugins
+            // v5LinkLabel7
             // 
-            this.cmbSaveConentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSaveConentPlugins.FormattingEnabled = true;
-            this.cmbSaveConentPlugins.Location = new System.Drawing.Point(83, 397);
-            this.cmbSaveConentPlugins.Name = "cmbSaveConentPlugins";
-            this.cmbSaveConentPlugins.Size = new System.Drawing.Size(219, 20);
-            this.cmbSaveConentPlugins.TabIndex = 3;
+            this.v5LinkLabel7.AutoSize = true;
+            this.v5LinkLabel7.LabelValue = "[标题]";
+            this.v5LinkLabel7.Location = new System.Drawing.Point(614, 49);
+            this.v5LinkLabel7.Name = "v5LinkLabel7";
+            this.v5LinkLabel7.RichTextBox = this.txtHandCollectionUrlRegex;
+            this.v5LinkLabel7.Size = new System.Drawing.Size(41, 12);
+            this.v5LinkLabel7.TabIndex = 11;
+            this.v5LinkLabel7.TabStop = true;
+            this.v5LinkLabel7.Text = "[标题]";
             // 
-            // label28
+            // v5LinkLabel8
             // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(22, 401);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(53, 12);
-            this.label28.TabIndex = 2;
-            this.label28.Text = "保存内容";
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(314, 401);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(29, 12);
-            this.linkLabel2.TabIndex = 4;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "设置";
-            // 
-            // cmbPublishContentPlugins
-            // 
-            this.cmbPublishContentPlugins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPublishContentPlugins.FormattingEnabled = true;
-            this.cmbPublishContentPlugins.Location = new System.Drawing.Point(507, 5);
-            this.cmbPublishContentPlugins.Name = "cmbPublishContentPlugins";
-            this.cmbPublishContentPlugins.Size = new System.Drawing.Size(170, 20);
-            this.cmbPublishContentPlugins.TabIndex = 6;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(446, 8);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(53, 12);
-            this.label21.TabIndex = 5;
-            this.label21.Text = "发布内容";
-            // 
-            // linkLabel3
-            // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(694, 9);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(29, 12);
-            this.linkLabel3.TabIndex = 7;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "设置";
+            this.v5LinkLabel8.AutoSize = true;
+            this.v5LinkLabel8.LabelValue = "[封面]";
+            this.v5LinkLabel8.Location = new System.Drawing.Point(614, 74);
+            this.v5LinkLabel8.Name = "v5LinkLabel8";
+            this.v5LinkLabel8.RichTextBox = this.txtHandCollectionUrlRegex;
+            this.v5LinkLabel8.Size = new System.Drawing.Size(41, 12);
+            this.v5LinkLabel8.TabIndex = 12;
+            this.v5LinkLabel8.TabStop = true;
+            this.v5LinkLabel8.Text = "[封面]";
             // 
             // FrmTaskEdit
             // 
@@ -2187,8 +2187,6 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox groupBox20;
-        private V5LinkLabel v5LinkLabel7;
-        private V5LinkLabel v5LinkLabel8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.ComboBox txtSaveDataUrl3;
@@ -2205,5 +2203,7 @@ namespace V5_DataCollection.Forms.Task {
         private System.Windows.Forms.ComboBox cmbPublishContentPlugins;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.LinkLabel linkLabel3;
+        private V5LinkLabel v5LinkLabel7;
+        private V5LinkLabel v5LinkLabel8;
     }
 }

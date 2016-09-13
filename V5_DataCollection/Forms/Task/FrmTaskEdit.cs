@@ -276,7 +276,7 @@ namespace V5_DataCollection.Forms.Task {
                 spiderListHelper.OutMessageHandler += (string msg) => {
                     MessageBox.Show(msg);
                 };
-                spiderListHelper.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
+                spiderListHelper.OutTreeNodeHandler += (string url, string title, string cover, int nodeIndex) => {
                     this.Invoke(new MethodInvoker(delegate () {
                         if (!this.treeViewUrlTest.Nodes[nodeIndex].Nodes.ContainsKey(url))
                             this.treeViewUrlTest.Nodes[nodeIndex].Nodes.Add(url, url);

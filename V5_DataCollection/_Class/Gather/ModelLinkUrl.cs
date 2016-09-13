@@ -13,5 +13,9 @@ namespace V5_DataCollection._Class.Gather {
         /// 标题
         /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// 封面
+        /// </summary>
+        public string Cover { get; set; } = string.Empty;
     }
 }

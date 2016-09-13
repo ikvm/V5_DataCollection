@@ -26,7 +26,7 @@ namespace V5_DataCollection._Class.Gather {
         /// </summary>
         public event OutMessage OutMessageHandler;
 
-        public delegate void OutTreeNode(string url, string title, int nodeIndex);
+        public delegate void OutTreeNode(string url, string title, string cover, int nodeIndex);
         /// <summary>
         /// 采集结果树
         /// </summary>
@@ -97,6 +97,8 @@ namespace V5_DataCollection._Class.Gather {
             string url = string.Empty;
             string title = string.Empty;
             string strUrl = string.Empty;
+            string cover = string.Empty;
+
             MatchCollection matches = reg.Matches(pageContent);
             for (mch = reg.Match(pageContent); mch.Success; mch = mch.NextMatch()) {
                 url = CollectionHelper.Instance.FormatUrl(testUrl, mch.Groups[1].Value);
@@ -128,7 +130,7 @@ namespace V5_DataCollection._Class.Gather {
                 //}
                 #endregion
 
-                OutTreeNodeHandler?.Invoke(url, title, num);
+                OutTreeNodeHandler?.Invoke(url, title, cover, num);
 
                 if (Model.IsSource == 0) {
                     int minTime = 10;

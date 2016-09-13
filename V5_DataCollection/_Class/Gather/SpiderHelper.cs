@@ -141,10 +141,11 @@ namespace V5_DataCollection._Class.Gather {
                 if (modelTask.IsSpiderUrl == 1) {
                     var spiderList = new SpiderListHelper();
                     spiderList.Model = modelTask;
-                    spiderList.OutTreeNodeHandler += (string url, string title, int nodeIndex) => {
+                    spiderList.OutTreeNodeHandler += (string url, string title, string cover, int nodeIndex) => {
                         var m = new ModelLinkUrl() {
                             Url = url,
-                            Title = title
+                            Title = title,
+                            Cover = cover
                         };
                         bool addFlag = true;
                         foreach (var item in _listLinkUrl.ToArray()) {
