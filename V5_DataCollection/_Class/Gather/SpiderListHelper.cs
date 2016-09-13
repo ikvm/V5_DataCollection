@@ -161,6 +161,13 @@ namespace V5_DataCollection._Class.Gather {
                 }
             }
         }
+
+        /// <summary>
+        /// 加载没有采集的列表 放入队列
+        /// </summary>
+        public void LoadNoSpiderList() {
+
+        }
         #endregion
 
 

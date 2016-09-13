@@ -97,6 +97,9 @@ namespace V5_DataCollection._Class.Gather {
             }
 
             try {
+
+                //是否有采集列表 然后在更新或者插入
+
                 #region 保存数据库
                 string LocalSQLiteName = "Data\\Collection\\" + Model.TaskName + "\\SpiderResult.db";
                 string sql = " Select Count(1) From Content Where HrefSource='" + viewUrl + "' ";
@@ -113,6 +116,10 @@ namespace V5_DataCollection._Class.Gather {
                     DbHelper.Execute(LocalSQLiteName, strSql.ToString());
                 }
                 title = title.Replace('\\', ' ').Replace('/', ' ').Split(new char[] { '_' })[0].Split(new char[] { '-' })[0];
+                #endregion
+
+                #region 更新采集列表为 已采集
+
                 #endregion
 
                 OutViewUrlContentHandler?.Invoke(viewUrl + "=" + title);

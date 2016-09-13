@@ -138,6 +138,7 @@ namespace V5_DataCollection._Class.Gather {
             MessageOut($"[{modelTask.TaskName}]开始采集数据！请稍候...");
 
             var task = new TaskFactory().StartNew(() => {
+                //加载为采集的列表
                 if (modelTask.IsSpiderUrl == 1) {
                     var spiderList = new SpiderListHelper();
                     spiderList.Model = modelTask;

@@ -35,12 +35,12 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtOutWindowString = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtLogView = new System.Windows.Forms.TextBox();
             this.toolStrip_QueutCount = new System.Windows.Forms.ToolStrip();
-            this.toolStrip_ClearLog = new System.Windows.Forms.ToolStripButton();
             this.toolStrip_ViewQueue = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip_ClearLog = new System.Windows.Forms.ToolStripButton();
+            this.txtOutWindowString = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -106,17 +106,6 @@
             this.tabPage1.Text = "输出日志";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // txtOutWindowString
-            // 
-            this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
-            this.txtOutWindowString.MaxLength = 0;
-            this.txtOutWindowString.Multiline = true;
-            this.txtOutWindowString.Name = "txtOutWindowString";
-            this.txtOutWindowString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
-            this.txtOutWindowString.TabIndex = 1;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.txtLogView);
@@ -150,6 +139,16 @@
             this.toolStrip_QueutCount.TabIndex = 0;
             this.toolStrip_QueutCount.Text = "toolStrip2";
             // 
+            // toolStrip_ViewQueue
+            // 
+            this.toolStrip_ViewQueue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStrip_ViewQueue.Image = ((System.Drawing.Image)(resources.GetObject("toolStrip_ViewQueue.Image")));
+            this.toolStrip_ViewQueue.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStrip_ViewQueue.Name = "toolStrip_ViewQueue";
+            this.toolStrip_ViewQueue.Size = new System.Drawing.Size(60, 22);
+            this.toolStrip_ViewQueue.Text = "查看队列";
+            this.toolStrip_ViewQueue.Click += new System.EventHandler(this.toolStrip_ViewQueue_Click);
+            // 
             // toolStrip_ClearLog
             // 
             this.toolStrip_ClearLog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -160,15 +159,15 @@
             this.toolStrip_ClearLog.Text = "清除日志";
             this.toolStrip_ClearLog.Click += new System.EventHandler(this.toolStrip_ClearLog_Click);
             // 
-            // toolStrip_ViewQueue
+            // txtOutWindowString
             // 
-            this.toolStrip_ViewQueue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStrip_ViewQueue.Image = ((System.Drawing.Image)(resources.GetObject("toolStrip_ViewQueue.Image")));
-            this.toolStrip_ViewQueue.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStrip_ViewQueue.Name = "toolStrip_ViewQueue";
-            this.toolStrip_ViewQueue.Size = new System.Drawing.Size(60, 22);
-            this.toolStrip_ViewQueue.Text = "查看队列";
-            this.toolStrip_ViewQueue.Click += new System.EventHandler(this.toolStrip_ViewQueue_Click);
+            this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
+            this.txtOutWindowString.Multiline = true;
+            this.txtOutWindowString.Name = "txtOutWindowString";
+            this.txtOutWindowString.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
+            this.txtOutWindowString.TabIndex = 4;
             // 
             // frmOutPutBox
             // 
@@ -207,8 +206,8 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ToolStrip toolStrip_QueutCount;
         private System.Windows.Forms.TextBox txtLogView;
-        private System.Windows.Forms.TextBox txtOutWindowString;
         private System.Windows.Forms.ToolStripButton toolStrip_ViewQueue;
         private System.Windows.Forms.ToolStripButton toolStrip_ClearLog;
+        private System.Windows.Forms.TextBox txtOutWindowString;
     }
 }
