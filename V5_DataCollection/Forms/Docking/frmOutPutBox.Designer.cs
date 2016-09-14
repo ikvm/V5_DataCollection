@@ -35,12 +35,12 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtOutWindowString = new FastColoredTextBoxNS.FastColoredTextBox();
+            this.txtOutWindowString = new System.Windows.Forms.RichTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtLogView = new System.Windows.Forms.TextBox();
             this.toolStrip_QueutCount = new System.Windows.Forms.ToolStrip();
             this.toolStrip_ViewQueue = new System.Windows.Forms.ToolStripButton();
             this.toolStrip_ClearLog = new System.Windows.Forms.ToolStripButton();
+            this.txtLogView = new System.Windows.Forms.RichTextBox();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -108,16 +108,13 @@
             // 
             // txtOutWindowString
             // 
-            this.txtOutWindowString.AutoScrollMinSize = new System.Drawing.Size(0, 13);
             this.txtOutWindowString.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOutWindowString.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtOutWindowString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOutWindowString.Font = new System.Drawing.Font("宋体", 9F);
             this.txtOutWindowString.Location = new System.Drawing.Point(3, 28);
             this.txtOutWindowString.Name = "txtOutWindowString";
-            this.txtOutWindowString.ShowLineNumbers = false;
             this.txtOutWindowString.Size = new System.Drawing.Size(661, 227);
-            this.txtOutWindowString.TabIndex = 5;
+            this.txtOutWindowString.TabIndex = 6;
+            this.txtOutWindowString.Text = "";
             // 
             // tabPage2
             // 
@@ -130,16 +127,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "资源下载";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // txtLogView
-            // 
-            this.txtLogView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLogView.Location = new System.Drawing.Point(3, 28);
-            this.txtLogView.Multiline = true;
-            this.txtLogView.Name = "txtLogView";
-            this.txtLogView.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLogView.Size = new System.Drawing.Size(661, 227);
-            this.txtLogView.TabIndex = 3;
             // 
             // toolStrip_QueutCount
             // 
@@ -171,6 +158,16 @@
             this.toolStrip_ClearLog.Size = new System.Drawing.Size(60, 22);
             this.toolStrip_ClearLog.Text = "清除日志";
             this.toolStrip_ClearLog.Click += new System.EventHandler(this.toolStrip_ClearLog_Click);
+            // 
+            // txtLogView
+            // 
+            this.txtLogView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLogView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLogView.Location = new System.Drawing.Point(3, 28);
+            this.txtLogView.Name = "txtLogView";
+            this.txtLogView.Size = new System.Drawing.Size(661, 227);
+            this.txtLogView.TabIndex = 4;
+            this.txtLogView.Text = "";
             // 
             // frmOutPutBox
             // 
@@ -208,9 +205,9 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ToolStrip toolStrip_QueutCount;
-        private System.Windows.Forms.TextBox txtLogView;
         private System.Windows.Forms.ToolStripButton toolStrip_ViewQueue;
         private System.Windows.Forms.ToolStripButton toolStrip_ClearLog;
-        private FastColoredTextBoxNS.FastColoredTextBox txtOutWindowString;
+        private System.Windows.Forms.RichTextBox txtOutWindowString;
+        private System.Windows.Forms.RichTextBox txtLogView;
     }
 }

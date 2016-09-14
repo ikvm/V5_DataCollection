@@ -80,16 +80,11 @@ namespace V5_DataCollection._Class.Gather {
             int i = 0;
             if (Model.IsHandGetUrl == 1) {
                 regexHref = Model.HandCollectionUrlRegex;
-                regexHref = regexHref.Replace("[", "\\[");
-                regexHref = regexHref.Replace("\\[参数]", "[参数]");
+                regexHref = regexHref.Replace("[", "(?<");
+                regexHref = regexHref.Replace("]", ">.*?)");
                 regexHref = regexHref.Replace("(*)", ".+?");
-
-                while (regexHref.IndexOf("[参数]") >= 0) {
-                    i++;
-                    int tmp = regexHref.IndexOf("[参数]"); //获取[参数]第一次出现的索引值
-                    regexHref = regexHref.Remove(tmp, "[参数]".Length); //在该索引处删除[参数]
-                    regexHref = regexHref.Insert(tmp, "(?<参数" + i + ">.+?)"); // 在该索引出插入112
-                }
+                //格式化
+                regexHref = HtmlHelper.Instance.ParseCollectionStrings(regexHref);
             }
 
             Match mch = null;

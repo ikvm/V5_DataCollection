@@ -42,13 +42,13 @@ namespace V5_DataCollection.Forms.Docking {
                 this.txtOutWindowString.BeginInvoke(new MethodInvoker(delegate () {
                     this.txtOutWindowString.AppendText("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】 " + e.Message);
                     this.txtOutWindowString.AppendText("\r\n");
-                    this.txtOutWindowString.GoEnd();
+                    this.txtOutWindowString.ScrollToCaret();
                 }));
             }
             else {
                 this.txtOutWindowString.AppendText("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】 " + e.Message);
                 this.txtOutWindowString.AppendText("\r\n");
-                this.txtOutWindowString.GoEnd();
+                this.txtOutWindowString.ScrollToCaret();
             }
         }
 
