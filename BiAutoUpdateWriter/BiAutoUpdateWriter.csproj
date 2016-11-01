@@ -8,8 +8,8 @@
     <ProjectGuid>{B08770B9-EEF0-4762-8E5B-CD7AA47F8BE0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>V5_AULWriter</RootNamespace>
-    <AssemblyName>V5_AULWriter</AssemblyName>
+    <RootNamespace>BiAutoUpdateWriter</RootNamespace>
+    <AssemblyName>BiAutoUpdateWriter</AssemblyName>
     <StartupObject>AULWriter.Program</StartupObject>
     <ApplicationIcon>3.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -37,6 +37,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

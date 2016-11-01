@@ -8,8 +8,8 @@
     <ProjectGuid>{7A716B22-2F67-4C1D-ACE6-E8D85C9CA949}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>V5_DataPublish</RootNamespace>
-    <AssemblyName>V5_DataPublish</AssemblyName>
+    <RootNamespace>BispiderPublish</RootNamespace>
+    <AssemblyName>BispiderPublish</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -28,6 +28,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -109,9 +110,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\V5_DataPlugins\BispiderPlugins.csproj">
+      <Project>{30b8191a-1162-4f24-8549-9c16cb555cff}</Project>
+      <Name>BispiderPlugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\V5_DataPlugins\V5_Plugins.csproj">
       <Project>{30b8191a-1162-4f24-8549-9c16cb555cff}</Project>
       <Name>V5_Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\V5_WinLibs\BispiderLibs.csproj">
+      <Project>{db2ccfe4-81da-4941-8fba-bf8692300326}</Project>
+      <Name>BispiderLibs</Name>
     </ProjectReference>
     <ProjectReference Include="..\V5_WinLibs\V5_WinLibs.csproj">
       <Project>{db2ccfe4-81da-4941-8fba-bf8692300326}</Project>

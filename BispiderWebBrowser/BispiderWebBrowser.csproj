@@ -8,11 +8,12 @@
     <ProjectGuid>{94902BDD-1E20-436B-8462-1BCB35E4D293}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>V5_DataWebBrowser</RootNamespace>
-    <AssemblyName>V5_DataWebBrowser</AssemblyName>
+    <RootNamespace>BispiderWebBrowser</RootNamespace>
+    <AssemblyName>BispiderWebBrowser</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>orange.ico</ApplicationIcon>

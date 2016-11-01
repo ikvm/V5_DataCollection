@@ -8,16 +8,14 @@
     <ProjectGuid>{30B8191A-1162-4F24-8549-9C16CB555CFF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>V5_DataPlugins</RootNamespace>
-    <AssemblyName>V5_DataPlugins</AssemblyName>
+    <RootNamespace>BispiderPlugins</RootNamespace>
+    <AssemblyName>BispiderPlugins</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>

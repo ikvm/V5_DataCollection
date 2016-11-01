@@ -8,8 +8,8 @@
     <ProjectGuid>{CF6B004F-AB13-4622-8F4D-1429580FABC9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>V5_DataCollection</RootNamespace>
-    <AssemblyName>V5_DataCollection</AssemblyName>
+    <RootNamespace>Bispider</RootNamespace>
+    <AssemblyName>Bispider</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -31,6 +31,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>V5_DataCollection.Program</StartupObject>
@@ -75,9 +76,8 @@
       <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FastColoredTextBox, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Debug\V5_DataCollection\FastColoredTextBox.dll</HintPath>
+    <Reference Include="FastColoredTextBox">
+      <HintPath>..\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
@@ -519,13 +519,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\V5_DataPlugins\V5_Plugins.csproj">
+    <ProjectReference Include="..\V5_DataPlugins\BispiderPlugins.csproj">
       <Project>{30b8191a-1162-4f24-8549-9c16cb555cff}</Project>
-      <Name>V5_Plugins</Name>
+      <Name>BispiderPlugins</Name>
     </ProjectReference>
-    <ProjectReference Include="..\V5_WinLibs\V5_WinLibs.csproj">
+    <ProjectReference Include="..\V5_WinLibs\BispiderLibs.csproj">
       <Project>{db2ccfe4-81da-4941-8fba-bf8692300326}</Project>
-      <Name>V5_WinLibs</Name>
+      <Name>BispiderLibs</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
